@@ -1,0 +1,474 @@
+---
+title: "ThyCAT: Through-Year Computerized Adaptive Testing"
+output:
+  html_document:
+    number_sections: true
+    toc: true
+    toc_depth: 1
+    toc_float:
+      collapsed: false
+      smooth_scroll: false
+    css: style.css
+bibliography: bibliography.bib
+csl: apa.csl
+link-citations: true
+vignette: >
+  %\VignetteIndexEntry{ThyCAT package}
+  %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{knitr::rmarkdown}
+editor_options:
+  chunk_output_type: console
+---
+
+```{r, echo = FALSE, message = FALSE}
+library(ThyCAT)
+library(knitr)
+library(DT)
+```
+
+# Introduction
+
+The **ThyCAT** package performs adaptive testing based on the Through-Year DMST design. The Through-Year DMST design is a longitudinal extension of the Dynamic Multi-Stage Test (DMST) design. The DMST design presents each module as an adaptive test assembled dynamically or on the fly, based on test blueprint constraints and interim ability estimates in real time. In addition, the Through-Year extension also provides adaptivity across multiple administrations of an assessment throughout the year.
+
+The Through-Year DMST design in **ThyCAT** package uses an assessment with three administrations (Fall, Winter, and Spring) with two phases within each administration (Phase 1 and Phase 2), so that a student takes six modules in total.
+
+# Assessment Structure
+
+```{r, echo = FALSE, out.width = "900px"}
+include_graphics("assessment.png")
+```
+
+An assessment under the Through-Year DMST design has the following structure.
+
+* **Assessment**: An assessment is composed of three administrations (Fall, Winter, and Spring).
+* **Administration(Test)**: Each administration is composed of two phases (Phase 1, Phase 2).
+* **Phase**: Each phase has its own item pool and content constraints to be used in assembly.
+* **Module**: Three administrations * two phases give six modules in total.
+  * A student takes six modules in the entire assessment.
+  * In each module, a fixed-length adaptive test is assembled in real time.
+
+* **Number of item pools required for the entire assessment**
+  * For the entire assessment, an item pool is required for each grade and each phase. For example, if the range that a student can be routed is Grades 1-5, then a total of 10 item pools are required for the entire assessment.
+  * Assuming the student remains on the same grade, Fall Phase 1, Winter Phase 1, Spring Phase 1 all use the same item pool and constraints for assembly. The same holds for Fall Phase 2, Winter Phase 2, and Spring Phase 2.
+
+* **Routing policy**: Based on a routing policy, students are routed to a grade level after completing each module.
+
+# Assumptions
+
+Several assumptions are made to support the Through-Year DMST design.
+
+* **Item Pool**:
+  * The set of reporting domains (e.g., Geometry, Algebra) are shared across grades.
+  * Items in the item pools across grades are vertically scaled and articulated. For all $G$,
+    *	The mean item difficulty of grade $G-1$ pool is lower than grade $G$ pool.
+    *	The minimum item difficulty of grade $G-1$ pool is lower than grade $G$ pool.
+    *	The maximum item difficulty of grade $G-1$ pool is lower than grade $G$ pool.
+  * Item parameters from Phase 1 and Phase 2 are on the same metric, and thus can be combined to develop a single MLE ability estimate of the student.
+  * Domain scores are computed based on item scores from Phase 1 and Phase 2 combined as the final, domain level reporting category subscores.
+  * The vertical scale is robust and well-articulated across the grades.
+  
+* **Module assembly**:
+  * Student-level item overlap control is enforced across phases and administrations (but not across years – the simulation will be limited to one year).
+  * The starting theta of the first module (Fall Phase 1) is the mean item pool difficulty of the grade of record. The same starting theta is used for all students.
+  * Throughout the assembly process, no distinction is made between the ability estimate and the target $\theta$ that is used to assemble tests. The ability estimate is always used as the target $\theta$ for the assembly.
+
+# Module Assembly
+
+This section describes how a single module is assembled.
+
+## Content Balancing Algorithm
+
+The shadow-test approach to CAT [@van_der_linden_model_1998, @choi_ensuring_2018] was developed to balance the test content across examinees. The shadow-test approach uses the methodology of mixed-integer programming (MIP) to simultaneously select a full set of items conforming to all content constraints and yet optimal (most informative).
+
+Given the item pool and test specifications/constraints, the shadow-test approach to CAT assembles a full-length test form, called a shadow test, using MIP for each item position upon updating interim $\theta$ estimates, $\theta_{k}$, $k = 1,2,...,n$, where $n$ is the test length. The optimal test assembly engine uses MIP to construct shadow tests optimized for the interim $\theta$ estimates and conforming to all specifications and requirements, encompassing content constraints, exposure control, and other practical constraints. The cycle is repeated until the intended test length $n$ has been reached.
+
+The methods by which the shadow-test approach formulate test assembly problems as constrained combinatorial optimization have been documented in [@van_der_linden_linear_2005] and implemented in the \code{TestDesign} package. Refer to [@choi_ensuring_2018] for more information about how the shadow-test approach creates an adaptive test as a sequence of optimally constructed full-length tests.
+
+## Item Selection Criteria
+
+A standard procedure for choosing a shadow test (for a given examinee at a particular item position) among potentially an astronomical number of alternatives is to compare the objective values provided by the alternatives. The common objective function in its simplest form is:
+
+$$
+\text{maximize}
+\sum_{i\,=\,1}^{I}
+I_{i}(\hat{\theta})x_{i}
+$$
+
+where $I_{i}(\hat{\theta})$ is the Fisher information for Item $i$ at an estimated $\theta$ value. It is also possible to add a random component to the objective function to reduce the overexposure of highly informative items for some or all item positions within a test. For example, the progressive method [@revuelta_comparison_1998] can be incorporated into the objective function so that at the beginning of the test the objective function combines a random component with item information and as the test progresses the random component is reduced proportionately. 
+Upon constructing/updating a shadow test, a single item is selected to be administered. Selecting an item from a shadow test is typically done by selecting the most informative item in the shadow test that has not been administered, as
+
+$$
+\text{arg} \max_{i\,\in\,R}
+I_{i}(\hat{\theta})
+$$
+
+where $R$ indicates the set of items in the current shadow test that has not been administered to the examinee. When the test is comprised of item sets (e.g., reading passages), selecting a passage should precede selecting an item, which can be based on the average item information within each passage. Once a passage is selected, typically multiple items are selected before moving on to another passage.
+
+## How Passages Are Selected
+
+In the MIP optimizer, passages are selected not directly but as a result of attempting to satisfy constraints. Given an item pool that has $I$ items, a discrete assembly problem (i.e., not passage-based) uses $I$ decision variables that represent each item in the pool. In a passage-based assembly that has $S$ available passages in the pool, $S$ more decision variables are added to existing $I$ decision variables. The nested structure between items and passages is provided to the solver through the use of constraints. 
+
+Using the same information maximization criteria presented above, a shadow-test that satisfies the criteria and the constraints is assembled for the administration of each item. From the shadow-test, the passage to be administered to the student is determined using the following process.
+
+First, if the student is currently not within a passage, the passage that has the largest mean information at the current $\hat{\theta}$ is selected as the passage to be administered. The mean information is calculated from the shadow test. For example, suppose that Passage 1 consists of Items 1, 2, 3, 4, 5, and only Items 1, 2, 3 were included in the shadow test. In this case, the mean information of Passage 1 is computed from Items 1, 2, 3. After selecting a passage with the highest mean information, the item within the passage that has the largest information at the current $\hat{\theta}$ is administered to the student. This marks the passage as the currently active passage.
+
+For the next shadow test, previously administered items and passages, and the currently active passage that contains the item is enforced to be selected in the assembly. In this step, for the currently active passage, a different combination of items may be selected in the shadow test. For example, suppose that Passage 1 consists of Items 1, 2, 3, 4, 5, and the constraint is to administer 3 items for each passage. If previously Items 1, 2, 3 were selected and Item 1 was administered, it is possible that Items 1, 3, 5 will be selected in the current shadow test. Given the combination, either Item 3 or 5 will be administered to the student depending on which item has the largest information.
+
+## Exposure Control
+
+The maximum-information item-selection criterion causes overexposure of a small proportion of items while underexposing the rest. The shadow-test approach mitigates the problem by adding random item eligibility constraints to the test-assembly model so that item with higher exposure rates have higher probabilities of being temporarily ineligible. The `TestDesign` package implements the conditional item eligibility control method recently improved and extended [@van_der_linden_improving_2019]. For each examinee the `TestDesign` engine determines which items to constrain as temporarily ineligible from the item pool for the examinees. The engine can also monitor the probabilities of ineligibility for all items conditional on different theta levels such that the exposure rates for all items in the pool are tightly controlled within and across different theta segments (intervals) and bound below a maximum exposure rate set *a priori* (e.g., $r^{\max}=0.25$).
+
+More specifically, for each new examinee, prior to the administration of the test, the item eligibility control method conducts Bernoulli experiments (by theta segment) for the items in the pool to determine their eligibility for administration with probabilities updated as a function of the actual exposure rates of the items. For any items determined to be ineligible additional constraints are included in the test assembly model as follows:
+
+$$
+\sum_{i\,\in\,V}{x_i} = 0
+$$
+
+where $x_i$ is the binary decision variable for the selection of item $i$; and $V$ denotes the set of items determined to be ineligible for the current examinee.
+
+The conditional item eligibility method monitors and updates the probabilities within a predetermined set of theta segments, e.g., $\theta_1 \in [-\infty,-1.5), \theta_2 \in [-1.5,-.5), ..., \theta_G \in (1.5, \infty]$. The conditional item-eligibility probabilities are represented as a recurrence relationship as follows:
+
+$$
+\text{Pr}\{E_i | \theta\}
+\leq
+\frac{r^{\max}}
+{\text{Pr}\{A_i | \theta\}}
+\text{Pr}\{E_i | \theta\}
+$$
+
+where $\text{Pr}\{E_i | \theta\}$ is the conditional eligibility probability for item $i$ given $\theta \in \theta_g$; and $\text{Pr}\{A_i | \theta\}$ is the conditional exposure probability (rate) for the item. Theoretically, $\text{Pr}\{A_i | \theta\}$ can be updated continuously as each examinee finishes the test. Assuming $l = 1,2,\dots$ denote the sequence of examinees taking the test. The conditional item-eligibility probabilities can be updated continuously as:
+
+$$
+\text{Pr}^{l+1}{E_{i}|\theta} = \min
+  \bigg\{
+    \frac{r^{\max}}
+    {\text{Pr}^{l}{A_{i}|\theta}}
+    \text{Pr}^{l}{E_{i}|\theta}, 1
+  \bigg\}
+$$
+
+However, in the context of a large number of concurrent test instances updating the exposure counts in real time after each instance can be difficult and perhaps not necessary. One complication with the conditional item eligibility control method is that as the test progresses examinees may move in and out of segments and can be subject to different sets of eligible items as they typically visit more than one theta segment. [@van_der_linden_improving_2019] elaborates the issue and provides a workaround. Unconditional exposure control is much more straightforward to implement and can be preferred in many testing situations. The `TestDesign` package implements the conditional item eligibility control method based on configurable $\theta$ segments. Defining one big segment of $\theta$ simplifies the method to the unconditional case.
+
+## Overlap Control
+
+Overlap control might be needed to prevent or reduce the intra-individual overlap in test content across administrations. The item eligibility control method can be used to make all items previously seen by the examinee ineligible for the current administration by imposing constraints similarly as
+
+$$
+\sum_{i\,\in\,S_{j}}{x_{i}} = 0
+$$
+
+where $s_j$ denotes the set of items Examinee $j$ has seen prior to the current administration. Imposing these hard constraints can unduly limit the item pool and potentially affect the quality of measurement. To avoid infeasibility and degradation of measurement, we can impose soft constraints in the form of a modification to the maximum information objective function as
+
+$$
+\text{maximize}
+  \sum_{i\,=\,1}^{I}I_{i}{(\theta) x_{i}}
+  \, – \,
+  M \sum_{i\,\in\,s_{j}}{x_{i}}
+$$
+
+where $M$ is a penalty for selecting an item from $s_j$ the subset of items previously administered to Examinee $j$. This modification to the objective function can effectively deter the selection of previously administered items unless absolutely necessary for feasibility of the model.
+
+Although the same item eligibility constraints for inter-individual exposure control can be used to control intra-individual item exposure, the mechanism for identifying ineligible items for the intra-individual exposure control is quite different. It requires tracking the examinee records across test administrations, which may be days, weeks, or months apart. As the number of administrations increases, the ineligible item set ($s_j$) can grow quickly and adversely affect the quality of measurement progressively. To prevent the ineligible item set from growing quickly, $s_j$ may need to be defined based only on the immediately preceding test administration.
+
+The ThyCAT package uses hard constraints to perform overlap control. Three options are available:
+
+* `all`: If a student sees an item, then the item is excluded from shadow tests in all following modules. For example, if a student sees an item in Phase 1 Administration 1, then the item is excluded in Phase 2 Administration 1 and all subsequent phases and administrations. In passage-based assembly, if a student sees at least one item from a passage, then the passage is excluded from shadow tests in all following modules.
+* `within-test`: If a student sees an item, then the item is excluded from shadow tests in following phases within current administration. The item is again made available in following administrations. For example, if a student sees an item in Phase 1 Administration 1, then the item is excluded in Phase 2 Administration 1 but is made available in Phase 1 Administration 2. Similar is done for passage-based assembly.
+* `none`: A student can see any item twice in any phases and administrations. For example, if a student sees an item in Phase 1 Administration 1, the student can see the same item in Phase 2 Administration 1.
+
+## Stopping Rule
+
+The stopping rule describes the criteria used to terminate a CAT. The stopping rule is based on the number of overall required points and the total number of items denoted in the constraint file.
+
+## Ability Estimation
+
+The **ThyCAT** package supports MLE and MLEF in the `TestDesign` package for $\theta$ estimation. The estimation method must be specified in `createShadowTestConfig()`.
+
+The MLE and MLEF methods in `TestDesign` has extra fallback routines for performing CAT:
+
+* For MLE, if the response vector is extreme (i.e., the sum is 0 or the maximum for all items), EAP is used instead of MLE to obtain the $\theta$ estimate. This is because MLE estimates for extreme vectors is either $-\infty$ or $+\infty$.
+* For MLEF, the two fence items are only added when the response vector is extreme. If the response vector is not extreme, a regular MLE is performed without any fence items. The purpose of this routine is to reduce the computation time spent in augmenting extra items.
+
+In a `thyCAT()` simulation, two types of ability estimates are obtained after completing each module.
+
+* The **Phase-wise** estimate is obtained by only using the response from the current module. For example, after completing Phase 2 Administration 1 which had 20 items, the phase-wise estimate is computed from a 20-item response vector.
+* The **Administration-wise** estimate is obtained by using the response from the all modules in the current administration. For example, after completing Phase 2 Administration 2 which had 20 items, and the Phase 1 Administration 2 had 10 items, the administration-wise estimate is computed from 30 items. This is always performed regardless of the `combine_policy` option in `thyCAT()`. The `combine_policy` option is implemented in a way that it selects which type of estimate to use for routing, after computing both phase-wise and administration-wise estimates.
+
+In each module, the initial estimate that is in place before administering the first item in the model, is the final routing estimate from the previous module. The initial estimates can be manually specified for each examinee and for each module by supplying a list to the `initial_theta_list` argument in `thyCAT()`. The list must be accessible using `initial_theta_list[[module_index]][[examinee_id]]`. In the example assessment structure in this document, `module_index` ranges from 1 to 6. The value of `examinee_id` is a string that is used in the `examinee_list` object.
+
+# Routing Policy
+
+Transitioning between phases (phases) and between tests are governed by the rules described in this section. These so-called transition rules are generally based on theta estimates (and confidence intervals) and the cut-scores defining the performance levels for each grade. There are also restrictions that override the rules. Two routing rules are implemented in the **ThyCAT** package: Confidence Interval Approach and Difficulty Percentile Approach.
+
+## Cut Scores
+
+For the Through-Year DMST, cut scores for achievement levels must be defined to be able to perform routing between grades. For example, if there are four achievement levels (e.g., Beginning, Developing, Proficient, and Advanced), then three cut scores are necessary for each grade.
+
+## Routing Structure
+
+Routing is performed between each module. For example, routing is performed between Fall Phase 1 and Fall Phase 2, and also between Fall Phase 2 and Winter Phase 1. Because a student takes 6 modules in total, routing is performed 5 times for the student throughout the entire assessment.
+
+The routing structure is now described. Let $G$ denote the grade of record of a single student.
+
+* All students begin at grade $G$, the grade of record.
+
+* After completing a module, a routing theta is determined. The routing theta is used to:
+  * Determine the achievement level using cut scores
+  * Perform routing depending on the achievement level
+  * Use as starting theta in the next module
+
+* Different types of $\theta$ estimates are used for the routing theta.
+  * $\theta_{1}$ is an estimate based on Phase 1 items only.
+  * $\theta_{2}$ is an estimate based on Phase 2 items only.
+  * $\theta_{1+2}$ is an estimate based on the combined set of Phase 1 and Phase 2 items.
+
+* In each administration, after completing Phase 1, $\theta_1$ is used as the routing theta for the following module.
+* In each administration, after completing Phase 2, the ability estimate from the current *administration* is used as the routing theta. This is either $\theta_2$ or $\theta_{1+2}$ depending on the combine policy.
+  * If combine policy is `always`, then $\theta_{1+2}$ is used as the routing theta.
+  * If combine policy is `never`, then $\theta_2$ is used as the routing theta.
+  * If combine policy is `conditional`:
+    * If the student was in the same grade in Phase 1 and 2, then $\theta_{1+2}$ is used as the routing theta.
+    * Else, then $\theta_2$ is used as the routing theta.
+
+* Using the routing theta and the cut scores, the achievement level is determined. The achievement level is either:
+  * Advanced 
+  * Proficient-developing
+    * In **ThyCAT** package, no distinction is made between Proficient and Developing.
+  * Beginning
+
+* Using the achievement level, routing is performed:
+  * Advanced: change grade by $+1$.
+  * Proficient-developing: change grade by $0$.
+  * Beginning: change grade by $-1$.
+  
+* There are four restrictions on the routing rule.
+  * **Restriction R0**: Only allow routing within $[G - b_L, G + b_U]$, where $b_L$ and $b_U$ are lower and upper bounds. The default lower bound is $b_L = 1$ and the upper bound is $b_U = 2$.
+  * **Restriction R1**: If grade is $G - 1$ in Phase 2 of any administration, ignore achievement level and always change grade by $+1$.
+  * **Restriction R2**: If grade is $G$ in Phase 2 of any administration:
+    * If achievement level is Beginning, change grade by $0$.
+  * **Restriction R3**: If grade is $G + k$ in Phase 2 of Administration $k$:
+    * If achievement level is Advanced, change grade by $0$.
+
+* As a result of these restrictions, a student can be routed to $G - 1$ at a minimum and $G + 2$ at a maximum. For example, a $G = 4$ student can be potentially routed to grades 3-6. A $G = 4$ student can never be routed to grades 7 and above in any module.
+
+## Routing Sturcture Diagram
+
+### Test 1 to 2
+
+```{r, echo = FALSE, out.width = "900px"}
+include_graphics("routing_T1T2.png")
+```
+
+* Restrictions R1, R2, R3 are in place.
+
+### Test 2 to 3
+
+```{r, echo = FALSE, out.width = "900px"}
+include_graphics("routing_T2T3.png")
+```
+
+* Restrictions R0, R1, R2, R3 are in place. The routing path for Phase 2 Grade $G+2$ for "Advanced" achievement level results from applying either R0 or R3.
+
+### Test 3
+
+```{r, echo = FALSE, out.width = "900px"}
+include_graphics("routing_T3.png")
+```
+
+* Restriction R0 is in place.
+
+## Confidence Interval Routing
+
+The student is routed based on the performance in each phase. The performance is quantified not as a point estimate of $\theta$, but as a confidence interval. The confidence interval approach [@kingsbury_comparison_1983, @eggen_computerized_2000] can be used with MLE scoring [@yang_effects_2006] and can easily extended to multiple cut scores [@thompson_practitioners_2007].
+
+In the confidence interval approach, the lower and upper boundaries of the routing theta is computed as 
+
+$$\hat{\theta_{L}} = \hat{\theta} - z_{\alpha} * SE(\theta)$$
+$$\hat{\theta_{U}} = \hat{\theta} + z_{\alpha} * SE(\theta)$$
+
+where $z_{\alpha}$ is the normal deviate corresponding to a $1 - \alpha$ confidence interval, $\hat{\theta}$ is the routing theta, and $\hat{\theta_{L}}$ and $\hat{\theta_{U}}$ are lower and upper boundary thetas.
+
+Once boundary values are calculated, $\hat{\theta_{L}}$ and $\hat{\theta_{U}}$ are used to identify the achievement level of the student as:
+
+* If $\hat{\theta_{U}} < \tau_1$, where is $\tau_1$ is the first cut score that separates Beginning and Proficient-Developing levels, the achievement level is determined as Beginning.
+* $\tau_2$, the second cut score that separates Developing and Proficient levels, is ignored.
+* If $\hat{\theta_{L}} > \tau_3$, where is $\tau_3$ is the third cut score that separates Proficient-Developing and Advanced levels, the achievement level is determined as Advanced.
+* If neither holds, then the achievement level is determined as Proficient-Developing.
+
+## Difficulty Percentile Routing
+
+In difficulty percentile routing, presupplied cut scores are ignored. Instead, cut scores are determined based on item difficulty parameters of the current item pool for the module.
+
+* $\tau_1$, the first cut score, is calculated as $p$-th percentile value of item difficulty parameters.
+* $\tau_2$, the second cut score that separates Developing and Proficient levels, is ignored.
+* $\tau_3$, the third cut score, is calculated as $100-p$-th percentile value of item difficulty parameters.
+
+Once cut scores are calculated, the routing theta $\hat{\theta}$ is used to identify the achievement level of the student as:
+
+* If $\hat{\theta} < \tau_1$, where is $\tau_1$ is the first cut score that separates Beginning and Proficient-Developing levels, the achievement level is determined as Beginning.
+* $\tau_2$, the second cut score that separates Developing and Proficient levels, is ignored.
+* If $\hat{\theta} > \tau_3$, where is $\tau_3$ is the third cut score that separates Proficient-Developing and Advanced levels, the achievement level is determined as Advanced.
+* If neither holds, then the achievement level is determined as Proficient-Developing.
+
+# Using the package
+
+This section explains how to use **ThyCAT** package.
+
+## Create assessment structure
+
+The first step is to define the assessment structure using `createAssessmentStructure()`. Here, we use 3 tests with 2 phases in each test. Route limits are specified to 1 below and 2 above to match the assessment structure diagram shown above.
+
+```{r, cache = TRUE, results = "hide"}
+assessment_structure <- createAssessmentStructure(
+  n_test  = 3,
+  n_phase = 2,
+  route_limit_below = 1,
+  route_limit_above = 2
+)
+```
+
+## Create an examinee list
+
+The next step is to create an examinee list using `simExaminees()`. An example is given below:
+
+```{r, cache = TRUE, results = "hide"}
+cor_v <- matrix(.8, 3, 3)
+diag(cor_v) <- 1
+
+examinee_list <- simExaminees(
+  N = 10,
+  mean_v = c(0, 0, 0),
+  sd_v   = c(1, 1, 1),
+  cor_v  = cor_v,
+  assessment_structure = assessment_structure,
+  initial_grade = "G4",
+  initial_phase = "P1",
+  initial_test  = "T1"
+)
+```
+
+Each argument is used as below:
+
+* `N` is the number of examinees to simulate.
+* `mean_v` is the mean theta to use in generating $\theta$ values. This must be a three value vector, each corresponding to each administration.
+* `sd_v` is the standard deviation to use in generating $\theta$ values. This must be a three value vector, each corresponding to each administration.
+* `cor_v` is the correlation structure to use in generating $\theta$ values. This must be a 3*3 matrix, each dimension corresponding to each administration.
+* `assessment_structure` is the assessment structure object created previously using `createAssessmentStructure()`.
+* `initial_grade` is the grade of record to use for all examinees. This must be in the format `G?`, where `?` is a number.
+* `initial_phase` is the phase that all examinees are placed in the beginning of the assessment. This must be in the format `P?`, where `?` is a number.
+* `initial_test` is the administration that all examinees are placed in the beginning of the assessment. This must be in the format `T?`, where `?` is a number.
+
+## Load module specification sheet
+
+The next step is to load the module specification sheet using `loadModules()`. The **ThyCAT** package allows for using different item pools and constraints across different stages of testing. This requires a module specification sheet that contains which item pools and constraints are used for each grade and each phase. An example module specification sheet is displayed below:
+
+```{r, echo = FALSE}
+fn <- system.file("extdata", "module_definition_MATH_normal_N500.csv", package = "ThyCAT")
+d  <- read.csv(fn)
+datatable(
+  d,
+  rownames = FALSE,
+  options = list(
+    autoWidth = TRUE,
+    scrollX = TRUE,
+    pageLength = 20
+  )
+)
+```
+
+The sheet must have seven columns.
+
+1. **Grade** The grade level. This must be in the form of `G?`, where `?` is a number.
+2. **Phase** The phase level. This must be in the form of `P?`, where `?` is a number.
+3. **Module** The module ID string.
+4. **Constraints** The file path of constraints data. This must be readable by `loadConstraints()` in `TestDesign` package.
+5. **ItemPool** The file path of item pool data. This must be readable by `loadItemPool()` in `TestDesign` package.
+6. **ItemAttrib** The file path of item attributes data. This must be readable by `loadItemAttrib()` in `TestDesign` package.
+7. **PassageAttrib** (Optional) The file path of passage attributes data. This must be readable by `loadStAttrib()` in `TestDesign` package.
+
+Load the module specification sheet using `loadModules()`.
+
+```{r, cache = TRUE}
+fn <- system.file("extdata", "module_definition_MATH_normal_N500.csv", package = "ThyCAT")
+module_list <- loadModules(
+  fn = fn,
+  assessment_structure = assessment_structure,
+  examinee_list = examinee_list,
+  base_path = system.file(package = "ThyCAT")
+)
+```
+
+* `fn`: The file path of the module specification sheet.
+* `assessment_structure`: The assessment structure object created above using `createAssessmentStructure()`. This is used to determine required modules.
+* `examinee_list`: The examinee list object created above using `simExaminees()`. This is used to determine required modules.
+* `base_path`: The value of this argument is pasted to the beginning of file paths in the sheet. In the above example, if `base_path` is `inst` then the function will attempt to read `inst/extdata/constraints_MATH8_P2.csv`.
+
+## Load cut scores
+
+Cut scores must be stored in a list object. For each grade, at least two cut scores must exist. When the number of cut scores for a single grade is more than two, only the first and the last entry is used. An example is given below:
+
+```{r}
+cut_scores <- list(
+  G3 = c(-1.47, -0.55, 0.48),
+  G4 = c(-1.07, -0.15, 0.88),
+  G5 = c(-0.67,  0.25, 1.28),
+  G6 = c(-0.27,  0.65, 1.68),
+  G7 = c( 0.13,  1.05, 2.08),
+  G8 = c( 0.53,  1.45, 2.48)
+)
+```
+
+## Create shared config
+
+The next step is to create a config object using `createShadowTestConfig()` in the `TestDesign` package. The final theta estimation method in `final_theta$method` must be either `MLE` or `MLEF`.
+
+```{r, results = "hide", message = FALSE}
+library(TestDesign)
+config <- createShadowTestConfig(
+  final_theta = list(method = "MLE")
+)
+```
+
+## Run the main simulation
+
+The final step is to run the main simulation using `thyCAT()`.
+
+```{r, cache = TRUE, results = "hide"}
+examinee_list_output <- thyCAT(
+  examinee_list          = examinee_list,
+  assessment_structure   = assessment_structure,
+  module_list            = module_list,
+  config                 = config,
+  cut_scores             = cut_scores,
+  overlap_control_policy = "within_test",
+  transition_policy      = "on_grade",
+  combine_policy         = "conditional",
+  transition_CI_alpha         = 0.05,
+  transition_percentile_lower = 0.05,
+  transition_percentile_upper = 0.95
+)
+```
+
+* `examinee_list` is the examinee list object created above.
+* `assessment_structure` is the assessment structure object created above.
+* `module_list` is the module list object created above.
+* `config` is the shared config object created above.
+* `cut_scores` is the cut scores list object created above.
+* `overlap_control_policy` specifies the type of overlap control.
+  * `all` performs overlap control across administrations. This forbids an item to be given more than once within each administration, and also forbids an item to be given more than once across administrations.
+  * `within_test` performs overlap control within each administration. This forbids an item to be given more than once within each administration, but this still allows an item to be given more than once across administrations.
+  * `none` does not perform overlap control. This allows an item to be given more than once within each administration, and also allows an item to be given more than once across administrations.
+* `transition_policy` specifies the type of grade transition policy.
+  * `CI` uses confidence interval to perform routing between grades.
+  * `pool_difficulty_percentile` uses item difficulty percentiles of all items in the current item pool to perform routing.
+  * `pool_difficulty_percentile_exclude_administered` uses item difficulty percentiles of all items in the current item pool, excluding items administered to the examinee, to perform routing.
+  * `on_grade` makes all examinees to remain in the grade of record.
+* `combine_policy` specifies which type of theta is used to perform routing. This is only utilized at the end of each administration.
+  * `conditional` uses the combined theta estimate (obtained from combining Phase 1 and Phase 2 responses) as the routing theta, if the examinee was in the same grade in Phase 1 and Phase 2. If the examinee was in different grades in Phase 1 and 2, then Phase 2 estimate is used as the routing theta.
+  * `always` uses the combined theta estimate as the routing theta.
+  * `never` uses the Phase 2 estimate as the routing theta.
+* `transition_CI_alpha` is the alpha level to use in CI-based transition policy.
+* `transition_percentile_lower` is the percentile value to use in difficulty-percentile-based transition policy.
+* `transition_percentile_upper` is the percentile value to use in difficulty-percentile-based transition policy.
+
+# References

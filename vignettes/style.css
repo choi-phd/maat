@@ -1,0 +1,54 @@
+div.main-container {
+  max-width: 1100px !important;
+} /* page width */
+.toc-content {
+  padding-left: 70px !important;
+} /* main page left pad */
+
+p {
+  line-height: 1.8;
+}
+body {
+  font-size: 16px;
+}
+
+/* toc float */
+
+.list-group-item.active, .list-group-item.active:focus, .list-group-item.active:hover {
+  background-color: #333;
+  border-color: #333;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 1em !important;
+}
+
+.tocify-subheader {
+  text-indent: 10px;
+}
+
+.tocify-subheader .tocify-subheader {
+  text-indent: 10px;
+}
+
+/* font sizes */
+
+h1.title, h1, h2, h3 {
+  font-size: 24px;
+}
+
+.author {
+  font-size: inherit;
+  font-style: italic;
+}
+
+/* spacing */
+
+body {
+  line-height: 1.8;
+}
+
+/* image size */
+img {
+  max-width: 1024px !important;
+}
