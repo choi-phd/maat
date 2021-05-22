@@ -1,0 +1,60 @@
+Package: maat
+Type: Package
+Title: Multiple Administrations Adaptive Testing
+Version: 1.0.0
+Author: Authors@R: c(
+    person("Seung W.", "Choi",
+        email = "schoi@austin.utexas.edu",
+        role = c("aut", "cre"),
+        comment = c(ORCID = "0000-0003-4777-5420")),
+    person("Sangdon", "Lim",
+        email = "sangdonlim@utexas.edu",
+        role = "aut",
+        comment = c(ORCID = "0000-0002-2988-014X")),
+    person("Luping", "Niu",
+        email = "lupingniu@utexas.edu",
+        role = "aut"),
+    person("Sooyong", "Lee",
+        email = "sooyongl09@utexas.edu",
+        role = "aut"))
+Maintainer: Seung W. Choi <schoi@austin.utexas.edu>
+Description: Multiple Administrations Adaptive Testing (MAAT) is an extension of the
+    shadow-test approach to CAT implemented in the 'TestDesign' package. The
+    MAAT system is based on the assessment framework involving multiple tests
+    administered throughout the year using multiple item pools vertically scaled
+    and multiple phases (stages) of CAT within each test allowing transitioning
+    from one item pool (and associated constraints) to another as deemed
+    necessary to enhance the quality of measurement.
+URL: https://choi-phd.github.io/maat
+BugReports: https://github.com/choi-phd/maat/issues
+License: GPL (>= 2)
+Depends: R (>= 3.5.0)
+biocViews:
+Imports: TestDesign, readxl, Rdpack, methods, MASS, DiagrammeR, glue
+Suggests: 
+    testthat (>= 3.0.0),
+    rmarkdown,
+    knitr,
+    DT
+RoxygenNote: 7.1.1
+VignetteBuilder: knitr
+Encoding: UTF-8
+LazyData: true
+RdMacros: Rdpack
+Collate: 
+    'import.R'
+    'module_class.R'
+    'loadModules.R'
+    'administered_functions.R'
+    'datasets.R'
+    'examinee_class.R'
+    'examinee_updaters.R'
+    'extensions.R'
+    'module_structure_operators.R'
+    'package.R'
+    'plot_functions.R'
+    'print_functions.R'
+    'routing_functions.R'
+    'show_functions.R'
+    'sim_functions.R'
+Config/testthat/edition: 3

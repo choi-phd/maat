@@ -1,0 +1,70 @@
+destination: docs
+
+template:
+  params:
+    bootswatch: cosmo
+
+authors:
+
+reference:
+- title: "Overview"
+  contents:
+  - ThyCAT-package
+
+- title: "Structure and Module functions"
+  contents:
+  - createAssessmentStructure
+  - assessment_structure-class
+  - loadModules
+  - createModule
+  - module-class
+
+- title: "Operators"
+  desc: "Operators for manipulating grades, phases, and tests"
+  contents:
+  - changeGrade
+  - getRelativeGrade
+  - boundGrade
+  - changePhase
+  - changeTest
+
+- title: "Examinee class and updater functions"
+  contents:
+  - examinee-class
+  - updateGrade
+  - updatePhase
+  - updateTest
+  - updateThetaForRouting
+  - updateThetaUsingCombined
+  - updateItemData
+  - updateLog
+  - updateModule
+
+- title: "Simulation functions"
+  contents:
+  - thyCAT
+  - simExaminees
+  - simTheta
+
+- title: "Helper functions"
+  contents:
+  - excludeAdministeredItems
+  - getAdministeredItemsPerTest
+  - getItemNamesPerGrade
+  - plotModuleRoutes
+  - removeItemData
+  - formatOutput
+
+- title: "Performance evaluation"
+  contents:
+  - getRMSE
+  - getBias
+  - getSE
+  - getItemExposureRate
+  - getAdaptivityIndex
+
+- title: "Extensions"
+  contents:
+  - plot
+  - print
+  - show
