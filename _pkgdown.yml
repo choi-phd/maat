@@ -9,7 +9,7 @@ authors:
 reference:
 - title: "Overview"
   contents:
-  - ThyCAT-package
+  - maat-package
 
 - title: "Structure and Module functions"
   contents:
