@@ -49,8 +49,8 @@ examinee_list <- simExaminees(
   assessment_structure = assessment_structure
 )
 
-fn <- system.file("extdata", "module_definition_MATH_normal_N500.csv", package = "ThyCAT")
-pkg_path <- system.file(package = "ThyCAT")
+fn <- system.file("extdata", "module_definition_MATH_normal_N500.csv", package = "maat")
+pkg_path <- system.file(package = "maat")
 module_list <- loadModules(
   fn,
   assessment_structure = assessment_structure,

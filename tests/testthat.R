@@ -1,4 +1,4 @@
 library(testthat)
-library(ThyCAT)
+library(maat)
 
-test_check("ThyCAT")
+test_check("maat")

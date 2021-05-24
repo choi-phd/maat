@@ -1,5 +1,5 @@
 ---
-title: "ThyCAT: Through-Year Computerized Adaptive Testing"
+title: "maat: Multiple Administrations Adaptive Testing"
 output:
   html_document:
     number_sections: true
@@ -13,7 +13,7 @@ bibliography: bibliography.bib
 csl: apa.csl
 link-citations: true
 vignette: >
-  %\VignetteIndexEntry{ThyCAT package}
+  %\VignetteIndexEntry{maat package}
   %\VignetteEncoding{UTF-8}
   %\VignetteEngine{knitr::rmarkdown}
 editor_options:
@@ -21,16 +21,16 @@ editor_options:
 ---
 
 ```{r, echo = FALSE, message = FALSE}
-library(ThyCAT)
+library(maat)
 library(knitr)
 library(DT)
 ```
 
 # Introduction
 
-The **ThyCAT** package performs adaptive testing based on the Through-Year DMST design. The Through-Year DMST design is a longitudinal extension of the Dynamic Multi-Stage Test (DMST) design. The DMST design presents each module as an adaptive test assembled dynamically or on the fly, based on test blueprint constraints and interim ability estimates in real time. In addition, the Through-Year extension also provides adaptivity across multiple administrations of an assessment throughout the year.
+The **maat** package performs adaptive testing based on the Through-Year DMST design. The Through-Year DMST design is a longitudinal extension of the Dynamic Multi-Stage Test (DMST) design. The DMST design presents each module as an adaptive test assembled dynamically or on the fly, based on test blueprint constraints and interim ability estimates in real time. In addition, the Through-Year extension also provides adaptivity across multiple administrations of an assessment throughout the year.
 
-The Through-Year DMST design in **ThyCAT** package uses an assessment with three administrations (Fall, Winter, and Spring) with two phases within each administration (Phase 1 and Phase 2), so that a student takes six modules in total.
+The Through-Year DMST design in **maat** package uses an assessment with three administrations (Fall, Winter, and Spring) with two phases within each administration (Phase 1 and Phase 2), so that a student takes six modules in total.
 
 # Assessment Structure
 
@@ -170,7 +170,7 @@ where $M$ is a penalty for selecting an item from $s_j$ the subset of items prev
 
 Although the same item eligibility constraints for inter-individual exposure control can be used to control intra-individual item exposure, the mechanism for identifying ineligible items for the intra-individual exposure control is quite different. It requires tracking the examinee records across test administrations, which may be days, weeks, or months apart. As the number of administrations increases, the ineligible item set ($s_j$) can grow quickly and adversely affect the quality of measurement progressively. To prevent the ineligible item set from growing quickly, $s_j$ may need to be defined based only on the immediately preceding test administration.
 
-The ThyCAT package uses hard constraints to perform overlap control. Three options are available:
+The **maat** package uses hard constraints to perform overlap control. Three options are available:
 
 * `all`: If a student sees an item, then the item is excluded from shadow tests in all following modules. For example, if a student sees an item in Phase 1 Administration 1, then the item is excluded in Phase 2 Administration 1 and all subsequent phases and administrations. In passage-based assembly, if a student sees at least one item from a passage, then the passage is excluded from shadow tests in all following modules.
 * `within-test`: If a student sees an item, then the item is excluded from shadow tests in following phases within current administration. The item is again made available in following administrations. For example, if a student sees an item in Phase 1 Administration 1, then the item is excluded in Phase 2 Administration 1 but is made available in Phase 1 Administration 2. Similar is done for passage-based assembly.
@@ -182,7 +182,7 @@ The stopping rule describes the criteria used to terminate a CAT. The stopping r
 
 ## Ability Estimation
 
-The **ThyCAT** package supports MLE and MLEF in the `TestDesign` package for $\theta$ estimation. The estimation method must be specified in `createShadowTestConfig()`.
+The **maat** package supports MLE and MLEF in the `TestDesign` package for $\theta$ estimation. The estimation method must be specified in `createShadowTestConfig()`.
 
 The MLE and MLEF methods in `TestDesign` has extra fallback routines for performing CAT:
 
@@ -198,7 +198,7 @@ In each module, the initial estimate that is in place before administering the f
 
 # Routing Policy
 
-Transitioning between phases (phases) and between tests are governed by the rules described in this section. These so-called transition rules are generally based on theta estimates (and confidence intervals) and the cut-scores defining the performance levels for each grade. There are also restrictions that override the rules. Two routing rules are implemented in the **ThyCAT** package: Confidence Interval Approach and Difficulty Percentile Approach.
+Transitioning between phases (phases) and between tests are governed by the rules described in this section. These so-called transition rules are generally based on theta estimates (and confidence intervals) and the cut-scores defining the performance levels for each grade. There are also restrictions that override the rules. Two routing rules are implemented in the **maat** package: Confidence Interval Approach and Difficulty Percentile Approach.
 
 ## Cut Scores
 
@@ -233,7 +233,7 @@ The routing structure is now described. Let $G$ denote the grade of record of a 
 * Using the routing theta and the cut scores, the achievement level is determined. The achievement level is either:
   * Advanced 
   * Proficient-developing
-    * In **ThyCAT** package, no distinction is made between Proficient and Developing.
+    * In **maat** package, no distinction is made between Proficient and Developing.
   * Beginning
 
 * Using the achievement level, routing is performed:
@@ -312,13 +312,13 @@ Once cut scores are calculated, the routing theta $\hat{\theta}$ is used to iden
 
 # Using the package
 
-This section explains how to use **ThyCAT** package.
+This section explains how to use **maat** package.
 
 ## Create assessment structure
 
 The first step is to define the assessment structure using `createAssessmentStructure()`. Here, we use 3 tests with 2 phases in each test. Route limits are specified to 1 below and 2 above to match the assessment structure diagram shown above.
 
-```{r, cache = TRUE, results = "hide"}
+```{r, results = "hide"}
 assessment_structure <- createAssessmentStructure(
   n_test  = 3,
   n_phase = 2,
@@ -331,7 +331,7 @@ assessment_structure <- createAssessmentStructure(
 
 The next step is to create an examinee list using `simExaminees()`. An example is given below:
 
-```{r, cache = TRUE, results = "hide"}
+```{r, results = "hide"}
 cor_v <- matrix(.8, 3, 3)
 diag(cor_v) <- 1
 
@@ -360,10 +360,10 @@ Each argument is used as below:
 
 ## Load module specification sheet
 
-The next step is to load the module specification sheet using `loadModules()`. The **ThyCAT** package allows for using different item pools and constraints across different stages of testing. This requires a module specification sheet that contains which item pools and constraints are used for each grade and each phase. An example module specification sheet is displayed below:
+The next step is to load the module specification sheet using `loadModules()`. The **maat** package allows for using different item pools and constraints across different stages of testing. This requires a module specification sheet that contains which item pools and constraints are used for each grade and each phase. An example module specification sheet is displayed below:
 
 ```{r, echo = FALSE}
-fn <- system.file("extdata", "module_definition_MATH_normal_N500.csv", package = "ThyCAT")
+fn <- system.file("extdata", "module_definition_MATH_normal_N500.csv", package = "maat")
 d  <- read.csv(fn)
 datatable(
   d,
@@ -388,13 +388,13 @@ The sheet must have seven columns.
 
 Load the module specification sheet using `loadModules()`.
 
-```{r, cache = TRUE}
-fn <- system.file("extdata", "module_definition_MATH_normal_N500.csv", package = "ThyCAT")
+```{r}
+fn <- system.file("extdata", "module_definition_MATH_normal_N500.csv", package = "maat")
 module_list <- loadModules(
   fn = fn,
   assessment_structure = assessment_structure,
   examinee_list = examinee_list,
-  base_path = system.file(package = "ThyCAT")
+  base_path = system.file(package = "maat")
 )
 ```
 
@@ -433,7 +433,7 @@ config <- createShadowTestConfig(
 
 The final step is to run the main simulation using `thyCAT()`.
 
-```{r, cache = TRUE, results = "hide"}
+```{r, results = "hide"}
 examinee_list_output <- thyCAT(
   examinee_list          = examinee_list,
   assessment_structure   = assessment_structure,

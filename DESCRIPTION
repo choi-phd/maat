@@ -30,7 +30,7 @@ BugReports: https://github.com/choi-phd/maat/issues
 License: GPL (>= 2)
 Depends: R (>= 3.5.0)
 biocViews:
-Imports: TestDesign, readxl, Rdpack, methods, MASS, DiagrammeR, glue
+Imports: TestDesign (>= 1.2.0), readxl, Rdpack, methods, MASS, DiagrammeR, glue
 Suggests: 
     testthat (>= 3.0.0),
     rmarkdown,

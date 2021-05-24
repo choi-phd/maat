@@ -1,13 +1,13 @@
 #' Through-Year Computerized Adaptive Testing
 #'
-#' ThyCAT package is based on the Through-Year DMST design, a longitudinal
+#' **maat** package is based on the Through-Year DMST design, a longitudinal
 #' extension of the Dynamic Multi-Stage Test (DMST) design which presents each
 #' module as an adaptive test assembled dynamically or on the fly based on test
 #' blueprint constraints and interim ability estimates in real time. The
 #' Through-Year DMST design also maintains adaptivity across administrations of
 #' an assessment throughout the year.
 #'
-#' The DMST design in ThyCAT package allows three administrations (Fall, Winter,
+#' The DMST design in **maat** package allows three administrations (Fall, Winter,
 #' and Spring) with two phases within each administration (Phase 1 and Phase 2),
 #' so that a student takes six modules in total.
 #'
@@ -27,7 +27,7 @@
 #'
 #' Detailed descriptions of the DMST design are available in the vignette.
 #'
-#' @name ThyCAT-package
+#' @name maat-package
 #' @docType package
 #' @title Through-Year Computerized Adaptive Testing
 #' @keywords package

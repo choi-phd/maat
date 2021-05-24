@@ -1,0 +1,9 @@
+^\.vscode$
+^.*\.Rproj$
+^\.Rproj\.user$
+^cran-comments\.md$
+^readme\.md$
+^_pkgdown\.yml$
+^docs$
+^pkgdown$
+^\.github$

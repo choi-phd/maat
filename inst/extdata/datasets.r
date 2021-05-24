@@ -1,4 +1,4 @@
-library(ThyCAT)
+library(maat)
 
 assessment_structure_math <- createAssessmentStructure(
   n_test = 3,
