@@ -7,7 +7,7 @@
 getSE(examinee_list)
 }
 \arguments{
-\item{examinee_list}{a list containing \code{\linkS4class{examinee}} objects, returned from \code{\link{thyCAT}}.}
+\item{examinee_list}{a list containing \code{\linkS4class{examinee}} objects, returned from \code{\link{maat}}.}
 }
 \value{
 a list containing SE by test and also for all tests combined.

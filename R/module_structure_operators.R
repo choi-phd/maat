@@ -132,19 +132,13 @@ createAssessmentStructure <- function(
 ) {
 
   o <- new("assessment_structure")
-  o@n_test <- n_test
+  o@n_test  <- n_test
   o@n_phase <- n_phase
   o@route_limit_below <- route_limit_below
   o@route_limit_above <- route_limit_above
   o@test_routing_restrictions <- test_routing_restrictions
 
-  # only allow n_test = 3 and n_phase = 2
-  if (n_test != 3) {
-    stop("ThyCAT package only supports n_test == 3")
-  }
-  if (n_phase != 2) {
-    stop("ThyCAT package only supports n_phase == 2")
-  }
+  validObject(o)
 
   return(o)
 

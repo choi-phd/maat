@@ -189,12 +189,12 @@ The MLE and MLEF methods in `TestDesign` has extra fallback routines for perform
 * For MLE, if the response vector is extreme (i.e., the sum is 0 or the maximum for all items), EAP is used instead of MLE to obtain the $\theta$ estimate. This is because MLE estimates for extreme vectors is either $-\infty$ or $+\infty$.
 * For MLEF, the two fence items are only added when the response vector is extreme. If the response vector is not extreme, a regular MLE is performed without any fence items. The purpose of this routine is to reduce the computation time spent in augmenting extra items.
 
-In a `thyCAT()` simulation, two types of ability estimates are obtained after completing each module.
+In a `maat()` simulation, two types of ability estimates are obtained after completing each module.
 
 * The **Phase-wise** estimate is obtained by only using the response from the current module. For example, after completing Phase 2 Administration 1 which had 20 items, the phase-wise estimate is computed from a 20-item response vector.
-* The **Administration-wise** estimate is obtained by using the response from the all modules in the current administration. For example, after completing Phase 2 Administration 2 which had 20 items, and the Phase 1 Administration 2 had 10 items, the administration-wise estimate is computed from 30 items. This is always performed regardless of the `combine_policy` option in `thyCAT()`. The `combine_policy` option is implemented in a way that it selects which type of estimate to use for routing, after computing both phase-wise and administration-wise estimates.
+* The **Administration-wise** estimate is obtained by using the response from the all modules in the current administration. For example, after completing Phase 2 Administration 2 which had 20 items, and the Phase 1 Administration 2 had 10 items, the administration-wise estimate is computed from 30 items. This is always performed regardless of the `combine_policy` option in `maat()`. The `combine_policy` option is implemented in a way that it selects which type of estimate to use for routing, after computing both phase-wise and administration-wise estimates.
 
-In each module, the initial estimate that is in place before administering the first item in the model, is the final routing estimate from the previous module. The initial estimates can be manually specified for each examinee and for each module by supplying a list to the `initial_theta_list` argument in `thyCAT()`. The list must be accessible using `initial_theta_list[[module_index]][[examinee_id]]`. In the example assessment structure in this document, `module_index` ranges from 1 to 6. The value of `examinee_id` is a string that is used in the `examinee_list` object.
+In each module, the initial estimate that is in place before administering the first item in the model, is the final routing estimate from the previous module. The initial estimates can be manually specified for each examinee and for each module by supplying a list to the `initial_theta_list` argument in `maat()`. The list must be accessible using `initial_theta_list[[module_index]][[examinee_id]]`. In the example assessment structure in this document, `module_index` ranges from 1 to 6. The value of `examinee_id` is a string that is used in the `examinee_list` object.
 
 # Routing Policy
 
@@ -431,10 +431,10 @@ config <- createShadowTestConfig(
 
 ## Run the main simulation
 
-The final step is to run the main simulation using `thyCAT()`.
+The final step is to run the main simulation using `maat()`.
 
 ```{r, results = "hide"}
-examinee_list_output <- thyCAT(
+examinee_list_output <- maat(
   examinee_list          = examinee_list,
   assessment_structure   = assessment_structure,
   module_list            = module_list,

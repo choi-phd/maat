@@ -278,6 +278,8 @@ updateGrade <- function(
         relative_grade == -1 &&
         "R1" %in%  assessment_structure@test_routing_restrictions
       ) {
+        # if route_limit_below = 2,
+        # this has to be changed to reset to the grade of record
         examinee_object@current_grade <- changeGrade(examinee_object@current_grade, 1)
         examinee_object@current_grade <- boundGrade(
           examinee_object@current_grade,

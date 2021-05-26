@@ -96,7 +96,7 @@ simExaminees <- function(N, mean_v, sd_v, cor_v, assessment_structure,
 
 #' Simulate multi-stage adaptive test
 #'
-#' \code{\link{thyCAT}} is the main function for simulating a multi-stage adaptive test.
+#' \code{\link{maat}} is the main function for simulating a multi-stage adaptive test.
 #'
 #' @param examinee_list an examinee list from \code{\link{simExaminees}}.
 #' @param assessment_structure a \code{\linkS4class{assessment_structure}} object.
@@ -140,7 +140,7 @@ simExaminees <- function(N, mean_v, sd_v, cor_v, assessment_structure,
 #'     method = "MLE"
 #'   )
 #' )
-#' examinee_list <- thyCAT(
+#' examinee_list <- maat(
 #'   examinee_list          = examinee_list_math,
 #'   assessment_structure   = assessment_structure_math,
 #'   module_list            = module_list_math,
@@ -151,7 +151,7 @@ simExaminees <- function(N, mean_v, sd_v, cor_v, assessment_structure,
 #' )
 #'
 #' @export
-thyCAT <- function(
+maat <- function(
   examinee_list = examinee_list, assessment_structure, module_list, config, cut_scores,
   overlap_control_policy, transition_policy = "CI",
   combine_policy = "conditional",
@@ -510,12 +510,12 @@ thyCAT <- function(
 
 }
 
-#' Format the output of thyCAT
+#' Format the output of maat
 #'
 #' \code{\link{formatOutput}} is a function for formatting the output \code{\linkS4class{examinee}} object
-#' of the function \code{\link{thyCAT}} for analysis.
+#' of the function \code{\link{maat}} for analysis.
 #'
-#' @param examinee_list the output from \code{\link{thyCAT}}.
+#' @param examinee_list the output from \code{\link{maat}}.
 #' @param digits digits to round theta values. (default = 3)
 #'
 #' @return a data frame containing:
@@ -642,7 +642,7 @@ formatOutput <- function(examinee_list, digits = 3) {
 #' \code{\link{getRMSE}} is a function for calculating root mean square error (RMSE)
 #' for the simulation results.
 #'
-#' @param examinee_list a list containing \code{\linkS4class{examinee}} objects, returned from \code{\link{thyCAT}}.
+#' @param examinee_list a list containing \code{\linkS4class{examinee}} objects, returned from \code{\link{maat}}.
 #'
 #' @return a list containing RMSE by test and also for all tests combined.
 #'
@@ -683,7 +683,7 @@ getRMSE <- function(examinee_list) {
 #'
 #' \code{\link{getBias}} is a function for calculating the bias of ability estimates of the simulation results.
 #'
-#' @param examinee_list a list containing \code{\linkS4class{examinee}} objects, returned from \code{\link{thyCAT}}.
+#' @param examinee_list a list containing \code{\linkS4class{examinee}} objects, returned from \code{\link{maat}}.
 #'
 #' @return a list containing bias by test and also for all tests combined.
 #'
@@ -712,7 +712,7 @@ getBias <- function(examinee_list) {
 #'
 #' \code{\link{getSE}} is a function for calculating the standard error of the estimates.
 #'
-#' @param examinee_list a list containing \code{\linkS4class{examinee}} objects, returned from \code{\link{thyCAT}}.
+#' @param examinee_list a list containing \code{\linkS4class{examinee}} objects, returned from \code{\link{maat}}.
 #'
 #' @return a list containing SE by test and also for all tests combined.
 #'
@@ -741,9 +741,9 @@ getSE <- function(examinee_list) {
 
 #' Calculate adaptivity indices from an examinee list object
 #'
-#' \code{\link{getAdaptivityIndex}} is a function for calculating adaptivity indices from the output of \code{\link{thyCAT}}.
+#' \code{\link{getAdaptivityIndex}} is a function for calculating adaptivity indices from the output of \code{\link{maat}}.
 #'
-#' @param examinee_list a list containing \code{\linkS4class{examinee}} objects, returned from \code{\link{thyCAT}}.
+#' @param examinee_list a list containing \code{\linkS4class{examinee}} objects, returned from \code{\link{maat}}.
 #'
 #' @return a data frame containing adaptivity indices by test and also for all tests combined.
 #'
@@ -812,7 +812,7 @@ getAdaptivityIndex <- function(examinee_list) {
 #' \code{\link{getAdministeredItemsPerTest}} is a function for extracting the administered items stored in the
 #' \code{\linkS4class{examinee}} objects.
 #'
-#' @param examinee_list a list containing \code{\linkS4class{examinee}} objects, returned from \code{\link{thyCAT}}.
+#' @param examinee_list a list containing \code{\linkS4class{examinee}} objects, returned from \code{\link{maat}}.
 #'
 #' @return a list containing administered items in each test and also for all tests combined.
 #'

@@ -68,7 +68,7 @@ for (condition in 1:dim(conditions)[1]) {
       set.seed(1)
       examinee_list <- examinee_list_math[1:2]
 
-      examinee_list <- thyCAT(
+      examinee_list <- maat(
         examinee_list          = examinee_list,
         assessment_structure   = assessment_structure_math,
         module_list            = module_list_math,

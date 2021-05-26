@@ -13,7 +13,7 @@ plotModuleRoutes(
 )
 }
 \arguments{
-\item{examinee_list}{the output from \code{\link{thyCAT}}.}
+\item{examinee_list}{the output from \code{\link{maat}}.}
 
 \item{assessment_structure}{an \code{\linkS4class{assessment_structure}} object.}
 
