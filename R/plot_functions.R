@@ -5,7 +5,7 @@ NULL
 #'
 #' \code{\link{plotModuleRoutes}} is a function for building a chart for module routes.
 #'
-#' @param examinee_list the output from \code{\link{thyCAT}}.
+#' @param examinee_list the output from \code{\link{maat}}.
 #' @param assessment_structure an \code{\linkS4class{assessment_structure}} object.
 #' @param examinee_id the examinee ID to plot the module route. \code{all} plots the count that each routing node was used. (default = \code{all})
 #' @param font_size the font size for the count labels. (default = \code{15})
@@ -111,7 +111,7 @@ plotModuleRoutes <-  function(examinee_list, assessment_structure, examinee_id =
   ######################
 
   # open syntax
-  plot_syntax <- glue("digraph ThyCAT {{
+  plot_syntax <- glue("digraph maat {{
     // comment
     graph[rankdir = LR, overlap = true, fontsize = 10]
     splines='false';
@@ -380,7 +380,7 @@ countModuleRoutes <-  function(examinee_list, assessment_structure){
 #'     method = "MLE"
 #'   )
 #' )
-#' examinee_list <- thyCAT(
+#' examinee_list <- maat(
 #'   examinee_list          = examinee_list_math,
 #'   assessment_structure   = assessment_structure_math,
 #'   module_list            = module_list_math,

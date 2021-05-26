@@ -25,7 +25,7 @@ config <- createShadowTestConfig(
     method = "MLE"
   )
 )
-examinee_list <- thyCAT(
+examinee_list <- maat(
   examinee_list          = examinee_list_math,
   assessment_structure   = assessment_structure_math,
   module_list            = module_list_math,

@@ -140,10 +140,10 @@ createAssessmentStructure <- function(
 
   # only allow n_test = 3 and n_phase = 2
   if (n_test != 3) {
-    stop("ThyCAT package only supports n_test == 3")
+    stop("maat package only supports n_test == 3")
   }
   if (n_phase != 2) {
-    stop("ThyCAT package only supports n_phase == 2")
+    stop("maat package only supports n_phase == 2")
   }
 
   return(o)

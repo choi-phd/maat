@@ -7,11 +7,11 @@
 getAdaptivityIndex(examinee_list)
 }
 \arguments{
-\item{examinee_list}{a list containing \code{\linkS4class{examinee}} objects, returned from \code{\link{thyCAT}}.}
+\item{examinee_list}{a list containing \code{\linkS4class{examinee}} objects, returned from \code{\link{maat}}.}
 }
 \value{
 a data frame containing adaptivity indices by test and also for all tests combined.
 }
 \description{
-\code{\link{getAdaptivityIndex}} is a function for calculating adaptivity indices from the output of \code{\link{thyCAT}}.
+\code{\link{getAdaptivityIndex}} is a function for calculating adaptivity indices from the output of \code{\link{maat}}.
 }

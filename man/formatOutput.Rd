@@ -2,12 +2,12 @@
 % Please edit documentation in R/sim_functions.R
 \name{formatOutput}
 \alias{formatOutput}
-\title{Format the output of thyCAT}
+\title{Format the output of maat}
 \usage{
 formatOutput(examinee_list, digits = 3)
 }
 \arguments{
-\item{examinee_list}{the output from \code{\link{thyCAT}}.}
+\item{examinee_list}{the output from \code{\link{maat}}.}
 
 \item{digits}{digits to round theta values. (default = 3)}
 }
@@ -40,5 +40,5 @@ a data frame containing:
 }
 \description{
 \code{\link{formatOutput}} is a function for formatting the output \code{\linkS4class{examinee}} object
-of the function \code{\link{thyCAT}} for analysis.
+of the function \code{\link{maat}} for analysis.
 }
