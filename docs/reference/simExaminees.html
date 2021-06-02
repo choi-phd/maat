@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Simulate an examinee list — simExaminees • ThyCAT</title>
+<title>Simulate an examinee list — simExaminees • maat</title>
 
 
 <!-- jquery -->
@@ -72,8 +72,8 @@ examinee objects." />
         <span class="icon-bar"></span>
       </button>
       <span class="navbar-brand">
-        <a class="navbar-link" href="../index.html">ThyCAT</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.7.0</span>
+        <a class="navbar-link" href="../index.html">maat</a>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0</span>
       </span>
     </div>
 
@@ -86,7 +86,7 @@ examinee objects." />
   </a>
 </li>
 <li>
-  <a href="../articles/ThyCAT.html">Get started</a>
+  <a href="../articles/maat.html">Get started</a>
 </li>
 <li>
   <a href="../reference/index.html">Reference</a>
@@ -94,7 +94,7 @@ examinee objects." />
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/choi-phd/ThyCAT/">
+  <a href="https://github.com/choi-phd/maat/">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -113,7 +113,7 @@ examinee objects." />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Simulate an examinee list</h1>
-    <small class="dont-index">Source: <a href='https://github.com/choi-phd/ThyCAT/blob/master/R/sim_functions.R'><code>R/sim_functions.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/choi-phd/maat/blob/master/R/sim_functions.R'><code>R/sim_functions.R</code></a></small>
     <div class="hidden name"><code>simExaminees.Rd</code></div>
     </div>
 
@@ -154,7 +154,7 @@ examinee objects." />
     </tr>
     <tr>
       <th>assessment_structure</th>
-      <td><p>an <code><a href='assessment_structure-class.html'>assessment_structure</a></code> object.</p></td>
+      <td><p>an <code><a href='assessment_structure-class.html'>assessment_structure</a></code> object. This can be created using <code><a href='createAssessmentStructure.html'>createAssessmentStructure</a></code>.</p></td>
     </tr>
     <tr>
       <th>initial_grade</th>
@@ -181,7 +181,7 @@ examinee objects." />
   route_limit_below <span class='op'>=</span> <span class='fl'>1</span>,
   route_limit_above <span class='op'>=</span> <span class='fl'>2</span>
 <span class='op'>)</span>
-<span class='va'>o</span> <span class='op'>&lt;-</span> <span class='fu'>simExaminees</span><span class='op'>(</span>
+<span class='va'>examinee_list</span> <span class='op'>&lt;-</span> <span class='fu'>simExaminees</span><span class='op'>(</span>
   N      <span class='op'>=</span> <span class='fl'>100</span>,
   mean_v <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>0</span>, <span class='fl'>0</span><span class='op'>)</span>,
   sd_v   <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>1</span>, <span class='fl'>1</span><span class='op'>)</span>,
@@ -201,7 +201,7 @@ examinee objects." />
 
       <footer>
       <div class="copyright">
-  <p>Developed by  placeholder.</p>
+  <p>Developed by Seung W. Choi.</p>
 </div>
 
 <div class="pkgdown">
