@@ -9,7 +9,7 @@ plotModuleRoutes(
   assessment_structure,
   examinee_id = "all",
   font_size = 15,
-  box_colour = "PaleTurquoise"
+  box_color = "PaleTurquoise"
 )
 }
 \arguments{
@@ -19,9 +19,9 @@ plotModuleRoutes(
 
 \item{examinee_id}{the examinee ID to plot the module route. \code{all} plots the count that each routing node was used. (default = \code{all})}
 
-\item{font_size}{the font size for the count labels. (default = \code{15})}
+\item{font_size}{the font size for arrow labels. (default = \code{15})}
 
-\item{box_colour}{the colour for the boxes. (default = \code{PaleTurquoise})}
+\item{box_color}{the fill color for boxes. (default = \code{PaleTurquoise})}
 }
 \description{
 \code{\link{plotModuleRoutes}} is a function for building a chart for module routes.
