@@ -17,6 +17,7 @@ NULL
 #' @slot n_module the number of modules the examinee received. This is the number of module positions.
 #' @slot true_theta a vector containing the true theta (if simulated) of the examinee, for each module position.
 #' @slot initial_theta_in_module a vector containing initial thetas used in each module.
+#' @slot prior_par_by_module a list containing prior parameters used for each module.
 #' @slot estimated_theta_by_phase a list containing estimated thetas and SEs using items in each phase.
 #' @slot estimated_theta_by_test a list containing estimated thetas and SEs using combined items in each test.
 #' @slot estimated_theta_for_routing a list containing estimated thetas and SEs that were used for routing.
@@ -44,6 +45,7 @@ setClass("examinee",
     n_module                    = "numeric",
     true_theta                  = "numeric",
     initial_theta_in_module     = "numeric",
+    prior_par_by_module         = "list",
     estimated_theta_by_phase    = "list",
     estimated_theta_by_test     = "list",
     estimated_theta_for_routing = "list",
