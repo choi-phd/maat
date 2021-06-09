@@ -133,6 +133,9 @@
   transition_percentile_lower <span class='op'>=</span> <span class='cn'>NULL</span>,
   transition_percentile_upper <span class='op'>=</span> <span class='cn'>NULL</span>,
   initial_theta_list <span class='op'>=</span> <span class='cn'>NULL</span>,
+  prior_mean_policy <span class='op'>=</span> <span class='st'>"mean_difficulty"</span>,
+  prior_mean_user <span class='op'>=</span> <span class='cn'>NULL</span>,
+  prior_sd <span class='op'>=</span> <span class='fl'>1</span>,
   verbose <span class='op'>=</span> <span class='cn'>TRUE</span>
 <span class='op'>)</span></pre>
 
@@ -202,6 +205,24 @@
     <tr>
       <th>initial_theta_list</th>
       <td><p>(optional) a list containing initial thetas to use in each module position.</p></td>
+    </tr>
+    <tr>
+      <th>prior_mean_policy</th>
+      <td><ul>
+<li><p>This is only effective at the beginning of each test. This determines what value is used as the prior mean.</p></li>
+<li><p><code>mean_difficulty</code> uses the mean item difficulty of the current item pool.</p></li>
+<li><p><code>carryover</code> uses the routing theta from the previous module. For Phase 1 of the first test, user supplied values are used if available. Otherwise, the mean item difficulty of the current item pool is used.</p></li>
+<li><p><code>user</code> uses user-supplied values in the <code>prior_mean_user</code> argument.</p></li>
+<li><p>(default = <code>mean_difficulty</code>)</p></li>
+</ul></td>
+    </tr>
+    <tr>
+      <th>prior_mean_user</th>
+      <td><p>(optional) user-supplied values for the prior mean. Must be a single value, or a vector for each grade.</p></td>
+    </tr>
+    <tr>
+      <th>prior_sd</th>
+      <td><p>user-supplied values for the prior standard deviation. This is only effective at the beginning of each test. This is utilized regardless of <code>prior_mean_policy</code>. Must be a single value, or a vector for each grade. (default = <code>1</code>)</p></td>
     </tr>
     <tr>
       <th>verbose</th>
