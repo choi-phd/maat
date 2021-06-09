@@ -37,7 +37,7 @@ Suggests:
     testthat (>= 3.0.0),
     rmarkdown,
     knitr,
-    DT
+    kableExtra
 RoxygenNote: 7.1.1
 VignetteBuilder: knitr
 Encoding: UTF-8

@@ -23,7 +23,7 @@ editor_options:
 ```{r, echo = FALSE, message = FALSE}
 library(maat)
 library(knitr)
-library(DT)
+library(kableExtra)
 ```
 
 # Introduction
@@ -365,15 +365,7 @@ The next step is to load the module specification sheet using `loadModules()`. T
 ```{r, echo = FALSE}
 fn <- system.file("extdata", "module_definition_MATH_normal_N500.csv", package = "maat")
 d  <- read.csv(fn)
-datatable(
-  d,
-  rownames = FALSE,
-  options = list(
-    autoWidth = TRUE,
-    scrollX = TRUE,
-    pageLength = 20
-  )
-)
+kable_styling(kable(d))
 ```
 
 The sheet must have seven columns.
