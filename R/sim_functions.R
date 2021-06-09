@@ -131,14 +131,14 @@ simExaminees <- function(N, mean_v, sd_v, cor_v, assessment_structure,
 #' @param initial_theta_list (optional) a list containing initial thetas to use in each module position.
 #' @param prior_mean_policy
 #' \itemize{
-#'   \item{} This determines what value is used as the prior mean. This is only effective at the beginning of each test.
+#'   \item{} This is only effective at the beginning of each test. This determines what value is used as the prior mean.
 #'   \item{\code{mean_difficulty}} uses the mean item difficulty of the current item pool.
-#'   \item{\code{carryover}} uses the routing theta from the previous module. For the first module, user supplied values are used if available, or otherwise the mean item difficulty of the current item pool is used.
-#'   \item{\code{user}} uses user-supplied values in \code{prior_mean_user}.
+#'   \item{\code{carryover}} uses the routing theta from the previous module. For Phase 1 of the first test, user supplied values are used if available. Otherwise, the mean item difficulty of the current item pool is used.
+#'   \item{\code{user}} uses user-supplied values in the \code{prior_mean_user} argument.
 #'   \item{} (default = \code{mean_difficulty})
 #' }
 #' @param prior_mean_user (optional) user-supplied values for the prior mean. Must be a single value, or a vector for each grade.
-#' @param prior_sd user-supplied values for the prior standard deviation. This is effective at each module position, regardless of \code{prior_mean_policy}. Must be a single value, or a vector for each grade. (default = \code{1})
+#' @param prior_sd user-supplied values for the prior standard deviation. This is only effective at the beginning of each test. This is utilized regardless of \code{prior_mean_policy}. Must be a single value, or a vector for each grade. (default = \code{1})
 #' @param verbose if \code{TRUE}, print status messages. (default = \code{TRUE})
 #'
 #' @return a named list containing \code{\linkS4class{examinee}} objects from the simulation.
@@ -291,92 +291,69 @@ maat <- function(
       include_items_for_estimation <- NULL
 
       if (current_module_position %% assessment_structure@n_phase == 1) {
-        # at the beginning of each test
         if (prior_mean_policy == "mean_difficulty") {
+          # at the beginning of each test
           # use mean difficulty of the current item pool
-          itempool_thisgroup <- module_list_by_name[[module_for_thisgroup]]@constraints@pool
-          mean_difficulty <- mean(itempool_thisgroup@ipar, na.rm = TRUE)
-          prior_par <- lapply(
+          examinee_list[examinee_in_thisgroup] <- getPriorUsingMeanDifficulty(
             examinee_list[examinee_in_thisgroup],
-            function(x) {
-              c(
-                mean_difficulty,
-                prior_sd[[x@current_grade]]
-              )
-            }
+            current_module_position,
+            module_list_by_name, module_for_thisgroup,
+            prior_sd
           )
-          prior_par <- do.call("rbind", prior_par)
         }
         if (prior_mean_policy == "carryover") {
+          # at the beginning of each test
           # carryover previous theta
+          if (current_module_position > 1) {
+            examinee_list[examinee_in_thisgroup] <- getPriorUsingCarryoverMeans(
+              examinee_list[examinee_in_thisgroup],
+              current_module_position,
+              prior_sd
+            )
+          }
+          # if cannot carryover, fallback
           if (current_module_position == 1) {
             if (!is.null(prior_mean_user)) {
               # use user values
-              prior_par <- lapply(
+              examinee_list[examinee_in_thisgroup] <- getPriorUsingUserMeans(
                 examinee_list[examinee_in_thisgroup],
-                function(x) {
-                  c(
-                    prior_mean_user[[x@current_grade]],
-                    prior_sd[[x@current_grade]]
-                  )
-                }
+                current_module_position,
+                prior_mean_user,
+                prior_sd
               )
-              prior_par <- do.call("rbind", prior_par)
             } else {
               # use mean difficulty of the current item pool
-              itempool_thisgroup <- module_list_by_name[[module_for_thisgroup]]@constraints@pool
-              mean_difficulty <- mean(itempool_thisgroup@ipar, na.rm = TRUE)
-              prior_par <- lapply(
+              examinee_list[examinee_in_thisgroup] <- getPriorUsingMeanDifficulty(
                 examinee_list[examinee_in_thisgroup],
-                function(x) {
-                  c(
-                    mean_difficulty,
-                    prior_sd[[x@current_grade]]
-                  )
-                }
+                current_module_position,
+                module_list_by_name, module_for_thisgroup,
+                prior_sd
               )
-              prior_par <- do.call("rbind", prior_par)
             }
-          }
-          if (current_module_position > 1) {
-            prior_par <- lapply(
-              examinee_list[examinee_in_thisgroup],
-              function(x) {
-                c(
-                  x@estimated_theta_for_routing[[current_module_position - 1]]$theta,
-                  prior_sd[[x@current_grade]]
-                )
-              }
-            )
-            prior_par <- do.call("rbind", prior_par)
           }
         }
         if (prior_mean_policy == "user") {
-          # use user values
-          prior_par <- lapply(
+          # at the beginning of each test
+          # use user values, because we expect true theta to change after each test
+          examinee_list[examinee_in_thisgroup] <- getPriorUsingUserMeans(
             examinee_list[examinee_in_thisgroup],
-            function(x) {
-              c(
-                prior_mean_user[[x@current_grade]],
-                prior_sd[[x@current_grade]]
-              )
-            }
+            prior_mean_user,
+            prior_sd
           )
-          prior_par <- do.call("rbind", prior_par)
         }
       } else {
-        # within each test
-        prior_par <- lapply(
+        # within each test, after Phase 1, reuse the prior used for Phase 1
+        # this should be uninformative, we are already carrying over response data to reconstruct posterior
+        examinee_list[examinee_in_thisgroup] <- getPriorUsingReuse(
           examinee_list[examinee_in_thisgroup],
-          function(x) {
-            c(
-              x@estimated_theta_for_routing[[current_module_position - 1]]$theta,
-              x@estimated_theta_for_routing[[current_module_position - 1]]$theta_se
-            )
-          }
+          current_module_position
         )
-        prior_par <- do.call("rbind", prior_par)
       }
+
+      prior_par <- extractPrior(
+        examinee_list[examinee_in_thisgroup],
+        current_module_position
+      )
 
       if (current_module_position > 1) {
 
