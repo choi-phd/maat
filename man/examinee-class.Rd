@@ -34,6 +34,8 @@
 
 \item{\code{initial_theta_in_module}}{a vector containing initial thetas used in each module.}
 
+\item{\code{prior_par_by_module}}{a list containing prior parameters used for each module.}
+
 \item{\code{estimated_theta_by_phase}}{a list containing estimated thetas and SEs using items in each phase.}
 
 \item{\code{estimated_theta_by_test}}{a list containing estimated thetas and SEs using combined items in each test.}

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>The Item Names of Each Item Pool — getItemNamesPerPool • ThyCAT</title>
+<title>Example item pools — module_list_math • maat</title>
 
 
 <!-- jquery -->
@@ -39,9 +39,8 @@
 
 
 
-<meta property="og:title" content="The Item Names of Each Item Pool — getItemNamesPerPool" />
-<meta property="og:description" content="getItemNamesPerPool is a function for extracting item names from the
-item_pool objects" />
+<meta property="og:title" content="Example item pools — module_list_math" />
+<meta property="og:description" content="Example data for a 6-module assessment." />
 
 
 
@@ -72,8 +71,8 @@ item_pool objects" />
         <span class="icon-bar"></span>
       </button>
       <span class="navbar-brand">
-        <a class="navbar-link" href="../index.html">ThyCAT</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.1</span>
+        <a class="navbar-link" href="../index.html">maat</a>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0</span>
       </span>
     </div>
 
@@ -86,7 +85,7 @@ item_pool objects" />
   </a>
 </li>
 <li>
-  <a href="../articles/ThyCAT.html">Get started</a>
+  <a href="../articles/maat.html">Get started</a>
 </li>
 <li>
   <a href="../reference/index.html">Reference</a>
@@ -94,7 +93,7 @@ item_pool objects" />
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/choi-phd/ThyCAT/">
+  <a href="https://github.com/choi-phd/maat/">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -112,26 +111,26 @@ item_pool objects" />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>The Item Names of Each Item Pool</h1>
-    <small class="dont-index">Source: <a href='https://github.com/choi-phd/ThyCAT/blob/master/R/sim_functions.R'><code>R/sim_functions.R</code></a></small>
-    <div class="hidden name"><code>getItemNamesPerPool.Rd</code></div>
+    <h1>Example item pools</h1>
+    <small class="dont-index">Source: <a href='https://github.com/choi-phd/maat/blob/master/R/datasets.R'><code>R/datasets.R</code></a></small>
+    <div class="hidden name"><code>module_list_math.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p><code>getItemNamesPerPool</code> is a function for extracting item names from the
-<code><a href='https://choi-phd.github.io/TestDesign/reference/item_pool-class.html'>item_pool</a></code> objects</p>
+    <p>Example data for a 6-module assessment.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>getItemNamesPerPool</span><span class='op'>(</span><span class='va'>module_list</span><span class='op'>)</span></pre>
 
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>module_list</th>
-      <td><p>a list containing <code><a href='https://choi-phd.github.io/TestDesign/reference/item_pool-class.html'>item_pool</a></code> objects.</p></td>
-    </tr>
-    </table>
+
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    
+<ul>
+<li><p><code>assessment_structure_math</code> an <code><a href='assessment_structure-class.html'>assessment_structure</a></code> object defining 3 tests with 2 phases in each test. Also defines routing limits as <code>G - 1</code> and <code>G + 2</code>, where <code>G</code> is the starting grade.</p></li>
+<li><p><code>examinee_list_math</code> a list of <code><a href='examinee-class.html'>examinee</a></code> objects. The number of examinees is 10. This can be created using <code><a href='simExaminees.html'>simExaminees</a></code>.</p></li>
+<li><p><code>module_list_math</code> a list of <code><a href='module-class.html'>module</a></code> objects. This can be created using <code><a href='loadModules.html'>loadModules</a></code>.</p></li>
+<li><p><code>cut_scores_math</code> a list of theta cut scores. This is used in the <code>cut_scores</code> argument of the <code><a href='maat.html'>maat</a></code> function.</p></li>
+</ul>
 
 
   </div>
@@ -145,7 +144,7 @@ item_pool objects" />
 
       <footer>
       <div class="copyright">
-  <p>Developed by  placeholder.</p>
+  <p>Developed by Seung W. Choi.</p>
 </div>
 
 <div class="pkgdown">

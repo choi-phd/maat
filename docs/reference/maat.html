@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Simulate multi-stage adaptive test — thyCAT • ThyCAT</title>
+<title>Simulate multi-stage adaptive test — maat • maat</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="Simulate multi-stage adaptive test — thyCAT" />
-<meta property="og:description" content="thyCAT is the main function for simulating a multi-stage adaptive test." />
+<meta property="og:title" content="Simulate multi-stage adaptive test — maat" />
+<meta property="og:description" content="maat is the main function for simulating a multi-stage adaptive test." />
 
 
 
@@ -71,8 +71,8 @@
         <span class="icon-bar"></span>
       </button>
       <span class="navbar-brand">
-        <a class="navbar-link" href="../index.html">ThyCAT</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.7.0</span>
+        <a class="navbar-link" href="../index.html">maat</a>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0</span>
       </span>
     </div>
 
@@ -85,7 +85,7 @@
   </a>
 </li>
 <li>
-  <a href="../articles/ThyCAT.html">Get started</a>
+  <a href="../articles/maat.html">Get started</a>
 </li>
 <li>
   <a href="../reference/index.html">Reference</a>
@@ -93,7 +93,7 @@
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/choi-phd/ThyCAT/">
+  <a href="https://github.com/choi-phd/maat/">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -112,15 +112,15 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Simulate multi-stage adaptive test</h1>
-    <small class="dont-index">Source: <a href='https://github.com/choi-phd/ThyCAT/blob/master/R/sim_functions.R'><code>R/sim_functions.R</code></a></small>
-    <div class="hidden name"><code>thyCAT.Rd</code></div>
+    <small class="dont-index">Source: <a href='https://github.com/choi-phd/maat/blob/master/R/sim_functions.R'><code>R/sim_functions.R</code></a></small>
+    <div class="hidden name"><code>maat.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p><code>thyCAT</code> is the main function for simulating a multi-stage adaptive test.</p>
+    <p><code>maat</code> is the main function for simulating a multi-stage adaptive test.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>thyCAT</span><span class='op'>(</span>
+    <pre class="usage"><span class='fu'>maat</span><span class='op'>(</span>
   examinee_list <span class='op'>=</span> <span class='va'>examinee_list</span>,
   <span class='va'>assessment_structure</span>,
   <span class='va'>module_list</span>,
@@ -133,6 +133,9 @@
   transition_percentile_lower <span class='op'>=</span> <span class='cn'>NULL</span>,
   transition_percentile_upper <span class='op'>=</span> <span class='cn'>NULL</span>,
   initial_theta_list <span class='op'>=</span> <span class='cn'>NULL</span>,
+  prior_mean_policy <span class='op'>=</span> <span class='st'>"mean_difficulty"</span>,
+  prior_mean_user <span class='op'>=</span> <span class='cn'>NULL</span>,
+  prior_sd <span class='op'>=</span> <span class='fl'>1</span>,
   verbose <span class='op'>=</span> <span class='cn'>TRUE</span>
 <span class='op'>)</span></pre>
 
@@ -204,6 +207,24 @@
       <td><p>(optional) a list containing initial thetas to use in each module position.</p></td>
     </tr>
     <tr>
+      <th>prior_mean_policy</th>
+      <td><ul>
+<li><p>This is only effective at the beginning of each test. This determines what value is used as the prior mean.</p></li>
+<li><p><code>mean_difficulty</code> uses the mean item difficulty of the current item pool.</p></li>
+<li><p><code>carryover</code> uses the routing theta from the previous module. For Phase 1 of the first test, user supplied values are used if available. Otherwise, the mean item difficulty of the current item pool is used.</p></li>
+<li><p><code>user</code> uses user-supplied values in the <code>prior_mean_user</code> argument.</p></li>
+<li><p>(default = <code>mean_difficulty</code>)</p></li>
+</ul></td>
+    </tr>
+    <tr>
+      <th>prior_mean_user</th>
+      <td><p>(optional) user-supplied values for the prior mean. Must be a single value, or a vector for each grade.</p></td>
+    </tr>
+    <tr>
+      <th>prior_sd</th>
+      <td><p>user-supplied values for the prior standard deviation. This is only effective at the beginning of each test. This is utilized regardless of <code>prior_mean_policy</code>. Must be a single value, or a vector for each grade. (default = <code>1</code>)</p></td>
+    </tr>
+    <tr>
       <th>verbose</th>
       <td><p>if <code>TRUE</code>, print status messages. (default = <code>TRUE</code>)</p></td>
     </tr>
@@ -220,28 +241,14 @@
     method <span class='op'>=</span> <span class='st'>"MLE"</span>
   <span class='op'>)</span>
 <span class='op'>)</span>
-<span class='va'>assessment_structure</span> <span class='op'>&lt;-</span> <span class='fu'><a href='createAssessmentStructure.html'>createAssessmentStructure</a></span><span class='op'>(</span>
-  n_test  <span class='op'>=</span> <span class='fl'>3</span>,
-  n_phase <span class='op'>=</span> <span class='fl'>2</span>,
-  route_limit_below <span class='op'>=</span> <span class='fl'>0</span>,
-  route_limit_above <span class='op'>=</span> <span class='fl'>2</span>
-<span class='op'>)</span>
-<span class='va'>examinee_list</span> <span class='op'>&lt;-</span> <span class='fu'><a href='simExaminees.html'>simExaminees</a></span><span class='op'>(</span>
-  N             <span class='op'>=</span> <span class='fl'>5</span>,
-  mean_v        <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>0</span>, <span class='fl'>0</span><span class='op'>)</span>,
-  sd_v          <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>1</span>, <span class='fl'>1</span><span class='op'>)</span>,
-  cor_v         <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/diag.html'>diag</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>3</span><span class='op'>)</span>,
-  assessment_structure <span class='op'>=</span> <span class='va'>assessment_structure</span>
-<span class='op'>)</span>
-
-<span class='va'>examinee_list</span> <span class='op'>&lt;-</span> <span class='fu'>thyCAT</span><span class='op'>(</span>
-  examinee_list          <span class='op'>=</span> <span class='va'>examinee_list</span>,
-  assessment_structure   <span class='op'>=</span> <span class='va'>assessment_structure</span>,
-  module_list            <span class='op'>=</span> <span class='va'>module_list_MATH_normal_N500</span>,
+<span class='va'>examinee_list</span> <span class='op'>&lt;-</span> <span class='fu'>maat</span><span class='op'>(</span>
+  examinee_list          <span class='op'>=</span> <span class='va'>examinee_list_math</span>,
+  assessment_structure   <span class='op'>=</span> <span class='va'>assessment_structure_math</span>,
+  module_list            <span class='op'>=</span> <span class='va'>module_list_math</span>,
   overlap_control_policy <span class='op'>=</span> <span class='st'>"all"</span>,
   transition_CI_alpha    <span class='op'>=</span> <span class='fl'>0.05</span>,
   config                 <span class='op'>=</span> <span class='va'>config</span>,
-  cut_scores             <span class='op'>=</span> <span class='va'>example_cut_scores</span>
+  cut_scores             <span class='op'>=</span> <span class='va'>cut_scores_math</span>
 <span class='op'>)</span>
 
 </pre>
@@ -256,7 +263,7 @@
 
       <footer>
       <div class="copyright">
-  <p>Developed by  placeholder.</p>
+  <p>Developed by Seung W. Choi.</p>
 </div>
 
 <div class="pkgdown">

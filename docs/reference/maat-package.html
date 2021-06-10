@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Calculate CAT adaptivity index from an examinee list object — CAT_index • ThyCAT</title>
+<title>Through-Year Computerized Adaptive Testing — maat-package • maat</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="Calculate CAT adaptivity index from an examinee list object — CAT_index" />
-<meta property="og:description" content="CAT_index is a function for calculating the CAT adaptivity index from the output of  thyCAT." />
+<meta property="og:title" content="Through-Year Computerized Adaptive Testing — maat-package" />
+<meta property="og:description" content="Through-Year Computerized Adaptive Testing" />
 
 
 
@@ -71,8 +71,8 @@
         <span class="icon-bar"></span>
       </button>
       <span class="navbar-brand">
-        <a class="navbar-link" href="../index.html">ThyCAT</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.1</span>
+        <a class="navbar-link" href="../index.html">maat</a>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0</span>
       </span>
     </div>
 
@@ -85,7 +85,7 @@
   </a>
 </li>
 <li>
-  <a href="../articles/ThyCAT.html">Get started</a>
+  <a href="../articles/maat.html">Get started</a>
 </li>
 <li>
   <a href="../reference/index.html">Reference</a>
@@ -93,7 +93,7 @@
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/choi-phd/ThyCAT/">
+  <a href="https://github.com/choi-phd/maat/">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -111,26 +111,41 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Calculate CAT adaptivity index from an examinee list object</h1>
-    <small class="dont-index">Source: <a href='https://github.com/choi-phd/ThyCAT/blob/master/R/sim_functions.R'><code>R/sim_functions.R</code></a></small>
-    <div class="hidden name"><code>CAT_index.Rd</code></div>
+    <h1>Through-Year Computerized Adaptive Testing</h1>
+    <small class="dont-index">Source: <a href='https://github.com/choi-phd/maat/blob/master/R/package.R'><code>R/package.R</code></a></small>
+    <div class="hidden name"><code>maat-package.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p><code>CAT_index</code> is a function for calculating the CAT adaptivity index from the output of  <code><a href='thyCAT.html'>thyCAT</a></code>.</p>
+    <p>Through-Year Computerized Adaptive Testing</p>
     </div>
 
-    <pre class="usage"><span class='fu'>CAT_index</span><span class='op'>(</span><span class='va'>examinee_list</span><span class='op'>)</span></pre>
 
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>examinee_list</th>
-      <td><p>a list containing <code><a href='examinee-class.html'>examinee</a></code> objects, returned from <code><a href='thyCAT.html'>thyCAT</a></code>.</p></td>
-    </tr>
-    </table>
 
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>**maat** package is based on the Through-Year DMST design, a longitudinal
+extension of the Dynamic Multi-Stage Test (DMST) design which presents each
+module as an adaptive test assembled dynamically or on the fly based on test
+blueprint constraints and interim ability estimates in real time. The
+Through-Year DMST design also maintains adaptivity across administrations of
+an assessment throughout the year.</p>
+<p>The DMST design in **maat** package allows three administrations (Fall, Winter,
+and Spring) with two phases within each administration (Phase 1 and Phase 2),
+so that a student takes six modules in total.</p>
+<p>Within each administration, students begin Phase 1 at the grade of record.
+One exception to this is that if a student's final \(\theta\) from the
+previous administration was above the 'advanced achievement' cut score of
+the grade of record, then the student begins Phase 1 of the following
+administration in an above-grade item pool. For example, if a Grade 3
+student's final \(\theta\) from the Fall administration was
+\(\theta = 1.1\) and the 'advanced achievement' cut score for Grade 3 was
+\(\theta = 1.0\), then the student begins Phase 1 of the Winter
+administration in a Grade 4 item pool.</p>
+<p>Within each administration, at the completion of Phase 1, business rules are
+used to determine whether a student is routed to an on-grade or off-grade
+item pool in Phase 2.</p>
+<p>Detailed descriptions of the DMST design are available in the vignette.</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -143,7 +158,7 @@
 
       <footer>
       <div class="copyright">
-  <p>Developed by  placeholder.</p>
+  <p>Developed by Seung W. Choi.</p>
 </div>
 
 <div class="pkgdown">

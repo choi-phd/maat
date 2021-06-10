@@ -17,6 +17,9 @@ maat(
   transition_percentile_lower = NULL,
   transition_percentile_upper = NULL,
   initial_theta_list = NULL,
+  prior_mean_policy = "mean_difficulty",
+  prior_mean_user = NULL,
+  prior_sd = 1,
   verbose = TRUE
 )
 }
@@ -61,6 +64,18 @@ maat(
 \item{transition_percentile_upper}{the percentile value (between 0 and 1) to use for the upper routing when \code{transition_policy == "difficulty_percentile"}.}
 
 \item{initial_theta_list}{(optional) a list containing initial thetas to use in each module position.}
+
+\item{prior_mean_policy}{\itemize{
+  \item{} This is only effective at the beginning of each test. This determines what value is used as the prior mean.
+  \item{\code{mean_difficulty}} uses the mean item difficulty of the current item pool.
+  \item{\code{carryover}} uses the routing theta from the previous module. For Phase 1 of the first test, user supplied values are used if available. Otherwise, the mean item difficulty of the current item pool is used.
+  \item{\code{user}} uses user-supplied values in the \code{prior_mean_user} argument.
+  \item{} (default = \code{mean_difficulty})
+}}
+
+\item{prior_mean_user}{(optional) user-supplied values for the prior mean. Must be a single value, or a vector for each grade.}
+
+\item{prior_sd}{user-supplied values for the prior standard deviation. This is only effective at the beginning of each test. This is utilized regardless of \code{prior_mean_policy}. Must be a single value, or a vector for each grade. (default = \code{1})}
 
 \item{verbose}{if \code{TRUE}, print status messages. (default = \code{TRUE})}
 }
