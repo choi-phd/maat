@@ -91,6 +91,10 @@ updateThetaUsingCombined <- function(examinee_object, current_module_position, c
       )
     }
 
+    if (config@final_theta$method == "EAP") {
+      # TODO
+    }
+
     # store the estimated theta and SE
     o <- list()
     o$theta    <- res_tmp$th
