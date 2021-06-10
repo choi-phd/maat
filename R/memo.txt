@@ -1,0 +1,10 @@
+options for priors
+
+1. carrying over the raw posterior data, from m1 to m2
+in this case, we should not use response data from m1 in m2
+
+2. not carrying over the raw posterior data,
+but reusing the prior mean/sd that was used in the beginning of m1, to m2
+in this case, we should carryover response data from m1 to m2
+
+both options are mathematically equivalent
