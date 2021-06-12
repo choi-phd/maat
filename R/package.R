@@ -1,15 +1,15 @@
-#' Through-Year Computerized Adaptive Testing
+#' Multiple Administrations Adaptive Testing
 #'
-#' **maat** package is based on the Through-Year DMST design, a longitudinal
-#' extension of the Dynamic Multi-Stage Test (DMST) design which presents each
-#' module as an adaptive test assembled dynamically or on the fly based on test
-#' blueprint constraints and interim ability estimates in real time. The
-#' Through-Year DMST design also maintains adaptivity across administrations of
-#' an assessment throughout the year.
+#' **maat** package is based on the assessment framework involving multiple 
+#' tests administered throughout the year using multiple item pools vertically 
+#' scaled and multiple phases (stages) of CAT within each test allowing for 
+#' transitioning from one item pool (and associated constraints) to another 
+#' between phases as determined necessary by a selected transition policy 
+#' to enhance the quality of measurement.
 #'
-#' The DMST design in **maat** package allows three administrations (Fall, Winter,
+#' The current version of **maat** supports three administrations (Fall, Winter,
 #' and Spring) with two phases within each administration (Phase 1 and Phase 2),
-#' so that a student takes six modules in total.
+#' for six modules in total administered over the course of a year.
 #'
 #' Within each administration, students begin Phase 1 at the grade of record.
 #' One exception to this is that if a student's final \eqn{\theta} from the
@@ -25,10 +25,10 @@
 #' used to determine whether a student is routed to an on-grade or off-grade
 #' item pool in Phase 2.
 #'
-#' Detailed descriptions of the DMST design are available in the vignette.
+#' Detailed descriptions of the assessment design are available in the vignette.
 #'
 #' @name maat-package
 #' @docType package
-#' @title Through-Year Computerized Adaptive Testing
+#' @title Multiple Administrations Adaptive Testing
 #' @keywords package
 NULL
