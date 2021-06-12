@@ -95,7 +95,7 @@ updateThetaUsingCombined <- function(examinee_object, current_module_position, c
       ## Extract the prior parameters from the examinee list for each examinee for each module
       prior_par <-  examinee_object@prior_par_by_module[[current_module_position -1]]
       ## Generate the distribution according to the given parameters
-      prior_dist <- PriorDistGen(
+      prior_dist <- genPriorDist(
         dist_type  = "normal",
         prior_par  = prior_par,
         theta_grid = config@theta_grid,
