@@ -74,7 +74,7 @@ extractPrior <- function(examinee_list, current_module_position) {
 }
 
 #' @noRd
-PriorDistGen <- function(dist_type, prior_par, theta_grid, nj) {
+genPriorDist <- function(dist_type, prior_par, theta_grid, nj) {
 
   nq <- length(theta_grid)
   m  <- NULL
