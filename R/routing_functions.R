@@ -92,7 +92,21 @@ updateThetaUsingCombined <- function(examinee_object, current_module_position, c
     }
 
     if (config@final_theta$method == "EAP") {
-      # TODO
+      ## Extract the prior parameters from the examinee list for each examinee for each module
+      prior_par <-  examinee_object@prior_par_by_module[[current_module_position -1]]
+      ## Generate the distribution according to the given parameters
+      prior_dist <- genPriorDist(
+        dist_type  = "normal",
+        prior_par  = prior_par,
+        theta_grid = config@theta_grid,
+        nj         = 1)
+      ## EAP estimation
+      res_tmp <- eap(
+        object      = combined_item_data,
+        resp        = matrix(combined_response, nrow = 1, ncol = length(combined_response)),
+        theta_grid  = config@theta_grid,
+        prior       = prior_dist
+      )
     }
 
     # store the estimated theta and SE
