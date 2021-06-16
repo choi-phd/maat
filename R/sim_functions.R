@@ -337,6 +337,7 @@ maat <- function(
           # use user values, because we expect true theta to change after each test
           examinee_list[examinee_in_thisgroup] <- getPriorUsingUserMeans(
             examinee_list[examinee_in_thisgroup],
+            current_module_position,
             prior_mean_user,
             prior_sd
           )
