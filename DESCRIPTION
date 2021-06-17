@@ -27,8 +27,8 @@ Description: Multiple Administrations Adaptive Testing (MAAT) is an extension of
     and multiple phases (stages) of CAT within each test allowing transitioning
     from one item pool (and associated constraints) to another as deemed
     necessary to enhance the quality of measurement.
-URL: https://choi-phd.github.io/maat
-BugReports: https://github.com/choi-phd/maat/issues
+URL: https://choi-phd.github.io/maat/
+BugReports: https://github.com/choi-phd/maat/issues/
 License: GPL (>= 2)
 Depends: R (>= 3.5.0)
 biocViews:
