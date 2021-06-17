@@ -34,7 +34,7 @@ setClass("module",
 #' @slot n_phase a numeric, the number of phases within each test.
 #' @slot route_limit_below the number of grades to allow routing below, relative to the grade of record. If the grade of record is G4 and this is 1, then routing to G3 is allowed but not to G2.
 #' @slot route_limit_above the number of grades to allow routing above, relative to the grade of record. If the grade of record is G4 and this is 2, then routing to G6 is allowed but not to G7.
-#' @slot test_routing_restrictions R1: If grade is G−1 in the last phase of any administration, ignore achievement level and always change grade by +1.
+#' @slot test_routing_restrictions R1: If grade is G-1 in the last phase of any administration, ignore achievement level and always change grade by +1.
 #' R2: If grade is G in the last phase of any administration: If achievement level is Beginning, do not decrease grade.
 #' R3: If grade is G+k in the last phase of Administration k: If achievement level is Advanced, do not increase grade.
 #'
