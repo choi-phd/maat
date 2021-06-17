@@ -277,8 +277,12 @@ div.tocify {
 
 <div id="introduction" class="section level1" number="1">
 <h1 number="1"><span class="header-section-number">1</span> Introduction</h1>
-<p>The <strong>maat</strong> package performs adaptive testing based on the Through-Year DMST design. The Through-Year DMST design is a longitudinal extension of the Dynamic Multi-Stage Test (DMST) design. The DMST design presents each module as an adaptive test assembled dynamically or on the fly, based on test blueprint constraints and interim ability estimates in real time. In addition, the Through-Year extension also provides adaptivity across multiple administrations of an assessment throughout the year.</p>
-<p>The Through-Year DMST design in <strong>maat</strong> package uses an assessment with three administrations (Fall, Winter, and Spring) with two phases within each administration (Phase 1 and Phase 2), so that a student takes six modules in total.</p>
+<p>The <strong>maat</strong> package performs adaptive testing based on the assessment framework involving multiple tests administered throughout the year using multiple item pools vertically scaled and multiple phases within each administration allowing for transitioning from one item pool (and associated constraints) to another as determined necessary according to a prespecified transition policy to enhance the quality of measurement. Each module is an adaptive test assembled dynamically using the shadow-test approach to CAT, based on an item pool and test blueprint constraints. The current version of <strong>maat</strong> supports an assessment design involving three tests/administrations (e.g. Fall, Winter, and Spring) with two phases within each administration (Phase 1 and Phase 2), so that a student takes six modules in total throughout the year. As a result, the assessment is adaptive in multiple levels:</p>
+<ul>
+<li>Within a module items are selected adaptively</li>
+<li>Between modules within a test item pools are selected adaptively</li>
+<li>Between tests/administrations item pools are selected adaptively</li>
+</ul>
 </div>
 <div id="assessment-structure" class="section level1" number="2">
 <h1 number="2"><span class="header-section-number">2</span> Assessment Structure</h1>
@@ -314,7 +318,7 @@ div.tocify {
 <li>The minimum item difficulty of grade <span class="math inline">\(G-1\)</span> pool is lower than grade <span class="math inline">\(G\)</span> pool.</li>
 <li>The maximum item difficulty of grade <span class="math inline">\(G-1\)</span> pool is lower than grade <span class="math inline">\(G\)</span> pool.</li>
 </ul></li>
-<li>Item parameters from Phase 1 and Phase 2 are on the same metric, and thus can be combined to develop a single MLE ability estimate of the student.</li>
+<li>Item parameters from Phase 1 and Phase 2 are on the same metric, and thus can be combined to develop a single ability estimate of the student.</li>
 <li>Domain scores are computed based on item scores from Phase 1 and Phase 2 combined as the final, domain level reporting category subscores.</li>
 <li>The vertical scale is robust and well-articulated across the grades.</li>
 </ul></li>
@@ -412,7 +416,7 @@ I_{i}(\hat{\theta})
 </div>
 <div id="ability-estimation" class="section level2" number="4.7">
 <h2 number="4.7"><span class="header-section-number">4.7</span> Ability Estimation</h2>
-<p>The <strong>maat</strong> package supports MLE and MLEF in the <code>TestDesign</code> package for <span class="math inline">\(\theta\)</span> estimation. The estimation method must be specified in <code>createShadowTestConfig()</code>.</p>
+<p>The <strong>maat</strong> package supports EAP, MLE and MLEF in the <code>TestDesign</code> package for <span class="math inline">\(\theta\)</span> estimation. The estimation method must be specified in <code>createShadowTestConfig()</code>.</p>
 <p>The MLE and MLEF methods in <code>TestDesign</code> has extra fallback routines for performing CAT:</p>
 <ul>
 <li>For MLE, if the response vector is extreme (i.e., the sum is 0 or the maximum for all items), EAP is used instead of MLE to obtain the <span class="math inline">\(\theta\)</span> estimate. This is because MLE estimates for extreme vectors is either <span class="math inline">\(-\infty\)</span> or <span class="math inline">\(+\infty\)</span>.</li>
@@ -431,7 +435,7 @@ I_{i}(\hat{\theta})
 <p>Transitioning between phases (phases) and between tests are governed by the rules described in this section. These so-called transition rules are generally based on theta estimates (and confidence intervals) and the cut-scores defining the performance levels for each grade. There are also restrictions that override the rules. Two routing rules are implemented in the <strong>maat</strong> package: Confidence Interval Approach and Difficulty Percentile Approach.</p>
 <div id="cut-scores" class="section level2" number="5.1">
 <h2 number="5.1"><span class="header-section-number">5.1</span> Cut Scores</h2>
-<p>For the Through-Year DMST, cut scores for achievement levels must be defined to be able to perform routing between grades. For example, if there are four achievement levels (e.g., Beginning, Developing, Proficient, and Advanced), then three cut scores are necessary for each grade.</p>
+<p>The cut scores for achievement levels must be defined to be able to perform routing between grades. For example, if there are four achievement levels (e.g., Beginning, Developing, Proficient, and Advanced), then three cut scores are necessary for each grade.</p>
 </div>
 <div id="routing-structure" class="section level2" number="5.2">
 <h2 number="5.2"><span class="header-section-number">5.2</span> Routing Structure</h2>
@@ -947,7 +951,7 @@ module_list &lt;- loadModules(
 </div>
 <div id="create-shared-config" class="section level2" number="6.5">
 <h2 number="6.5"><span class="header-section-number">6.5</span> Create shared config</h2>
-<p>The next step is to create a config object using <code>createShadowTestConfig()</code> in the <code>TestDesign</code> package. The final theta estimation method in <code>final_theta$method</code> must be either <code>MLE</code> or <code>MLEF</code>.</p>
+<p>The next step is to create a config object using <code>createShadowTestConfig()</code> in the <code>TestDesign</code> package. The final theta estimation method in <code>final_theta$method</code> must be <code>EAP</code>, <code>MLE</code> or <code>MLEF</code>.</p>
 <pre class="r"><code>library(TestDesign)
 config &lt;- createShadowTestConfig(
   final_theta = list(method = &quot;MLE&quot;)
@@ -1072,6 +1076,9 @@ $(document).ready(function () {
 
 <script>
 $(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
 
     // move toc-ignore selectors from section div to header
     $('div.section.toc-ignore')
