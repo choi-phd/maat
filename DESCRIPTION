@@ -18,7 +18,16 @@ Author: Authors@R: c(
     person("Sooyong", "Lee",
         email = "sooyongl09@utexas.edu",
         role = "aut",
-        comment = c(ORCID = "0000-0002-7964-4508")))
+        comment = c(ORCID = "0000-0002-7964-4508")),
+    person("M. Christina", "Schneider",
+        email = "christina.schneider@nwea.org",
+        role = "ctb"),
+    person("Jay", "Lee",
+        email = "jay.lee@nwea.org",
+        role = "ctb),
+    person("Garron", "Gianopulos",
+        email = "garron.gianopulos@nwea.org",
+        role = "ctb"))
 Maintainer: Seung W. Choi <schoi@austin.utexas.edu>
 Description: Multiple Administrations Adaptive Testing (MAAT) is an extension of the
     shadow-test approach to CAT implemented in the 'TestDesign' package. The
