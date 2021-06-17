@@ -103,7 +103,7 @@ updateThetaUsingCombined <- function(examinee_object, current_module_position, c
       ## EAP estimation
       res_tmp <- eap(
         object      = combined_item_data,
-        resp        = matrix(combined_response, nrow = 1, ncol = length(combined_response)),
+        resp        = combined_response,
         theta_grid  = config@theta_grid,
         prior       = prior_dist
       )
