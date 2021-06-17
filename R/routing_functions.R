@@ -289,7 +289,7 @@ updateGrade <- function(
       examinee_object@grade_log[1] # the grade of record
     )
 
-    # Exception E1: If grade is G−1 in the last phase of any administration,
+    # Exception E1: If grade is G-1 in the last phase of any administration,
     # ignore achievement level and always change grade by +1.
     if (module_position %% assessment_structure@n_phase == 0) {
       if (
