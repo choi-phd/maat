@@ -1,13 +1,13 @@
 #' Multiple Administrations Adaptive Testing
 #'
-#' **maat** package is based on the assessment framework involving multiple 
-#' tests administered throughout the year using multiple item pools vertically 
-#' scaled and multiple phases (stages) of CAT within each test allowing for 
-#' transitioning from one item pool (and associated constraints) to another 
-#' between phases as determined necessary by a selected transition policy 
+#' \bold{maat} package is based on the assessment framework involving multiple
+#' tests administered throughout the year using multiple item pools vertically
+#' scaled and multiple phases (stages) of CAT within each test allowing for
+#' transitioning from one item pool (and associated constraints) to another
+#' between phases as determined necessary by a selected transition policy
 #' to enhance the quality of measurement.
 #'
-#' The current version of **maat** supports three administrations (Fall, Winter,
+#' The current version of \bold{maat} supports three administrations (Fall, Winter,
 #' and Spring) with two phases within each administration (Phase 1 and Phase 2),
 #' for six modules in total administered over the course of a year.
 #'
