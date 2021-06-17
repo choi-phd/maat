@@ -94,9 +94,9 @@ simExaminees <- function(N, mean_v, sd_v, cor_v, assessment_structure,
 
 }
 
-#' Simulate multi-stage adaptive test
+#' Simulate multi-stage multi-administration adaptive test
 #'
-#' \code{\link{maat}} is the main function for simulating a multi-stage adaptive test.
+#' \code{\link{maat}} is the main function for simulating a multi-stage multi-administration adaptive test.
 #'
 #' @param examinee_list an examinee list from \code{\link{simExaminees}}.
 #' @param assessment_structure a \code{\linkS4class{assessment_structure}} object.
