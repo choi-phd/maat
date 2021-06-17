@@ -2,7 +2,7 @@
 % Please edit documentation in R/sim_functions.R
 \name{maat}
 \alias{maat}
-\title{Simulate a multiple-administration adaptive test}
+\title{Simulate multi-stage multi-administration adaptive test}
 \usage{
 maat(
   examinee_list = examinee_list,
@@ -83,7 +83,7 @@ maat(
 a named list containing \code{\linkS4class{examinee}} objects from the simulation.
 }
 \description{
-\code{\link{maat}} is the main function for simulating a multiple-administration adaptive test.
+\code{\link{maat}} is the main function for simulating a multi-stage multi-administration adaptive test.
 }
 \examples{
 library(TestDesign)
