@@ -16,7 +16,7 @@ simExaminees(
 )
 }
 \arguments{
-\item{N}{the number of samples to generate.}
+\item{N}{the number of examinees to generate.}
 
 \item{mean_v}{a vector containing the mean of each dimension.}
 
@@ -33,11 +33,10 @@ simExaminees(
 \item{initial_test}{the initial test to use for all examinees. (default = \code{T1})}
 }
 \description{
-\code{\link{simExaminees}} is a function for generating a list containing N
-\code{\linkS4class{examinee}} objects.
+\code{\link{simExaminees}} is a function for generating a list containing \code{\linkS4class{examinee}} objects.
 }
 \details{
-Each dimension of `mean_v`, `sd_v`, `cor_v` represents a test level.
+Each dimension of \code{mean_v}, \code{sd_v}, \code{cor_v} represents a test level. For example in a three-test structure (see the \code{assessment_structure_math} example data), these arguments must have three dimensions.
 }
 \examples{
 assessment_structure <- createAssessmentStructure(

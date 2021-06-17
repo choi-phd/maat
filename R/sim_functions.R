@@ -33,12 +33,11 @@ simTheta <- function(N, mean_v, sd_v, cor_v) {
 
 #' Simulate an examinee list
 #'
-#' \code{\link{simExaminees}} is a function for generating a list containing N
-#' \code{\linkS4class{examinee}} objects.
+#' \code{\link{simExaminees}} is a function for generating a list containing \code{\linkS4class{examinee}} objects.
 #'
-#' Each dimension of `mean_v`, `sd_v`, `cor_v` represents a test level.
+#' Each dimension of \code{mean_v}, \code{sd_v}, \code{cor_v} represents a test level. For example in a three-test structure (see the \code{assessment_structure_math} example data), these arguments must have three dimensions.
 #'
-#' @param N the number of samples to generate.
+#' @param N the number of examinees to generate.
 #' @param mean_v a vector containing the mean of each dimension.
 #' @param sd_v a vector containing the standard deviation of each dimension.
 #' @param cor_v a correlation matrix.
