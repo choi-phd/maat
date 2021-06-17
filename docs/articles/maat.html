@@ -67,7 +67,7 @@
 
       
 
-      </header><script src="maat_files/header-attrs-2.8/header-attrs.js"></script><script src="maat_files/kePrint-0.0.1/kePrint.js"></script><link href="maat_files/lightable-0.0.1/lightable.css" rel="stylesheet">
+      </header><script src="maat_files/header-attrs-2.9/header-attrs.js"></script><script src="maat_files/kePrint-0.0.1/kePrint.js"></script><link href="maat_files/lightable-0.0.1/lightable.css" rel="stylesheet">
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
@@ -84,8 +84,12 @@
 <div id="introduction" class="section level1">
 <h1 class="hasAnchor">
 <a href="#introduction" class="anchor"></a>Introduction</h1>
-<p>The <strong>maat</strong> package performs adaptive testing based on the Through-Year DMST design. The Through-Year DMST design is a longitudinal extension of the Dynamic Multi-Stage Test (DMST) design. The DMST design presents each module as an adaptive test assembled dynamically or on the fly, based on test blueprint constraints and interim ability estimates in real time. In addition, the Through-Year extension also provides adaptivity across multiple administrations of an assessment throughout the year.</p>
-<p>The Through-Year DMST design in <strong>maat</strong> package uses an assessment with three administrations (Fall, Winter, and Spring) with two phases within each administration (Phase 1 and Phase 2), so that a student takes six modules in total.</p>
+<p>The <strong>maat</strong> package performs adaptive testing based on the assessment framework involving multiple tests administered throughout the year using multiple item pools vertically scaled and multiple phases within each administration allowing for transitioning from one item pool (and associated constraints) to another as determined necessary according to a prespecified transition policy to enhance the quality of measurement. Each module is an adaptive test assembled dynamically using the shadow-test approach to CAT, based on an item pool and test blueprint constraints. The current version of <strong>maat</strong> supports an assessment design involving three tests/administrations (e.g. Fall, Winter, and Spring) with two phases within each administration (Phase 1 and Phase 2), so that a student takes six modules in total throughout the year. As a result, the assessment is adaptive in multiple levels:</p>
+<ul>
+<li>Within a module items are selected adaptively</li>
+<li>Between modules within a test item pools are selected adaptively</li>
+<li>Between tests/administrations item pools are selected adaptively</li>
+</ul>
 </div>
 <div id="assessment-structure" class="section level1">
 <h1 class="hasAnchor">
@@ -133,7 +137,7 @@
 <li>The maximum item difficulty of grade <span class="math inline">\(G-1\)</span> pool is lower than grade <span class="math inline">\(G\)</span> pool.</li>
 </ul>
 </li>
-<li>Item parameters from Phase 1 and Phase 2 are on the same metric, and thus can be combined to develop a single MLE ability estimate of the student.</li>
+<li>Item parameters from Phase 1 and Phase 2 are on the same metric, and thus can be combined to develop a single ability estimate of the student.</li>
 <li>Domain scores are computed based on item scores from Phase 1 and Phase 2 combined as the final, domain level reporting category subscores.</li>
 <li>The vertical scale is robust and well-articulated across the grades.</li>
 </ul>
@@ -245,7 +249,7 @@ I_{i}(\hat{\theta})
 <div id="ability-estimation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#ability-estimation" class="anchor"></a>Ability Estimation</h2>
-<p>The <strong>maat</strong> package supports MLE and MLEF in the <code>TestDesign</code> package for <span class="math inline">\(\theta\)</span> estimation. The estimation method must be specified in <code><a href="https://choi-phd.github.io/TestDesign/reference/createShadowTestConfig.html">createShadowTestConfig()</a></code>.</p>
+<p>The <strong>maat</strong> package supports EAP, MLE and MLEF in the <code>TestDesign</code> package for <span class="math inline">\(\theta\)</span> estimation. The estimation method must be specified in <code><a href="https://choi-phd.github.io/TestDesign/reference/createShadowTestConfig.html">createShadowTestConfig()</a></code>.</p>
 <p>The MLE and MLEF methods in <code>TestDesign</code> has extra fallback routines for performing CAT:</p>
 <ul>
 <li>For MLE, if the response vector is extreme (i.e., the sum is 0 or the maximum for all items), EAP is used instead of MLE to obtain the <span class="math inline">\(\theta\)</span> estimate. This is because MLE estimates for extreme vectors is either <span class="math inline">\(-\infty\)</span> or <span class="math inline">\(+\infty\)</span>.</li>
@@ -266,7 +270,7 @@ I_{i}(\hat{\theta})
 <div id="cut-scores" class="section level2">
 <h2 class="hasAnchor">
 <a href="#cut-scores" class="anchor"></a>Cut Scores</h2>
-<p>For the Through-Year DMST, cut scores for achievement levels must be defined to be able to perform routing between grades. For example, if there are four achievement levels (e.g., Beginning, Developing, Proficient, and Advanced), then three cut scores are necessary for each grade.</p>
+<p>The cut scores for achievement levels must be defined to be able to perform routing between grades. For example, if there are four achievement levels (e.g., Beginning, Developing, Proficient, and Advanced), then three cut scores are necessary for each grade.</p>
 </div>
 <div id="routing-structure" class="section level2">
 <h2 class="hasAnchor">
@@ -806,7 +810,7 @@ NA
   base_path <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span>package <span class="op">=</span> <span class="st">"maat"</span><span class="op">)</span>
 <span class="op">)</span></code></pre></div>
 <pre><code>## Required modules: 8
-## Using base path: /private/var/folders/mn/2g6bpn7j1gvg8dmbfzxvpx780000gn/T/RtmpXO3Vj2/temp_libpath1e8e767c2e50/maat
+## Using base path: /private/var/folders/mn/2g6bpn7j1gvg8dmbfzxvpx780000gn/T/RtmptT8Kd5/temp_libpathab487ad0278c/maat
 ## Loading 8 modules
 ## Grade G3 Phase P1 : Module ModuleMATH3P1N
 ## Grade G4 Phase P1 : Module ModuleMATH4P1N
@@ -844,7 +848,7 @@ NA
 <div id="create-shared-config" class="section level2">
 <h2 class="hasAnchor">
 <a href="#create-shared-config" class="anchor"></a>Create shared config</h2>
-<p>The next step is to create a config object using <code><a href="https://choi-phd.github.io/TestDesign/reference/createShadowTestConfig.html">createShadowTestConfig()</a></code> in the <code>TestDesign</code> package. The final theta estimation method in <code>final_theta$method</code> must be either <code>MLE</code> or <code>MLEF</code>.</p>
+<p>The next step is to create a config object using <code><a href="https://choi-phd.github.io/TestDesign/reference/createShadowTestConfig.html">createShadowTestConfig()</a></code> in the <code>TestDesign</code> package. The final theta estimation method in <code>final_theta$method</code> must be <code>EAP</code>, <code>MLE</code> or <code>MLEF</code>.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://choi-phd.github.io/TestDesign/">TestDesign</a></span><span class="op">)</span>
 <span class="va">config</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://choi-phd.github.io/TestDesign/reference/createShadowTestConfig.html">createShadowTestConfig</a></span><span class="op">(</span>
