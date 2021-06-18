@@ -369,6 +369,8 @@ countModuleRoutes <- function(examinee_list, assessment_structure) {
 #' @param x x
 #' @param y y
 #' @param cut_scores a named list containing cut scores for each grade.
+#' @param theta_range the theta range to use in scatter plots when \code{x} is an examinee list.
+#' @param main the figure title to use in scatter plots when \code{x} is an examinee list.
 #'
 #' @examples
 #' library(TestDesign)
@@ -464,3 +466,89 @@ setMethod(
     }
 
   })
+
+#' @docType methods
+#' @rdname plot-methods
+#' @export
+setMethod(
+  f = "plot",
+  signature = "list",
+  definition = function(
+    x, y, cut_scores, theta_range = c(-4, 4), main = NULL) {
+
+    tests <- lapply(
+      x,
+      function(o) {
+        o@test_log
+      }
+    )
+    n_tests <- length(unique(unlist(tests)))
+
+    true_theta <- lapply(
+      x,
+      function(o) {
+        theta <- c()
+        for (test in unique(o@test_log)) {
+          idx <- max(which(o@test_log == test))
+          theta <- c(theta, o@true_theta[idx])
+        }
+        return(theta)
+      }
+    )
+    true_theta <- matrix(unlist(true_theta), length(true_theta), byrow = TRUE)
+
+    final_theta <- lapply(
+      x,
+      function(o) {
+        theta <- c()
+        for (test in unique(o@test_log)) {
+          idx <- max(which(o@test_log == test))
+          theta <- c(theta, o@estimated_theta_for_routing[[idx]]$theta)
+        }
+        return(theta)
+      }
+    )
+    final_theta <- matrix(unlist(final_theta), length(final_theta), byrow = TRUE)
+
+    old_mfrow <- par()$mfrow
+    on.exit({
+      par(mfrow = old_mfrow)
+    })
+    par(mfrow = c(1, n_tests))
+
+    if (is.null(main)) {
+      main <- sprintf("Test %s", 1:n_tests)
+    }
+    for (test in 1:n_tests) {
+      plot(
+        0, 0,
+        type = "n",
+        xlim = theta_range,
+        ylim = theta_range,
+        xlab = "True theta",
+        ylab = "Estimated theta",
+        main = main[test]
+      )
+      lines(
+        theta_range * 2,
+        theta_range * 2,
+        lty = 2,
+        col = "gray"
+      )
+      points(
+        true_theta[, test],
+        final_theta[, test],
+        col = "blue"
+      )
+      r <- cor(true_theta[, test], final_theta[, test])
+      text(
+        x = min(theta_range),
+        y = max(theta_range),
+        labels = sprintf("r = %1.3f", r),
+        adj = 0
+      )
+      box(lwd = 1)
+    }
+
+  }
+)

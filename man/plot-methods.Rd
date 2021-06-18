@@ -4,9 +4,12 @@
 \name{plot}
 \alias{plot}
 \alias{plot,examinee-method}
+\alias{plot,list-method}
 \title{Extension of plot()}
 \usage{
 \S4method{plot}{examinee}(x, y, cut_scores)
+
+\S4method{plot}{list}(x, y, cut_scores, theta_range = c(-4, 4), main = NULL)
 }
 \arguments{
 \item{x}{x}
@@ -14,6 +17,10 @@
 \item{y}{y}
 
 \item{cut_scores}{a named list containing cut scores for each grade.}
+
+\item{theta_range}{the theta range to use in scatter plots when \code{x} is an examinee list.}
+
+\item{main}{the figure title to use in scatter plots when \code{x} is an examinee list.}
 }
 \description{
 Extension of plot()
