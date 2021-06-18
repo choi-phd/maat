@@ -16,7 +16,7 @@ simExaminees(
 )
 }
 \arguments{
-\item{N}{the number of examinees to generate.}
+\item{N}{the number of examinees.}
 
 \item{mean_v}{a vector containing the mean of each dimension.}
 
@@ -26,11 +26,11 @@ simExaminees(
 
 \item{assessment_structure}{an \code{\linkS4class{assessment_structure}} object. This can be created using \code{\link{createAssessmentStructure}}.}
 
-\item{initial_grade}{the initial grade to use for all examinees. The grade must exist in \code{module_list}. (default = \code{G4})}
+\item{initial_grade}{the initial grade for all examinees. The grade must exist in \code{module_list}. (default = \code{G4})}
 
-\item{initial_phase}{the initial phase to use for all examinees. The phase must exist in \code{module_list}. (default = \code{P1})}
+\item{initial_phase}{the initial phase for all examinees. The phase must exist in \code{module_list}. (default = \code{P1})}
 
-\item{initial_test}{the initial test to use for all examinees. (default = \code{T1})}
+\item{initial_test}{the initial test for all examinees. (default = \code{T1})}
 }
 \description{
 \code{\link{simExaminees}} is a function for generating a list containing \code{\linkS4class{examinee}} objects.

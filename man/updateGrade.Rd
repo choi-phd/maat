@@ -33,13 +33,13 @@ updateGrade(
 \item{} (default = \code{CI})
 }}
 
-\item{transition_CI_alpha}{the alpha level to use when \code{transition_policy == "CI"}.}
+\item{transition_CI_alpha}{the alpha level used when \code{transition_policy == "CI"}.}
 
-\item{transition_percentile_lower}{the percentile value (between 0 and 1) to use for the lower routing. Used in percentile-based transition policies.}
+\item{transition_percentile_lower}{the percentile value (between 0 and 1) used for the lower routing in percentile-based transition policies.}
 
-\item{transition_percentile_upper}{the percentile value (between 0 and 1) to use for the upper routing, Used in percentile-based transition policies.}
+\item{transition_percentile_upper}{the percentile value (between 0 and 1) used for the upper routing in percentile-based transition policies.}
 
-\item{item_pool}{the \code{\linkS4class{item_pool}} object to determine difficulty range. Used in percentile-based transition policies.}
+\item{item_pool}{the \code{\linkS4class{item_pool}} object to determine difficulty range in percentile-based transition policies.}
 }
 \value{
 an \code{\linkS4class{examinee}} object with its \code{current_grade} slot updated.

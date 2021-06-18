@@ -7,7 +7,7 @@
 simTheta(N, mean_v, sd_v, cor_v)
 }
 \arguments{
-\item{N}{the number of samples to generate.}
+\item{N}{the number of examinees.}
 
 \item{mean_v}{a vector containing the mean of each dimension.}
 

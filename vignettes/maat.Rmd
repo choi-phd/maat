@@ -427,15 +427,29 @@ config <- createShadowTestConfig(
 
 The final step is to run the main simulation using `maat()`.
 
-```{r, results = "hide"}
-examinee_list_output <- maat(
+* An illustration of the simulation for two of the transition policies: `CI` and `pool_difficulty_percentile`:  
+
+```{r, results = "hide", message = FALSE}
+maat_output_CI <- maat(
   examinee_list          = examinee_list,
   assessment_structure   = assessment_structure,
   module_list            = module_list,
   config                 = config,
   cut_scores             = cut_scores,
   overlap_control_policy = "within_test",
-  transition_policy      = "on_grade",
+  transition_policy      = "CI",
+  combine_policy         = "conditional",
+  transition_CI_alpha         = 0.05
+)
+
+maat_output_difficulty <- maat(
+  examinee_list          = examinee_list,
+  assessment_structure   = assessment_structure,
+  module_list            = module_list,
+  config                 = config,
+  cut_scores             = cut_scores,
+  overlap_control_policy = "within_test",
+  transition_policy      = "pool_difficulty_percentile",
   combine_policy         = "conditional",
   transition_CI_alpha         = 0.05,
   transition_percentile_lower = 0.05,
@@ -464,5 +478,56 @@ examinee_list_output <- maat(
 * `transition_CI_alpha` is the alpha level to use in CI-based transition policy.
 * `transition_percentile_lower` is the percentile value to use in difficulty-percentile-based transition policy.
 * `transition_percentile_upper` is the percentile value to use in difficulty-percentile-based transition policy.
+
+## Plot the Module Routes
+
+* Plot the number of examinees routed to each module. 
+* The arguments of the `plotModuleRoutes`: 
+  * `examinee_list` is the output object produced by `maat()`.
+  * `assessment_structure` is the `assessment_structure` object.
+
+### Route chart for the `CI` transition policy condition
+
+```{r, message = FALSE}
+plotModuleRoutes(
+  examinee_list        = maat_output_CI, 
+  assessment_structure = assessment_structure)
+```
+
+### Route chart for the `pool_difficulty_percentile` transition policy condition
+
+```{r, message = FALSE}
+plotModuleRoutes(
+  examinee_list        = maat_output_difficulty, 
+  assessment_structure = assessment_structure)
+```
+
+
+## Scatterplot
+
+* Plot the true $\theta$ against the estimated $\theta$ across fall, spring, and winter test administrations.
+* The argumnents of the `plot()` functions: 
+  * `x` is the output object produced by `maat()`.
+  * `theta_range` is the $\theta$ ranged used for the scatterplot.
+  * `main` is the vector of titles for the plots
+
+### Scatterplot for the `CI` transition policy condition
+
+```{r}
+plot(
+  x           = maat_output_CI, 
+  theta_range = c(-4, 4), 
+  main        = c("Fall", "Spring", "Winter"))
+```
+
+### Scatterplot for the `pool_difficulty_percentile` transition policy condition
+
+```{r}
+plot(
+  x           = maat_output_difficulty, 
+  theta_range = c(-4, 4), 
+  main        = c("Fall", "Spring", "Winter"))
+```
+
 
 # References
