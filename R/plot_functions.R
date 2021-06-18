@@ -526,7 +526,7 @@ setMethod(
         xlim = theta_range,
         ylim = theta_range,
         xlab = "True theta",
-        ylab = "Estimated theta for routing",
+        ylab = "Estimated theta",
         main = main[test]
       )
       lines(
