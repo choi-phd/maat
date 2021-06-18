@@ -15,7 +15,7 @@ createAssessmentStructure(
 \arguments{
 \item{n_test}{a numeric, the number of test administrations.}
 
-\item{n_phase}{a numeric, the number of phases within stages.}
+\item{n_phase}{a numeric, the number of phases within each test.}
 
 \item{route_limit_below}{the number of grades to allow routing below, relative to the grade of record. If the grade of record is G4 and this is 1, then routing to G3 is allowed but not to G2.}
 

@@ -9,7 +9,7 @@ excludeAdministeredItems(constraints, administered_items)
 \arguments{
 \item{constraints}{a \code{\linkS4class{constraints}} object.}
 
-\item{administered_items}{item names of previously administered items to newly add as exclusion constraints.}
+\item{administered_items}{item names of previously administered items.}
 }
 \value{
 a \code{\linkS4class{constraints}} object that also constrains the administered items to be excluded.
