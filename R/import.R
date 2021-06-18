@@ -4,7 +4,7 @@
 #' @importFrom DiagrammeR grViz
 #' @importFrom MASS mvrnorm
 #' @importFrom stats qnorm cor sd na.omit quantile dnorm
-#' @importFrom graphics abline lines points rect text
+#' @importFrom graphics abline lines points rect text box par
 #' @importFrom glue glue
 #' @importFrom utils read.csv packageVersion head tail
 #' @importFrom TestDesign Shadow createShadowTestConfig
