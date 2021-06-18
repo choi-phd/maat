@@ -8,7 +8,7 @@ NULL
 #'
 #' \code{\link{simTheta}} calls \code{\link{mvrnorm}} internally.
 #'
-#' @param N the number of samples to generate.
+#' @param N the number of examinees.
 #' @param mean_v a vector containing the mean of each dimension.
 #' @param sd_v a vector containing the standard deviation of each dimension.
 #' @param cor_v a correlation matrix.
@@ -37,14 +37,14 @@ simTheta <- function(N, mean_v, sd_v, cor_v) {
 #'
 #' Each dimension of \code{mean_v}, \code{sd_v}, \code{cor_v} represents a test level. For example in a three-test structure (see the \code{assessment_structure_math} example data), these arguments must have three dimensions.
 #'
-#' @param N the number of examinees to generate.
+#' @param N the number of examinees.
 #' @param mean_v a vector containing the mean of each dimension.
 #' @param sd_v a vector containing the standard deviation of each dimension.
 #' @param cor_v a correlation matrix.
 #' @param assessment_structure an \code{\linkS4class{assessment_structure}} object. This can be created using \code{\link{createAssessmentStructure}}.
-#' @param initial_grade the initial grade to use for all examinees. The grade must exist in \code{module_list}. (default = \code{G4})
-#' @param initial_phase the initial phase to use for all examinees. The phase must exist in \code{module_list}. (default = \code{P1})
-#' @param initial_test the initial test to use for all examinees. (default = \code{T1})
+#' @param initial_grade the initial grade for all examinees. The grade must exist in \code{module_list}. (default = \code{G4})
+#' @param initial_phase the initial phase for all examinees. The phase must exist in \code{module_list}. (default = \code{P1})
+#' @param initial_test the initial test for all examinees. (default = \code{T1})
 #'
 #' @examples
 #' assessment_structure <- createAssessmentStructure(

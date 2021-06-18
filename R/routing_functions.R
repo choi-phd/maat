@@ -230,10 +230,10 @@ updateThetaForRouting <- function(examinee_object, current_module_position, comb
 #' \item{\code{on_grade}} does not permit any transition.
 #' \item{} (default = \code{CI})
 #' }
-#' @param transition_CI_alpha the alpha level to use when \code{transition_policy == "CI"}.
-#' @param transition_percentile_lower the percentile value (between 0 and 1) to use for the lower routing. Used in percentile-based transition policies.
-#' @param transition_percentile_upper the percentile value (between 0 and 1) to use for the upper routing, Used in percentile-based transition policies.
-#' @param item_pool the \code{\linkS4class{item_pool}} object to determine difficulty range. Used in percentile-based transition policies.
+#' @param transition_CI_alpha the alpha level used when \code{transition_policy == "CI"}.
+#' @param transition_percentile_lower the percentile value (between 0 and 1) used for the lower routing in percentile-based transition policies.
+#' @param transition_percentile_upper the percentile value (between 0 and 1) used for the upper routing in percentile-based transition policies.
+#' @param item_pool the \code{\linkS4class{item_pool}} object to determine difficulty range in percentile-based transition policies.
 #'
 #' @return an \code{\linkS4class{examinee}} object with its \code{current_grade} slot updated.
 #'
