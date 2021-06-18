@@ -7,7 +7,7 @@ NULL
 #' that excludes administered items from being selected.
 #'
 #' @param constraints a \code{\linkS4class{constraints}} object.
-#' @param administered_items item names of previously administered items to newly add as exclusion constraints.
+#' @param administered_items item names of previously administered items.
 #'
 #' @return a \code{\linkS4class{constraints}} object that also constrains the administered items to be excluded.
 #'
