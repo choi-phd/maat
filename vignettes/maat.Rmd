@@ -508,7 +508,7 @@ plotModuleRoutes(
 * Plot the true $\theta$ against the estimated $\theta$ across fall, spring, and winter test administrations.
 * The argumnents of the `plot()` functions: 
   * `x` is the output object produced by `maat()`.
-  * `theta_range` is the $\theta$ ranged used for the scatterplot.
+  * `theta_range` is the $\theta$ range used for the scatterplot.
   * `main` is the vector of titles for the plots
 
 ### Scatterplot for the `CI` transition policy condition
