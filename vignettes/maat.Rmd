@@ -28,10 +28,10 @@ library(kableExtra)
 
 # Introduction
 
-The **maat** package performs adaptive testing based on the assessment framework involving multiple tests administered throughout the year using multiple item pools vertically scaled and multiple phases within each administration allowing for transitioning from one item pool (and associated constraints) to another as determined necessary according to a prespecified transition policy to enhance the quality of measurement. Each module is an adaptive test assembled dynamically using the shadow-test approach to CAT, based on an item pool and test blueprint constraints. The current version of **maat** supports an assessment design involving three tests/administrations (e.g. Fall, Winter, and Spring) with two phases within each administration (Phase 1 and Phase 2), so that a student takes six modules in total throughout the year. As a result, the assessment is adaptive in multiple levels:
+The **maat** package performs adaptive testing based on the assessment framework involving multiple tests administered throughout the year using multiple item pools vertically scaled and multiple phases within each administration allowing for transitioning from one item pool (and associated constraints) to another as determined necessary according to a prespecified transition policy to enhance the quality of measurement. Each phase or module is an adaptive test assembled dynamically using the shadow-test approach to CAT, based on an item pool and test blueprint constraints. The current version of **maat** supports an assessment design involving three tests/administrations (e.g. Fall, Winter, and Spring) with two phases within each administration (Phase 1 and Phase 2), so that a student takes six modules in total throughout the year. As a result, the assessment is adaptive in multiple levels:
 
-* Within a module items are selected adaptively
-* Between modules within a test item pools are selected adaptively
+* Within a phase items are selected adaptively
+* Between phases within a test item pools are selected adaptively
 * Between tests/administrations item pools are selected adaptively
 
 # Assessment Structure
@@ -40,31 +40,31 @@ The **maat** package performs adaptive testing based on the assessment framework
 include_graphics("assessment.png")
 ```
 
-An assessment under the Through-Year DMST design has the following structure.
+An assessment under the multiple administrations adaptive testing design has the following structure.
 
-* **Assessment**: An assessment is composed of three administrations (Fall, Winter, and Spring).
-* **Administration(Test)**: Each administration is composed of two phases (Phase 1, Phase 2).
-* **Phase**: Each phase has its own item pool and content constraints to be used in assembly.
+* **Assessment**: An assessment is comprised of multiple administrations over time, with the current version supporting three administrations (e.g., Fall, Winter, and Spring).
+* **Administration (Test)**: Each administration consists of two phases (Phase 1 and Phase 2) between which transitions to a higher/lower item pool are permitted if needed. Transitions to a higher/lower item pool can also occur between administrations. 
+* **Phase**: Each phase involves its own item pool and test specifications (manifested as constraints) to be used in assembly.
 * **Module**: Three administrations * two phases give six modules in total.
-  * A student takes six modules in the entire assessment.
-  * In each module, a fixed-length adaptive test is assembled in real time.
+  * Each student takes six modules across three administrations within the assessment.
+  * In each module, a fixed-length adaptive test is assembled in real time using the shadow-test approach to CAT.
 
 * **Number of item pools required for the entire assessment**
-  * For the entire assessment, an item pool is required for each grade and each phase. For example, if the range that a student can be routed is Grades 1-5, then a total of 10 item pools are required for the entire assessment.
-  * Assuming the student remains on the same grade, Fall Phase 1, Winter Phase 1, Spring Phase 1 all use the same item pool and constraints for assembly. The same holds for Fall Phase 2, Winter Phase 2, and Spring Phase 2.
+  * For the full assessment, an item pool is required for each grade in the range. For example, if the range that 4th grade (G4) students can be routed is G3-G6, then all four item pools (G3, G4, G5, and G6) are required for the assessment.
+  * Students begin the first module of the first test (e.g., Fall Phase 1) with an item pool (and test specifications) corresponding to their grade of record. Students are assessed with the same item pool for the entire assessment if their ability estimates remain within the measurement range of the item pool. Otherwise, they are routed to a higher/lower item pool upon completing a module. 
 
-* **Routing policy**: Based on a routing policy, students are routed to a grade level after completing each module.
+* **Routing policy**: Based on a routing policy (described in detail below), students are routed to a grade level after completing each module.
 
 # Assumptions
 
-Several assumptions are made to support the Through-Year DMST design.
+Several assumptions are made to support the multiple administrations adaptive testing design.
 
 * **Item Pool**:
   * The set of reporting domains (e.g., Geometry, Algebra) are shared across grades.
-  * Items in the item pools across grades are vertically scaled and articulated. For all $G$,
-    *	The mean item difficulty of grade $G-1$ pool is lower than grade $G$ pool.
-    *	The minimum item difficulty of grade $G-1$ pool is lower than grade $G$ pool.
-    *	The maximum item difficulty of grade $G-1$ pool is lower than grade $G$ pool.
+  * Items in the item pools across grades are vertically scaled and articulated. For all $G=4, 5, \dots$,
+    *	the mean item difficulty of grade $G-1$ pool is lower than grade $G$ pool.
+    *	the minimum item difficulty of grade $G-1$ pool is lower than grade $G$ pool.
+    *	the maximum item difficulty of grade $G-1$ pool is lower than grade $G$ pool.
   * Item parameters from Phase 1 and Phase 2 are on the same metric, and thus can be combined to develop a single ability estimate of the student.
   * Domain scores are computed based on item scores from Phase 1 and Phase 2 combined as the final, domain level reporting category subscores.
   * The vertical scale is robust and well-articulated across the grades.
@@ -76,15 +76,15 @@ Several assumptions are made to support the Through-Year DMST design.
 
 # Module Assembly
 
-This section describes how a single module is assembled.
+A module is an adaptive test constructed under the shadow-test framework. This section describes how each module is assembled.
 
 ## Content Balancing Algorithm
 
-The shadow-test approach to CAT [@van_der_linden_model_1998, @choi_ensuring_2018] was developed to balance the test content across examinees. The shadow-test approach uses the methodology of mixed-integer programming (MIP) to simultaneously select a full set of items conforming to all content constraints and yet optimal (most informative).
+The shadow-test approach to CAT [@van_der_linden_model_1998, @choi_ensuring_2018] was developed to balance the need for sequential and simultaneous optimization in constrained CAT. The shadow-test approach uses the methodology of mixed-integer programming (MIP) to simultaneously select a full set of items conforming to all content constraints and yet optimal (e.g., most informative).
 
 Given the item pool and test specifications/constraints, the shadow-test approach to CAT assembles a full-length test form, called a shadow test, using MIP for each item position upon updating interim $\theta$ estimates, $\theta_{k}$, $k = 1,2,...,n$, where $n$ is the test length. The optimal test assembly engine uses MIP to construct shadow tests optimized for the interim $\theta$ estimates and conforming to all specifications and requirements, encompassing content constraints, exposure control, and other practical constraints. The cycle is repeated until the intended test length $n$ has been reached.
 
-The methods by which the shadow-test approach formulate test assembly problems as constrained combinatorial optimization have been documented in [@van_der_linden_linear_2005] and implemented in the \code{TestDesign} package. Refer to [@choi_ensuring_2018] for more information about how the shadow-test approach creates an adaptive test as a sequence of optimally constructed full-length tests.
+The methods by which the shadow-test approach formulates test assembly problems as constrained combinatorial optimization have been documented in [@van_der_linden_linear_2005] and implemented in the \code{TestDesign} package. Refer to [@choi_ensuring_2018] for more information about how the shadow-test approach creates an adaptive test as a sequence of optimally constructed full-length tests.
 
 ## Item Selection Criteria
 
@@ -96,15 +96,16 @@ $$
 I_{i}(\hat{\theta})x_{i}
 $$
 
-where $I_{i}(\hat{\theta})$ is the Fisher information for Item $i$ at an estimated $\theta$ value. It is also possible to add a random component to the objective function to reduce the overexposure of highly informative items for some or all item positions within a test. For example, the progressive method [@revuelta_comparison_1998] can be incorporated into the objective function so that at the beginning of the test the objective function combines a random component with item information and as the test progresses the random component is reduced proportionately. 
+where $I_{i}(\hat{\theta})$ is the Fisher information for Item $i$ at an estimated $\theta$ value. It is also possible to add a random component to the objective function to reduce the overexposure of highly informative items for some or all item positions within a test. For example, the progressive method [@revuelta_comparison_1998] can be incorporated into the objective function so that at the beginning of the test the objective function combines a random component with item information and as the test progresses the random component is reduced proportionately.
+
 Upon constructing/updating a shadow test, a single item is selected to be administered. Selecting an item from a shadow test is typically done by selecting the most informative item in the shadow test that has not been administered, as
 
 $$
 \text{arg} \max_{i\,\in\,R}
-I_{i}(\hat{\theta})
+I_{i}(\hat{\theta}),
 $$
 
-where $R$ indicates the set of items in the current shadow test that has not been administered to the examinee. When the test is comprised of item sets (e.g., reading passages), selecting a passage should precede selecting an item, which can be based on the average item information within each passage. Once a passage is selected, typically multiple items are selected before moving on to another passage.
+where $R$ indicates the set of items in the current shadow test that has not been administered to the examinee. When the test is comprised of item sets (e.g., reading passages), selecting a passage should precede selecting an item, which can be based on the average item information within each passage. Once a passage is selected, typically multiple items are selected before moving onto another passage.
 
 ## How Passages Are Selected
 
@@ -118,7 +119,7 @@ For the next shadow test, previously administered items and passages, and the cu
 
 ## Exposure Control
 
-The maximum-information item-selection criterion causes overexposure of a small proportion of items while underexposing the rest. The shadow-test approach mitigates the problem by adding random item eligibility constraints to the test-assembly model so that item with higher exposure rates have higher probabilities of being temporarily ineligible. The `TestDesign` package implements the conditional item eligibility control method recently improved and extended [@van_der_linden_improving_2019]. For each examinee the `TestDesign` engine determines which items to constrain as temporarily ineligible from the item pool for the examinees. The engine can also monitor the probabilities of ineligibility for all items conditional on different theta levels such that the exposure rates for all items in the pool are tightly controlled within and across different theta segments (intervals) and bound below a maximum exposure rate set *a priori* (e.g., $r^{\max}=0.25$).
+The maximum-information item-selection criterion causes overexposure of a small proportion of items while underexposing the rest. The shadow-test approach mitigates the problem by adding random item eligibility constraints to the test-assembly model so that item with higher exposure rates have higher probabilities of being temporarily ineligible. The `TestDesign` package implements the conditional item eligibility control method recently improved and extended [@van_der_linden_improving_2019]. For each examinee the `TestDesign` engine determines which items to constrain as temporarily ineligible from the item pool for the examinee. The engine can also monitor the probabilities of ineligibility for all items conditional on different theta levels such that the exposure rates for all items in the pool are tightly controlled within and across different theta segments (intervals) and bound below a maximum exposure rate set *a priori* (e.g., $r^{\max}=0.25$).
 
 More specifically, for each new examinee, prior to the administration of the test, the item eligibility control method conducts Bernoulli experiments (by theta segment) for the items in the pool to determine their eligibility for administration with probabilities updated as a function of the actual exposure rates of the items. For any items determined to be ineligible additional constraints are included in the test assembly model as follows:
 
@@ -135,17 +136,17 @@ $$
 \leq
 \frac{r^{\max}}
 {\text{Pr}\{A_i | \theta\}}
-\text{Pr}\{E_i | \theta\}
+\text{Pr}\{E_i | \theta\},
 $$
 
 where $\text{Pr}\{E_i | \theta\}$ is the conditional eligibility probability for item $i$ given $\theta \in \theta_g$; and $\text{Pr}\{A_i | \theta\}$ is the conditional exposure probability (rate) for the item. Theoretically, $\text{Pr}\{A_i | \theta\}$ can be updated continuously as each examinee finishes the test. Assuming $l = 1,2,\dots$ denote the sequence of examinees taking the test. The conditional item-eligibility probabilities can be updated continuously as:
 
 $$
-\text{Pr}^{l+1}{E_{i}|\theta} = \min
+\text{Pr}^{l+1}\{E_{i}|\theta\} = \min
   \bigg\{
     \frac{r^{\max}}
-    {\text{Pr}^{l}{A_{i}|\theta}}
-    \text{Pr}^{l}{E_{i}|\theta}, 1
+    {\text{Pr}^{l}\{A_{i}|\theta\}}
+    \text{Pr}^{l}\{E_{i}|\theta\}, 1
   \bigg\}
 $$
 
@@ -153,10 +154,10 @@ However, in the context of a large number of concurrent test instances updating 
 
 ## Overlap Control
 
-Overlap control might be needed to prevent or reduce the intra-individual overlap in test content across administrations. The item eligibility control method can be used to make all items previously seen by the examinee ineligible for the current administration by imposing constraints similarly as
+Overlap control might be needed to prevent or reduce the amount of intra-individual overlap in test content across administrations. The item eligibility control method can be used to make all items previously seen by the examinee ineligible for the current administration by imposing constraints similarly as
 
 $$
-\sum_{i\,\in\,S_{j}}{x_{i}} = 0
+\sum_{i\,\in\,S_{j}}{x_{i}} = 0,
 $$
 
 where $s_j$ denotes the set of items Examinee $j$ has seen prior to the current administration. Imposing these hard constraints can unduly limit the item pool and potentially affect the quality of measurement. To avoid infeasibility and degradation of measurement, we can impose soft constraints in the form of a modification to the maximum information objective function as
@@ -165,7 +166,7 @@ $$
 \text{maximize}
   \sum_{i\,=\,1}^{I}I_{i}{(\theta) x_{i}}
   \, – \,
-  M \sum_{i\,\in\,s_{j}}{x_{i}}
+  M \sum_{i\,\in\,s_{j}}{x_{i}},
 $$
 
 where $M$ is a penalty for selecting an item from $s_j$ the subset of items previously administered to Examinee $j$. This modification to the objective function can effectively deter the selection of previously administered items unless absolutely necessary for feasibility of the model.
@@ -174,9 +175,9 @@ Although the same item eligibility constraints for inter-individual exposure con
 
 The **maat** package uses hard constraints to perform overlap control. Three options are available:
 
-* `all`: If a student sees an item, then the item is excluded from shadow tests in all following modules. For example, if a student sees an item in Phase 1 Administration 1, then the item is excluded in Phase 2 Administration 1 and all subsequent phases and administrations. In passage-based assembly, if a student sees at least one item from a passage, then the passage is excluded from shadow tests in all following modules.
-* `within-test`: If a student sees an item, then the item is excluded from shadow tests in following phases within current administration. The item is again made available in following administrations. For example, if a student sees an item in Phase 1 Administration 1, then the item is excluded in Phase 2 Administration 1 but is made available in Phase 1 Administration 2. Similar is done for passage-based assembly.
-* `none`: A student can see any item twice in any phases and administrations. For example, if a student sees an item in Phase 1 Administration 1, the student can see the same item in Phase 2 Administration 1.
+* `all`: If a student sees an item, then the item is excluded from shadow tests in all subsquent modules. For example, if a student sees an item in Phase 1 Administration 1, then the item is excluded in Phase 2 Administration 1 and all subsequent phases and administrations. In passage-based assembly, if a student sees at least one item from a passage, then the entire passage is excluded from shadow tests in all following modules.
+* `within-test`: If a student sees an item, then the item is excluded from shadow tests in following phases within the current administration. The item is again made available in the subsequent administrations. For example, if a student sees an item in Phase 1 Administration 1, then the item is excluded in Phase 2 Administration 1 but is made available in Phase 1 Administration 2. Similar is done for passage-based assembly.
+* `none`: A student can see any item twice (or more) in any phases and administrations. For example, if a student sees an item in Phase 1 Administration 1, the student can see the same item in Phase 2 Administration 1.
 
 ## Stopping Rule
 
@@ -184,7 +185,7 @@ The stopping rule describes the criteria used to terminate a CAT. The stopping r
 
 ## Ability Estimation
 
-The **maat** package supports EAP, MLE and MLEF in the `TestDesign` package for $\theta$ estimation. The estimation method must be specified in `createShadowTestConfig()`.
+The **maat** package supports EAP, MLE and MLEF available in the `TestDesign` package for $\theta$ estimation. The estimation method must be specified in `createShadowTestConfig()`.
 
 The MLE and MLEF methods in `TestDesign` has extra fallback routines for performing CAT:
 
@@ -193,14 +194,14 @@ The MLE and MLEF methods in `TestDesign` has extra fallback routines for perform
 
 In a `maat()` simulation, two types of ability estimates are obtained after completing each module.
 
-* The **Phase-wise** estimate is obtained by only using the response from the current module. For example, after completing Phase 2 Administration 1 which had 20 items, the phase-wise estimate is computed from a 20-item response vector.
-* The **Administration-wise** estimate is obtained by using the response from the all modules in the current administration. For example, after completing Phase 2 Administration 2 which had 20 items, and the Phase 1 Administration 2 had 10 items, the administration-wise estimate is computed from 30 items. This is always performed regardless of the `combine_policy` option in `maat()`. The `combine_policy` option is implemented in a way that it selects which type of estimate to use for routing, after computing both phase-wise and administration-wise estimates.
+* The **Phase-wise** estimate is obtained by only using the response from the current module. For example, after completing Phase 2 Administration 1, which say had 20 items, the phase-wise estimate is computed based on a 20-item response vector.
+* The **Administration-wise** estimate is obtained by using the responses from both modules in the current administration. For example, after completing Phase 2 Administration 2 with 20 items and the Phase 1 Administration 2 with 15 items, the administration-wise estimate is computed based on all 35 items. This is always performed regardless of the `combine_policy` option in `maat()`. The `combine_policy` option is implemented to determine which type of ability estimate to use for routing, after computing both phase-wise and administration-wise ability estimates.
 
-In each module, the initial estimate that is in place before administering the first item in the model, is the final routing estimate from the previous module. The initial estimates can be manually specified for each examinee and for each module by supplying a list to the `initial_theta_list` argument in `maat()`. The list must be accessible using `initial_theta_list[[module_index]][[examinee_id]]`. In the example assessment structure in this document, `module_index` ranges from 1 to 6. The value of `examinee_id` is a string that is used in the `examinee_list` object.
+In each module (except for the very first), the initial estimate that is in place before administering the first item, is the final routing estimate from the previous module. The initial estimates can be manually specified for each examinee and for each module by supplying a list to the `initial_theta_list` argument in `maat()`. The list must be accessible using `initial_theta_list[[module_index]][[examinee_id]]`. In the example assessment structure in this document, `module_index` ranges from 1 to 6. The value of `examinee_id` is a string that is used in the `examinee_list` object.
 
 # Routing Policy
 
-Transitioning between phases (phases) and between tests are governed by the rules described in this section. These so-called transition rules are generally based on theta estimates (and confidence intervals) and the cut-scores defining the performance levels for each grade. There are also restrictions that override the rules. Two routing rules are implemented in the **maat** package: Confidence Interval Approach and Difficulty Percentile Approach.
+Transitioning between phases and between tests are governed by the rules described in this section. These so-called transition rules are generally based on theta estimates (and confidence intervals) and the cut-scores defining the performance levels for each grade. There are also restrictions that override the general rules. Two routing rules are implemented in the **maat** package: Confidence Interval Approach and Difficulty Percentile Approach.
 
 ## Cut Scores
 
@@ -251,9 +252,11 @@ The routing structure is now described. Let $G$ denote the grade of record of a 
   * **Restriction R3**: If grade is $G + k$ in Phase 2 of Administration $k$:
     * If achievement level is Advanced, change grade by $0$.
 
-* As a result of these restrictions, a student can be routed to $G - 1$ at a minimum and $G + 2$ at a maximum. For example, a $G = 4$ student can be potentially routed to grades 3-6. A $G = 4$ student can never be routed to grades 7 and above in any module.
+* As a result of these restrictions, a student can be routed to $G - 1$ at a minimum and $G + 2$ at a maximum. For example, a $G = 4$ student can be potentially routed to grades 3-6. A $G = 4$ student can never be routed to grades 7 and above or below 3 in any module.
 
 ## Routing Sturcture Diagram
+
+The following diagrams visually summarize the permissible routing paths between modules and tests. The paths highlighted in red are due to the restrictions described above.
 
 ### Test 1 to 2
 
@@ -283,12 +286,14 @@ include_graphics("routing_T3.png")
 
 The student is routed based on the performance in each phase. The performance is quantified not as a point estimate of $\theta$, but as a confidence interval. The confidence interval approach [@kingsbury_comparison_1983, @eggen_computerized_2000] can be used with MLE scoring [@yang_effects_2006] and can easily extended to multiple cut scores [@thompson_practitioners_2007].
 
-In the confidence interval approach, the lower and upper boundaries of the routing theta is computed as 
+In the confidence interval approach, the lower and upper bounds of the routing theta is computed as 
 
-$$\hat{\theta_{L}} = \hat{\theta} - z_{\alpha} * SE(\theta)$$
-$$\hat{\theta_{U}} = \hat{\theta} + z_{\alpha} * SE(\theta)$$
+$$\hat{\theta_{L}} = \hat{\theta} - z_{\alpha} * SE(\theta),$$
+and
 
-where $z_{\alpha}$ is the normal deviate corresponding to a $1 - \alpha$ confidence interval, $\hat{\theta}$ is the routing theta, and $\hat{\theta_{L}}$ and $\hat{\theta_{U}}$ are lower and upper boundary thetas.
+$$\hat{\theta_{U}} = \hat{\theta} + z_{\alpha} * SE(\theta),$$
+
+where $z_{\alpha}$ is the normal deviate corresponding to a $1 - \alpha$ confidence interval, $\hat{\theta}$ is the routing theta, and $\hat{\theta_{L}}$ and $\hat{\theta_{U}}$ are lower and upper boundary theta values.
 
 Once boundary values are calculated, $\hat{\theta_{L}}$ and $\hat{\theta_{U}}$ are used to identify the achievement level of the student as:
 
@@ -299,7 +304,7 @@ Once boundary values are calculated, $\hat{\theta_{L}}$ and $\hat{\theta_{U}}$ a
 
 ## Difficulty Percentile Routing
 
-In difficulty percentile routing, presupplied cut scores are ignored. Instead, cut scores are determined based on item difficulty parameters of the current item pool for the module.
+In difficulty percentile routing, prespecified cut scores are ignored. Instead, cut scores are determined based on item difficulty parameters of the current item pool for the module.
 
 * $\tau_1$, the first cut score, is calculated as $p$-th percentile value of item difficulty parameters.
 * $\tau_2$, the second cut score that separates Developing and Proficient levels, is ignored.
@@ -314,11 +319,11 @@ Once cut scores are calculated, the routing theta $\hat{\theta}$ is used to iden
 
 # Using the package
 
-This section explains how to use **maat** package.
+This section explains how to use the **maat** package.
 
-## Create assessment structure
+## Create Assessment Structure
 
-The first step is to define the assessment structure using `createAssessmentStructure()`. Here, we use 3 tests with 2 phases in each test. Route limits are specified to 1 below and 2 above to match the assessment structure diagram shown above.
+The first step is to define an assessment structure using the `createAssessmentStructure()` function. In what follows, we specify 3 tests with 2 phases in each test. Route limits are specified to 1 below and 2 above to match the assessment structure diagram shown above. That is, for students in grade $G$, routing is limited to item pools between $G-1$ and $G+2$.
 
 ```{r, results = "hide"}
 assessment_structure <- createAssessmentStructure(
@@ -338,8 +343,8 @@ cor_v <- matrix(.8, 3, 3)
 diag(cor_v) <- 1
 
 examinee_list <- simExaminees(
-  N = 10,
-  mean_v = c(0, 0, 0),
+  N = 100,
+  mean_v = c(0, 0.5, 1.0),
   sd_v   = c(1, 1, 1),
   cor_v  = cor_v,
   assessment_structure = assessment_structure,
@@ -349,20 +354,22 @@ examinee_list <- simExaminees(
 )
 ```
 
-Each argument is used as below:
+For each examinee we simulate three true theta values, one for each test administration. In the example above, the true theta values are drawn from a multivariate normal distribution, specified by a variance-covariance matrix with all covariances between thetas are set to $0.8$ and all variance to $1.0$. 
+
+Each argument of `simExaminees()` is defined as follows:
 
 * `N` is the number of examinees to simulate.
-* `mean_v` is the mean theta to use in generating $\theta$ values. This must be a three value vector, each corresponding to each administration.
-* `sd_v` is the standard deviation to use in generating $\theta$ values. This must be a three value vector, each corresponding to each administration.
+* `mean_v` is the mean theta to use in generating $\theta$ values. This must be a vector of three values, each element corresponding to each administration.
+* `sd_v` is the standard deviation to use in generating $\theta$ values. This must be a vector of three values, each corresponding to each administration.
 * `cor_v` is the correlation structure to use in generating $\theta$ values. This must be a 3*3 matrix, each dimension corresponding to each administration.
 * `assessment_structure` is the assessment structure object created previously using `createAssessmentStructure()`.
 * `initial_grade` is the grade of record to use for all examinees. This must be in the format `G?`, where `?` is a number.
 * `initial_phase` is the phase that all examinees are placed in the beginning of the assessment. This must be in the format `P?`, where `?` is a number.
 * `initial_test` is the administration that all examinees are placed in the beginning of the assessment. This must be in the format `T?`, where `?` is a number.
 
-## Load module specification sheet
+## Load Module Specification Sheet
 
-The next step is to load the module specification sheet using `loadModules()`. The **maat** package allows for using different item pools and constraints across different stages of testing. This requires a module specification sheet that contains which item pools and constraints are used for each grade and each phase. An example module specification sheet is displayed below:
+The next step is to load the module specification sheet using `loadModules()`. The **maat** package allows for using different item pools and constraints across different stages of testing. This requires a module specification sheet that contains which item pools and constraints are used for each grade and phase. An example module specification sheet is displayed below:
 
 ```{r, echo = FALSE}
 fn <- system.file("extdata", "module_definition_MATH_normal_N500.csv", package = "maat")
@@ -375,10 +382,10 @@ The sheet must have seven columns.
 1. **Grade** The grade level. This must be in the form of `G?`, where `?` is a number.
 2. **Phase** The phase level. This must be in the form of `P?`, where `?` is a number.
 3. **Module** The module ID string.
-4. **Constraints** The file path of constraints data. This must be readable by `loadConstraints()` in `TestDesign` package.
+4. **Constraints** The file path of constraints data. This must be readable by `loadConstraints()` in the `TestDesign` package.
 5. **ItemPool** The file path of item pool data. This must be readable by `loadItemPool()` in `TestDesign` package.
-6. **ItemAttrib** The file path of item attributes data. This must be readable by `loadItemAttrib()` in `TestDesign` package.
-7. **PassageAttrib** (Optional) The file path of passage attributes data. This must be readable by `loadStAttrib()` in `TestDesign` package.
+6. **ItemAttrib** The file path of item attributes data. This must be readable by `loadItemAttrib()` in the `TestDesign` package.
+7. **PassageAttrib** (Optional) The file path of passage attributes data. This must be readable by `loadStAttrib()` in the `TestDesign` package.
 
 Load the module specification sheet using `loadModules()`.
 
@@ -397,7 +404,7 @@ module_list <- loadModules(
 * `examinee_list`: The examinee list object created above using `simExaminees()`. This is used to determine required modules.
 * `base_path`: The value of this argument is pasted to the beginning of file paths in the sheet. In the above example, if `base_path` is `inst` then the function will attempt to read `inst/extdata/constraints_MATH8_P2.csv`.
 
-## Load cut scores
+## Load Cut Scores
 
 Cut scores must be stored in a list object. For each grade, at least two cut scores must exist. When the number of cut scores for a single grade is more than two, only the first and the last entry is used. An example is given below:
 
@@ -412,7 +419,7 @@ cut_scores <- list(
 )
 ```
 
-## Create shared config
+## Create Shared Config
 
 The next step is to create a config object using `createShadowTestConfig()` in the `TestDesign` package. The final theta estimation method in `final_theta$method` must be `EAP`, `MLE` or `MLEF`.
 
@@ -423,7 +430,7 @@ config <- createShadowTestConfig(
 )
 ```
 
-## Run the main simulation
+## Run the Main Simulation
 
 The final step is to run the main simulation using `maat()`.
 
@@ -463,21 +470,21 @@ maat_output_difficulty <- maat(
 * `config` is the shared config object created above.
 * `cut_scores` is the cut scores list object created above.
 * `overlap_control_policy` specifies the type of overlap control.
-  * `all` performs overlap control across administrations. This forbids an item to be given more than once within each administration, and also forbids an item to be given more than once across administrations.
+  * `all` performs overlap control across administrations. This forbids an item to be given more than once within each administration or across administrations.
   * `within_test` performs overlap control within each administration. This forbids an item to be given more than once within each administration, but this still allows an item to be given more than once across administrations.
-  * `none` does not perform overlap control. This allows an item to be given more than once within each administration, and also allows an item to be given more than once across administrations.
+  * `none` does not perform overlap control. This allows an item to be given more than once within each administration and across administrations.
 * `transition_policy` specifies the type of grade transition policy.
-  * `CI` uses confidence interval to perform routing between grades.
+  * `CI` uses confidence intervals on theta estimates to perform routing between modules.
   * `pool_difficulty_percentile` uses item difficulty percentiles of all items in the current item pool to perform routing.
   * `pool_difficulty_percentile_exclude_administered` uses item difficulty percentiles of all items in the current item pool, excluding items administered to the examinee, to perform routing.
-  * `on_grade` makes all examinees to remain in the grade of record.
+  * `on_grade` makes all examinees to remain in the item pool for the grade of record.
 * `combine_policy` specifies which type of theta is used to perform routing. This is only utilized at the end of each administration.
   * `conditional` uses the combined theta estimate (obtained from combining Phase 1 and Phase 2 responses) as the routing theta, if the examinee was in the same grade in Phase 1 and Phase 2. If the examinee was in different grades in Phase 1 and 2, then Phase 2 estimate is used as the routing theta.
   * `always` uses the combined theta estimate as the routing theta.
   * `never` uses the Phase 2 estimate as the routing theta.
-* `transition_CI_alpha` is the alpha level to use in CI-based transition policy.
-* `transition_percentile_lower` is the percentile value to use in difficulty-percentile-based transition policy.
-* `transition_percentile_upper` is the percentile value to use in difficulty-percentile-based transition policy.
+* `transition_CI_alpha` is the alpha level to use in conjunction with the CI-based transition policy.
+* `transition_percentile_lower` is the percentile value to use in conjunction with the difficulty-percentile-based transition policy.
+* `transition_percentile_upper` is the percentile value to use in conjunction with the difficulty-percentile-based transition policy.
 
 ## Plot the Module Routes
 
@@ -486,7 +493,7 @@ maat_output_difficulty <- maat(
   * `examinee_list` is the output object produced by `maat()`.
   * `assessment_structure` is the `assessment_structure` object.
 
-### Route chart for the `CI` transition policy condition
+### Route Diagram for the `CI` Transition Policy 
 
 ```{r, message = FALSE}
 plotModuleRoutes(
@@ -494,7 +501,7 @@ plotModuleRoutes(
   assessment_structure = assessment_structure)
 ```
 
-### Route chart for the `pool_difficulty_percentile` transition policy condition
+### Route Diagram for the `pool_difficulty_percentile` Transition Policy 
 
 ```{r, message = FALSE}
 plotModuleRoutes(
@@ -505,27 +512,27 @@ plotModuleRoutes(
 
 ## Scatterplot
 
-* Plot the true $\theta$ against the estimated $\theta$ across fall, spring, and winter test administrations.
-* The argumnents of the `plot()` functions: 
+* Plot the true $\theta$ against the estimated $\theta$ across test administrations.
+* The arguments of the `plot()` functions: 
   * `x` is the output object produced by `maat()`.
   * `theta_range` is the $\theta$ range used for the scatterplot.
   * `main` is the vector of titles for the plots
 
-### Scatterplot for the `CI` transition policy condition
+### Scatterplot for the `CI` Transition Policy
 
 ```{r}
 plot(
   x           = maat_output_CI, 
-  theta_range = c(-4, 4), 
+  theta_range = c(-3, 3), 
   main        = c("Fall", "Spring", "Winter"))
 ```
 
-### Scatterplot for the `pool_difficulty_percentile` transition policy condition
+### Scatterplot for the `pool_difficulty_percentile` Transition Policy 
 
 ```{r}
 plot(
   x           = maat_output_difficulty, 
-  theta_range = c(-4, 4), 
+  theta_range = c(-3, 3), 
   main        = c("Fall", "Spring", "Winter"))
 ```
 
