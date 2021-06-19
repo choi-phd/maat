@@ -523,7 +523,7 @@ plotModuleRoutes(
 ```{r}
 plot(
   x           = maat_output_CI, 
-  theta_range = c(-3, 3), 
+  theta_range = c(-4, 4), 
   main        = c("Fall", "Spring", "Winter"))
 ```
 
@@ -532,7 +532,7 @@ plot(
 ```{r}
 plot(
   x           = maat_output_difficulty, 
-  theta_range = c(-3, 3), 
+  theta_range = c(-4, 4), 
   main        = c("Fall", "Spring", "Winter"))
 ```
 
