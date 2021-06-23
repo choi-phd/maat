@@ -40,8 +40,7 @@
 
 
 <meta property="og:title" content="Simulate an examinee list — simExaminees" />
-<meta property="og:description" content="simExaminees is a function for generating a list containing N
-examinee objects." />
+<meta property="og:description" content="simExaminees is a function for generating a list containing examinee objects." />
 
 
 
@@ -118,8 +117,7 @@ examinee objects." />
     </div>
 
     <div class="ref-description">
-    <p><code>simExaminees</code> is a function for generating a list containing N
-<code><a href='examinee-class.html'>examinee</a></code> objects.</p>
+    <p><code>simExaminees</code> is a function for generating a list containing <code><a href='examinee-class.html'>examinee</a></code> objects.</p>
     </div>
 
     <pre class="usage"><span class='fu'>simExaminees</span><span class='op'>(</span>
@@ -138,7 +136,7 @@ examinee objects." />
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>N</th>
-      <td><p>the number of samples to generate.</p></td>
+      <td><p>the number of examinees.</p></td>
     </tr>
     <tr>
       <th>mean_v</th>
@@ -158,21 +156,21 @@ examinee objects." />
     </tr>
     <tr>
       <th>initial_grade</th>
-      <td><p>the initial grade to use for all examinees. The grade must exist in <code>module_list</code>. (default = <code>G4</code>)</p></td>
+      <td><p>the initial grade for all examinees. The grade must exist in <code>module_list</code>. (default = <code>G4</code>)</p></td>
     </tr>
     <tr>
       <th>initial_phase</th>
-      <td><p>the initial phase to use for all examinees. The phase must exist in <code>module_list</code>. (default = <code>P1</code>)</p></td>
+      <td><p>the initial phase for all examinees. The phase must exist in <code>module_list</code>. (default = <code>P1</code>)</p></td>
     </tr>
     <tr>
       <th>initial_test</th>
-      <td><p>the initial test to use for all examinees. (default = <code>T1</code>)</p></td>
+      <td><p>the initial test for all examinees. (default = <code>T1</code>)</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>Each dimension of `mean_v`, `sd_v`, `cor_v` represents a test level.</p>
+    <p>Each dimension of <code>mean_v</code>, <code>sd_v</code>, <code>cor_v</code> represents a test level. For example in a three-test structure (see the <code>assessment_structure_math</code> example data), these arguments must have three dimensions.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><span class='va'>assessment_structure</span> <span class='op'>&lt;-</span> <span class='fu'><a href='createAssessmentStructure.html'>createAssessmentStructure</a></span><span class='op'>(</span>
