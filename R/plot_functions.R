@@ -431,7 +431,11 @@ setMethod(
       main = sprintf("Examinee ID: %s", o@examinee_id),
       xlab = "Item position",
       ylab = "Interim theta")
-    abline(v = c(0, cumsum(n_items)) + 0.5, col = "grey", lty = 2)
+
+    # number of phases in a test is assumed to be 2
+    v <- c(0, cumsum(n_items)) + 0.5
+    abline(v = v[seq(1, length(v), 2)], col = "grey", lty = 1)
+    abline(v = v[seq(2, length(v), 2)], col = "grey", lty = 2)
 
     for (m in 1:6) {
       x_from <- c(0, cumsum(n_items))[m]
