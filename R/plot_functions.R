@@ -428,7 +428,9 @@ setMethod(
     plot(
       x_idx, interim_theta, type = 'n',
       xlim = range(x_idx), ylim = c(-5, 5),
-      main = sprintf("Examinee ID: %s", o@examinee_id))
+      main = sprintf("Examinee ID: %s", o@examinee_id),
+      xlab = "Item position",
+      ylab = "Interim theta")
     abline(v = c(0, cumsum(n_items)) + 0.5, col = "grey", lty = 2)
 
     for (m in 1:6) {
