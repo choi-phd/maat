@@ -342,6 +342,7 @@ The next step is to create an examinee list using `simExaminees()`. An example i
 cor_v <- matrix(.8, 3, 3)
 diag(cor_v) <- 1
 
+set.seed(1)
 examinee_list <- simExaminees(
   N = 10,
   mean_v = c(0, 0.5, 1.0),
@@ -426,6 +427,7 @@ The next step is to create a config object using `createShadowTestConfig()` in t
 ```{r, results = "hide", message = FALSE}
 library(TestDesign)
 config <- createShadowTestConfig(
+  interim_theta = list(method = "MLE"),
   final_theta = list(method = "MLE")
 )
 ```
@@ -437,6 +439,7 @@ The final step is to run the main simulation using `maat()`.
 * An illustration of the simulation for two of the transition policies: `CI` and `pool_difficulty_percentile`:  
 
 ```{r, results = "hide", message = FALSE}
+set.seed(1)
 maat_output_CI <- maat(
   examinee_list          = examinee_list,
   assessment_structure   = assessment_structure,
@@ -448,7 +451,7 @@ maat_output_CI <- maat(
   combine_policy         = "conditional",
   transition_CI_alpha    = 0.05
 )
-
+set.seed(1)
 maat_output_difficulty <- maat(
   examinee_list          = examinee_list,
   assessment_structure   = assessment_structure,
@@ -524,7 +527,7 @@ plotModuleRoutes(
 plot(
   x           = maat_output_CI, 
   theta_range = c(-4, 4), 
-  main        = c("Fall", "Spring", "Winter"))
+  main        = c("Fall", "Winter", "Spring"))
 ```
 
 ### Scatterplot for the `pool_difficulty_percentile` Transition Policy 
@@ -533,7 +536,7 @@ plot(
 plot(
   x           = maat_output_difficulty, 
   theta_range = c(-4, 4), 
-  main        = c("Fall", "Spring", "Winter"))
+  main        = c("Fall", "Winter", "Spring"))
 ```
 
 ## Audit plot
