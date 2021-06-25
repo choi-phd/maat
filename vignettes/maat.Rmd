@@ -498,19 +498,29 @@ maat_output_difficulty <- maat(
 
 ### Route Diagram for the `CI` Transition Policy 
 
-```{r, message = FALSE}
+```{r, message = FALSE, eval=FALSE}
 plotModuleRoutes(
-  examinee_list        = maat_output_CI, 
+  examinee_list        = maat_output_CI,
   assessment_structure = assessment_structure)
 ```
+
+```{r, echo = FALSE, out.width = "600px"}
+include_graphics("route1.jpeg")
+```
+
 
 ### Route Diagram for the `pool_difficulty_percentile` Transition Policy 
 
-```{r, message = FALSE}
+```{r, message = FALSE, eval=FALSE}
 plotModuleRoutes(
-  examinee_list        = maat_output_difficulty, 
+  examinee_list        = maat_output_difficulty,
   assessment_structure = assessment_structure)
 ```
+
+```{r, echo = FALSE, out.width = "600px"}
+include_graphics("route2.jpeg")
+```
+
 
 ## Scatterplot
 
@@ -524,8 +534,8 @@ plotModuleRoutes(
 
 ```{r}
 plot(
-  x           = maat_output_CI, 
-  theta_range = c(-4, 4), 
+  x           = maat_output_CI,
+  theta_range = c(-4, 4),
   main        = c("Fall", "Winter", "Spring"))
 ```
 
@@ -533,8 +543,8 @@ plot(
 
 ```{r}
 plot(
-  x           = maat_output_difficulty, 
-  theta_range = c(-4, 4), 
+  x           = maat_output_difficulty,
+  theta_range = c(-4, 4),
   main        = c("Fall", "Winter", "Spring"))
 ```
 
