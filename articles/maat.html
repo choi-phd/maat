@@ -71,8 +71,7 @@
       
 
       </header><script src="maat_files/accessible-code-block-0.0.1/empty-anchor.js"></script><script src="maat_files/kePrint-0.0.1/kePrint.js"></script><link href="maat_files/lightable-0.0.1/lightable.css" rel="stylesheet">
-<script src="maat_files/htmlwidgets-1.5.3/htmlwidgets.js"></script><script src="maat_files/viz-1.8.2/viz.js"></script><link href="maat_files/DiagrammeR-styles-0.2/styles.css" rel="stylesheet">
-<script src="maat_files/grViz-binding-1.0.6.1/grViz.js"></script><div class="row">
+<div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>maat: Multiple Administrations Adaptive Testing</h1>
@@ -972,20 +971,18 @@ NA
 <a href="#route-diagram-for-the-ci-transition-policy" class="anchor"></a>Route Diagram for the <code>CI</code> Transition Policy</h3>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/plotModuleRoutes.html">plotModuleRoutes</a></span><span class="op">(</span>
-  examinee_list        <span class="op">=</span> <span class="va">maat_output_CI</span>, 
+  examinee_list        <span class="op">=</span> <span class="va">maat_output_CI</span>,
   assessment_structure <span class="op">=</span> <span class="va">assessment_structure</span><span class="op">)</span></code></pre></div>
-<div id="htmlwidget-f53cce5d52325e69ab61" style="width:700px;height:432.632880098888px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-f53cce5d52325e69ab61">{"x":{"diagram":"digraph maat {\n// comment\ngraph[rankdir = LR, overlap = true, fontsize = 10]\nsplines=\"false\";\nnode[shape = rectangle, style = filled, color = DimGrey, margin = 0.2]\n\np1_4[label = G4,\nfillcolor = PaleTurquoise,\nfontcolor = black]\np2_5[label = G5,\nfillcolor = PaleTurquoise,\nfontcolor = black]\np2_4[label = G4,\nfillcolor = PaleTurquoise,\nfontcolor = black]\np2_3[label = G3,\nfillcolor = PaleTurquoise,\nfontcolor = black]\np3_5[label = G5,\nfillcolor = PaleTurquoise,\nfontcolor = black]\np3_4[label = G4,\nfillcolor = PaleTurquoise,\nfontcolor = black]\np4_6[label = G6,\nfillcolor = PaleTurquoise,\nfontcolor = black]\np4_5[label = G5,\nfillcolor = PaleTurquoise,\nfontcolor = black]\np4_4[label = G4,\nfillcolor = PaleTurquoise,\nfontcolor = black]\np4_3[label = G3,\nfillcolor = PaleTurquoise,\nfontcolor = black]\np5_6[label = G6,\nfillcolor = PaleTurquoise,\nfontcolor = black]\np5_5[label = G5,\nfillcolor = PaleTurquoise,\nfontcolor = black]\np5_4[label = G4,\nfillcolor = PaleTurquoise,\nfontcolor = black]\np6_6[label = G6,\nfillcolor = PaleTurquoise,\nfontcolor = black]\np6_5[label = G5,\nfillcolor = PaleTurquoise,\nfontcolor = black]\np6_4[label = G4,\nfillcolor = PaleTurquoise,\nfontcolor = black]\np6_3[label = G3,\nfillcolor = PaleTurquoise,\nfontcolor = black]\nedge[arrowhead = vee, arrowsize = .5, fontsize = 15, penwidth = 1, minlen = 1]\n\np1_4 -> p2_5 [label = 0, color = Blue, fontcolor = Blue , constraint=false]\np1_4 -> p2_4 [label = 9, color = DarkGreen, fontcolor = DarkGreen , weight = 5]\np1_4 -> p2_3 [label = 1, color = Red, fontcolor = Red ]\np2_5 -> p3_5 [label = 0, color = DarkGreen, fontcolor = DarkGreen , weight = 5]\np2_5 -> p3_4 [label = 0, color = Red, fontcolor = Red ]\np2_4 -> p3_5 [label = 0, color = Blue, fontcolor = Blue ]\np2_4 -> p3_4 [label = 9, color = DarkGreen, fontcolor = DarkGreen , weight = 5]\np2_3 -> p3_4 [label = 1, color = Blue, fontcolor = Blue ]\np3_5 -> p4_6 [label = 0, color = Blue, fontcolor = Blue ]\np3_5 -> p4_5 [label = 0, color = DarkGreen, fontcolor = DarkGreen , weight = 5]\np3_5 -> p4_4 [label = 0, color = Red, fontcolor = Red ]\np3_4 -> p4_5 [label = 0, color = Blue, fontcolor = Blue ]\np3_4 -> p4_4 [label = 10, color = DarkGreen, fontcolor = DarkGreen , weight = 5]\np3_4 -> p4_3 [label = 0, color = Red, fontcolor = Red ]\np4_6 -> p5_6 [label = 0, color = DarkGreen, fontcolor = DarkGreen , weight = 5]\np4_6 -> p5_5 [label = 0, color = Red, fontcolor = Red ]\np4_5 -> p5_6 [label = 0, color = Blue, fontcolor = Blue ]\np4_5 -> p5_5 [label = 0, color = DarkGreen, fontcolor = DarkGreen , weight = 5]\np4_5 -> p5_4 [label = 0, color = Red, fontcolor = Red ]\np4_4 -> p5_5 [label = 1, color = Blue, fontcolor = Blue ]\np4_4 -> p5_4 [label = 9, color = DarkGreen, fontcolor = DarkGreen , weight = 5]\np4_3 -> p5_4 [label = 0, color = Blue, fontcolor = Blue ]\np5_6 -> p6_6 [label = 0, color = DarkGreen, fontcolor = DarkGreen , weight = 5]\np5_6 -> p6_5 [label = 0, color = Red, fontcolor = Red ]\np5_5 -> p6_6 [label = 0, color = Blue, fontcolor = Blue ]\np5_5 -> p6_5 [label = 1, color = DarkGreen, fontcolor = DarkGreen , weight = 5]\np5_5 -> p6_4 [label = 0, color = Red, fontcolor = Red ]\np5_4 -> p6_5 [label = 3, color = Blue, fontcolor = Blue ]\np5_4 -> p6_4 [label = 6, color = DarkGreen, fontcolor = DarkGreen , weight = 5]\np5_4 -> p6_3 [label = 0, color = Red, fontcolor = Red ]\n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<p><img src="route1.jpeg" width="600px"></p>
 </div>
 <div id="route-diagram-for-the-pool_difficulty_percentile-transition-policy" class="section level3">
 <h3 class="hasAnchor">
 <a href="#route-diagram-for-the-pool_difficulty_percentile-transition-policy" class="anchor"></a>Route Diagram for the <code>pool_difficulty_percentile</code> Transition Policy</h3>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/plotModuleRoutes.html">plotModuleRoutes</a></span><span class="op">(</span>
-  examinee_list        <span class="op">=</span> <span class="va">maat_output_difficulty</span>, 
+  examinee_list        <span class="op">=</span> <span class="va">maat_output_difficulty</span>,
   assessment_structure <span class="op">=</span> <span class="va">assessment_structure</span><span class="op">)</span></code></pre></div>
-<div id="htmlwidget-61a25c206b49a7d93428" style="width:700px;height:432.632880098888px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-61a25c206b49a7d93428">{"x":{"diagram":"digraph maat {\n// comment\ngraph[rankdir = LR, overlap = true, fontsize = 10]\nsplines=\"false\";\nnode[shape = rectangle, style = filled, color = DimGrey, margin = 0.2]\n\np1_4[label = G4,\nfillcolor = PaleTurquoise,\nfontcolor = black]\np2_5[label = G5,\nfillcolor = PaleTurquoise,\nfontcolor = black]\np2_4[label = G4,\nfillcolor = PaleTurquoise,\nfontcolor = black]\np2_3[label = G3,\nfillcolor = PaleTurquoise,\nfontcolor = black]\np3_5[label = G5,\nfillcolor = PaleTurquoise,\nfontcolor = black]\np3_4[label = G4,\nfillcolor = PaleTurquoise,\nfontcolor = black]\np4_6[label = G6,\nfillcolor = PaleTurquoise,\nfontcolor = black]\np4_5[label = G5,\nfillcolor = PaleTurquoise,\nfontcolor = black]\np4_4[label = G4,\nfillcolor = PaleTurquoise,\nfontcolor = black]\np4_3[label = G3,\nfillcolor = PaleTurquoise,\nfontcolor = black]\np5_6[label = G6,\nfillcolor = PaleTurquoise,\nfontcolor = black]\np5_5[label = G5,\nfillcolor = PaleTurquoise,\nfontcolor = black]\np5_4[label = G4,\nfillcolor = PaleTurquoise,\nfontcolor = black]\np6_6[label = G6,\nfillcolor = PaleTurquoise,\nfontcolor = black]\np6_5[label = G5,\nfillcolor = PaleTurquoise,\nfontcolor = black]\np6_4[label = G4,\nfillcolor = PaleTurquoise,\nfontcolor = black]\np6_3[label = G3,\nfillcolor = PaleTurquoise,\nfontcolor = black]\nedge[arrowhead = vee, arrowsize = .5, fontsize = 15, penwidth = 1, minlen = 1]\n\np1_4 -> p2_5 [label = 0, color = Blue, fontcolor = Blue , constraint=false]\np1_4 -> p2_4 [label = 10, color = DarkGreen, fontcolor = DarkGreen , weight = 5]\np1_4 -> p2_3 [label = 0, color = Red, fontcolor = Red ]\np2_5 -> p3_5 [label = 0, color = DarkGreen, fontcolor = DarkGreen , weight = 5]\np2_5 -> p3_4 [label = 0, color = Red, fontcolor = Red ]\np2_4 -> p3_5 [label = 0, color = Blue, fontcolor = Blue ]\np2_4 -> p3_4 [label = 10, color = DarkGreen, fontcolor = DarkGreen , weight = 5]\np2_3 -> p3_4 [label = 0, color = Blue, fontcolor = Blue ]\np3_5 -> p4_6 [label = 0, color = Blue, fontcolor = Blue ]\np3_5 -> p4_5 [label = 0, color = DarkGreen, fontcolor = DarkGreen , weight = 5]\np3_5 -> p4_4 [label = 0, color = Red, fontcolor = Red ]\np3_4 -> p4_5 [label = 1, color = Blue, fontcolor = Blue ]\np3_4 -> p4_4 [label = 9, color = DarkGreen, fontcolor = DarkGreen , weight = 5]\np3_4 -> p4_3 [label = 0, color = Red, fontcolor = Red ]\np4_6 -> p5_6 [label = 0, color = DarkGreen, fontcolor = DarkGreen , weight = 5]\np4_6 -> p5_5 [label = 0, color = Red, fontcolor = Red ]\np4_5 -> p5_6 [label = 0, color = Blue, fontcolor = Blue ]\np4_5 -> p5_5 [label = 1, color = DarkGreen, fontcolor = DarkGreen , weight = 5]\np4_5 -> p5_4 [label = 0, color = Red, fontcolor = Red ]\np4_4 -> p5_5 [label = 0, color = Blue, fontcolor = Blue ]\np4_4 -> p5_4 [label = 9, color = DarkGreen, fontcolor = DarkGreen , weight = 5]\np4_3 -> p5_4 [label = 0, color = Blue, fontcolor = Blue ]\np5_6 -> p6_6 [label = 0, color = DarkGreen, fontcolor = DarkGreen , weight = 5]\np5_6 -> p6_5 [label = 0, color = Red, fontcolor = Red ]\np5_5 -> p6_6 [label = 0, color = Blue, fontcolor = Blue ]\np5_5 -> p6_5 [label = 1, color = DarkGreen, fontcolor = DarkGreen , weight = 5]\np5_5 -> p6_4 [label = 0, color = Red, fontcolor = Red ]\np5_4 -> p6_5 [label = 2, color = Blue, fontcolor = Blue ]\np5_4 -> p6_4 [label = 7, color = DarkGreen, fontcolor = DarkGreen , weight = 5]\np5_4 -> p6_3 [label = 0, color = Red, fontcolor = Red ]\n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<p><img src="route2.jpeg" width="600px"></p>
 </div>
 </div>
 <div id="scatterplot" class="section level2">
@@ -1009,20 +1006,20 @@ NA
 <a href="#scatterplot-for-the-ci-transition-policy" class="anchor"></a>Scatterplot for the <code>CI</code> Transition Policy</h3>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/plot.html">plot</a></span><span class="op">(</span>
-  x           <span class="op">=</span> <span class="va">maat_output_CI</span>, 
-  theta_range <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">4</span>, <span class="fl">4</span><span class="op">)</span>, 
+  x           <span class="op">=</span> <span class="va">maat_output_CI</span>,
+  theta_range <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">4</span>, <span class="fl">4</span><span class="op">)</span>,
   main        <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Fall"</span>, <span class="st">"Winter"</span>, <span class="st">"Spring"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<p><img src="maat_files/figure-html/unnamed-chunk-15-1.png" width="700"></p>
+<p><img src="maat_files/figure-html/unnamed-chunk-17-1.png" width="700"></p>
 </div>
 <div id="scatterplot-for-the-pool_difficulty_percentile-transition-policy" class="section level3">
 <h3 class="hasAnchor">
 <a href="#scatterplot-for-the-pool_difficulty_percentile-transition-policy" class="anchor"></a>Scatterplot for the <code>pool_difficulty_percentile</code> Transition Policy</h3>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/plot.html">plot</a></span><span class="op">(</span>
-  x           <span class="op">=</span> <span class="va">maat_output_difficulty</span>, 
-  theta_range <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">4</span>, <span class="fl">4</span><span class="op">)</span>, 
+  x           <span class="op">=</span> <span class="va">maat_output_difficulty</span>,
+  theta_range <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">4</span>, <span class="fl">4</span><span class="op">)</span>,
   main        <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Fall"</span>, <span class="st">"Winter"</span>, <span class="st">"Spring"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<p><img src="maat_files/figure-html/unnamed-chunk-16-1.png" width="700"></p>
+<p><img src="maat_files/figure-html/unnamed-chunk-18-1.png" width="700"></p>
 </div>
 </div>
 <div id="audit-plot" class="section level2">
@@ -1042,7 +1039,7 @@ NA
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">examinee</span> <span class="op">&lt;-</span> <span class="va">maat_output_CI</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>
 <span class="fu"><a href="../reference/plot.html">plot</a></span><span class="op">(</span><span class="va">examinee</span>, cut_scores <span class="op">=</span> <span class="va">cut_scores_math</span><span class="op">)</span></code></pre></div>
-<p><img src="maat_files/figure-html/unnamed-chunk-17-1.png" width="700"></p>
+<p><img src="maat_files/figure-html/unnamed-chunk-19-1.png" width="700"></p>
 </div>
 </div>
 <div id="references" class="section level1 unnumbered">
