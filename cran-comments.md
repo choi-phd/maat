@@ -13,5 +13,5 @@
 ## R CMD check results
 
 ```
-(to be filled)
+0 errors ✔ | 0 warnings ✔ | 0 notes ✔
 ```
