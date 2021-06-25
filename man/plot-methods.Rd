@@ -26,6 +26,7 @@
 Extension of plot()
 }
 \examples{
+\donttest{
 library(TestDesign)
 config <- createShadowTestConfig(
   final_theta = list(
@@ -43,5 +44,5 @@ examinee_list <- maat(
 )
 examinee <- examinee_list[[1]]
 plot(examinee, cut_scores = cut_scores_math)
-
+}
 }

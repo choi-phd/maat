@@ -373,6 +373,7 @@ countModuleRoutes <- function(examinee_list, assessment_structure) {
 #' @param main the figure title to use in scatter plots when \code{x} is an examinee list.
 #'
 #' @examples
+#' \donttest{
 #' library(TestDesign)
 #' config <- createShadowTestConfig(
 #'   final_theta = list(
@@ -390,7 +391,7 @@ countModuleRoutes <- function(examinee_list, assessment_structure) {
 #' )
 #' examinee <- examinee_list[[1]]
 #' plot(examinee, cut_scores = cut_scores_math)
-#'
+#' }
 #' @docType methods
 #' @rdname plot-methods
 #' @export
