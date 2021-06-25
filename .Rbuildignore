@@ -3,6 +3,7 @@
 ^\.Rproj\.user$
 ^cran-comments\.md$
 ^readme\.md$
+^readme\.Rmd$
 ^_pkgdown\.yml$
 ^docs$
 ^pkgdown$
