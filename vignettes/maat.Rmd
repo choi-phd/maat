@@ -37,7 +37,7 @@ The **maat** package performs adaptive testing based on the assessment framework
 # Assessment Structure
 
 ```{r, echo = FALSE, out.width = "900px"}
-include_graphics("assessment.png")
+include_graphics("assessment.svg")
 ```
 
 An assessment under the multiple administrations adaptive testing design has the following structure.
@@ -261,7 +261,7 @@ The following diagrams visually summarize the permissible routing paths between 
 ### Test 1 to 2
 
 ```{r, echo = FALSE, out.width = "900px"}
-include_graphics("routing_T1T2.png")
+include_graphics("routing_T1T2.svg")
 ```
 
 * Restrictions R1, R2, R3 are in place.
@@ -269,7 +269,7 @@ include_graphics("routing_T1T2.png")
 ### Test 2 to 3
 
 ```{r, echo = FALSE, out.width = "900px"}
-include_graphics("routing_T2T3.png")
+include_graphics("routing_T2T3.svg")
 ```
 
 * Restrictions R0, R1, R2, R3 are in place. The routing path for Phase 2 Grade $G+2$ for "Advanced" achievement level results from applying either R0 or R3.
@@ -277,7 +277,7 @@ include_graphics("routing_T2T3.png")
 ### Test 3
 
 ```{r, echo = FALSE, out.width = "900px"}
-include_graphics("routing_T3.png")
+include_graphics("routing_T3.svg")
 ```
 
 * Restriction R0 is in place.
@@ -511,7 +511,6 @@ plotModuleRoutes(
   examinee_list        = maat_output_difficulty, 
   assessment_structure = assessment_structure)
 ```
-
 
 ## Scatterplot
 
