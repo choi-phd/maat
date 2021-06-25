@@ -86,6 +86,7 @@ a named list containing \code{\linkS4class{examinee}} objects from the simulatio
 \code{\link{maat}} is the main function for simulating a multi-stage multi-administration adaptive test.
 }
 \examples{
+\donttest{
 library(TestDesign)
 config <- createShadowTestConfig(
   final_theta = list(
@@ -101,5 +102,5 @@ examinee_list <- maat(
   config                 = config,
   cut_scores             = cut_scores_math
 )
-
+}
 }

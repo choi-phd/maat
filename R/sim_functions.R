@@ -143,6 +143,7 @@ simExaminees <- function(N, mean_v, sd_v, cor_v, assessment_structure,
 #' @return a named list containing \code{\linkS4class{examinee}} objects from the simulation.
 #'
 #' @examples
+#' \donttest{
 #' library(TestDesign)
 #' config <- createShadowTestConfig(
 #'   final_theta = list(
@@ -158,7 +159,7 @@ simExaminees <- function(N, mean_v, sd_v, cor_v, assessment_structure,
 #'   config                 = config,
 #'   cut_scores             = cut_scores_math
 #' )
-#'
+#' }
 #' @export
 maat <- function(
   examinee_list = examinee_list, assessment_structure, module_list, config, cut_scores,
