@@ -58,7 +58,7 @@ for (condition in 1:dim(conditions)[1]) {
 
   test_that(
     sprintf(
-      "thyCAT works (%s, %s, %s)",
+      "maat() works (%s, %s, %s)",
       conditions$overlap_control_policy[condition],
       conditions$transition_policy[condition],
       conditions$combine_policy[condition]
