@@ -811,7 +811,7 @@ getBias <- function(examinee_list) {
 #'
 #' \code{\link{getSE}} is a function for calculating the standard error of the estimates.
 #'
-#' @param examinee_list a list containing \code{\linkS4class{examinee}} objects, returned from \code{\link{maat}}.
+#' @param examinee_list an \code{\linkS4class{examinee_list}} object from \code{\link{simExaminees}}, returned from \code{\link{maat}}.
 #'
 #' @return a list containing SE by test and also for all tests combined.
 #'
@@ -823,7 +823,7 @@ getSE <- function(examinee_list) {
   SE <- numeric(6)
   for (p in c(2, 4, 6)) {
     estimated_theta_by_test <-
-      unlist(lapply(examinee_list, function(x){
+      unlist(lapply(examinee_list@examinee_list, function(x){
         x@estimated_theta_by_test[[p]]$theta
     }))
 
