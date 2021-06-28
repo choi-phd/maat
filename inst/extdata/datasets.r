@@ -24,9 +24,8 @@ examinee_list_math <- simExaminees(
 
 module_list_math <- loadModules(
   "inst/extdata/module_definition_MATH_normal_N500.csv",
-  base_path = "inst",
-  assessment_structure = assessment_structure_math,
-  examinee_list = examinee_list_math
+  examinee_list = examinee_list_math,
+  base_path = "inst"
 )
 
 cut_scores_math <- list(

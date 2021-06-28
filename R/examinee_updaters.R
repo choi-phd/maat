@@ -14,7 +14,7 @@ NULL
 #' @examples
 #' ## assessment uses two phases
 #'
-#' examinee <- examinee_list_math[[1]]
+#' examinee <- examinee_list_math@examinee_list[[1]]
 #' examinee@current_phase ## P1
 #'
 #' examinee <- updatePhase(examinee, assessment_structure_math)
@@ -45,7 +45,7 @@ updatePhase <- function(examinee_object, assessment_structure) {
 #' @examples
 #' ## assessment uses two phases
 #'
-#' examinee <- examinee_list_math[[1]]
+#' examinee <- examinee_list_math@examinee_list[[1]]
 #' examinee@current_test  ## T1
 #' examinee@current_phase ## P1
 #'

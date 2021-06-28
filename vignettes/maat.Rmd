@@ -394,14 +394,12 @@ Load the module specification sheet using `loadModules()`.
 fn <- system.file("extdata", "module_definition_MATH_normal_N500.csv", package = "maat")
 module_list <- loadModules(
   fn = fn,
-  assessment_structure = assessment_structure,
   examinee_list = examinee_list,
   base_path = system.file(package = "maat")
 )
 ```
 
 * `fn`: The file path of the module specification sheet.
-* `assessment_structure`: The assessment structure object created above using `createAssessmentStructure()`. This is used to determine required modules.
 * `examinee_list`: The examinee list object created above using `simExaminees()`. This is used to determine required modules.
 * `base_path`: The value of this argument is pasted to the beginning of file paths in the sheet. In the above example, if `base_path` is `inst` then the function will attempt to read `inst/extdata/constraints_MATH8_P2.csv`.
 
@@ -442,7 +440,6 @@ The final step is to run the main simulation using `maat()`.
 set.seed(1)
 maat_output_CI <- maat(
   examinee_list          = examinee_list,
-  assessment_structure   = assessment_structure,
   module_list            = module_list,
   config                 = config,
   cut_scores             = cut_scores,
@@ -454,7 +451,6 @@ maat_output_CI <- maat(
 set.seed(1)
 maat_output_difficulty <- maat(
   examinee_list          = examinee_list,
-  assessment_structure   = assessment_structure,
   module_list            = module_list,
   config                 = config,
   cut_scores             = cut_scores,
@@ -468,7 +464,6 @@ maat_output_difficulty <- maat(
 ```
 
 * `examinee_list` is the examinee list object created above.
-* `assessment_structure` is the assessment structure object created above.
 * `module_list` is the module list object created above.
 * `config` is the shared config object created above.
 * `cut_scores` is the cut scores list object created above.
@@ -491,40 +486,23 @@ maat_output_difficulty <- maat(
 
 ## Plot the Module Routes
 
-* Plot the number of examinees routed to each module. 
-* The arguments of the `plotModuleRoutes`: 
-  * `examinee_list` is the output object produced by `maat()`.
-  * `assessment_structure` is the `assessment_structure` object.
+* The `plot(type = "route")` function can be used to plot the number of examinees routed to each module. The function accepts a `examinee_list` object produced by `maat()`.
 
 ### Route Diagram for the `CI` Transition Policy 
 
-```{r, message = FALSE, eval=FALSE}
-plotModuleRoutes(
-  examinee_list        = maat_output_CI,
-  assessment_structure = assessment_structure)
+```{r, message = FALSE, out.width = "100%", fig.width = 8}
+plot(maat_output_CI, type = "route")
 ```
-
-```{r, echo = FALSE, out.width = "600px"}
-include_graphics("route1.jpeg")
-```
-
 
 ### Route Diagram for the `pool_difficulty_percentile` Transition Policy 
 
-```{r, message = FALSE, eval=FALSE}
-plotModuleRoutes(
-  examinee_list        = maat_output_difficulty,
-  assessment_structure = assessment_structure)
+```{r, message = FALSE, out.width = "100%", fig.width = 8}
+plot(maat_output_difficulty, type = "route")
 ```
-
-```{r, echo = FALSE, out.width = "600px"}
-include_graphics("route2.jpeg")
-```
-
 
 ## Scatterplot
 
-* The `plot()` function can be used to plot true $\theta$s and estimated $\theta$s across test administrations.
+* The `plot(type = "correlation")` function can be used to plot true $\theta$s and estimated $\theta$s across test administrations.
 * The arguments of `plot()` for this use case are:
   * `x` is the output object returned by `maat()`.
   * `theta_range` is the $\theta$ range to be used for plotting.
@@ -532,18 +510,20 @@ include_graphics("route2.jpeg")
 
 ### Scatterplot for the `CI` Transition Policy
 
-```{r}
+```{r, fig.width = 6, fig.height = 3, out.width = "100%"}
 plot(
   x           = maat_output_CI,
+  type        = "correlation",
   theta_range = c(-4, 4),
   main        = c("Fall", "Winter", "Spring"))
 ```
 
 ### Scatterplot for the `pool_difficulty_percentile` Transition Policy 
 
-```{r}
+```{r, fig.width = 6, fig.height = 3, out.width = "100%"}
 plot(
   x           = maat_output_difficulty,
+  type        = "correlation",
   theta_range = c(-4, 4),
   main        = c("Fall", "Winter", "Spring"))
 ```
@@ -555,8 +535,8 @@ plot(
   * `x` is an examinee object.
   * `cut_scores` is a list containing cut scores for each grade.
   
-```{r}
-examinee <- maat_output_CI[[1]]
+```{r, out.width = "100%"}
+examinee <- maat_output_CI@examinee_list[[1]]
 plot(examinee, cut_scores = cut_scores_math)
 ```
 

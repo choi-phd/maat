@@ -70,7 +70,6 @@ for (condition in 1:dim(conditions)[1]) {
 
       examinee_list <- maat(
         examinee_list          = examinee_list,
-        assessment_structure   = assessment_structure_math,
         module_list            = module_list_math,
         config                 = config,
         cut_scores             = cut_scores_math,

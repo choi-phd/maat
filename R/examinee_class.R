@@ -1,6 +1,31 @@
 #' @include module_class.R
 NULL
 
+#' Class 'examinee_list': a list of examinees
+#'
+#' \code{\linkS4class{examinee_list}} is an S4 class to represent a list of examinees.
+#'
+#' @slot examinee_list a list of \code{\linkS4class{examinee}} objects.
+#' @slot assessment_structure an \code{\linkS4class{assessment_structure}} object.
+#' @slot is_complete \code{TRUE} after being updated from running \code{\link{maat}}. (default = \code{FALSE})
+#'
+#' @export
+setClass("examinee_list",
+  slots = c(
+    examinee_list        = "list",
+    assessment_structure = "assessment_structure",
+    is_complete          = "logical"
+  ),
+  prototype = list(
+    examinee_list        = list(),
+    assessment_structure = new("assessment_structure"),
+    is_complete          = logical(0)
+  ),
+  validity = function(object) {
+    return(TRUE)
+  }
+)
+
 #' Class 'examinee': a single examinee
 #'
 #' \code{\linkS4class{examinee}} is an S4 class to represent a single examinee.
@@ -118,5 +143,37 @@ setClass("examinee",
       stop("length(@routing_based_on) must be equal to @n_module")
     }
     return(TRUE)
+  }
+)
+
+#' @title Basic operators for examinee list objects
+#'
+#' @description
+#'
+#' Create a subset of an \code{\linkS4class{examinee_list}} object:
+#'
+#' \itemize{
+#'   \item{\code{examinee_list[i]}}
+#' }
+#'
+#' @param x an \code{\linkS4class{examinee_list}} object.
+#' @param i examinee indices to use in subsetting.
+#' @param j,drop,... not used, exists for compatibility.
+#'
+#' @examples
+#' examinee_list_math[1:2]
+#'
+#' @name examinee_list-operators
+NULL
+
+#' @aliases [,examinee_list,numeric,ANY,ANY-method
+#' @docType methods
+#' @rdname examinee_list-operators
+setMethod(
+  f = "[",
+  signature = c("examinee_list", "numeric"),
+  definition = function(x, i, j, ...) {
+    x@examinee_list <- x@examinee_list[i]
+    return(x)
   }
 )

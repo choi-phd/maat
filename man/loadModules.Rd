@@ -4,16 +4,14 @@
 \alias{loadModules}
 \title{Load multiple modules}
 \usage{
-loadModules(fn, base_path = NULL, assessment_structure, examinee_list)
+loadModules(fn, examinee_list, base_path = NULL)
 }
 \arguments{
 \item{fn}{the name of a csv file containing module specifications.}
 
+\item{examinee_list}{an \code{\linkS4class{examinee_list}} object from \code{\link{simExaminees}}. Used to determine the range of required modules.}
+
 \item{base_path}{(optional) the base path to append before the file paths contained in module specs.}
-
-\item{assessment_structure}{an \code{\linkS4class{assessment_structure}} object.}
-
-\item{examinee_list}{an examinee list from \code{\link{simExaminees}}. Used to determine the range of required modules.}
 }
 \value{
 a module list containing \code{\linkS4class{module}} objects.
@@ -53,7 +51,6 @@ fn <- system.file("extdata", "module_definition_MATH_normal_N500.csv", package =
 pkg_path <- system.file(package = "maat")
 module_list <- loadModules(
   fn,
-  assessment_structure = assessment_structure,
   examinee_list = examinee_list,
   base_path = pkg_path
 )

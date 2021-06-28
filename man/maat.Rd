@@ -6,7 +6,6 @@
 \usage{
 maat(
   examinee_list = examinee_list,
-  assessment_structure,
   module_list,
   config,
   cut_scores,
@@ -24,9 +23,7 @@ maat(
 )
 }
 \arguments{
-\item{examinee_list}{an examinee list from \code{\link{simExaminees}}.}
-
-\item{assessment_structure}{a \code{\linkS4class{assessment_structure}} object.}
+\item{examinee_list}{an \code{\linkS4class{examinee_list}} object from \code{\link{simExaminees}}.}
 
 \item{module_list}{a module list from \code{\link{loadModules}}.}
 
@@ -95,7 +92,6 @@ config <- createShadowTestConfig(
 )
 examinee_list <- maat(
   examinee_list          = examinee_list_math,
-  assessment_structure   = assessment_structure_math,
   module_list            = module_list_math,
   overlap_control_policy = "all",
   transition_CI_alpha    = 0.05,

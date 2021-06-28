@@ -7,7 +7,7 @@
 getItemExposureRate(examinee_list, module_list)
 }
 \arguments{
-\item{examinee_list}{an examinee list.}
+\item{examinee_list}{an \code{\linkS4class{examinee_list}} object from \code{\link{simExaminees}}, returned from \code{\link{maat}}.}
 
 \item{module_list}{a module list from \code{\link{loadModules}}.}
 }
