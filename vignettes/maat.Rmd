@@ -394,7 +394,6 @@ Load the module specification sheet using `loadModules()`.
 fn <- system.file("extdata", "module_definition_MATH_normal_N500.csv", package = "maat")
 module_list <- loadModules(
   fn = fn,
-  assessment_structure = assessment_structure,
   examinee_list = examinee_list,
   base_path = system.file(package = "maat")
 )
