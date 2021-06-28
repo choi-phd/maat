@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Extension of plot() — plot • maat</title>
+<title>Basic operators for examinee list objects — examinee_list-operators • maat</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,12 @@
 
 
 
-<meta property="og:title" content="Extension of plot() — plot" />
-<meta property="og:description" content="Extension of plot()" />
+<meta property="og:title" content="Basic operators for examinee list objects — examinee_list-operators" />
+<meta property="og:description" content="Create a subset of an examinee_list object:
+
+examinee_list[i]
+
+" />
 
 
 
@@ -114,86 +118,43 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Extension of plot()</h1>
-    <small class="dont-index">Source: <a href='https://github.com/choi-phd/maat/blob/master/R/extensions.R'><code>R/extensions.R</code></a>, <a href='https://github.com/choi-phd/maat/blob/master/R/plot_functions.R'><code>R/plot_functions.R</code></a></small>
-    <div class="hidden name"><code>plot-methods.Rd</code></div>
+    <h1>Basic operators for examinee list objects</h1>
+    <small class="dont-index">Source: <a href='https://github.com/choi-phd/maat/blob/master/R/examinee_class.R'><code>R/examinee_class.R</code></a></small>
+    <div class="hidden name"><code>examinee_list-operators.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Extension of plot()</p>
+    <p>Create a subset of an <code><a href='examinee_list-class.html'>examinee_list</a></code> object:</p>
+<ul>
+<li><p><code>examinee_list[i]</code></p></li>
+</ul>
+
     </div>
 
-    <pre class="usage"><span class='co'># S4 method for examinee</span>
-<span class='fu'>plot</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span>, <span class='va'>cut_scores</span><span class='op'>)</span>
-
-<span class='co'># S4 method for examinee_list</span>
-<span class='fu'>plot</span><span class='op'>(</span>
-  <span class='va'>x</span>,
-  <span class='va'>y</span>,
-  <span class='va'>type</span>,
-  <span class='va'>cut_scores</span>,
-  theta_range <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='op'>-</span><span class='fl'>4</span>, <span class='fl'>4</span><span class='op'>)</span>,
-  main <span class='op'>=</span> <span class='cn'>NULL</span>,
-  box_color <span class='op'>=</span> <span class='st'>"PaleTurquoise"</span>
-<span class='op'>)</span></pre>
+    <pre class="usage"># S4 method for examinee_list,numeric
+[(x, i, j, ..., drop = TRUE)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>x</p></td>
+      <td><p>an <code><a href='examinee_list-class.html'>examinee_list</a></code> object.</p></td>
     </tr>
     <tr>
-      <th>y</th>
-      <td><p>y</p></td>
+      <th>i</th>
+      <td><p>examinee indices to use in subsetting.</p></td>
     </tr>
     <tr>
-      <th>cut_scores</th>
-      <td><p>a named list containing cut scores for each grade.</p></td>
-    </tr>
-    <tr>
-      <th>type</th>
-      <td><p>the type of plot. <code>route</code> plots the number of examinees routed to each path across the course of entire assessment. <code>correlation</code> plots a scatterplot of thetas across administrations.</p></td>
-    </tr>
-    <tr>
-      <th>theta_range</th>
-      <td><p>the theta range to use in scatter plots when <code>x</code> is an examinee list.</p></td>
-    </tr>
-    <tr>
-      <th>main</th>
-      <td><p>the figure title to use in scatter plots when <code>x</code> is an examinee list.</p></td>
-    </tr>
-    <tr>
-      <th>box_color</th>
-      <td><p>the cell color to use when <code>type</code> is <code>route</code>. (default = <code>PaleTurquoise</code>)</p></td>
+      <th>j, drop, ...</th>
+      <td><p>not used, exists for compatibility.</p></td>
     </tr>
     </table>
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><span class='co'># \donttest{</span>
-<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://choi-phd.github.io/TestDesign/'>TestDesign</a></span><span class='op'>)</span>
-<span class='va'>config</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://choi-phd.github.io/TestDesign/reference/createShadowTestConfig.html'>createShadowTestConfig</a></span><span class='op'>(</span>
-  final_theta <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>
-    method <span class='op'>=</span> <span class='st'>"MLE"</span>
-  <span class='op'>)</span>
-<span class='op'>)</span>
-<span class='va'>examinee_list</span> <span class='op'>&lt;-</span> <span class='fu'><a href='maat.html'>maat</a></span><span class='op'>(</span>
-  examinee_list          <span class='op'>=</span> <span class='va'>examinee_list_math</span>,
-  module_list            <span class='op'>=</span> <span class='va'>module_list_math</span>,
-  overlap_control_policy <span class='op'>=</span> <span class='st'>"all"</span>,
-  transition_CI_alpha    <span class='op'>=</span> <span class='fl'>0.05</span>,
-  config                 <span class='op'>=</span> <span class='va'>config</span>,
-  cut_scores             <span class='op'>=</span> <span class='va'>cut_scores_math</span>
-<span class='op'>)</span>
+    <pre class="examples"><span class='va'>examinee_list_math</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>2</span><span class='op'>]</span>
 
-<span class='fu'>plot</span><span class='op'>(</span><span class='va'>examinee_list</span>, type <span class='op'>=</span> <span class='st'>"route"</span><span class='op'>)</span>
-<span class='fu'>plot</span><span class='op'>(</span><span class='va'>examinee_list</span>, type <span class='op'>=</span> <span class='st'>"correlation"</span><span class='op'>)</span>
-
-<span class='va'>examinee</span> <span class='op'>&lt;-</span> <span class='va'>examinee_list</span><span class='op'>@</span><span class='va'>examinee_list</span><span class='op'>[[</span><span class='fl'>1</span><span class='op'>]</span><span class='op'>]</span>
-<span class='fu'>plot</span><span class='op'>(</span><span class='va'>examinee</span>, cut_scores <span class='op'>=</span> <span class='va'>cut_scores_math</span><span class='op'>)</span>
-<span class='co'># }</span>
 </pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

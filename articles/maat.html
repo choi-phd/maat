@@ -813,7 +813,6 @@ NA
 <code class="sourceCode R"><span class="va">fn</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"module_definition_MATH_normal_N500.csv"</span>, package <span class="op">=</span> <span class="st">"maat"</span><span class="op">)</span>
 <span class="va">module_list</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/loadModules.html">loadModules</a></span><span class="op">(</span>
   fn <span class="op">=</span> <span class="va">fn</span>,
-  assessment_structure <span class="op">=</span> <span class="va">assessment_structure</span>,
   examinee_list <span class="op">=</span> <span class="va">examinee_list</span>,
   base_path <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span>package <span class="op">=</span> <span class="st">"maat"</span><span class="op">)</span>
 <span class="op">)</span></code></pre></div>
@@ -831,8 +830,6 @@ NA
 <ul>
 <li>
 <code>fn</code>: The file path of the module specification sheet.</li>
-<li>
-<code>assessment_structure</code>: The assessment structure object created above using <code><a href="../reference/createAssessmentStructure.html">createAssessmentStructure()</a></code>. This is used to determine required modules.</li>
 <li>
 <code>examinee_list</code>: The examinee list object created above using <code><a href="../reference/simExaminees.html">simExaminees()</a></code>. This is used to determine required modules.</li>
 <li>
@@ -875,7 +872,6 @@ NA
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>
 <span class="va">maat_output_CI</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/maat.html">maat</a></span><span class="op">(</span>
   examinee_list          <span class="op">=</span> <span class="va">examinee_list</span>,
-  assessment_structure   <span class="op">=</span> <span class="va">assessment_structure</span>,
   module_list            <span class="op">=</span> <span class="va">module_list</span>,
   config                 <span class="op">=</span> <span class="va">config</span>,
   cut_scores             <span class="op">=</span> <span class="va">cut_scores</span>,
@@ -887,7 +883,6 @@ NA
 <span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>
 <span class="va">maat_output_difficulty</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/maat.html">maat</a></span><span class="op">(</span>
   examinee_list          <span class="op">=</span> <span class="va">examinee_list</span>,
-  assessment_structure   <span class="op">=</span> <span class="va">assessment_structure</span>,
   module_list            <span class="op">=</span> <span class="va">module_list</span>,
   config                 <span class="op">=</span> <span class="va">config</span>,
   cut_scores             <span class="op">=</span> <span class="va">cut_scores</span>,
@@ -901,8 +896,6 @@ NA
 <ul>
 <li>
 <code>examinee_list</code> is the examinee list object created above.</li>
-<li>
-<code>assessment_structure</code> is the assessment structure object created above.</li>
 <li>
 <code>module_list</code> is the module list object created above.</li>
 <li>
@@ -956,40 +949,28 @@ NA
 <h2 class="hasAnchor">
 <a href="#plot-the-module-routes" class="anchor"></a>Plot the Module Routes</h2>
 <ul>
-<li>Plot the number of examinees routed to each module.</li>
-<li>The arguments of the <code>plotModuleRoutes</code>:
-<ul>
-<li>
-<code>examinee_list</code> is the output object produced by <code><a href="../reference/maat.html">maat()</a></code>.</li>
-<li>
-<code>assessment_structure</code> is the <code>assessment_structure</code> object.</li>
-</ul>
-</li>
+<li>The <code><a href="../reference/plot.html">plot(type = "route")</a></code> function can be used to plot the number of examinees routed to each module. The function accepts a <code>examinee_list</code> object produced by <code><a href="../reference/maat.html">maat()</a></code>.</li>
 </ul>
 <div id="route-diagram-for-the-ci-transition-policy" class="section level3">
 <h3 class="hasAnchor">
 <a href="#route-diagram-for-the-ci-transition-policy" class="anchor"></a>Route Diagram for the <code>CI</code> Transition Policy</h3>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/plotModuleRoutes.html">plotModuleRoutes</a></span><span class="op">(</span>
-  examinee_list        <span class="op">=</span> <span class="va">maat_output_CI</span>,
-  assessment_structure <span class="op">=</span> <span class="va">assessment_structure</span><span class="op">)</span></code></pre></div>
-<p><img src="route1.jpeg" width="600px"></p>
+<code class="sourceCode R"><span class="fu"><a href="../reference/plot.html">plot</a></span><span class="op">(</span><span class="va">maat_output_CI</span>, type <span class="op">=</span> <span class="st">"route"</span><span class="op">)</span></code></pre></div>
+<p><img src="maat_files/figure-html/unnamed-chunk-13-1.png" width="100%"></p>
 </div>
 <div id="route-diagram-for-the-pool_difficulty_percentile-transition-policy" class="section level3">
 <h3 class="hasAnchor">
 <a href="#route-diagram-for-the-pool_difficulty_percentile-transition-policy" class="anchor"></a>Route Diagram for the <code>pool_difficulty_percentile</code> Transition Policy</h3>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/plotModuleRoutes.html">plotModuleRoutes</a></span><span class="op">(</span>
-  examinee_list        <span class="op">=</span> <span class="va">maat_output_difficulty</span>,
-  assessment_structure <span class="op">=</span> <span class="va">assessment_structure</span><span class="op">)</span></code></pre></div>
-<p><img src="route2.jpeg" width="600px"></p>
+<code class="sourceCode R"><span class="fu"><a href="../reference/plot.html">plot</a></span><span class="op">(</span><span class="va">maat_output_difficulty</span>, type <span class="op">=</span> <span class="st">"route"</span><span class="op">)</span></code></pre></div>
+<p><img src="maat_files/figure-html/unnamed-chunk-14-1.png" width="100%"></p>
 </div>
 </div>
 <div id="scatterplot" class="section level2">
 <h2 class="hasAnchor">
 <a href="#scatterplot" class="anchor"></a>Scatterplot</h2>
 <ul>
-<li>The <code><a href="../reference/plot.html">plot()</a></code> function can be used to plot true <span class="math inline">\(\theta\)</span>s and estimated <span class="math inline">\(\theta\)</span>s across test administrations.</li>
+<li>The <code><a href="../reference/plot.html">plot(type = "correlation")</a></code> function can be used to plot true <span class="math inline">\(\theta\)</span>s and estimated <span class="math inline">\(\theta\)</span>s across test administrations.</li>
 <li>The arguments of <code><a href="../reference/plot.html">plot()</a></code> for this use case are:
 <ul>
 <li>
@@ -1007,9 +988,10 @@ NA
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/plot.html">plot</a></span><span class="op">(</span>
   x           <span class="op">=</span> <span class="va">maat_output_CI</span>,
+  type        <span class="op">=</span> <span class="st">"correlation"</span>,
   theta_range <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">4</span>, <span class="fl">4</span><span class="op">)</span>,
   main        <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Fall"</span>, <span class="st">"Winter"</span>, <span class="st">"Spring"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<p><img src="maat_files/figure-html/unnamed-chunk-17-1.png" width="700"></p>
+<p><img src="maat_files/figure-html/unnamed-chunk-15-1.png" width="100%"></p>
 </div>
 <div id="scatterplot-for-the-pool_difficulty_percentile-transition-policy" class="section level3">
 <h3 class="hasAnchor">
@@ -1017,9 +999,10 @@ NA
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/plot.html">plot</a></span><span class="op">(</span>
   x           <span class="op">=</span> <span class="va">maat_output_difficulty</span>,
+  type        <span class="op">=</span> <span class="st">"correlation"</span>,
   theta_range <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">4</span>, <span class="fl">4</span><span class="op">)</span>,
   main        <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Fall"</span>, <span class="st">"Winter"</span>, <span class="st">"Spring"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<p><img src="maat_files/figure-html/unnamed-chunk-18-1.png" width="700"></p>
+<p><img src="maat_files/figure-html/unnamed-chunk-16-1.png" width="100%"></p>
 </div>
 </div>
 <div id="audit-plot" class="section level2">
@@ -1037,9 +1020,9 @@ NA
 </li>
 </ul>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">examinee</span> <span class="op">&lt;-</span> <span class="va">maat_output_CI</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>
+<code class="sourceCode R"><span class="va">examinee</span> <span class="op">&lt;-</span> <span class="va">maat_output_CI</span><span class="op">@</span><span class="va">examinee_list</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>
 <span class="fu"><a href="../reference/plot.html">plot</a></span><span class="op">(</span><span class="va">examinee</span>, cut_scores <span class="op">=</span> <span class="va">cut_scores_math</span><span class="op">)</span></code></pre></div>
-<p><img src="maat_files/figure-html/unnamed-chunk-19-1.png" width="700"></p>
+<p><img src="maat_files/figure-html/unnamed-chunk-17-1.png" width="100%"></p>
 </div>
 </div>
 <div id="references" class="section level1 unnumbered">
