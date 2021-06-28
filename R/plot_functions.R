@@ -15,210 +15,74 @@ plotModuleRoutes <-  function(examinee_list, examinee_id = "all", font_size = 15
 
   route_counts <- countModuleRoutes(examinee_list)
 
-  for (i in 1:(route_counts$n_test * route_counts$n_phase - 1)) {
-    route_counts$module_arrow[[i]][, 1] <-
-      paste0(
-        names(route_counts$module_arrow[[i]])[1],
-        "_",
-        route_counts$module_arrow[[i]][, 1]
-      )
-    route_counts$module_arrow[[i]][, 2] <-
-      paste0(
-        names(route_counts$module_arrow[[i]])[2],
-        "_",
-        route_counts$module_arrow[[i]][, 2]
-      )
-  }
+  route_range <-
+    -examinee_list@assessment_structure@route_limit_below:
+    examinee_list@assessment_structure@route_limit_above
+  n_grades <- length(route_range)
+  n_modules <-
+    examinee_list@assessment_structure@n_test *
+    examinee_list@assessment_structure@n_phase
+  n_cells <- n_grades * n_modules
 
-  arrow_IDs <- unlist(lapply(route_counts$module_arrow, function(x) paste0(x[,1], " -> ",x[,2])))
-
-  if (examinee_id == "all") {
-    arrow_labels  <- route_counts$counts
-    color_arrfont <- rep("black", length(arrow_labels))
-    module_flag   <- rep(TRUE, length(unlist(route_counts$module_map)))
-  } else {
-    arrow_labels  <- rep("0", length(route_counts$counts))
-    color_arrfont <- rep("white", length(arrow_labels))
-    module_log    <- route_counts$individual_log[examinee_id, ]
-    module_flag <- c(
-      route_counts$module_map[[1]] %in% module_log[1],
-      route_counts$module_map[[2]] %in% module_log[2],
-      route_counts$module_map[[3]] %in% module_log[3],
-      route_counts$module_map[[4]] %in% module_log[4],
-      route_counts$module_map[[5]] %in% module_log[5],
-      route_counts$module_map[[6]] %in% module_log[6])
-  }
-
-  # cell_ID should be matched to arrow IDs
-  cell_ID <- route_counts$module_map
-  for (i in 1:(route_counts$n_test * route_counts$n_phase)) {
-    cell_ID[[i]] <- as.numeric(gsub("[^\\d]+", "", route_counts$module_map[[i]], perl=TRUE))
-    cell_ID[[i]] <- sprintf("p%s_%s", i, cell_ID[[i]])
-  }
-
-  a1 <-
-    data.frame(
-      cell_ID    = unlist(cell_ID),
-      cell_names = route_counts$module_names,
-      cell_flag  = module_flag,
-      color_box  = rep("white", length(unlist(route_counts$module_map))),
-      color_arr  = rep("grey" , length(unlist(route_counts$module_map))),
-      color_font = rep("black", length(unlist(route_counts$module_map)))
-    )
-
-  a1$color_box[a1$cell_flag]   <- box_color
-  a1$color_font[!a1$cell_flag] <- "grey"
-  color_box  <- a1$color_box
-  color_font <- a1$color_font
-  color_arr  <- rep("grey90", length(arrow_IDs))
-
-  if (examinee_id != "all") {
-    temp <- a1$cell_ID[a1$cell_flag]
-    arrow_IDs_draw <-
-      sapply(2:length(temp), function(ei) {
-        fi <- ei - 1
-        sprintf("%s -> %s", temp[fi], temp[ei])
-      }
-    )
-    color_arr[arrow_IDs %in% arrow_IDs_draw] <- "black"
-  }
-
-  if (examinee_id == "all") {
-    temp_arrowid <- do.call("rbind", strsplit(arrow_IDs, " -> "))
-
-    start <- as.numeric(do.call("rbind", strsplit(temp_arrowid[, 1], "_"))[, 2])
-    end   <- as.numeric(do.call("rbind", strsplit(temp_arrowid[, 2], "_"))[, 2])
-
-    arrow_dir_index <- sapply(1:length(start), function(i) {
-      if (start[i] > end[i]) {
-        "down"
-      } else if (start[i] < end[i]) {
-        "up"
-      } else {
-        "stay"
-      }
-    })
-
-    color_arr[arrow_dir_index == "up"]   <- "Blue"
-    color_arr[arrow_dir_index == "stay"] <- "DarkGreen"
-    color_arr[arrow_dir_index == "down"] <- "Red"
-
-    color_arrfont[arrow_dir_index == "up"]   <- "Blue"
-    color_arrfont[arrow_dir_index == "stay"] <- "DarkGreen"
-    color_arrfont[arrow_dir_index == "down"] <- "Red"
-
-  }
-
-  ######################
-  ##### DiagrammeR #####
-  ######################
-
-  # open syntax
-  plot_syntax <- paste(
-    "digraph maat {",
-    "// comment",
-    "graph[rankdir = LR, overlap = true, fontsize = 10]",
-    "splines='false';",
-    "node[shape = rectangle, style = filled, color = DimGrey, margin = 0.2]",
-    "",
-    sep = "\n"
+  M <- matrix(NA, n_cells, n_cells)
+  cell_names <- sprintf(
+    "G%sP%s",
+    rep(route_counts$max_grade:route_counts$min_grade, each = n_modules),
+    rep(1:n_modules, n_grades)
   )
+  colnames(M) <- cell_names
+  rownames(M) <- cell_names
 
-  # module generation
-  for (i in 1:dim(a1)[1]) {
-    module_parts <- sprintf(
-      "%s[label = %s, fillcolor = %s, fontcolor = %s]",
-      a1$cell_ID[i], a1$cell_names[i], a1$color_box[i], a1$color_font[i]
-    )
-    plot_syntax <- sprintf(
-      "%s\n%s",
-      plot_syntax, module_parts
+  for (m in 1:length(route_counts$module_arrow)) {
+    x <- route_counts$module_arrow[[m]]
+    for (i in 1:dim(x)[1]) {
+      cell_source <- sprintf("G%sP%s", x[i, 1], m)
+      cell_target <- sprintf("G%sP%s", x[i, 2], m + 1)
+      n <-
+        (route_counts$individual_log[, m    ] == sprintf("G%s", x[i, 1])) &
+        (route_counts$individual_log[, m + 1] == sprintf("G%s", x[i, 2]))
+      n <- sum(n)
+      M[cell_target, cell_source] <- sprintf("%s", n)
+    }
+  }
+
+  cell_names_visible <- c()
+  for (p in 1:length(route_counts$module_map)) {
+    cell_names_visible <- c(
+      cell_names_visible,
+      sprintf("%sP%s", route_counts$module_map[[p]], p)
     )
   }
 
-  # arrow generation
+  visibility <- cell_names %in% cell_names_visible
 
-  plot_syntax <- sprintf(
-    "%s\n%s",
-    plot_syntax,
-    sprintf("edge[arrowhead = vee, arrowsize = .5, fontsize = %s, penwidth = 1, minlen = 1]", font_size)
+  box_type <- rep("rect", n_cells)
+  box_type[!visibility] <- FALSE
+  box_name <- colnames(M)
+  box_name[!visibility] <- ""
+  box_name <- substr(box_name, 1, 2)
+
+  old_mar <- par()$mar
+  on.exit({
+    par(mar = old_mar)
+  })
+  par(mar = c(1, 1, 1, 1))
+  plotmat(
+    M,
+    pos = c(6, 6, 6, 6),
+    absent   = -1,
+    name     = box_name,
+    box.type = box_type,
+    box.size = 0.04,
+    arr.type = "triangle",
+    arr.length = 0.2,
+    arr.width  = 0.2,
+    curve = 0,
+    box.col = box_color,
+    shadow.size = 0,
+    dtext = c(0, 1),
+    arr.pos = 0.4
   )
-
-  weights <- rep("", length(arrow_IDs))
-  for (i in 1:length(arrow_IDs)) {
-    temp1 <- strsplit(arrow_IDs[i], split = " -> ")[[1]]
-    temp2 <- unlist(strsplit(temp1, split = "_"))[c(2, 4)]
-    if (temp2[1] == temp2[2]) {
-      weights[i] <- ", weight = 5"
-    }
-  }
-
-  if (sum(c("R1", "R2", "R3") %in% route_counts$test_routing_restrictions) == 3) {
-    if (route_counts$route_limit_below == 0 && route_counts$route_limit_above == 2) {
-      weights[c(1, 4, 8)] <- ", constraint=false"
-    } else if (route_counts$route_limit_below == 1 && route_counts$route_limit_above == 1) {
-      weights[c(1, 16, 21)] <- ", constraint=false"
-    } else {
-      weights[1] <- ", constraint=false"
-    }
-  }
-  if (sum(c("R1", "R2") %in% route_counts$test_routing_restrictions) == 2) {
-    if (route_counts$route_limit_below == 1 && route_counts$route_limit_above == 1) {
-      weights[c(1, 11, 21)] <- ", constraint=false"
-    }
-  }
-  if (sum(c("R2","R3") %in% route_counts$test_routing_restrictions) == 2) {
-    weights[1] <- ", constraint=false"
-  }
-  if (route_counts$route_limit_below == 1 && route_counts$route_limit_above == 0) {
-    weights[1] <- ", weight = 5"
-  }
-
-  arrow_syntax <- ""
-  for (i in 1:length(arrow_IDs)) {
-    arrow_parts <- sprintf(
-      "%s [label = %s, color = %s, fontcolor = %s %s]",
-      arrow_IDs[i], arrow_labels[i], color_arr[i], color_arrfont[i], weights[i]
-    )
-    arrow_syntax <- sprintf("%s\n%s", arrow_syntax, arrow_parts)
-  }
-
-  plot_syntax <- sprintf("%s\n%s", plot_syntax, arrow_syntax)
-
-  if (route_counts$route_limit_below == 1 && route_counts$route_limit_above == 0) {
-    if ((length(route_counts$test_routing_restrictions) == 1 &&
-         route_counts$test_routing_restrictions == "R1") |
-        (length(route_counts$test_routing_restrictions) == 2 &&
-         sum(route_counts$test_routing_restrictions %in% c("R1", "R3")) == 2)) {
-      limit_below <- route_counts$starting_grade_num - 1
-      plot_syntax <- sprintf(
-        "%s\n%s\n%s",
-        plot_syntax,
-        sprintf("p2_%s -> p3_%s [label = 0, color = white, fontcolor = white, weight = 5]", limit_below, limit_below),
-        sprintf("p4_%s -> p5_%s [label = 0, color = white, fontcolor = white, weight = 5]", limit_below, limit_below)
-      )
-    }
-  }
-  if ((route_counts$route_limit_below == 1 && route_counts$route_limit_above == 2) |
-      (route_counts$route_limit_below == 1 && route_counts$route_limit_above == 1)) {
-    if ((length(route_counts$test_routing_restrictions) == 1 && route_counts$test_routing_restrictions == "R1") |
-        (length(route_counts$test_routing_restrictions) == 2 && sum(route_counts$test_routing_restrictions %in% c("R1", "R3")) == 2)) {
-      limit_below <- route_counts$starting_grade_num - 1
-      plot_syntax <- sprintf(
-        "%s\n%s\n%s",
-        plot_syntax,
-        sprintf("p2_%s -> p3_%s [label = 0, color = white, fontcolor = white, weight = 5]", limit_below, limit_below),
-        sprintf("p4_%s -> p5_%s [label = 0, color = white, fontcolor = white, weight = 5]", limit_below, limit_below)
-      )
-    }
-  }
-
-  # close plot syntax
-  plot_syntax <- sprintf("%s\n}", plot_syntax)
-
-  cat(plot_syntax)
-
-  grViz(plot_syntax)
 
 }
 
