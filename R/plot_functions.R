@@ -114,30 +114,34 @@ plotModuleRoutes <-  function(examinee_list, examinee_id = "all", font_size = 15
   ######################
 
   # open syntax
-  plot_syntax <- glue("digraph maat {{
-    // comment
-    graph[rankdir = LR, overlap = true, fontsize = 10]
-    splines='false';
-    node[shape = rectangle, style = filled, color = DimGrey, margin = 0.2]
+  plot_syntax <- paste(
+    "digraph maat {",
+    "// comment",
+    "graph[rankdir = LR, overlap = true, fontsize = 10]",
+    "splines='false';",
+    "node[shape = rectangle, style = filled, color = DimGrey, margin = 0.2]",
+    "",
+    sep = "\n"
+  )
 
-    ")
   # module generation
   for (i in 1:dim(a1)[1]) {
-    module_parts <- glue(
-      "{a1$cell_ID[i]}[label = {a1$cell_names[i]},
-      fillcolor = {a1$color_box[i]},
-      fontcolor = {a1$color_font[i]}]"
+    module_parts <- sprintf(
+      "%s[label = %s, fillcolor = %s, fontcolor = %s]",
+      a1$cell_ID[i], a1$cell_names[i], a1$color_box[i], a1$color_font[i]
     )
-    plot_syntax <- glue(
-      "{plot_syntax}
-      {module_parts}"
+    plot_syntax <- sprintf(
+      "%s\n%s",
+      plot_syntax, module_parts
     )
   }
 
   # arrow generation
-  plot_syntax <- glue(
-    "{plot_syntax}
-    edge[arrowhead = vee, arrowsize = .5, fontsize = {font_size}, penwidth = 1, minlen = 1]"
+
+  plot_syntax <- sprintf(
+    "%s\n%s",
+    plot_syntax,
+    sprintf("edge[arrowhead = vee, arrowsize = .5, fontsize = %s, penwidth = 1, minlen = 1]", font_size)
   )
 
   weights <- rep("", length(arrow_IDs))
@@ -172,17 +176,14 @@ plotModuleRoutes <-  function(examinee_list, examinee_id = "all", font_size = 15
 
   arrow_syntax <- ""
   for (i in 1:length(arrow_IDs)) {
-    arrow_parts <- glue("{arrow_IDs[i]} [label = {arrow_labels[i]}, color = {color_arr[i]}, fontcolor = {color_arrfont[i]} {weights[i]}]")
-    arrow_syntax <- glue(
-      "{arrow_syntax}
-      {arrow_parts}"
+    arrow_parts <- sprintf(
+      "%s [label = %s, color = %s, fontcolor = %s %s]",
+      arrow_IDs[i], arrow_labels[i], color_arr[i], color_arrfont[i], weights[i]
     )
+    arrow_syntax <- sprintf("%s\n%s", arrow_syntax, arrow_parts)
   }
 
-  plot_syntax <- glue(
-    "{plot_syntax}
-    {arrow_syntax}"
-  )
+  plot_syntax <- sprintf("%s\n%s", plot_syntax, arrow_syntax)
 
   if (route_counts$route_limit_below == 1 && route_counts$route_limit_above == 0) {
     if ((length(route_counts$test_routing_restrictions) == 1 &&
@@ -190,10 +191,11 @@ plotModuleRoutes <-  function(examinee_list, examinee_id = "all", font_size = 15
         (length(route_counts$test_routing_restrictions) == 2 &&
          sum(route_counts$test_routing_restrictions %in% c("R1", "R3")) == 2)) {
       limit_below <- route_counts$starting_grade_num - 1
-      plot_syntax <- glue(
-        "{plot_syntax}
-        p2_{limit_below} -> p3_{limit_below} [label = 0, color = white, fontcolor = white, weight = 5]
-        p4_{limit_below} -> p5_{limit_below} [label = 0, color = white, fontcolor = white, weight = 5]"
+      plot_syntax <- sprintf(
+        "%s\n%s\n%s",
+        plot_syntax,
+        sprintf("p2_%s -> p3_%s [label = 0, color = white, fontcolor = white, weight = 5]", limit_below, limit_below),
+        sprintf("p4_%s -> p5_%s [label = 0, color = white, fontcolor = white, weight = 5]", limit_below, limit_below)
       )
     }
   }
@@ -202,21 +204,22 @@ plotModuleRoutes <-  function(examinee_list, examinee_id = "all", font_size = 15
     if ((length(route_counts$test_routing_restrictions) == 1 && route_counts$test_routing_restrictions == "R1") |
         (length(route_counts$test_routing_restrictions) == 2 && sum(route_counts$test_routing_restrictions %in% c("R1", "R3")) == 2)) {
       limit_below <- route_counts$starting_grade_num - 1
-      plot_syntax <- glue(
-        "{plot_syntax}
-        p2_{limit_below} -> p3_{limit_below} [label = 0, color = white, fontcolor = white, weight = 5]
-        p4_{limit_below} -> p5_{limit_below} [label = 0, color = white, fontcolor = white, weight = 5]"
+      plot_syntax <- sprintf(
+        "%s\n%s\n%s",
+        plot_syntax,
+        sprintf("p2_%s -> p3_%s [label = 0, color = white, fontcolor = white, weight = 5]", limit_below, limit_below),
+        sprintf("p4_%s -> p5_%s [label = 0, color = white, fontcolor = white, weight = 5]", limit_below, limit_below)
       )
     }
   }
 
   # close plot syntax
-  plot_syntax <- glue(
-    "{plot_syntax}
-    }}"
-  )
+  plot_syntax <- sprintf("%s\n}", plot_syntax)
+
+  cat(plot_syntax)
 
   grViz(plot_syntax)
+
 }
 
 #' @noRd
