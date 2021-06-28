@@ -842,40 +842,40 @@ getSE <- function(examinee_list) {
 #'
 #' \code{\link{getAdaptivityIndex}} is a function for calculating adaptivity indices from the output of \code{\link{maat}}.
 #'
-#' @param examinee_list a list containing \code{\linkS4class{examinee}} objects, returned from \code{\link{maat}}.
+#' @param examinee_list an \code{\linkS4class{examinee_list}} object from \code{\link{simExaminees}}, returned from \code{\link{maat}}.
 #'
 #' @return a data frame containing adaptivity indices by test and also for all tests combined.
 #'
 #' @export
 getAdaptivityIndex <- function(examinee_list) {
 
-  theta_t1  <- vector(length = length(examinee_list))
-  theta_t2  <- vector(length = length(examinee_list))
-  theta_t3  <- vector(length = length(examinee_list))
+  theta_t1  <- vector(length = length(examinee_list@examinee_list))
+  theta_t2  <- vector(length = length(examinee_list@examinee_list))
+  theta_t3  <- vector(length = length(examinee_list@examinee_list))
 
-  mean_difficulty_t1    <- vector(length = length(examinee_list))
-  mean_difficulty_t2    <- vector(length = length(examinee_list))
-  mean_difficulty_t3    <- vector(length = length(examinee_list))
+  mean_difficulty_t1    <- vector(length = length(examinee_list@examinee_list))
+  mean_difficulty_t2    <- vector(length = length(examinee_list@examinee_list))
+  mean_difficulty_t3    <- vector(length = length(examinee_list@examinee_list))
   mean_difficulty_total <- vector(length = length(examinee_list))
 
-  for (i in 1:length(examinee_list)) {
-    theta_t1[i] <- examinee_list[[i]]@estimated_theta_by_test[[2]]$theta
-    theta_t2[i] <- examinee_list[[i]]@estimated_theta_by_test[[4]]$theta
-    theta_t3[i] <- examinee_list[[i]]@estimated_theta_by_test[[6]]$theta
+  for (i in 1:length(examinee_list@examinee_list)) {
+    theta_t1[i] <- examinee_list@examinee_list[[i]]@estimated_theta_by_test[[2]]$theta
+    theta_t2[i] <- examinee_list@examinee_list[[i]]@estimated_theta_by_test[[4]]$theta
+    theta_t3[i] <- examinee_list@examinee_list[[i]]@estimated_theta_by_test[[6]]$theta
 
     mean_difficulty_t1[i] <- mean(c(
-      mean(as.vector(examinee_list[[i]]@item_data[[1]]@ipar), na.rm = TRUE),
-      mean(as.vector(examinee_list[[i]]@item_data[[2]]@ipar), na.rm = TRUE)
+      mean(as.vector(examinee_list@examinee_list[[i]]@item_data[[1]]@ipar), na.rm = TRUE),
+      mean(as.vector(examinee_list@examinee_list[[i]]@item_data[[2]]@ipar), na.rm = TRUE)
     ))
 
     mean_difficulty_t2[i] <- mean(c(
-      mean(as.vector(examinee_list[[i]]@item_data[[3]]@ipar), na.rm = TRUE),
-      mean(as.vector(examinee_list[[i]]@item_data[[4]]@ipar), na.rm = TRUE)
+      mean(as.vector(examinee_list@examinee_list[[i]]@item_data[[3]]@ipar), na.rm = TRUE),
+      mean(as.vector(examinee_list@examinee_list[[i]]@item_data[[4]]@ipar), na.rm = TRUE)
     ))
 
     mean_difficulty_t3[i] <- mean(c(
-      mean(as.vector(examinee_list[[i]]@item_data[[5]]@ipar), na.rm = TRUE),
-      mean(as.vector(examinee_list[[i]]@item_data[[6]]@ipar), na.rm = TRUE)
+      mean(as.vector(examinee_list@examinee_list[[i]]@item_data[[5]]@ipar), na.rm = TRUE),
+      mean(as.vector(examinee_list@examinee_list[[i]]@item_data[[6]]@ipar), na.rm = TRUE)
     ))
 
     mean_difficulty_total[i] <- mean(c(
