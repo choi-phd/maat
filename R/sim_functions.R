@@ -741,7 +741,7 @@ formatOutput <- function(examinee_list, digits = 3) {
 #' \code{\link{getRMSE}} is a function for calculating root mean square error (RMSE)
 #' for the simulation results.
 #'
-#' @param examinee_list a list containing \code{\linkS4class{examinee}} objects, returned from \code{\link{maat}}.
+#' @param examinee_list an \code{\linkS4class{examinee_list}} object from \code{\link{simExaminees}}, returned from \code{\link{maat}}.
 #'
 #' @return a list containing RMSE by test and also for all tests combined.
 #'
@@ -752,7 +752,7 @@ getRMSE <- function(examinee_list) {
 
   RMSE <- numeric(6)
   for (p in c(2, 4, 6)) {
-    d <- lapply(examinee_list,
+    d <- lapply(examinee_list@examinee_list,
       function(x) {
         x@estimated_theta_by_test[[p]]$theta - x@true_theta[p]
       }
@@ -762,7 +762,7 @@ getRMSE <- function(examinee_list) {
 
   o$RMSE_by_test <- RMSE[c(2, 4, 6)]
 
-  d <- lapply(examinee_list,
+  d <- lapply(examinee_list@examinee_list,
     function(x) {
       estimated_theta_by_test <- lapply(x@estimated_theta_by_test, function(xx) { xx$theta })
       estimated_theta_by_test <- unlist(estimated_theta_by_test)
