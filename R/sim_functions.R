@@ -33,7 +33,7 @@ simTheta <- function(N, mean_v, sd_v, cor_v) {
 
 #' Simulate an examinee list
 #'
-#' \code{\link{simExaminees}} is a function for generating a list containing \code{\linkS4class{examinee}} objects.
+#' \code{\link{simExaminees}} is a function for generating an \code{\linkS4class{examinee_list}} object that contains \code{\linkS4class{examinee}} objects.
 #'
 #' Each dimension of \code{mean_v}, \code{sd_v}, \code{cor_v} represents a test level. For example in a three-test structure (see the \code{assessment_structure_math} example data), these arguments must have three dimensions.
 #'
@@ -75,21 +75,23 @@ simExaminees <- function(N, mean_v, sd_v, cor_v, assessment_structure,
   n_examinee <- dim(true_theta)[1]
 
   for (i in 1:n_examinee) {
-    o <- new("examinee")
-    o@examinee_id <- sprintf("examinee_%s", i)
-    o@n_module    <- assessment_structure@n_test * assessment_structure@n_phase
-    o@true_theta  <- rep(true_theta[i, ], each = assessment_structure@n_phase)
-    examinee_list[[i]] <- o
-    names(examinee_list)[i] <- o@examinee_id
+    x <- new("examinee")
+    x@examinee_id <- sprintf("examinee_%s", i)
+    x@n_module    <- assessment_structure@n_test * assessment_structure@n_phase
+    x@true_theta  <- rep(true_theta[i, ], each = assessment_structure@n_phase)
+    x@current_grade <- initial_grade
+    x@current_phase <- initial_phase
+    x@current_test  <- initial_test
+    examinee_list[[i]] <- x
+    names(examinee_list)[i] <- x@examinee_id
   }
 
-  for (i in 1:n_examinee) {
-    examinee_list[[i]]@current_grade  <- initial_grade
-    examinee_list[[i]]@current_phase  <- initial_phase
-    examinee_list[[i]]@current_test   <- initial_test
-  }
+  o <- new("examinee_list")
+  o@examinee_list        <- examinee_list
+  o@assessment_structure <- assessment_structure
+  o@is_complete          <- FALSE
 
-  return(examinee_list)
+  return(o)
 
 }
 
