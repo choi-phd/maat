@@ -145,3 +145,35 @@ setClass("examinee",
     return(TRUE)
   }
 )
+
+#' @title Basic operators for examinee list objects
+#'
+#' @description
+#'
+#' Create a subset of an \code{\linkS4class{examinee_list}} object:
+#'
+#' \itemize{
+#'   \item{\code{examinee_list[i]}}
+#' }
+#'
+#' @param x an \code{\linkS4class{examinee_list}} object.
+#' @param i examinee indices to use in subsetting.
+#' @param j,drop,... not used, exists for compatibility.
+#'
+#' @examples
+#' examinee_list_math[1:2]
+#'
+#' @name examinee_list-operators
+NULL
+
+#' @aliases [,examinee_list,numeric,ANY,ANY-method
+#' @docType methods
+#' @rdname examinee_list-operators
+setMethod(
+  f = "[",
+  signature = c("examinee_list", "numeric"),
+  definition = function(x, i, j, ...) {
+    x@examinee_list <- x@examinee_list[i]
+    return(x)
+  }
+)
