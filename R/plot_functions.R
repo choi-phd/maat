@@ -13,7 +13,7 @@ NULL
 #' @export
 plotModuleRoutes <-  function(examinee_list, examinee_id = "all", font_size = 15, box_color = "PaleTurquoise") {
 
-  route_counts <- countModuleRoutes(examinee_list@examinee_list, examinee_list@assessment_structure)
+  route_counts <- countModuleRoutes(examinee_list)
 
   for (i in 1:(route_counts$n_test * route_counts$n_phase - 1)) {
     route_counts$module_arrow[[i]][, 1] <-
@@ -220,10 +220,10 @@ plotModuleRoutes <-  function(examinee_list, examinee_id = "all", font_size = 15
 }
 
 #' @noRd
-countModuleRoutes <- function(examinee_list, assessment_structure) {
+countModuleRoutes <- function(examinee_list) {
 
   starting_grade <- lapply(
-    examinee_list,
+    examinee_list@examinee_list,
     function(x) {
       x@grade_log[1]
     }
@@ -231,10 +231,10 @@ countModuleRoutes <- function(examinee_list, assessment_structure) {
   starting_grade <- unique(unlist(starting_grade))
   starting_grade_num <- as.numeric(gsub("[^\\d]+", "", starting_grade, perl = TRUE))
 
-  n_test  <- assessment_structure@n_test
-  n_phase <- assessment_structure@n_phase
-  route_limit_below <- assessment_structure@route_limit_below
-  route_limit_above <- assessment_structure@route_limit_above
+  n_test  <- examinee_list@assessment_structure@n_test
+  n_phase <- examinee_list@assessment_structure@n_phase
+  route_limit_below <- examinee_list@assessment_structure@route_limit_below
+  route_limit_above <- examinee_list@assessment_structure@route_limit_above
 
   max_grade <- starting_grade_num + route_limit_above
   min_grade <- starting_grade_num - route_limit_below
@@ -262,7 +262,7 @@ countModuleRoutes <- function(examinee_list, assessment_structure) {
     module_path[i] <- list(temp_path)
   }
 
-  test_routing_restrictions <-  assessment_structure@test_routing_restrictions
+  test_routing_restrictions <- examinee_list@assessment_structure@test_routing_restrictions
 
   if ("R1" %in% test_routing_restrictions) {
     min_grade <- min(module_path[[2]][, 1])
@@ -316,7 +316,7 @@ countModuleRoutes <- function(examinee_list, assessment_structure) {
   #### calculate counts ####
   ##########################
   grade_log <- lapply(
-    examinee_list,
+    examinee_list@examinee_list,
     function(x) {
       x@grade_log
     }
