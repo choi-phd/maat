@@ -911,19 +911,19 @@ getAdaptivityIndex <- function(examinee_list) {
 #' \code{\link{getAdministeredItemsPerTest}} is a function for extracting the administered items stored in the
 #' \code{\linkS4class{examinee}} objects.
 #'
-#' @param examinee_list a list containing \code{\linkS4class{examinee}} objects, returned from \code{\link{maat}}.
+#' @param examinee_list an \code{\linkS4class{examinee_list}} object from \code{\link{simExaminees}}, returned from \code{\link{maat}}.
 #'
 #' @return a list containing administered items in each test and also for all tests combined.
 #'
 #' @export
-getAdministeredItemsPerTest <- function(examinee_list){
+getAdministeredItemsPerTest <- function(examinee_list) {
   items_used <- list()
-  for (i in 1:length(examinee_list)) {
-    for (m in 1:examinee_list[[i]]@n_module) {
-      test_idx <- examinee_list[[i]]@test_log[m]
+  for (i in 1:length(examinee_list@examinee_list)) {
+    for (m in 1:examinee_list@examinee_list[[i]]@n_module) {
+      test_idx <- examinee_list@examinee_list[[i]]@test_log[m]
       items_used[[test_idx]] <- c(
         items_used[[test_idx]],
-        examinee_list[[i]]@administered_items[[m]]
+        examinee_list@examinee_list[[i]]@administered_items[[m]]
       )
     }
   }
