@@ -957,13 +957,13 @@ getItemNamesPerGrade <- function(module_list) {
 #'
 #' \code{\link{getItemExposureRate}} is a function for building an item exposure rate table.
 #'
-#' @param examinee_list an examinee list.
+#' @param examinee_list an \code{\linkS4class{examinee_list}} object from \code{\link{simExaminees}}, returned from \code{\link{maat}}.
 #' @param module_list a module list from \code{\link{loadModules}}.
 #'
 #' @export
 getItemExposureRate <- function(examinee_list, module_list) {
 
-  n_examinee           <- length(examinee_list)
+  n_examinee           <- length(examinee_list@examinee_list)
   items_per_grade      <- getItemNamesPerGrade(module_list)
   administered_items   <- getAdministeredItemsPerTest(examinee_list)
 
