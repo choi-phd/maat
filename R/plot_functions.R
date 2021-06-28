@@ -1,91 +1,6 @@
 #' @include loadModules.R
 NULL
 
-#' Plot module routes
-#'
-#' \code{\link{plotModuleRoutes}} is a function for building a chart for module routes.
-#'
-#' @param examinee_list an \code{\linkS4class{examinee_list}} object from \code{\link{simExaminees}}, returned from \code{\link{maat}}.
-#' @param examinee_id the examinee ID to plot the module route. \code{all} plots the count that each routing node was used. (default = \code{all})
-#' @param font_size the font size for arrow labels. (default = \code{15})
-#' @param box_color the fill color for boxes. (default = \code{PaleTurquoise})
-#'
-#' @export
-plotModuleRoutes <-  function(examinee_list, examinee_id = "all", font_size = 15, box_color = "PaleTurquoise") {
-
-  route_counts <- countModuleRoutes(examinee_list)
-
-  route_range <-
-    -examinee_list@assessment_structure@route_limit_below:
-    examinee_list@assessment_structure@route_limit_above
-  n_grades <- length(route_range)
-  n_modules <-
-    examinee_list@assessment_structure@n_test *
-    examinee_list@assessment_structure@n_phase
-  n_cells <- n_grades * n_modules
-
-  M <- matrix(NA, n_cells, n_cells)
-  cell_names <- sprintf(
-    "G%sP%s",
-    rep(route_counts$max_grade:route_counts$min_grade, each = n_modules),
-    rep(1:n_modules, n_grades)
-  )
-  colnames(M) <- cell_names
-  rownames(M) <- cell_names
-
-  for (m in 1:length(route_counts$module_arrow)) {
-    x <- route_counts$module_arrow[[m]]
-    for (i in 1:dim(x)[1]) {
-      cell_source <- sprintf("G%sP%s", x[i, 1], m)
-      cell_target <- sprintf("G%sP%s", x[i, 2], m + 1)
-      n <-
-        (route_counts$individual_log[, m    ] == sprintf("G%s", x[i, 1])) &
-        (route_counts$individual_log[, m + 1] == sprintf("G%s", x[i, 2]))
-      n <- sum(n)
-      M[cell_target, cell_source] <- sprintf("%s", n)
-    }
-  }
-
-  cell_names_visible <- c()
-  for (p in 1:length(route_counts$module_map)) {
-    cell_names_visible <- c(
-      cell_names_visible,
-      sprintf("%sP%s", route_counts$module_map[[p]], p)
-    )
-  }
-
-  visibility <- cell_names %in% cell_names_visible
-
-  box_type <- rep("rect", n_cells)
-  box_type[!visibility] <- FALSE
-  box_name <- colnames(M)
-  box_name[!visibility] <- ""
-  box_name <- substr(box_name, 1, 2)
-
-  old_mar <- par()$mar
-  on.exit({
-    par(mar = old_mar)
-  })
-  par(mar = c(1, 1, 1, 1))
-  plotmat(
-    M,
-    pos = c(6, 6, 6, 6),
-    absent   = -1,
-    name     = box_name,
-    box.type = box_type,
-    box.size = 0.04,
-    arr.type = "triangle",
-    arr.length = 0.2,
-    arr.width  = 0.2,
-    curve = 0,
-    box.col = box_color,
-    shadow.size = 0,
-    dtext = c(0, 1),
-    arr.pos = 0.4
-  )
-
-}
-
 #' @noRd
 countModuleRoutes <- function(examinee_list) {
 
@@ -234,9 +149,11 @@ countModuleRoutes <- function(examinee_list) {
 #'
 #' @param x x
 #' @param y y
+#' @param type the type of plot. \code{route} plots the number of examinees routed to each path across the course of entire assessment. \code{correlation} plots a scatterplot of thetas across administrations.
 #' @param cut_scores a named list containing cut scores for each grade.
 #' @param theta_range the theta range to use in scatter plots when \code{x} is an examinee list.
 #' @param main the figure title to use in scatter plots when \code{x} is an examinee list.
+#' @param box_color the cell color to use when \code{type} is \code{route}. (default = \code{PaleTurquoise})
 #'
 #' @examples
 #' \donttest{
@@ -254,6 +171,10 @@ countModuleRoutes <- function(examinee_list) {
 #'   config                 = config,
 #'   cut_scores             = cut_scores_math
 #' )
+#'
+#' plot(examinee_list, type = "route")
+#' plot(examinee_list, type = "correlation")
+#'
 #' examinee <- examinee_list@examinee_list[[1]]
 #' plot(examinee, cut_scores = cut_scores_math)
 #' }
@@ -346,80 +267,158 @@ setMethod(
   f = "plot",
   signature = "examinee_list",
   definition = function(
-    x, y, cut_scores, theta_range = c(-4, 4), main = NULL) {
+    x, y, type, cut_scores, theta_range = c(-4, 4), main = NULL, box_color = "PaleTurquoise") {
 
-    tests <- lapply(
-      x@examinee_list,
-      function(o) {
-        o@test_log
-      }
-    )
-    n_tests <- length(unique(unlist(tests)))
+    if (type == "correlation") {
 
-    true_theta <- lapply(
-      x@examinee_list,
-      function(o) {
-        theta <- c()
-        for (test in unique(o@test_log)) {
-          idx <- max(which(o@test_log == test))
-          theta <- c(theta, o@true_theta[idx])
+      tests <- lapply(
+        x@examinee_list,
+        function(o) {
+          o@test_log
         }
-        return(theta)
-      }
-    )
-    true_theta <- matrix(unlist(true_theta), length(true_theta), byrow = TRUE)
+      )
+      n_tests <- length(unique(unlist(tests)))
 
-    final_theta <- lapply(
-      x@examinee_list,
-      function(o) {
-        theta <- c()
-        for (test in unique(o@test_log)) {
-          idx <- max(which(o@test_log == test))
-          theta <- c(theta, o@estimated_theta_for_routing[[idx]]$theta)
+      true_theta <- lapply(
+        x@examinee_list,
+        function(o) {
+          theta <- c()
+          for (test in unique(o@test_log)) {
+            idx <- max(which(o@test_log == test))
+            theta <- c(theta, o@true_theta[idx])
+          }
+          return(theta)
         }
-        return(theta)
+      )
+      true_theta <- matrix(unlist(true_theta), length(true_theta), byrow = TRUE)
+
+      final_theta <- lapply(
+        x@examinee_list,
+        function(o) {
+          theta <- c()
+          for (test in unique(o@test_log)) {
+            idx <- max(which(o@test_log == test))
+            theta <- c(theta, o@estimated_theta_for_routing[[idx]]$theta)
+          }
+          return(theta)
+        }
+      )
+      final_theta <- matrix(unlist(final_theta), length(final_theta), byrow = TRUE)
+
+      old_mfrow <- par()$mfrow
+      on.exit({
+        par(mfrow = old_mfrow)
+      })
+      par(mfrow = c(1, n_tests))
+
+      if (is.null(main)) {
+        main <- sprintf("Test %s", 1:n_tests)
       }
-    )
-    final_theta <- matrix(unlist(final_theta), length(final_theta), byrow = TRUE)
-
-    old_mfrow <- par()$mfrow
-    on.exit({
-      par(mfrow = old_mfrow)
-    })
-    par(mfrow = c(1, n_tests))
-
-    if (is.null(main)) {
-      main <- sprintf("Test %s", 1:n_tests)
+      for (test in 1:n_tests) {
+        plot(
+          0, 0,
+          type = "n",
+          xlim = theta_range,
+          ylim = theta_range,
+          xlab = "True theta",
+          ylab = "Estimated theta",
+          main = main[test]
+        )
+        lines(
+          theta_range * 2,
+          theta_range * 2,
+          lty = 2,
+          col = "gray"
+        )
+        points(
+          true_theta[, test],
+          final_theta[, test],
+          col = "blue"
+        )
+        r <- cor(true_theta[, test], final_theta[, test])
+        text(
+          x = min(theta_range),
+          y = max(theta_range),
+          labels = sprintf("r = %1.3f", r),
+          adj = 0
+        )
+        box(lwd = 1)
+      }
     }
-    for (test in 1:n_tests) {
-      plot(
-        0, 0,
-        type = "n",
-        xlim = theta_range,
-        ylim = theta_range,
-        xlab = "True theta",
-        ylab = "Estimated theta",
-        main = main[test]
+
+    if (type == "route") {
+
+      route_counts <- countModuleRoutes(x)
+
+      route_range <-
+        -x@assessment_structure@route_limit_below:
+        x@assessment_structure@route_limit_above
+      n_grades <- length(route_range)
+      n_modules <-
+        x@assessment_structure@n_test *
+        x@assessment_structure@n_phase
+      n_cells <- n_grades * n_modules
+
+      M <- matrix(NA, n_cells, n_cells)
+      cell_names <- sprintf(
+        "G%sP%s",
+        rep(route_counts$max_grade:route_counts$min_grade, each = n_modules),
+        rep(1:n_modules, n_grades)
       )
-      lines(
-        theta_range * 2,
-        theta_range * 2,
-        lty = 2,
-        col = "gray"
+      colnames(M) <- cell_names
+      rownames(M) <- cell_names
+
+      for (m in 1:length(route_counts$module_arrow)) {
+        o <- route_counts$module_arrow[[m]]
+        for (i in 1:dim(o)[1]) {
+          cell_source <- sprintf("G%sP%s", o[i, 1], m)
+          cell_target <- sprintf("G%sP%s", o[i, 2], m + 1)
+          n <-
+            (route_counts$individual_log[, m    ] == sprintf("G%s", o[i, 1])) &
+            (route_counts$individual_log[, m + 1] == sprintf("G%s", o[i, 2]))
+          n <- sum(n)
+          M[cell_target, cell_source] <- sprintf("%s", n)
+        }
+      }
+
+      cell_names_visible <- c()
+      for (p in 1:length(route_counts$module_map)) {
+        cell_names_visible <- c(
+          cell_names_visible,
+          sprintf("%sP%s", route_counts$module_map[[p]], p)
+        )
+      }
+
+      visibility <- cell_names %in% cell_names_visible
+
+      box_type <- rep("rect", n_cells)
+      box_type[!visibility] <- FALSE
+      box_name <- colnames(M)
+      box_name[!visibility] <- ""
+      box_name <- substr(box_name, 1, 2)
+
+      old_mar <- par()$mar
+      on.exit({
+        par(mar = old_mar)
+      })
+      par(mar = c(1, 1, 1, 1))
+      plotmat(
+        M,
+        pos = c(6, 6, 6, 6),
+        absent   = -1,
+        name     = box_name,
+        box.type = box_type,
+        box.size = 0.04,
+        arr.type = "triangle",
+        arr.length = 0.2,
+        arr.width  = 0.2,
+        curve = 0,
+        box.col = box_color,
+        shadow.size = 0,
+        dtext = c(0, 1),
+        arr.pos = 0.4
       )
-      points(
-        true_theta[, test],
-        final_theta[, test],
-        col = "blue"
-      )
-      r <- cor(true_theta[, test], final_theta[, test])
-      text(
-        x = min(theta_range),
-        y = max(theta_range),
-        labels = sprintf("r = %1.3f", r),
-        adj = 0
-      )
-      box(lwd = 1)
+
     }
 
   }
