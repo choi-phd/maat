@@ -5,16 +5,15 @@ NULL
 #'
 #' \code{\link{plotModuleRoutes}} is a function for building a chart for module routes.
 #'
-#' @param examinee_list the output from \code{\link{maat}}.
-#' @param assessment_structure an \code{\linkS4class{assessment_structure}} object.
+#' @param examinee_list an \code{\linkS4class{examinee_list}} object from \code{\link{simExaminees}}, returned from \code{\link{maat}}.
 #' @param examinee_id the examinee ID to plot the module route. \code{all} plots the count that each routing node was used. (default = \code{all})
 #' @param font_size the font size for arrow labels. (default = \code{15})
 #' @param box_color the fill color for boxes. (default = \code{PaleTurquoise})
 #'
 #' @export
-plotModuleRoutes <-  function(examinee_list, assessment_structure, examinee_id = "all", font_size = 15, box_color = "PaleTurquoise") {
+plotModuleRoutes <-  function(examinee_list, examinee_id = "all", font_size = 15, box_color = "PaleTurquoise") {
 
-  route_counts <- countModuleRoutes(examinee_list, assessment_structure)
+  route_counts <- countModuleRoutes(examinee_list@examinee_list, examinee_list@assessment_structure)
 
   for (i in 1:(route_counts$n_test * route_counts$n_phase - 1)) {
     route_counts$module_arrow[[i]][, 1] <-

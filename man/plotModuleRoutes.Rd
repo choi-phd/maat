@@ -6,16 +6,13 @@
 \usage{
 plotModuleRoutes(
   examinee_list,
-  assessment_structure,
   examinee_id = "all",
   font_size = 15,
   box_color = "PaleTurquoise"
 )
 }
 \arguments{
-\item{examinee_list}{the output from \code{\link{maat}}.}
-
-\item{assessment_structure}{an \code{\linkS4class{assessment_structure}} object.}
+\item{examinee_list}{an \code{\linkS4class{examinee_list}} object from \code{\link{simExaminees}}, returned from \code{\link{maat}}.}
 
 \item{examinee_id}{the examinee ID to plot the module route. \code{all} plots the count that each routing node was used. (default = \code{all})}
 
