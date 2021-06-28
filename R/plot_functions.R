@@ -382,14 +382,13 @@ countModuleRoutes <- function(examinee_list, assessment_structure) {
 #' )
 #' examinee_list <- maat(
 #'   examinee_list          = examinee_list_math,
-#'   assessment_structure   = assessment_structure_math,
 #'   module_list            = module_list_math,
 #'   overlap_control_policy = "all",
 #'   transition_CI_alpha    = 0.05,
 #'   config                 = config,
 #'   cut_scores             = cut_scores_math
 #' )
-#' examinee <- examinee_list[[1]]
+#' examinee <- examinee_list@examinee_list[[1]]
 #' plot(examinee, cut_scores = cut_scores_math)
 #' }
 #' @docType methods
@@ -479,12 +478,12 @@ setMethod(
 #' @export
 setMethod(
   f = "plot",
-  signature = "list",
+  signature = "examinee_list",
   definition = function(
     x, y, cut_scores, theta_range = c(-4, 4), main = NULL) {
 
     tests <- lapply(
-      x,
+      x@examinee_list,
       function(o) {
         o@test_log
       }
@@ -492,7 +491,7 @@ setMethod(
     n_tests <- length(unique(unlist(tests)))
 
     true_theta <- lapply(
-      x,
+      x@examinee_list,
       function(o) {
         theta <- c()
         for (test in unique(o@test_log)) {
@@ -505,7 +504,7 @@ setMethod(
     true_theta <- matrix(unlist(true_theta), length(true_theta), byrow = TRUE)
 
     final_theta <- lapply(
-      x,
+      x@examinee_list,
       function(o) {
         theta <- c()
         for (test in unique(o@test_log)) {

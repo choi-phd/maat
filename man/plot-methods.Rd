@@ -4,12 +4,12 @@
 \name{plot}
 \alias{plot}
 \alias{plot,examinee-method}
-\alias{plot,list-method}
+\alias{plot,examinee_list-method}
 \title{Extension of plot()}
 \usage{
 \S4method{plot}{examinee}(x, y, cut_scores)
 
-\S4method{plot}{list}(x, y, cut_scores, theta_range = c(-4, 4), main = NULL)
+\S4method{plot}{examinee_list}(x, y, cut_scores, theta_range = c(-4, 4), main = NULL)
 }
 \arguments{
 \item{x}{x}
@@ -35,14 +35,13 @@ config <- createShadowTestConfig(
 )
 examinee_list <- maat(
   examinee_list          = examinee_list_math,
-  assessment_structure   = assessment_structure_math,
   module_list            = module_list_math,
   overlap_control_policy = "all",
   transition_CI_alpha    = 0.05,
   config                 = config,
   cut_scores             = cut_scores_math
 )
-examinee <- examinee_list[[1]]
+examinee <- examinee_list@examinee_list[[1]]
 plot(examinee, cut_scores = cut_scores_math)
 }
 }
