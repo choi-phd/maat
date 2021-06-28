@@ -7,7 +7,7 @@
 getBias(examinee_list)
 }
 \arguments{
-\item{examinee_list}{a list containing \code{\linkS4class{examinee}} objects, returned from \code{\link{maat}}.}
+\item{examinee_list}{an \code{\linkS4class{examinee_list}} object from \code{\link{simExaminees}}, returned from \code{\link{maat}}.}
 }
 \value{
 a list containing bias by test and also for all tests combined.
