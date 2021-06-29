@@ -11,6 +11,9 @@ getItemExposureRate(examinee_list, module_list)
 
 \item{module_list}{a module list from \code{\link{loadModules}}.}
 }
+\value{
+the table of item exposure rate.
+}
 \description{
 \code{\link{getItemExposureRate}} is a function for building an item exposure rate table.
 }

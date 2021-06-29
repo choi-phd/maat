@@ -10,6 +10,7 @@ NULL
 #' @param grade_of_record the grade of record. This must be formatted as \code{G?}, where \code{?} is a number.
 #' @param route_limit_below the number of grades to allow routing below, relative to the grade of record. If the grade of record is G4 and this is 1, then routing to G3 is allowed but not to G2.
 #' @param route_limit_above the number of grades to allow routing above, relative to the grade of record. If the grade of record is G4 and this is 2, then routing to G6 is allowed but not to G7.
+#' @return the grade after the range limit is applied
 #'
 #' @examples
 #' boundGrade("G2", "G1", 0, 2) # G2

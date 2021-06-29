@@ -20,6 +20,9 @@ boundGrade(
 
 \item{route_limit_above}{the number of grades to allow routing above, relative to the grade of record. If the grade of record is G4 and this is 2, then routing to G6 is allowed but not to G7.}
 }
+\value{
+the grade after the range limit is applied
+}
 \description{
 \code{\link{boundGrade}} is a function for keeping the grade within a specified range.
 \code{\link{boundGrade}} checks the relative grade compared to the grade of record. If the current grade is outside the allowed bound, the grade that is within the bound in the same direction is returned.

@@ -15,6 +15,9 @@ simTheta(N, mean_v, sd_v, cor_v)
 
 \item{cor_v}{a correlation matrix.}
 }
+\value{
+a theta matrix.
+}
 \description{
 \code{\link{simTheta}} is a function for generating a theta matrix based on the given
 sample size, mean, standard deviation, and correlation matrix.
