@@ -154,6 +154,7 @@ countModuleRoutes <- function(examinee_list) {
 #' @param theta_range the theta range to use in scatter plots when \code{x} is an examinee list.
 #' @param main the figure title to use in scatter plots when \code{x} is an examinee list.
 #' @param box_color the cell color to use when \code{type} is \code{route}. (default = \code{PaleTurquoise})
+#' @return the route plot.
 #'
 #' @examples
 #' \donttest{

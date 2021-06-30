@@ -32,6 +32,9 @@ simExaminees(
 
 \item{initial_test}{the initial test for all examinees. (default = \code{T1})}
 }
+\value{
+an \code{\linkS4class{examinee_list}} object
+}
 \description{
 \code{\link{simExaminees}} is a function for generating an \code{\linkS4class{examinee_list}} object that contains \code{\linkS4class{examinee}} objects.
 }

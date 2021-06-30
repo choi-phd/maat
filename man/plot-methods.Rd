@@ -34,6 +34,9 @@
 
 \item{box_color}{the cell color to use when \code{type} is \code{route}. (default = \code{PaleTurquoise})}
 }
+\value{
+the route plot.
+}
 \description{
 Extension of plot()
 }

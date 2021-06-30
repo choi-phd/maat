@@ -9,6 +9,9 @@ getItemNamesPerGrade(module_list)
 \arguments{
 \item{module_list}{a module list from \code{\link{loadModules}}.}
 }
+\value{
+item names per grade.
+}
 \description{
 \code{\link{getItemNamesPerGrade}} is a function for extracting item names from a module list.
 }

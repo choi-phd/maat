@@ -28,7 +28,7 @@ library(kableExtra)
 
 # Introduction
 
-The **maat** package performs adaptive testing based on the assessment framework involving multiple tests administered throughout the year using multiple item pools vertically scaled and multiple phases within each administration. It allows for transitioning from one item pool with associated constraints to another as determined necessary according to a prespecified transition policy to enhance the quality of measurement. Based on an item pool and test blueprint constraints, each phase or module is an adaptive test assembled dynamically using the shadow-test approach to CAT.  The current version of **maat** supports an assessment design involving three tests/administrations (e.g. Fall, Winter, and Spring) with two phases within each administration (Phase 1 and Phase 2), so that an examinee takes six modules in total throughout the year. The assessment is adaptive in multiple levels:
+The **maat** package performs adaptive testing based on the assessment framework involving multiple tests administered throughout the year using multiple item pools vertically scaled and multiple phases within each administration. It allows for transitioning from one item pool with associated constraints to another as determined necessary according to a prespecified transition policy to enhance the quality of measurement. Based on an item pool and test blueprint constraints, each phase or module is an adaptive test assembled dynamically using the shadow-test approach to computerized adaptive testing (CAT).  The current version of **maat** supports an assessment design involving three tests/administrations (e.g. Fall, Winter, and Spring) with two phases within each administration (Phase 1 and Phase 2), so that an examinee takes six modules in total throughout the year. The assessment is adaptive in multiple levels:
 
 * Within a phase items are selected adaptively
 * Between phases within a test item pools are selected adaptively
@@ -185,7 +185,7 @@ The stopping rule describes the criteria used to terminate a CAT. The stopping r
 
 ## Ability Estimation
 
-The **maat** package supports EAP, MLE and MLEF available in the `TestDesign` package for $\theta$ estimation. The estimation method must be specified in `createShadowTestConfig()`.
+The **maat** package supports expected a posteriori (EAP), maximum likelihood estimation (MLE) and maximum likelihood estimation with fence (MLEF) available in the `TestDesign` package for $\theta$ estimation. The estimation method must be specified in `createShadowTestConfig()`.
 
 The MLE and MLEF methods in `TestDesign` has extra fallback routines for performing CAT:
 

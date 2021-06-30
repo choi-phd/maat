@@ -12,6 +12,7 @@ NULL
 #' @param mean_v a vector containing the mean of each dimension.
 #' @param sd_v a vector containing the standard deviation of each dimension.
 #' @param cor_v a correlation matrix.
+#' @return a theta matrix.
 #'
 #' @examples
 #' o <- simTheta(
@@ -45,6 +46,7 @@ simTheta <- function(N, mean_v, sd_v, cor_v) {
 #' @param initial_grade the initial grade for all examinees. The grade must exist in \code{module_list}. (default = \code{G4})
 #' @param initial_phase the initial phase for all examinees. The phase must exist in \code{module_list}. (default = \code{P1})
 #' @param initial_test the initial test for all examinees. (default = \code{T1})
+#' @return an \code{\linkS4class{examinee_list}} object
 #'
 #' @examples
 #' assessment_structure <- createAssessmentStructure(
@@ -936,6 +938,7 @@ getAdministeredItemsPerTest <- function(examinee_list) {
 #' \code{\link{getItemNamesPerGrade}} is a function for extracting item names from a module list.
 #'
 #' @param module_list a module list from \code{\link{loadModules}}.
+#' @return item names per grade.
 #'
 #' @examples
 #' getItemNamesPerGrade(module_list_math)
@@ -959,6 +962,7 @@ getItemNamesPerGrade <- function(module_list) {
 #'
 #' @param examinee_list an \code{\linkS4class{examinee_list}} object from \code{\link{simExaminees}}, returned from \code{\link{maat}}.
 #' @param module_list a module list from \code{\link{loadModules}}.
+#' @return the table of item exposure rate.
 #'
 #' @export
 getItemExposureRate <- function(examinee_list, module_list) {
