@@ -607,6 +607,8 @@ maat <- function(
 
   }
 
+  examinee_list@is_complete <- TRUE
+
   return(examinee_list)
 
 }
