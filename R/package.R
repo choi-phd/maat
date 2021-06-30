@@ -2,10 +2,10 @@
 #'
 #' \bold{maat} package is based on the assessment framework involving multiple
 #' tests administered throughout the year using multiple item pools vertically
-#' scaled and multiple phases (stages) of computerized adaptive testing (CAT) within each test allowing for
-#' transitioning from one item pool (and associated constraints) to another
-#' between phases as determined necessary by a selected transition policy
-#' to enhance the quality of measurement.
+#' scaled and multiple phases (stages) of computerized adaptive testing (CAT) 
+#' within each test allowing for transitioning from one item pool (and associated 
+#' constraints) to another between phases as determined necessary by a selected 
+#' transition policy to enhance the quality of measurement.
 #'
 #' The current version of \bold{maat} supports three administrations (Fall, Winter,
 #' and Spring) with two phases within each administration (Phase 1 and Phase 2),
