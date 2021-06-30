@@ -30,14 +30,13 @@ Authors@R: c(
         email = "garron.gianopulos@nwea.org",
         role = "ctb"))
 Maintainer: Seung W. Choi <schoi@austin.utexas.edu>
-Description: Provides a multiple administrations extension of the shadow-test
-    approach for adaptive testing in the 'TestDesign' package. The Multiple
-    Administrations Adaptive Testing (MAAT) system is based on the assessment
-    framework involving multiple tests administered throughout the year, using
-    multiple item pools vertically scaled and multiple phases (stages) of
-    computerized adaptive tests. Within each test, transitioning from one item
-    pool (and associated constraints) to another is allowed as deemed necessary
-    to enhance the quality of measurement.
+Description: Provides an extension of the shadow-test approach to computerized adaptive 
+    testing (CAT) implemented in the 'TestDesign' package for the assessment framework 
+    involving multiple tests administered periodically throughout the year. This framework 
+    is referred to as the Multiple Administrations Adaptive Testing (MAAT) and supports 
+    multiple item pools vertically scaled and multiple phases (stages) of CAT within each test. 
+    Between phases and tests, transitioning from one item pool (and associated constraints) 
+    to another is allowed as deemed necessary to enhance the quality of measurement.
 URL: https://choi-phd.github.io/maat/
 BugReports: https://github.com/choi-phd/maat/issues/
 License: GPL (>= 2)
