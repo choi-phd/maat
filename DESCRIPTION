@@ -1,8 +1,8 @@
 Package: maat
 Type: Package
 Title: Multiple Administrations Adaptive Testing
-Version: 1.0.0
-Date: 2021-06-25
+Version: 1.0.1
+Date: 2021-06-30
 Authors@R: c(
     person("Seung W.", "Choi",
         email = "schoi@austin.utexas.edu",
@@ -30,13 +30,14 @@ Authors@R: c(
         email = "garron.gianopulos@nwea.org",
         role = "ctb"))
 Maintainer: Seung W. Choi <schoi@austin.utexas.edu>
-Description: Multiple Administrations Adaptive Testing (MAAT) is an extension of the
-    shadow-test approach to CAT implemented in the 'TestDesign' package. The
-    MAAT system is based on the assessment framework involving multiple tests
-    administered throughout the year using multiple item pools vertically scaled
-    and multiple phases (stages) of CAT within each test allowing transitioning
-    from one item pool (and associated constraints) to another as deemed
-    necessary to enhance the quality of measurement.
+Description: Provides a multiple administrations extension of the shadow-test
+    approach for adaptive testing in the 'TestDesign' package. The Multiple
+    Administrations Adaptive Testing (MAAT) system is based on the assessment
+    framework involving multiple tests administered throughout the year, using
+    multiple item pools vertically scaled and multiple phases (stages) of
+    computerized adaptive tests. Within each test, transitioning from one item
+    pool (and associated constraints) to another is allowed as deemed necessary
+    to enhance the quality of measurement.
 URL: https://choi-phd.github.io/maat/
 BugReports: https://github.com/choi-phd/maat/issues/
 License: GPL (>= 2)
