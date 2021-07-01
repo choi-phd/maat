@@ -1052,7 +1052,7 @@ getItemExposureRate <- function(x) {
 
   n_examinee           <- length(x@examinee_list@examinee_list)
   items_per_grade      <- getItemNamesPerGrade(x@module_list)
-  administered_items   <- getAdministeredItemsPerTest(x@examinee_list@examinee_list)
+  administered_items   <- getAdministeredItemsPerTest(x)
 
   grades <- names(items_per_grade)
   tests  <- names(administered_items)
