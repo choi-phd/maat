@@ -7,16 +7,55 @@ NULL
 #'
 #' @slot examinee_list a list of \code{\linkS4class{examinee}} objects.
 #' @slot assessment_structure an \code{\linkS4class{assessment_structure}} object.
+#' @slot module_list a module list from \code{\link{loadModules}}.
+#' @slot config the \code{\linkS4class{config_Shadow}} object used in the simulation.
+#' @slot cut_scores the cut scores used in the simulation.
+#' @slot overlap_control_policy the policy used in the simulation.
+#' @slot transition_policy the policy used in the simulation.
+#' @slot combine_policy the policy used in the simulation.
+#' @slot transition_CI_alpha the transition parameter used in the simulation.
+#' @slot transition_percentile_lower the transition parameter used in the simulation.
+#' @slot transition_percentile_upper the transition parameter used in the simulation.
+#' @slot initial_theta_list the starting theta values used in the simulation.
+#' @slot prior_mean_policy the policy used in the simulation.
+#' @slot prior_mean_user the prior parameters used in the simulation.
+#' @slot prior_sd the prior parameters used in the simulation.
 #'
 #' @export
 setClass("output_maat",
   slots = c(
-    examinee_list        = "list",
-    assessment_structure = "assessment_structure"
+    examinee_list        = "examinee_list",
+    assessment_structure = "assessment_structure",
+    module_list          = "list",
+    config               = "config_Shadow",
+    cut_scores           = "list",
+    overlap_control_policy = "character",
+    transition_policy      = "character",
+    combine_policy         = "character",
+    transition_CI_alpha    = "numeric",
+    transition_percentile_lower = "numeric_or_null",
+    transition_percentile_upper = "numeric_or_null",
+    initial_theta_list = "list_or_null",
+    prior_mean_policy  = "character",
+    prior_mean_user    = "numeric_or_null",
+    prior_sd           = "numeric"
   ),
   prototype = list(
-    examinee_list        = list(),
-    assessment_structure = new("assessment_structure")
+    examinee_list        = new("examinee_list"),
+    assessment_structure = new("assessment_structure"),
+    module_list          = list(),
+    config               = new("config_Shadow"),
+    cut_scores           = list(),
+    overlap_control_policy = character(0),
+    transition_policy      = character(0),
+    combine_policy         = character(0),
+    transition_CI_alpha    = numeric(0),
+    transition_percentile_lower = numeric(0),
+    transition_percentile_upper = numeric(0),
+    initial_theta_list = list(),
+    prior_mean_policy  = character(0),
+    prior_mean_user    = numeric(0),
+    prior_sd           = numeric(0)
   ),
   validity = function(object) {
     return(TRUE)
@@ -122,6 +161,7 @@ simExaminees <- function(N, mean_v, sd_v, cor_v, assessment_structure,
 #' \code{\link{maat}} is the main function for simulating a multi-stage multi-administration adaptive test.
 #'
 #' @param examinee_list an \code{\linkS4class{examinee_list}} object from \code{\link{simExaminees}}.
+#' @param assessment_structure a \code{\linkS4class{assessment_structure}} object.
 #' @param module_list a module list from \code{\link{loadModules}}.
 #' @param config a \code{\linkS4class{config_Shadow}} object.
 #' @param cut_scores a named list containing cut scores to be used in each grade. Each element must be named in the form \code{G?}, where \code{?} is a number.
@@ -175,6 +215,7 @@ simExaminees <- function(N, mean_v, sd_v, cor_v, assessment_structure,
 #' )
 #' examinee_list <- maat(
 #'   examinee_list          = examinee_list_math,
+#'   assessment_structure   = assessment_structure_math,
 #'   module_list            = module_list_math,
 #'   overlap_control_policy = "all",
 #'   transition_CI_alpha    = 0.05,
@@ -184,7 +225,7 @@ simExaminees <- function(N, mean_v, sd_v, cor_v, assessment_structure,
 #' }
 #' @export
 maat <- function(
-  examinee_list = examinee_list, module_list, config, cut_scores,
+  examinee_list = examinee_list, assessment_structure, module_list, config, cut_scores,
   overlap_control_policy, transition_policy = "CI",
   combine_policy = "conditional",
   transition_CI_alpha = NULL,
@@ -257,8 +298,8 @@ maat <- function(
   # Module Information -------------
 
   n_modules <-
-    examinee_list@assessment_structure@n_test *
-    examinee_list@assessment_structure@n_phase
+    assessment_structure@n_test *
+    assessment_structure@n_phase
 
   module_list_by_name <- unlist(module_list)
   module_names <- unlist(lapply(
@@ -314,7 +355,7 @@ maat <- function(
       prior_par                    <- NULL
       include_items_for_estimation <- NULL
 
-      if (current_module_position %% examinee_list@assessment_structure@n_phase == 1) {
+      if (current_module_position %% assessment_structure@n_phase == 1) {
         if (prior_mean_policy == "mean_difficulty") {
           # at the beginning of each test
           # use mean difficulty of the current item pool
@@ -427,7 +468,7 @@ maat <- function(
           )
         }
         if (overlap_control_policy == "within_test") {
-          if (current_module_position %% examinee_list@assessment_structure@n_phase == 0) {
+          if (current_module_position %% assessment_structure@n_phase == 0) {
             if (verbose) {
               cat(sprintf(
                 "Module position %s: overlap control (within test)\n",
@@ -475,7 +516,7 @@ maat <- function(
           administered_entry <- NULL
         }
 
-        if (current_module_position %% examinee_list@assessment_structure@n_phase == 0) {
+        if (current_module_position %% assessment_structure@n_phase == 0) {
 
           include_items_for_estimation <- lapply(
             examinee_list@examinee_list[examinee_in_thisgroup],
@@ -612,14 +653,14 @@ maat <- function(
         function(x) {
           item_pool_for_this_examinee <- module_list[[x@current_grade]][[x@current_phase]]@constraints@pool
           x <- updateGrade(
-            x, examinee_list@assessment_structure, current_module_position, cut_scores, transition_policy,
+            x, assessment_structure, current_module_position, cut_scores, transition_policy,
             transition_CI_alpha,
             transition_percentile_lower,
             transition_percentile_upper,
             item_pool_for_this_examinee
           )
-          x <- updateTest(x, examinee_list@assessment_structure)
-          x <- updatePhase(x, examinee_list@assessment_structure)
+          x <- updateTest(x, assessment_structure)
+          x <- updatePhase(x, assessment_structure)
           x <- updateModule(x, module_list)
         }
       )
@@ -627,9 +668,24 @@ maat <- function(
 
   }
 
-  examinee_list@is_complete <- TRUE
+  o <- new("output_maat")
+  o@examinee_list <- examinee_list
+  o@assessment_structure <- assessment_structure
+  o@module_list <- module_list
+  o@config <- config
+  o@cut_scores <- cut_scores
+  o@overlap_control_policy <- overlap_control_policy
+  o@transition_policy      <- transition_policy
+  o@combine_policy         <- combine_policy
+  o@transition_CI_alpha    <- transition_CI_alpha
+  o@transition_percentile_lower <- transition_percentile_lower
+  o@transition_percentile_upper <- transition_percentile_upper
+  o@initial_theta_list          <- initial_theta_list
+  o@prior_mean_policy           <- prior_mean_policy
+  o@prior_mean_user             <- prior_mean_user
+  o@prior_sd                    <- prior_sd
 
-  return(examinee_list)
+  return(o)
 
 }
 
