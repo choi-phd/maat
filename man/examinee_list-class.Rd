@@ -11,9 +11,5 @@
 
 \describe{
 \item{\code{examinee_list}}{a list of \code{\linkS4class{examinee}} objects.}
-
-\item{\code{assessment_structure}}{an \code{\linkS4class{assessment_structure}} object.}
-
-\item{\code{is_complete}}{\code{TRUE} after being updated from running \code{\link{maat}}. (default = \code{FALSE})}
 }}
 

@@ -6,20 +6,14 @@ NULL
 #' \code{\linkS4class{examinee_list}} is an S4 class to represent a list of examinees.
 #'
 #' @slot examinee_list a list of \code{\linkS4class{examinee}} objects.
-#' @slot assessment_structure an \code{\linkS4class{assessment_structure}} object.
-#' @slot is_complete \code{TRUE} after being updated from running \code{\link{maat}}. (default = \code{FALSE})
 #'
 #' @export
 setClass("examinee_list",
   slots = c(
-    examinee_list        = "list",
-    assessment_structure = "assessment_structure",
-    is_complete          = "logical"
+    examinee_list = "list"
   ),
   prototype = list(
-    examinee_list        = list(),
-    assessment_structure = new("assessment_structure"),
-    is_complete          = logical(0)
+    examinee_list = list()
   ),
   validity = function(object) {
     return(TRUE)
