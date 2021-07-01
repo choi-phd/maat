@@ -1,6 +1,28 @@
 #' @include loadModules.R
 NULL
 
+#' Class 'output_maat': a simulation output
+#'
+#' \code{\linkS4class{output_maat}} is an S4 class to represent a simulation output.
+#'
+#' @slot examinee_list a list of \code{\linkS4class{examinee}} objects.
+#' @slot assessment_structure an \code{\linkS4class{assessment_structure}} object.
+#'
+#' @export
+setClass("output_maat",
+  slots = c(
+    examinee_list        = "list",
+    assessment_structure = "assessment_structure"
+  ),
+  prototype = list(
+    examinee_list        = list(),
+    assessment_structure = new("assessment_structure")
+  ),
+  validity = function(object) {
+    return(TRUE)
+  }
+)
+
 #' Simulate theta values
 #'
 #' \code{\link{simTheta}} is a function for generating a theta matrix based on the given
