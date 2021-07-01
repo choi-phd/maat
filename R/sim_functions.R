@@ -112,8 +112,6 @@ simExaminees <- function(N, mean_v, sd_v, cor_v, assessment_structure,
 
   o <- new("examinee_list")
   o@examinee_list        <- examinee_list
-  o@assessment_structure <- assessment_structure
-  o@is_complete          <- FALSE
 
   return(o)
 
