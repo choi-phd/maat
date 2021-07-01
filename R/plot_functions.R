@@ -1,4 +1,4 @@
-#' @include loadModules.R
+#' @include sim_functions.R
 NULL
 
 #' @noRd
@@ -150,7 +150,8 @@ countModuleRoutes <- function(examinee_list) {
 #' @param x x
 #' @param y y
 #' @param type the type of plot. \code{route} plots the number of examinees routed to each path across the course of entire assessment. \code{correlation} plots a scatterplot of thetas across administrations.
-#' @param cut_scores a named list containing cut scores for each grade.
+#' @param examinee_id the examinee ID to plot.
+#' @param cut_scores (optional) a named list containing cut scores for each grade.
 #' @param theta_range the theta range to use in scatter plots when \code{x} is an examinee list.
 #' @param main the figure title to use in scatter plots when \code{x} is an examinee list.
 #' @param box_color the cell color to use when \code{type} is \code{route}. (default = \code{PaleTurquoise})
@@ -166,6 +167,7 @@ countModuleRoutes <- function(examinee_list) {
 #' )
 #' examinee_list <- maat(
 #'   examinee_list          = examinee_list_math,
+#'   assessment_structure   = assessment_structure_math,
 #'   module_list            = module_list_math,
 #'   overlap_control_policy = "all",
 #'   transition_CI_alpha    = 0.05,
@@ -175,9 +177,8 @@ countModuleRoutes <- function(examinee_list) {
 #'
 #' plot(examinee_list, type = "route")
 #' plot(examinee_list, type = "correlation")
+#' plot(examinee_list, type = "audit", examinee_id = 1)
 #'
-#' examinee <- examinee_list@examinee_list[[1]]
-#' plot(examinee, cut_scores = cut_scores_math)
 #' }
 #' @docType methods
 #' @rdname plot-methods
@@ -266,14 +267,14 @@ setMethod(
 #' @export
 setMethod(
   f = "plot",
-  signature = "examinee_list",
+  signature = "output_maat",
   definition = function(
-    x, y, type, cut_scores, theta_range = c(-4, 4), main = NULL, box_color = "PaleTurquoise") {
+    x, y, type, examinee_id, cut_scores = NULL, theta_range = c(-4, 4), main = NULL, box_color = "PaleTurquoise") {
 
     if (type == "correlation") {
 
       tests <- lapply(
-        x@examinee_list,
+        x@examinee_list@examinee_list,
         function(o) {
           o@test_log
         }
@@ -281,7 +282,7 @@ setMethod(
       n_tests <- length(unique(unlist(tests)))
 
       true_theta <- lapply(
-        x@examinee_list,
+        x@examinee_list@examinee_list,
         function(o) {
           theta <- c()
           for (test in unique(o@test_log)) {
@@ -294,7 +295,7 @@ setMethod(
       true_theta <- matrix(unlist(true_theta), length(true_theta), byrow = TRUE)
 
       final_theta <- lapply(
-        x@examinee_list,
+        x@examinee_list@examinee_list,
         function(o) {
           theta <- c()
           for (test in unique(o@test_log)) {
@@ -347,9 +348,16 @@ setMethod(
       }
     }
 
+    if (type == "audit") {
+      plot(
+        x@examinee_list@examinee_list[[examinee_id]],
+        cut_scores = x@cut_scores
+      )
+    }
+
     if (type == "route") {
 
-      route_counts <- countModuleRoutes(x)
+      route_counts <- countModuleRoutes(x@examinee_list)
 
       route_range <-
         -x@assessment_structure@route_limit_below:
