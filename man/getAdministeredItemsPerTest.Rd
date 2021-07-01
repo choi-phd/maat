@@ -4,10 +4,10 @@
 \alias{getAdministeredItemsPerTest}
 \title{Get administered items per test}
 \usage{
-getAdministeredItemsPerTest(examinee_list)
+getAdministeredItemsPerTest(x)
 }
 \arguments{
-\item{examinee_list}{an \code{\linkS4class{examinee_list}} object from \code{\link{simExaminees}}, returned from \code{\link{maat}}.}
+\item{x}{an \code{\linkS4class{output_maat}} object from \code{\link{maat}}.}
 }
 \value{
 a list containing administered items in each test and also for all tests combined.

@@ -821,20 +821,20 @@ formatOutput <- function(examinee_list, digits = 3) {
 #' \code{\link{getRMSE}} is a function for calculating root mean square error (RMSE)
 #' for the simulation results.
 #'
-#' @param examinee_list an \code{\linkS4class{examinee_list}} object from \code{\link{simExaminees}}, returned from \code{\link{maat}}.
+#' @param x an \code{\linkS4class{output_maat}} object from \code{\link{maat}}.
 #'
 #' @return a list containing RMSE by test and also for all tests combined.
 #'
 #' @export
-getRMSE <- function(examinee_list) {
+getRMSE <- function(x) {
 
   o <- list()
 
   RMSE <- numeric(6)
   for (p in c(2, 4, 6)) {
-    d <- lapply(examinee_list@examinee_list,
-      function(x) {
-        x@estimated_theta_by_test[[p]]$theta - x@true_theta[p]
+    d <- lapply(x@examinee_list@examinee_list,
+      function(xx) {
+        xx@estimated_theta_by_test[[p]]$theta - xx@true_theta[p]
       }
     )
     RMSE[p] <- sqrt(mean(unlist(d) ** 2))
@@ -842,11 +842,17 @@ getRMSE <- function(examinee_list) {
 
   o$RMSE_by_test <- RMSE[c(2, 4, 6)]
 
-  d <- lapply(examinee_list@examinee_list,
-    function(x) {
-      estimated_theta_by_test <- lapply(x@estimated_theta_by_test, function(xx) { xx$theta })
+  d <- lapply(x@examinee_list@examinee_list,
+    function(xx) {
+      estimated_theta_by_test <-
+        lapply(
+          xx@estimated_theta_by_test,
+          function(xxx) {
+            xxx$theta
+          }
+        )
       estimated_theta_by_test <- unlist(estimated_theta_by_test)
-      diff <- estimated_theta_by_test - x@true_theta
+      diff <- estimated_theta_by_test - xx@true_theta
       diff <- diff[c(2, 4, 6)]
       return(diff)
     }
@@ -862,20 +868,20 @@ getRMSE <- function(examinee_list) {
 #'
 #' \code{\link{getBias}} is a function for calculating the bias of ability estimates of the simulation results.
 #'
-#' @param examinee_list an \code{\linkS4class{examinee_list}} object from \code{\link{simExaminees}}, returned from \code{\link{maat}}.
+#' @param x an \code{\linkS4class{output_maat}} object from \code{\link{maat}}.
 #'
 #' @return a list containing bias by test and also for all tests combined.
 #'
 #' @export
-getBias <- function(examinee_list) {
+getBias <- function(x) {
 
   o <- list()
 
   Bias <- numeric(6)
   for (p in c(2, 4, 6)) {
-    d <- lapply(examinee_list@examinee_list,
-      function(x) {
-        x@estimated_theta_by_test[[p]]$theta - x@true_theta[p]
+    d <- lapply(x@examinee_list@examinee_list,
+      function(xx) {
+        xx@estimated_theta_by_test[[p]]$theta - xx@true_theta[p]
       }
     )
     Bias[p] <- mean(unlist(d))
@@ -891,20 +897,20 @@ getBias <- function(examinee_list) {
 #'
 #' \code{\link{getSE}} is a function for calculating the standard error of the estimates.
 #'
-#' @param examinee_list an \code{\linkS4class{examinee_list}} object from \code{\link{simExaminees}}, returned from \code{\link{maat}}.
+#' @param x an \code{\linkS4class{output_maat}} object from \code{\link{maat}}.
 #'
 #' @return a list containing SE by test and also for all tests combined.
 #'
 #' @export
-getSE <- function(examinee_list) {
+getSE <- function(x) {
 
   o <- list()
 
   SE <- numeric(6)
   for (p in c(2, 4, 6)) {
     estimated_theta_by_test <-
-      unlist(lapply(examinee_list@examinee_list, function(x){
-        x@estimated_theta_by_test[[p]]$theta
+      unlist(lapply(x@examinee_list@examinee_list, function(xx){
+        xx@estimated_theta_by_test[[p]]$theta
     }))
 
     mean_est_theta <- mean(estimated_theta_by_test)
@@ -922,40 +928,40 @@ getSE <- function(examinee_list) {
 #'
 #' \code{\link{getAdaptivityIndex}} is a function for calculating adaptivity indices from the output of \code{\link{maat}}.
 #'
-#' @param examinee_list an \code{\linkS4class{examinee_list}} object from \code{\link{simExaminees}}, returned from \code{\link{maat}}.
+#' @param x an \code{\linkS4class{output_maat}} object from \code{\link{maat}}.
 #'
 #' @return a data frame containing adaptivity indices by test and also for all tests combined.
 #'
 #' @export
-getAdaptivityIndex <- function(examinee_list) {
+getAdaptivityIndex <- function(x) {
 
-  theta_t1  <- vector(length = length(examinee_list@examinee_list))
-  theta_t2  <- vector(length = length(examinee_list@examinee_list))
-  theta_t3  <- vector(length = length(examinee_list@examinee_list))
+  theta_t1  <- vector(length = length(x@examinee_list@examinee_list))
+  theta_t2  <- vector(length = length(x@examinee_list@examinee_list))
+  theta_t3  <- vector(length = length(x@examinee_list@examinee_list))
 
-  mean_difficulty_t1    <- vector(length = length(examinee_list@examinee_list))
-  mean_difficulty_t2    <- vector(length = length(examinee_list@examinee_list))
-  mean_difficulty_t3    <- vector(length = length(examinee_list@examinee_list))
-  mean_difficulty_total <- vector(length = length(examinee_list))
+  mean_difficulty_t1    <- vector(length = length(x@examinee_list@examinee_list))
+  mean_difficulty_t2    <- vector(length = length(x@examinee_list@examinee_list))
+  mean_difficulty_t3    <- vector(length = length(x@examinee_list@examinee_list))
+  mean_difficulty_total <- vector(length = length(x@examinee_list@examinee_list))
 
-  for (i in 1:length(examinee_list@examinee_list)) {
-    theta_t1[i] <- examinee_list@examinee_list[[i]]@estimated_theta_by_test[[2]]$theta
-    theta_t2[i] <- examinee_list@examinee_list[[i]]@estimated_theta_by_test[[4]]$theta
-    theta_t3[i] <- examinee_list@examinee_list[[i]]@estimated_theta_by_test[[6]]$theta
+  for (i in 1:length(x@examinee_list@examinee_list)) {
+    theta_t1[i] <- x@examinee_list@examinee_list[[i]]@estimated_theta_by_test[[2]]$theta
+    theta_t2[i] <- x@examinee_list@examinee_list[[i]]@estimated_theta_by_test[[4]]$theta
+    theta_t3[i] <- x@examinee_list@examinee_list[[i]]@estimated_theta_by_test[[6]]$theta
 
     mean_difficulty_t1[i] <- mean(c(
-      mean(as.vector(examinee_list@examinee_list[[i]]@item_data[[1]]@ipar), na.rm = TRUE),
-      mean(as.vector(examinee_list@examinee_list[[i]]@item_data[[2]]@ipar), na.rm = TRUE)
+      mean(as.vector(x@examinee_list@examinee_list[[i]]@item_data[[1]]@ipar), na.rm = TRUE),
+      mean(as.vector(x@examinee_list@examinee_list[[i]]@item_data[[2]]@ipar), na.rm = TRUE)
     ))
 
     mean_difficulty_t2[i] <- mean(c(
-      mean(as.vector(examinee_list@examinee_list[[i]]@item_data[[3]]@ipar), na.rm = TRUE),
-      mean(as.vector(examinee_list@examinee_list[[i]]@item_data[[4]]@ipar), na.rm = TRUE)
+      mean(as.vector(x@examinee_list@examinee_list[[i]]@item_data[[3]]@ipar), na.rm = TRUE),
+      mean(as.vector(x@examinee_list@examinee_list[[i]]@item_data[[4]]@ipar), na.rm = TRUE)
     ))
 
     mean_difficulty_t3[i] <- mean(c(
-      mean(as.vector(examinee_list@examinee_list[[i]]@item_data[[5]]@ipar), na.rm = TRUE),
-      mean(as.vector(examinee_list@examinee_list[[i]]@item_data[[6]]@ipar), na.rm = TRUE)
+      mean(as.vector(x@examinee_list@examinee_list[[i]]@item_data[[5]]@ipar), na.rm = TRUE),
+      mean(as.vector(x@examinee_list@examinee_list[[i]]@item_data[[6]]@ipar), na.rm = TRUE)
     ))
 
     mean_difficulty_total[i] <- mean(c(
@@ -991,19 +997,19 @@ getAdaptivityIndex <- function(examinee_list) {
 #' \code{\link{getAdministeredItemsPerTest}} is a function for extracting the administered items stored in the
 #' \code{\linkS4class{examinee}} objects.
 #'
-#' @param examinee_list an \code{\linkS4class{examinee_list}} object from \code{\link{simExaminees}}, returned from \code{\link{maat}}.
+#' @param x an \code{\linkS4class{output_maat}} object from \code{\link{maat}}.
 #'
 #' @return a list containing administered items in each test and also for all tests combined.
 #'
 #' @export
-getAdministeredItemsPerTest <- function(examinee_list) {
+getAdministeredItemsPerTest <- function(x) {
   items_used <- list()
-  for (i in 1:length(examinee_list@examinee_list)) {
-    for (m in 1:examinee_list@examinee_list[[i]]@n_module) {
-      test_idx <- examinee_list@examinee_list[[i]]@test_log[m]
+  for (i in 1:length(x@examinee_list@examinee_list)) {
+    for (m in 1:x@examinee_list@examinee_list[[i]]@n_module) {
+      test_idx <- x@examinee_list@examinee_list[[i]]@test_log[m]
       items_used[[test_idx]] <- c(
         items_used[[test_idx]],
-        examinee_list@examinee_list[[i]]@administered_items[[m]]
+        x@examinee_list@examinee_list[[i]]@administered_items[[m]]
       )
     }
   }
@@ -1038,16 +1044,15 @@ getItemNamesPerGrade <- function(module_list) {
 #'
 #' \code{\link{getItemExposureRate}} is a function for building an item exposure rate table.
 #'
-#' @param examinee_list an \code{\linkS4class{examinee_list}} object from \code{\link{simExaminees}}, returned from \code{\link{maat}}.
-#' @param module_list a module list from \code{\link{loadModules}}.
+#' @param x an \code{\linkS4class{output_maat}} object from \code{\link{maat}}.
 #' @return the table of item exposure rate.
 #'
 #' @export
-getItemExposureRate <- function(examinee_list, module_list) {
+getItemExposureRate <- function(x) {
 
-  n_examinee           <- length(examinee_list@examinee_list)
-  items_per_grade      <- getItemNamesPerGrade(module_list)
-  administered_items   <- getAdministeredItemsPerTest(examinee_list)
+  n_examinee           <- length(x@examinee_list@examinee_list)
+  items_per_grade      <- getItemNamesPerGrade(x@module_list)
+  administered_items   <- getAdministeredItemsPerTest(x@examinee_list@examinee_list)
 
   grades <- names(items_per_grade)
   tests  <- names(administered_items)
