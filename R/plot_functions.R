@@ -2,7 +2,14 @@
 NULL
 
 #' @noRd
-countModuleRoutes <- function(examinee_list) {
+countModuleRoutes <- function(examinee_list, assessment_structure) {
+
+  if (!inherits(examinee_list, "examinee_list")) {
+    stop(sprintf("unexpected objected class: expecting 'examinee_list'"))
+  }
+  if (!inherits(assessment_structure, "assessment_structure")) {
+    stop(sprintf("unexpected objected class: expecting 'assessment_structure'"))
+  }
 
   starting_grade <- lapply(
     examinee_list@examinee_list,
@@ -13,10 +20,10 @@ countModuleRoutes <- function(examinee_list) {
   starting_grade <- unique(unlist(starting_grade))
   starting_grade_num <- as.numeric(gsub("[^\\d]+", "", starting_grade, perl = TRUE))
 
-  n_test  <- examinee_list@assessment_structure@n_test
-  n_phase <- examinee_list@assessment_structure@n_phase
-  route_limit_below <- examinee_list@assessment_structure@route_limit_below
-  route_limit_above <- examinee_list@assessment_structure@route_limit_above
+  n_test  <- assessment_structure@n_test
+  n_phase <- assessment_structure@n_phase
+  route_limit_below <- assessment_structure@route_limit_below
+  route_limit_above <- assessment_structure@route_limit_above
 
   max_grade <- starting_grade_num + route_limit_above
   min_grade <- starting_grade_num - route_limit_below
@@ -44,7 +51,7 @@ countModuleRoutes <- function(examinee_list) {
     module_path[i] <- list(temp_path)
   }
 
-  test_routing_restrictions <- examinee_list@assessment_structure@test_routing_restrictions
+  test_routing_restrictions <- assessment_structure@test_routing_restrictions
 
   if ("R1" %in% test_routing_restrictions) {
     min_grade <- min(module_path[[2]][, 1])
@@ -357,7 +364,7 @@ setMethod(
 
     if (type == "route") {
 
-      route_counts <- countModuleRoutes(x@examinee_list)
+      route_counts <- countModuleRoutes(x@examinee_list, x@assessment_structure)
 
       route_range <-
         -x@assessment_structure@route_limit_below:
