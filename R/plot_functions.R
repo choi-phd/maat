@@ -317,7 +317,7 @@ setMethod(
         for (idx_cut in c(1, 3)) {
           lines(
             c(x_from, x_to) + 0.5,
-            rep(cut_scores[[examinee@grade_log[m]]][idx_cut], 2),
+            rep(x@cut_scores[[examinee@grade_log[m]]][idx_cut], 2),
             col = "grey"
           )
         }
@@ -332,11 +332,44 @@ setMethod(
         examinee@grade_log
       )
 
+      module_list_by_name <- unlist(x@module_list)
+      module_names <- unlist(lapply(
+        module_list_by_name,
+        function(xx) {
+          xx@module_id
+        }
+      ))
+      names(module_list_by_name) <- module_names
+
       response <- unlist(examinee@response)
-      response_color <- factor(response)
-      levels(response_color) <-
-        c("red", "lime green", "yellow")
-      response_color <- as.character(response_color)
+
+      n_category <- list()
+      for (m in 1:6) {
+        module <- module_list_by_name[[examinee@module_log[m]]]
+        administered_items <- examinee@administered_items[[m]]
+        n_category[[m]] <- sapply(
+          1:length(administered_items),
+          function(xx) {
+            idx_in_pool <- which(module@constraints@pool@id == administered_items[xx])
+            module@constraints@pool@NCAT[idx_in_pool]
+          }
+        )
+      }
+
+      n_category <- unlist(n_category)
+
+      response_color <- sapply(
+        1:length(response),
+        function(xx) {
+          if (n_category[xx] == 2) {
+            if (response[xx] == 0) return("red")
+            if (response[xx] == 1) return("lime green")
+          }
+          if (n_category[xx] > 2) {
+            return("cyan")
+          }
+        }
+      )
 
       for (i in x_idx) {
         rect(
