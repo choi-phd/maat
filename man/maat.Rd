@@ -24,7 +24,7 @@ maat(
 )
 }
 \arguments{
-\item{examinee_list}{an \code{\linkS4class{examinee_list}} object from \code{\link{simExaminees}}.}
+\item{examinee_list}{an examinee list from \code{\link{simExaminees}}.}
 
 \item{assessment_structure}{a \code{\linkS4class{assessment_structure}} object.}
 

@@ -33,10 +33,10 @@ simExaminees(
 \item{initial_test}{the initial test for all examinees. (default = \code{T1})}
 }
 \value{
-an \code{\linkS4class{examinee_list}} object
+a list of \code{\linkS4class{examinee}} objects.
 }
 \description{
-\code{\link{simExaminees}} is a function for generating an \code{\linkS4class{examinee_list}} object that contains \code{\linkS4class{examinee}} objects.
+\code{\link{simExaminees}} is a function for generating a list of \code{\linkS4class{examinee}} objects.
 }
 \details{
 Each dimension of \code{mean_v}, \code{sd_v}, \code{cor_v} represents a test level. For example in a three-test structure (see the \code{assessment_structure_math} example data), these arguments must have three dimensions.

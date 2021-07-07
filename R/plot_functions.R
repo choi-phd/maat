@@ -4,15 +4,12 @@ NULL
 #' @noRd
 countModuleRoutes <- function(examinee_list, assessment_structure) {
 
-  if (!inherits(examinee_list, "examinee_list")) {
-    stop(sprintf("unexpected objected class: expecting 'examinee_list'"))
-  }
   if (!inherits(assessment_structure, "assessment_structure")) {
     stop(sprintf("unexpected objected class: expecting 'assessment_structure'"))
   }
 
   starting_grade <- lapply(
-    examinee_list@examinee_list,
+    examinee_list,
     function(x) {
       x@grade_log[1]
     }
@@ -105,7 +102,7 @@ countModuleRoutes <- function(examinee_list, assessment_structure) {
   #### calculate counts ####
   ##########################
   grade_log <- lapply(
-    examinee_list@examinee_list,
+    examinee_list,
     function(x) {
       x@grade_log
     }
@@ -281,7 +278,7 @@ setMethod(
     if (type == "correlation") {
 
       tests <- lapply(
-        x@examinee_list@examinee_list,
+        x@examinee_list,
         function(o) {
           o@test_log
         }
@@ -289,7 +286,7 @@ setMethod(
       n_tests <- length(unique(unlist(tests)))
 
       true_theta <- lapply(
-        x@examinee_list@examinee_list,
+        x@examinee_list,
         function(o) {
           theta <- c()
           for (test in unique(o@test_log)) {
@@ -302,7 +299,7 @@ setMethod(
       true_theta <- matrix(unlist(true_theta), length(true_theta), byrow = TRUE)
 
       final_theta <- lapply(
-        x@examinee_list@examinee_list,
+        x@examinee_list,
         function(o) {
           theta <- c()
           for (test in unique(o@test_log)) {
@@ -357,7 +354,7 @@ setMethod(
 
     if (type == "audit") {
       plot(
-        x@examinee_list@examinee_list[[examinee_id]],
+        x@examinee_list[[examinee_id]],
         cut_scores = x@cut_scores
       )
     }

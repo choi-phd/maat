@@ -24,7 +24,7 @@ NULL
 #' @export
 setClass("output_maat",
   slots = c(
-    examinee_list        = "examinee_list",
+    examinee_list        = "list",
     assessment_structure = "assessment_structure",
     module_list          = "list",
     config               = "config_Shadow",
@@ -41,7 +41,7 @@ setClass("output_maat",
     prior_sd           = "numeric"
   ),
   prototype = list(
-    examinee_list        = new("examinee_list"),
+    examinee_list        = list(),
     assessment_structure = new("assessment_structure"),
     module_list          = list(),
     config               = new("config_Shadow"),
@@ -95,7 +95,7 @@ simTheta <- function(N, mean_v, sd_v, cor_v) {
 
 #' Simulate an examinee list
 #'
-#' \code{\link{simExaminees}} is a function for generating an \code{\linkS4class{examinee_list}} object that contains \code{\linkS4class{examinee}} objects.
+#' \code{\link{simExaminees}} is a function for generating a list of \code{\linkS4class{examinee}} objects.
 #'
 #' Each dimension of \code{mean_v}, \code{sd_v}, \code{cor_v} represents a test level. For example in a three-test structure (see the \code{assessment_structure_math} example data), these arguments must have three dimensions.
 #'
@@ -107,7 +107,7 @@ simTheta <- function(N, mean_v, sd_v, cor_v) {
 #' @param initial_grade the initial grade for all examinees. The grade must exist in \code{module_list}. (default = \code{G4})
 #' @param initial_phase the initial phase for all examinees. The phase must exist in \code{module_list}. (default = \code{P1})
 #' @param initial_test the initial test for all examinees. (default = \code{T1})
-#' @return an \code{\linkS4class{examinee_list}} object
+#' @return a list of \code{\linkS4class{examinee}} objects.
 #'
 #' @examples
 #' assessment_structure <- createAssessmentStructure(
@@ -149,10 +149,7 @@ simExaminees <- function(N, mean_v, sd_v, cor_v, assessment_structure,
     names(examinee_list)[i] <- x@examinee_id
   }
 
-  o <- new("examinee_list")
-  o@examinee_list        <- examinee_list
-
-  return(o)
+  return(examinee_list)
 
 }
 
@@ -160,7 +157,7 @@ simExaminees <- function(N, mean_v, sd_v, cor_v, assessment_structure,
 #'
 #' \code{\link{maat}} is the main function for simulating a multi-stage multi-administration adaptive test.
 #'
-#' @param examinee_list an \code{\linkS4class{examinee_list}} object from \code{\link{simExaminees}}.
+#' @param examinee_list an examinee list from \code{\link{simExaminees}}.
 #' @param assessment_structure a \code{\linkS4class{assessment_structure}} object.
 #' @param module_list a module list from \code{\link{loadModules}}.
 #' @param config a \code{\linkS4class{config_Shadow}} object.
@@ -311,8 +308,8 @@ maat <- function(
   names(module_list_by_name) <- module_names
 
   # Determine the module
-  examinee_list@examinee_list <- lapply(
-    examinee_list@examinee_list,
+  examinee_list <- lapply(
+    examinee_list,
     function(x) {
       updateModule(x, module_list)
     }
@@ -322,7 +319,7 @@ maat <- function(
 
   for (current_module_position in 1:n_modules) {
 
-    examinee_current_module <- lapply(examinee_list@examinee_list, function(x) {
+    examinee_current_module <- lapply(examinee_list, function(x) {
       x@current_module
     })
 
@@ -359,8 +356,8 @@ maat <- function(
         if (prior_mean_policy == "mean_difficulty") {
           # at the beginning of each test
           # use mean difficulty of the current item pool
-          examinee_list@examinee_list[examinee_in_thisgroup] <- getPriorUsingMeanDifficulty(
-            examinee_list@examinee_list[examinee_in_thisgroup],
+          examinee_list[examinee_in_thisgroup] <- getPriorUsingMeanDifficulty(
+            examinee_list[examinee_in_thisgroup],
             current_module_position,
             module_list_by_name, module_for_thisgroup,
             prior_sd
@@ -370,8 +367,8 @@ maat <- function(
           # at the beginning of each test
           # carryover previous theta
           if (current_module_position > 1) {
-            examinee_list@examinee_list[examinee_in_thisgroup] <- getPriorUsingCarryoverMeans(
-              examinee_list@examinee_list[examinee_in_thisgroup],
+            examinee_list[examinee_in_thisgroup] <- getPriorUsingCarryoverMeans(
+              examinee_list[examinee_in_thisgroup],
               current_module_position,
               prior_sd
             )
@@ -380,16 +377,16 @@ maat <- function(
           if (current_module_position == 1) {
             if (!is.null(prior_mean_user)) {
               # use user values
-              examinee_list@examinee_list[examinee_in_thisgroup] <- getPriorUsingUserMeans(
-                examinee_list@examinee_list[examinee_in_thisgroup],
+              examinee_list[examinee_in_thisgroup] <- getPriorUsingUserMeans(
+                examinee_list[examinee_in_thisgroup],
                 current_module_position,
                 prior_mean_user,
                 prior_sd
               )
             } else {
               # use mean difficulty of the current item pool
-              examinee_list@examinee_list[examinee_in_thisgroup] <- getPriorUsingMeanDifficulty(
-                examinee_list@examinee_list[examinee_in_thisgroup],
+              examinee_list[examinee_in_thisgroup] <- getPriorUsingMeanDifficulty(
+                examinee_list[examinee_in_thisgroup],
                 current_module_position,
                 module_list_by_name, module_for_thisgroup,
                 prior_sd
@@ -400,8 +397,8 @@ maat <- function(
         if (prior_mean_policy == "user") {
           # at the beginning of each test
           # use user values, because we expect true theta to change after each test
-          examinee_list@examinee_list[examinee_in_thisgroup] <- getPriorUsingUserMeans(
-            examinee_list@examinee_list[examinee_in_thisgroup],
+          examinee_list[examinee_in_thisgroup] <- getPriorUsingUserMeans(
+            examinee_list[examinee_in_thisgroup],
             current_module_position,
             prior_mean_user,
             prior_sd
@@ -410,14 +407,14 @@ maat <- function(
       } else {
         # within each test, after Phase 1, reuse the prior used for Phase 1
         # this should be uninformative, we are already carrying over response data to reconstruct posterior
-        examinee_list@examinee_list[examinee_in_thisgroup] <- getPriorUsingReuse(
-          examinee_list@examinee_list[examinee_in_thisgroup],
+        examinee_list[examinee_in_thisgroup] <- getPriorUsingReuse(
+          examinee_list[examinee_in_thisgroup],
           current_module_position
         )
       }
 
       prior_par <- extractPrior(
-        examinee_list@examinee_list[examinee_in_thisgroup],
+        examinee_list[examinee_in_thisgroup],
         current_module_position
       )
 
@@ -425,7 +422,7 @@ maat <- function(
 
         # use the theta estimate from the previous routing
         config_thisgroup@item_selection$initial_theta <- unlist(lapply(
-          examinee_list@examinee_list[examinee_in_thisgroup],
+          examinee_list[examinee_in_thisgroup],
           function(x) {
             x@estimated_theta_for_routing[[current_module_position - 1]]$theta
           }
@@ -440,13 +437,13 @@ maat <- function(
             ))
           }
           administered_items <- lapply(
-            examinee_list@examinee_list[examinee_in_thisgroup],
+            examinee_list[examinee_in_thisgroup],
             function(x) {
               unlist(x@administered_items)
             }
           )
           administered_stimuli <- lapply(
-            examinee_list@examinee_list[examinee_in_thisgroup],
+            examinee_list[examinee_in_thisgroup],
             function(x) {
               if (length(x@administered_stimuli) == 0) {
                 return(NULL)
@@ -476,13 +473,13 @@ maat <- function(
               ))
             }
             administered_items <- lapply(
-              examinee_list@examinee_list[examinee_in_thisgroup],
+              examinee_list[examinee_in_thisgroup],
               function(x) {
                 unlist(x@administered_items[[current_module_position - 1]])
               }
             )
             administered_stimuli <- lapply(
-              examinee_list@examinee_list[examinee_in_thisgroup],
+              examinee_list[examinee_in_thisgroup],
               function(x) {
                 if (length(x@administered_stimuli) == 0) {
                   return(NULL)
@@ -519,7 +516,7 @@ maat <- function(
         if (current_module_position %% assessment_structure@n_phase == 0) {
 
           include_items_for_estimation <- lapply(
-            examinee_list@examinee_list[examinee_in_thisgroup],
+            examinee_list[examinee_in_thisgroup],
             function(x) {
               o <- list()
               o$administered_item_pool <- x@item_data[[current_module_position - 1]]
@@ -544,7 +541,7 @@ maat <- function(
       }
 
       theta_thisgroup <- unlist(lapply(
-        examinee_list@examinee_list[examinee_in_thisgroup],
+        examinee_list[examinee_in_thisgroup],
         function(x) {
           x@true_theta[current_module_position]
         }
@@ -567,20 +564,20 @@ maat <- function(
         if (is.null(initial_theta)) {
           initial_theta <- 0
         }
-        examinee_list@examinee_list[[examinee]]@initial_theta_in_module[current_module_position] <- initial_theta
+        examinee_list[[examinee]]@initial_theta_in_module[current_module_position] <- initial_theta
 
         # store theta estimates to each examinee object
         o <- list()
         o$theta    <- solution@output[[examinee]]@final_theta_est
         o$theta_se <- solution@output[[examinee]]@final_se_est
-        examinee_list@examinee_list[[examinee]]@estimated_theta_by_phase[[current_module_position]] <- o
+        examinee_list[[examinee]]@estimated_theta_by_phase[[current_module_position]] <- o
 
-        examinee_list@examinee_list[[examinee]]@alpha <- transition_CI_alpha
+        examinee_list[[examinee]]@alpha <- transition_CI_alpha
 
         o <- list()
         o$theta    <- solution@output[[examinee]]@interim_theta_est
         o$theta_se <- solution@output[[examinee]]@interim_se_est
-        examinee_list@examinee_list[[examinee]]@interim_theta[[current_module_position]] <- o
+        examinee_list[[examinee]]@interim_theta[[current_module_position]] <- o
 
         # store selection thetas to each examinee object
         selection_theta <- c(
@@ -589,30 +586,30 @@ maat <- function(
             -length(solution@output[[examinee]]@interim_theta_est)
           ]
         )
-        examinee_list@examinee_list[[examinee]]@selection_theta[[current_module_position]] <- selection_theta
+        examinee_list[[examinee]]@selection_theta[[current_module_position]] <- selection_theta
 
         # store administered items and stimuli to each examinee object
-        examinee_list@examinee_list[[examinee]]@administered_items[[current_module_position]] <-
+        examinee_list[[examinee]]@administered_items[[current_module_position]] <-
           solution@pool@id[
             solution@output[[examinee]]@administered_item_index
           ]
         if (solution@constraints@set_based) {
-          examinee_list@examinee_list[[examinee]]@administered_stimuli[[current_module_position]] <-
+          examinee_list[[examinee]]@administered_stimuli[[current_module_position]] <-
             solution@constraints@st_attrib@data$STID[
               solution@output[[examinee]]@administered_stimulus_index
             ]
-          examinee_list@examinee_list[[examinee]]@administered_stimuli[[current_module_position]] <-
+          examinee_list[[examinee]]@administered_stimuli[[current_module_position]] <-
             unique(na.omit(
-              examinee_list@examinee_list[[examinee]]@administered_stimuli[[current_module_position]]
+              examinee_list[[examinee]]@administered_stimuli[[current_module_position]]
             ))
         }
 
         # store response to each examinee object
-        examinee_list@examinee_list[[examinee]]@response[[current_module_position]] <-
+        examinee_list[[examinee]]@response[[current_module_position]] <-
           solution@output[[examinee]]@administered_item_resp
 
-        examinee_list@examinee_list[[examinee]] <-
-          updateItemData(examinee_list@examinee_list[[examinee]], current_module_position, solution)
+        examinee_list[[examinee]] <-
+          updateItemData(examinee_list[[examinee]], current_module_position, solution)
       }
 
     }
@@ -621,24 +618,24 @@ maat <- function(
 
     # combine with the previous module to estimate test-level theta
     # this is stored in @estimated_theta_by_test
-    examinee_list@examinee_list <- lapply(
-      examinee_list@examinee_list,
+    examinee_list <- lapply(
+      examinee_list,
       function(x) {
         x <- updateThetaUsingCombined(x, current_module_position, config)
       }
     )
 
     # update grade / phase / module logs
-    examinee_list@examinee_list <- lapply(
-      examinee_list@examinee_list,
+    examinee_list <- lapply(
+      examinee_list,
       function(x) {
         x <- updateLog(x, current_module_position)
       }
     )
 
     # determine which theta to use for routing
-    examinee_list@examinee_list <- lapply(
-      examinee_list@examinee_list,
+    examinee_list <- lapply(
+      examinee_list,
       function(x) {
         x <- updateThetaForRouting(x, current_module_position, combine_policy)
       }
@@ -648,8 +645,8 @@ maat <- function(
     # Selection of Next Module ------------------
 
     if (current_module_position < n_modules) {
-      examinee_list@examinee_list <- lapply(
-        examinee_list@examinee_list,
+      examinee_list <- lapply(
+        examinee_list,
         function(x) {
           item_pool_for_this_examinee <- module_list[[x@current_grade]][[x@current_phase]]@constraints@pool
           x <- updateGrade(
@@ -832,7 +829,7 @@ getRMSE <- function(x) {
 
   RMSE <- numeric(6)
   for (p in c(2, 4, 6)) {
-    d <- lapply(x@examinee_list@examinee_list,
+    d <- lapply(x@examinee_list,
       function(xx) {
         xx@estimated_theta_by_test[[p]]$theta - xx@true_theta[p]
       }
@@ -842,7 +839,7 @@ getRMSE <- function(x) {
 
   o$RMSE_by_test <- RMSE[c(2, 4, 6)]
 
-  d <- lapply(x@examinee_list@examinee_list,
+  d <- lapply(x@examinee_list,
     function(xx) {
       estimated_theta_by_test <-
         lapply(
@@ -879,7 +876,7 @@ getBias <- function(x) {
 
   Bias <- numeric(6)
   for (p in c(2, 4, 6)) {
-    d <- lapply(x@examinee_list@examinee_list,
+    d <- lapply(x@examinee_list,
       function(xx) {
         xx@estimated_theta_by_test[[p]]$theta - xx@true_theta[p]
       }
@@ -909,7 +906,7 @@ getSE <- function(x) {
   SE <- numeric(6)
   for (p in c(2, 4, 6)) {
     estimated_theta_by_test <-
-      unlist(lapply(x@examinee_list@examinee_list, function(xx){
+      unlist(lapply(x@examinee_list, function(xx){
         xx@estimated_theta_by_test[[p]]$theta
     }))
 
@@ -935,33 +932,33 @@ getSE <- function(x) {
 #' @export
 getAdaptivityIndex <- function(x) {
 
-  theta_t1  <- vector(length = length(x@examinee_list@examinee_list))
-  theta_t2  <- vector(length = length(x@examinee_list@examinee_list))
-  theta_t3  <- vector(length = length(x@examinee_list@examinee_list))
+  theta_t1  <- vector(length = length(x@examinee_list))
+  theta_t2  <- vector(length = length(x@examinee_list))
+  theta_t3  <- vector(length = length(x@examinee_list))
 
-  mean_difficulty_t1    <- vector(length = length(x@examinee_list@examinee_list))
-  mean_difficulty_t2    <- vector(length = length(x@examinee_list@examinee_list))
-  mean_difficulty_t3    <- vector(length = length(x@examinee_list@examinee_list))
-  mean_difficulty_total <- vector(length = length(x@examinee_list@examinee_list))
+  mean_difficulty_t1    <- vector(length = length(x@examinee_list))
+  mean_difficulty_t2    <- vector(length = length(x@examinee_list))
+  mean_difficulty_t3    <- vector(length = length(x@examinee_list))
+  mean_difficulty_total <- vector(length = length(x@examinee_list))
 
-  for (i in 1:length(x@examinee_list@examinee_list)) {
-    theta_t1[i] <- x@examinee_list@examinee_list[[i]]@estimated_theta_by_test[[2]]$theta
-    theta_t2[i] <- x@examinee_list@examinee_list[[i]]@estimated_theta_by_test[[4]]$theta
-    theta_t3[i] <- x@examinee_list@examinee_list[[i]]@estimated_theta_by_test[[6]]$theta
+  for (i in 1:length(x@examinee_list)) {
+    theta_t1[i] <- x@examinee_list[[i]]@estimated_theta_by_test[[2]]$theta
+    theta_t2[i] <- x@examinee_list[[i]]@estimated_theta_by_test[[4]]$theta
+    theta_t3[i] <- x@examinee_list[[i]]@estimated_theta_by_test[[6]]$theta
 
     mean_difficulty_t1[i] <- mean(c(
-      mean(as.vector(x@examinee_list@examinee_list[[i]]@item_data[[1]]@ipar), na.rm = TRUE),
-      mean(as.vector(x@examinee_list@examinee_list[[i]]@item_data[[2]]@ipar), na.rm = TRUE)
+      mean(as.vector(x@examinee_list[[i]]@item_data[[1]]@ipar), na.rm = TRUE),
+      mean(as.vector(x@examinee_list[[i]]@item_data[[2]]@ipar), na.rm = TRUE)
     ))
 
     mean_difficulty_t2[i] <- mean(c(
-      mean(as.vector(x@examinee_list@examinee_list[[i]]@item_data[[3]]@ipar), na.rm = TRUE),
-      mean(as.vector(x@examinee_list@examinee_list[[i]]@item_data[[4]]@ipar), na.rm = TRUE)
+      mean(as.vector(x@examinee_list[[i]]@item_data[[3]]@ipar), na.rm = TRUE),
+      mean(as.vector(x@examinee_list[[i]]@item_data[[4]]@ipar), na.rm = TRUE)
     ))
 
     mean_difficulty_t3[i] <- mean(c(
-      mean(as.vector(x@examinee_list@examinee_list[[i]]@item_data[[5]]@ipar), na.rm = TRUE),
-      mean(as.vector(x@examinee_list@examinee_list[[i]]@item_data[[6]]@ipar), na.rm = TRUE)
+      mean(as.vector(x@examinee_list[[i]]@item_data[[5]]@ipar), na.rm = TRUE),
+      mean(as.vector(x@examinee_list[[i]]@item_data[[6]]@ipar), na.rm = TRUE)
     ))
 
     mean_difficulty_total[i] <- mean(c(
@@ -1004,12 +1001,12 @@ getAdaptivityIndex <- function(x) {
 #' @export
 getAdministeredItemsPerTest <- function(x) {
   items_used <- list()
-  for (i in 1:length(x@examinee_list@examinee_list)) {
-    for (m in 1:x@examinee_list@examinee_list[[i]]@n_module) {
-      test_idx <- x@examinee_list@examinee_list[[i]]@test_log[m]
+  for (i in 1:length(x@examinee_list)) {
+    for (m in 1:x@examinee_list[[i]]@n_module) {
+      test_idx <- x@examinee_list[[i]]@test_log[m]
       items_used[[test_idx]] <- c(
         items_used[[test_idx]],
-        x@examinee_list@examinee_list[[i]]@administered_items[[m]]
+        x@examinee_list[[i]]@administered_items[[m]]
       )
     }
   }
@@ -1050,7 +1047,7 @@ getItemNamesPerGrade <- function(module_list) {
 #' @export
 getItemExposureRate <- function(x) {
 
-  n_examinee           <- length(x@examinee_list@examinee_list)
+  n_examinee           <- length(x@examinee_list)
   items_per_grade      <- getItemNamesPerGrade(x@module_list)
   administered_items   <- getAdministeredItemsPerTest(x)
 

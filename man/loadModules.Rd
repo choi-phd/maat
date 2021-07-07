@@ -13,7 +13,7 @@ loadModules(fn, base_path = NULL, assessment_structure, examinee_list)
 
 \item{assessment_structure}{an \code{\linkS4class{assessment_structure}} object.}
 
-\item{examinee_list}{an \code{\linkS4class{examinee_list}} object from \code{\link{simExaminees}}. Used to determine the range of required modules.}
+\item{examinee_list}{an examinee list from \code{\link{simExaminees}}. Used to determine the range of required modules.}
 }
 \value{
 a module list containing \code{\linkS4class{module}} objects.
