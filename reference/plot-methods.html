@@ -123,10 +123,7 @@
     <p>Extension of plot()</p>
     </div>
 
-    <pre class="usage"><span class='co'># S4 method for examinee</span>
-<span class='fu'>plot</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span>, <span class='va'>cut_scores</span><span class='op'>)</span>
-
-<span class='co'># S4 method for output_maat</span>
+    <pre class="usage"><span class='co'># S4 method for output_maat</span>
 <span class='fu'>plot</span><span class='op'>(</span>
   <span class='va'>x</span>,
   <span class='va'>y</span>,
@@ -150,16 +147,16 @@
       <td><p>y</p></td>
     </tr>
     <tr>
-      <th>cut_scores</th>
-      <td><p>(optional) a named list containing cut scores for each grade.</p></td>
-    </tr>
-    <tr>
       <th>type</th>
-      <td><p>the type of plot. <code>route</code> plots the number of examinees routed to each path across the course of entire assessment. <code>correlation</code> plots a scatterplot of thetas across administrations.</p></td>
+      <td><p>the type of plot. <code>route</code> plots the number of examinees routed to each path across the course of entire assessment. <code>correlation</code> produces a scatterplot of thetas across administrations. <code>audit</code> plots interim thetas over modules for a single examinee.</p></td>
     </tr>
     <tr>
       <th>examinee_id</th>
       <td><p>the examinee ID to plot.</p></td>
+    </tr>
+    <tr>
+      <th>cut_scores</th>
+      <td><p>(optional) a named list containing cut scores for each grade.</p></td>
     </tr>
     <tr>
       <th>theta_range</th>
