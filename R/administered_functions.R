@@ -1,4 +1,4 @@
-#' @include loadModules.R
+#' @include module_functions.R
 NULL
 
 #' Update a constraints object to exclude administered items

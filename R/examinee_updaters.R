@@ -1,4 +1,4 @@
-#' @include loadModules.R
+#' @include module_functions.R
 NULL
 
 #' Update the current phase of an examinee object

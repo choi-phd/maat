@@ -56,7 +56,7 @@ RdMacros: Rdpack
 Collate: 
     'import.R'
     'module_class.R'
-    'loadModules.R'
+    'module_functions.R'
     'administered_functions.R'
     'datasets.R'
     'examinee_class.R'

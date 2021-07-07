@@ -1,4 +1,4 @@
-#' @include loadModules.R
+#' @include module_functions.R
 NULL
 
 #' Class 'output_maat': a simulation output
