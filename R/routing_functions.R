@@ -1,4 +1,4 @@
-#' @include loadModules.R
+#' @include module_functions.R
 NULL
 
 #' Bound grades within a specified range

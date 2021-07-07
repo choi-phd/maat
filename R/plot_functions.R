@@ -1,11 +1,15 @@
-#' @include loadModules.R
+#' @include sim_functions.R
 NULL
 
 #' @noRd
-countModuleRoutes <- function(examinee_list) {
+countModuleRoutes <- function(examinee_list, assessment_structure) {
+
+  if (!inherits(assessment_structure, "assessment_structure")) {
+    stop(sprintf("unexpected objected class: expecting 'assessment_structure'"))
+  }
 
   starting_grade <- lapply(
-    examinee_list@examinee_list,
+    examinee_list,
     function(x) {
       x@grade_log[1]
     }
@@ -13,10 +17,10 @@ countModuleRoutes <- function(examinee_list) {
   starting_grade <- unique(unlist(starting_grade))
   starting_grade_num <- as.numeric(gsub("[^\\d]+", "", starting_grade, perl = TRUE))
 
-  n_test  <- examinee_list@assessment_structure@n_test
-  n_phase <- examinee_list@assessment_structure@n_phase
-  route_limit_below <- examinee_list@assessment_structure@route_limit_below
-  route_limit_above <- examinee_list@assessment_structure@route_limit_above
+  n_test  <- assessment_structure@n_test
+  n_phase <- assessment_structure@n_phase
+  route_limit_below <- assessment_structure@route_limit_below
+  route_limit_above <- assessment_structure@route_limit_above
 
   max_grade <- starting_grade_num + route_limit_above
   min_grade <- starting_grade_num - route_limit_below
@@ -44,7 +48,7 @@ countModuleRoutes <- function(examinee_list) {
     module_path[i] <- list(temp_path)
   }
 
-  test_routing_restrictions <- examinee_list@assessment_structure@test_routing_restrictions
+  test_routing_restrictions <- assessment_structure@test_routing_restrictions
 
   if ("R1" %in% test_routing_restrictions) {
     min_grade <- min(module_path[[2]][, 1])
@@ -98,7 +102,7 @@ countModuleRoutes <- function(examinee_list) {
   #### calculate counts ####
   ##########################
   grade_log <- lapply(
-    examinee_list@examinee_list,
+    examinee_list,
     function(x) {
       x@grade_log
     }
@@ -150,10 +154,12 @@ countModuleRoutes <- function(examinee_list) {
 #' @param x x
 #' @param y y
 #' @param type the type of plot. \code{route} plots the number of examinees routed to each path across the course of entire assessment. \code{correlation} plots a scatterplot of thetas across administrations.
-#' @param cut_scores a named list containing cut scores for each grade.
+#' @param examinee_id the examinee ID to plot.
+#' @param cut_scores (optional) a named list containing cut scores for each grade.
 #' @param theta_range the theta range to use in scatter plots when \code{x} is an examinee list.
 #' @param main the figure title to use in scatter plots when \code{x} is an examinee list.
 #' @param box_color the cell color to use when \code{type} is \code{route}. (default = \code{PaleTurquoise})
+#'
 #' @return the route plot.
 #'
 #' @examples
@@ -166,6 +172,7 @@ countModuleRoutes <- function(examinee_list) {
 #' )
 #' examinee_list <- maat(
 #'   examinee_list          = examinee_list_math,
+#'   assessment_structure   = assessment_structure_math,
 #'   module_list            = module_list_math,
 #'   overlap_control_policy = "all",
 #'   transition_CI_alpha    = 0.05,
@@ -175,100 +182,17 @@ countModuleRoutes <- function(examinee_list) {
 #'
 #' plot(examinee_list, type = "route")
 #' plot(examinee_list, type = "correlation")
+#' plot(examinee_list, type = "audit", examinee_id = 1)
 #'
-#' examinee <- examinee_list@examinee_list[[1]]
-#' plot(examinee, cut_scores = cut_scores_math)
 #' }
 #' @docType methods
 #' @rdname plot-methods
 #' @export
 setMethod(
   f = "plot",
-  signature = "examinee",
+  signature = "output_maat",
   definition = function(
-    x, y, cut_scores) {
-
-    o <- x
-
-    estimated_theta_for_routing <- unlist(lapply(
-      o@estimated_theta_for_routing,
-      function(x) {
-        x$theta
-      }
-    ))
-
-    interim_theta <- unlist(lapply(
-      o@interim_theta,
-      function(x) {
-        x$theta
-      }
-    ))
-
-    n_items <- unlist(lapply(
-      o@interim_theta,
-      function(x) {
-        length(x$theta)
-      }
-    ))
-    true_theta <- rep(o@true_theta, times = n_items)
-
-    x_idx <- 1:length(interim_theta)
-    plot(
-      x_idx, interim_theta, type = 'n',
-      xlim = range(x_idx), ylim = c(-5, 5),
-      main = sprintf("Examinee ID: %s", o@examinee_id),
-      xlab = "Item position",
-      ylab = "Interim theta")
-
-    # number of phases in a test is assumed to be 2
-    v <- c(0, cumsum(n_items)) + 0.5
-    abline(v = v[seq(1, length(v), 2)], col = "grey", lty = 1)
-    abline(v = v[seq(2, length(v), 2)], col = "grey", lty = 2)
-
-    for (m in 1:6) {
-      x_from <- c(0, cumsum(n_items))[m]
-      x_to   <- c(0, cumsum(n_items))[m + 1]
-
-      for (idx_cut in c(1, 3)) {
-        lines(
-          c(x_from, x_to) + 0.5,
-          rep(cut_scores[[o@grade_log[m]]][idx_cut], 2),
-          col = "grey"
-        )
-      }
-    }
-
-    lines(x_idx, true_theta, col = "red")
-    lines(x_idx, interim_theta, col = "blue", lty = 2)
-    points(x_idx, interim_theta, pch = 21, col = "blue", bg = "blue")
-    text(
-      cumsum(n_items) - n_items / 2,
-      rep(3, 6),
-      o@grade_log
-    )
-
-    response <- unlist(o@response)
-    response_color <- factor(response)
-    levels(response_color) <-
-      c("red", "lime green", "cyan")
-    response_color <- as.character(response_color)
-
-    for (i in x_idx) {
-      rect(
-        i - 0.5, -5, i + 0.5, -5 + (response[i] + 1) * 0.2,
-        col = response_color[i])
-    }
-
-  })
-
-#' @docType methods
-#' @rdname plot-methods
-#' @export
-setMethod(
-  f = "plot",
-  signature = "examinee_list",
-  definition = function(
-    x, y, type, cut_scores, theta_range = c(-4, 4), main = NULL, box_color = "PaleTurquoise") {
+    x, y, type, examinee_id, cut_scores = NULL, theta_range = c(-4, 4), main = NULL, box_color = "PaleTurquoise") {
 
     if (type == "correlation") {
 
@@ -347,9 +271,117 @@ setMethod(
       }
     }
 
+    if (type == "audit") {
+
+      examinee <- x@examinee_list[[examinee_id]]
+
+      estimated_theta_for_routing <- unlist(lapply(
+        examinee@estimated_theta_for_routing,
+        function(xx) {
+          xx$theta
+        }
+      ))
+
+      interim_theta <- unlist(lapply(
+        examinee@interim_theta,
+        function(xx) {
+          xx$theta
+        }
+      ))
+
+      n_items <- unlist(lapply(
+        examinee@interim_theta,
+        function(xx) {
+          length(xx$theta)
+        }
+      ))
+      true_theta <- rep(examinee@true_theta, times = n_items)
+
+      x_idx <- 1:length(interim_theta)
+      plot(
+        x_idx, interim_theta, type = 'n',
+        xlim = range(x_idx), ylim = c(-5, 5),
+        main = sprintf("Examinee ID: %s", examinee@examinee_id),
+        xlab = "Item position",
+        ylab = "Interim theta")
+
+      # number of phases in a test is assumed to be 2
+      v <- c(0, cumsum(n_items)) + 0.5
+      abline(v = v[seq(1, length(v), 2)], col = "grey", lty = 1)
+      abline(v = v[seq(2, length(v), 2)], col = "grey", lty = 2)
+
+      for (m in 1:6) {
+        x_from <- c(0, cumsum(n_items))[m]
+        x_to   <- c(0, cumsum(n_items))[m + 1]
+
+        for (idx_cut in c(1, 3)) {
+          lines(
+            c(x_from, x_to) + 0.5,
+            rep(x@cut_scores[[examinee@grade_log[m]]][idx_cut], 2),
+            col = "grey"
+          )
+        }
+      }
+
+      lines(x_idx, true_theta, col = "red")
+      lines(x_idx, interim_theta, col = "blue", lty = 2)
+      points(x_idx, interim_theta, pch = 21, col = "blue", bg = "blue")
+      text(
+        cumsum(n_items) - n_items / 2,
+        rep(3, 6),
+        examinee@grade_log
+      )
+
+      module_list_by_name <- unlist(x@module_list)
+      module_names <- unlist(lapply(
+        module_list_by_name,
+        function(xx) {
+          xx@module_id
+        }
+      ))
+      names(module_list_by_name) <- module_names
+
+      response <- unlist(examinee@response)
+
+      n_category <- list()
+      for (m in 1:6) {
+        module <- module_list_by_name[[examinee@module_log[m]]]
+        administered_items <- examinee@administered_items[[m]]
+        n_category[[m]] <- sapply(
+          1:length(administered_items),
+          function(xx) {
+            idx_in_pool <- which(module@constraints@pool@id == administered_items[xx])
+            module@constraints@pool@NCAT[idx_in_pool]
+          }
+        )
+      }
+
+      n_category <- unlist(n_category)
+
+      response_color <- sapply(
+        1:length(response),
+        function(xx) {
+          if (n_category[xx] == 2) {
+            if (response[xx] == 0) return("red")
+            if (response[xx] == 1) return("lime green")
+          }
+          if (n_category[xx] > 2) {
+            return("cyan")
+          }
+        }
+      )
+
+      for (i in x_idx) {
+        rect(
+          i - 0.5, -5, i + 0.5, -5 + (response[i] + 1) * 0.2,
+          col = response_color[i])
+      }
+
+    }
+
     if (type == "route") {
 
-      route_counts <- countModuleRoutes(x)
+      route_counts <- countModuleRoutes(x@examinee_list, x@assessment_structure)
 
       route_range <-
         -x@assessment_structure@route_limit_below:

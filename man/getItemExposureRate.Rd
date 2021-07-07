@@ -4,12 +4,10 @@
 \alias{getItemExposureRate}
 \title{Get item exposure rates from an examinee list}
 \usage{
-getItemExposureRate(examinee_list, module_list)
+getItemExposureRate(x)
 }
 \arguments{
-\item{examinee_list}{an \code{\linkS4class{examinee_list}} object from \code{\link{simExaminees}}, returned from \code{\link{maat}}.}
-
-\item{module_list}{a module list from \code{\link{loadModules}}.}
+\item{x}{an \code{\linkS4class{output_maat}} object from \code{\link{maat}}.}
 }
 \value{
 the table of item exposure rate.

@@ -56,7 +56,7 @@ RdMacros: Rdpack
 Collate: 
     'import.R'
     'module_class.R'
-    'loadModules.R'
+    'module_functions.R'
     'administered_functions.R'
     'datasets.R'
     'examinee_class.R'
@@ -64,10 +64,10 @@ Collate:
     'extensions.R'
     'module_structure_operators.R'
     'package.R'
+    'sim_functions.R'
     'plot_functions.R'
     'print_functions.R'
     'prior_functions.R'
     'routing_functions.R'
     'show_functions.R'
-    'sim_functions.R'
 Config/testthat/edition: 3

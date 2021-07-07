@@ -394,8 +394,9 @@ Load the module specification sheet using `loadModules()`.
 fn <- system.file("extdata", "module_definition_MATH_normal_N500.csv", package = "maat")
 module_list <- loadModules(
   fn = fn,
-  examinee_list = examinee_list,
-  base_path = system.file(package = "maat")
+  base_path = system.file(package = "maat"),
+  assessment_structure = assessment_structure,
+  examinee_list = examinee_list
 )
 ```
 
@@ -440,6 +441,7 @@ The final step is to run the main simulation using `maat()`.
 set.seed(1)
 maat_output_CI <- maat(
   examinee_list          = examinee_list,
+  assessment_structure   = assessment_structure,
   module_list            = module_list,
   config                 = config,
   cut_scores             = cut_scores,
@@ -451,6 +453,7 @@ maat_output_CI <- maat(
 set.seed(1)
 maat_output_difficulty <- maat(
   examinee_list          = examinee_list,
+  assessment_structure   = assessment_structure,
   module_list            = module_list,
   config                 = config,
   cut_scores             = cut_scores,
@@ -532,12 +535,15 @@ plot(
 
 * The `plot()` function can also be used to plot interim $\theta$s over modules for a single examinee.
 * The arguments of `plot()` for this use case are:
-  * `x` is an examinee object.
-  * `cut_scores` is a list containing cut scores for each grade.
-  
+  * `x` is the output object returned by `maat()`.
+  * `examinee_id` is the examinee ID to plot.
+
 ```{r, out.width = "100%"}
-examinee <- maat_output_CI@examinee_list[[1]]
-plot(examinee, cut_scores = cut_scores_math)
+plot(
+  x = maat_output_CI,
+  type = "audit",
+  examinee_id = 1
+)
 ```
 
 # References

@@ -51,7 +51,8 @@ conditions <- expand.grid(
     "conditional",
     "always",
     "never"
-  )
+  ),
+  stringsAsFactors = FALSE
 )
 
 for (condition in 1:dim(conditions)[1]) {
@@ -68,8 +69,9 @@ for (condition in 1:dim(conditions)[1]) {
       set.seed(1)
       examinee_list <- examinee_list_math[1:2]
 
-      examinee_list <- maat(
+      solution <- maat(
         examinee_list          = examinee_list,
+        assessment_structure   = assessment_structure_math,
         module_list            = module_list_math,
         config                 = config,
         cut_scores             = cut_scores_math,
@@ -82,12 +84,14 @@ for (condition in 1:dim(conditions)[1]) {
         verbose = FALSE
       )
 
-      o <- getRMSE(examinee_list)
-      o <- getBias(examinee_list)
-      o <- getSE(examinee_list)
-      o <- getAdaptivityIndex(examinee_list)
-      o <- getAdministeredItemsPerTest(examinee_list)
-      o <- getItemExposureRate(examinee_list, module_list_math)
+      o <- getRMSE(solution)
+      o <- getBias(solution)
+      o <- getSE(solution)
+      o <- getAdaptivityIndex(solution)
+      o <- getAdministeredItemsPerTest(solution)
+      o <- getItemExposureRate(solution)
+
+      expect_true(TRUE)
 
     }
   )

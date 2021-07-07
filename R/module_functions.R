@@ -35,8 +35,9 @@ createModule <- function(constraints, item_pool, item_attrib, passage_attrib) {
 #' from a specification sheet.
 #'
 #' @param fn the name of a csv file containing module specifications.
-#' @param examinee_list an \code{\linkS4class{examinee_list}} object from \code{\link{simExaminees}}. Used to determine the range of required modules.
 #' @param base_path (optional) the base path to append before the file paths contained in module specs.
+#' @param assessment_structure an \code{\linkS4class{assessment_structure}} object.
+#' @param examinee_list an examinee list from \code{\link{simExaminees}}. Used to determine the range of required modules.
 #'
 #' @details
 #' The module specification file is expected to have the following columns:
@@ -71,17 +72,16 @@ createModule <- function(constraints, item_pool, item_attrib, passage_attrib) {
 #' pkg_path <- system.file(package = "maat")
 #' module_list <- loadModules(
 #'   fn,
-#'   examinee_list = examinee_list,
-#'   base_path = pkg_path
+#'   base_path = pkg_path,
+#'   assessment_structure = assessment_structure,
+#'   examinee_list = examinee_list
 #' )
 #'
 #' @export
-loadModules <- function(fn, examinee_list, base_path = NULL) {
-
-  assessment_structure <- examinee_list@assessment_structure
+loadModules <- function(fn, base_path = NULL, assessment_structure, examinee_list) {
 
   # Determine required grade range
-  starting_grades <- lapply(examinee_list@examinee_list,
+  starting_grades <- lapply(examinee_list,
     function(x) {
       if (is.na(x@grade_log[1])) {
         return(x@current_grade)

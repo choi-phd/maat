@@ -4,16 +4,17 @@
 \name{plot}
 \alias{plot}
 \alias{plot,examinee-method}
-\alias{plot,examinee_list-method}
+\alias{plot,output_maat-method}
 \title{Extension of plot()}
 \usage{
 \S4method{plot}{examinee}(x, y, cut_scores)
 
-\S4method{plot}{examinee_list}(
+\S4method{plot}{output_maat}(
   x,
   y,
   type,
-  cut_scores,
+  examinee_id,
+  cut_scores = NULL,
   theta_range = c(-4, 4),
   main = NULL,
   box_color = "PaleTurquoise"
@@ -24,9 +25,11 @@
 
 \item{y}{y}
 
-\item{cut_scores}{a named list containing cut scores for each grade.}
+\item{cut_scores}{(optional) a named list containing cut scores for each grade.}
 
 \item{type}{the type of plot. \code{route} plots the number of examinees routed to each path across the course of entire assessment. \code{correlation} plots a scatterplot of thetas across administrations.}
+
+\item{examinee_id}{the examinee ID to plot.}
 
 \item{theta_range}{the theta range to use in scatter plots when \code{x} is an examinee list.}
 
@@ -50,6 +53,7 @@ config <- createShadowTestConfig(
 )
 examinee_list <- maat(
   examinee_list          = examinee_list_math,
+  assessment_structure   = assessment_structure_math,
   module_list            = module_list_math,
   overlap_control_policy = "all",
   transition_CI_alpha    = 0.05,
@@ -59,8 +63,7 @@ examinee_list <- maat(
 
 plot(examinee_list, type = "route")
 plot(examinee_list, type = "correlation")
+plot(examinee_list, type = "audit", examinee_id = 1)
 
-examinee <- examinee_list@examinee_list[[1]]
-plot(examinee, cut_scores = cut_scores_math)
 }
 }
