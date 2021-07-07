@@ -2,7 +2,7 @@ Package: maat
 Type: Package
 Title: Multiple Administrations Adaptive Testing
 Version: 1.0.1
-Date: 2021-06-30
+Date: 2021-07-07
 Authors@R: c(
     person("Seung W.", "Choi",
         email = "schoi@austin.utexas.edu",
