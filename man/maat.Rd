@@ -80,7 +80,7 @@ maat(
 \item{verbose}{if \code{TRUE}, print status messages. (default = \code{TRUE})}
 }
 \value{
-a named list containing \code{\linkS4class{examinee}} objects from the simulation.
+an \code{\linkS4class{output_maat}} object from the simulation.
 }
 \description{
 \code{\link{maat}} is the main function for simulating a multi-stage multi-administration adaptive test.

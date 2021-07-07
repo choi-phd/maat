@@ -200,7 +200,7 @@ simExaminees <- function(N, mean_v, sd_v, cor_v, assessment_structure,
 #' @param prior_sd user-supplied values for the prior standard deviation. This is only effective at the beginning of each test. This is utilized regardless of \code{prior_mean_policy}. Must be a single value, or a vector for each grade. (default = \code{1})
 #' @param verbose if \code{TRUE}, print status messages. (default = \code{TRUE})
 #'
-#' @return a named list containing \code{\linkS4class{examinee}} objects from the simulation.
+#' @return an \code{\linkS4class{output_maat}} object from the simulation.
 #'
 #' @examples
 #' \donttest{
