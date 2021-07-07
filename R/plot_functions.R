@@ -159,6 +159,7 @@ countModuleRoutes <- function(examinee_list, assessment_structure) {
 #' @param theta_range the theta range to use in scatter plots when \code{x} is an examinee list.
 #' @param main the figure title to use in scatter plots when \code{x} is an examinee list.
 #' @param box_color the cell color to use when \code{type} is \code{route}. (default = \code{PaleTurquoise})
+#'
 #' @return the route plot.
 #'
 #' @examples
@@ -184,88 +185,6 @@ countModuleRoutes <- function(examinee_list, assessment_structure) {
 #' plot(examinee_list, type = "audit", examinee_id = 1)
 #'
 #' }
-#' @docType methods
-#' @rdname plot-methods
-#' @export
-setMethod(
-  f = "plot",
-  signature = "examinee",
-  definition = function(
-    x, y, cut_scores) {
-
-    o <- x
-
-    estimated_theta_for_routing <- unlist(lapply(
-      o@estimated_theta_for_routing,
-      function(x) {
-        x$theta
-      }
-    ))
-
-    interim_theta <- unlist(lapply(
-      o@interim_theta,
-      function(x) {
-        x$theta
-      }
-    ))
-
-    n_items <- unlist(lapply(
-      o@interim_theta,
-      function(x) {
-        length(x$theta)
-      }
-    ))
-    true_theta <- rep(o@true_theta, times = n_items)
-
-    x_idx <- 1:length(interim_theta)
-    plot(
-      x_idx, interim_theta, type = 'n',
-      xlim = range(x_idx), ylim = c(-5, 5),
-      main = sprintf("Examinee ID: %s", o@examinee_id),
-      xlab = "Item position",
-      ylab = "Interim theta")
-
-    # number of phases in a test is assumed to be 2
-    v <- c(0, cumsum(n_items)) + 0.5
-    abline(v = v[seq(1, length(v), 2)], col = "grey", lty = 1)
-    abline(v = v[seq(2, length(v), 2)], col = "grey", lty = 2)
-
-    for (m in 1:6) {
-      x_from <- c(0, cumsum(n_items))[m]
-      x_to   <- c(0, cumsum(n_items))[m + 1]
-
-      for (idx_cut in c(1, 3)) {
-        lines(
-          c(x_from, x_to) + 0.5,
-          rep(cut_scores[[o@grade_log[m]]][idx_cut], 2),
-          col = "grey"
-        )
-      }
-    }
-
-    lines(x_idx, true_theta, col = "red")
-    lines(x_idx, interim_theta, col = "blue", lty = 2)
-    points(x_idx, interim_theta, pch = 21, col = "blue", bg = "blue")
-    text(
-      cumsum(n_items) - n_items / 2,
-      rep(3, 6),
-      o@grade_log
-    )
-
-    response <- unlist(o@response)
-    response_color <- factor(response)
-    levels(response_color) <-
-      c("red", "lime green", "yellow")
-    response_color <- as.character(response_color)
-
-    for (i in x_idx) {
-      rect(
-        i - 0.5, -5, i + 0.5, -5 + (response[i] + 1) * 0.2,
-        col = response_color[i])
-    }
-
-  })
-
 #' @docType methods
 #' @rdname plot-methods
 #' @export
@@ -353,10 +272,78 @@ setMethod(
     }
 
     if (type == "audit") {
+
+      examinee <- x@examinee_list[[examinee_id]]
+
+      estimated_theta_for_routing <- unlist(lapply(
+        examinee@estimated_theta_for_routing,
+        function(xx) {
+          xx$theta
+        }
+      ))
+
+      interim_theta <- unlist(lapply(
+        examinee@interim_theta,
+        function(xx) {
+          xx$theta
+        }
+      ))
+
+      n_items <- unlist(lapply(
+        examinee@interim_theta,
+        function(xx) {
+          length(xx$theta)
+        }
+      ))
+      true_theta <- rep(examinee@true_theta, times = n_items)
+
+      x_idx <- 1:length(interim_theta)
       plot(
-        x@examinee_list[[examinee_id]],
-        cut_scores = x@cut_scores
+        x_idx, interim_theta, type = 'n',
+        xlim = range(x_idx), ylim = c(-5, 5),
+        main = sprintf("Examinee ID: %s", examinee@examinee_id),
+        xlab = "Item position",
+        ylab = "Interim theta")
+
+      # number of phases in a test is assumed to be 2
+      v <- c(0, cumsum(n_items)) + 0.5
+      abline(v = v[seq(1, length(v), 2)], col = "grey", lty = 1)
+      abline(v = v[seq(2, length(v), 2)], col = "grey", lty = 2)
+
+      for (m in 1:6) {
+        x_from <- c(0, cumsum(n_items))[m]
+        x_to   <- c(0, cumsum(n_items))[m + 1]
+
+        for (idx_cut in c(1, 3)) {
+          lines(
+            c(x_from, x_to) + 0.5,
+            rep(cut_scores[[examinee@grade_log[m]]][idx_cut], 2),
+            col = "grey"
+          )
+        }
+      }
+
+      lines(x_idx, true_theta, col = "red")
+      lines(x_idx, interim_theta, col = "blue", lty = 2)
+      points(x_idx, interim_theta, pch = 21, col = "blue", bg = "blue")
+      text(
+        cumsum(n_items) - n_items / 2,
+        rep(3, 6),
+        examinee@grade_log
       )
+
+      response <- unlist(examinee@response)
+      response_color <- factor(response)
+      levels(response_color) <-
+        c("red", "lime green", "yellow")
+      response_color <- as.character(response_color)
+
+      for (i in x_idx) {
+        rect(
+          i - 0.5, -5, i + 0.5, -5 + (response[i] + 1) * 0.2,
+          col = response_color[i])
+      }
+
     }
 
     if (type == "route") {
