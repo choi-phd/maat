@@ -258,7 +258,7 @@ setMethod(
     response <- unlist(o@response)
     response_color <- factor(response)
     levels(response_color) <-
-      c("red", "lime green", "cyan")
+      c("red", "lime green", "yellow")
     response_color <- as.character(response_color)
 
     for (i in x_idx) {
