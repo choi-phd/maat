@@ -126,12 +126,13 @@
     <pre class="usage"><span class='co'># S4 method for examinee</span>
 <span class='fu'>plot</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span>, <span class='va'>cut_scores</span><span class='op'>)</span>
 
-<span class='co'># S4 method for examinee_list</span>
+<span class='co'># S4 method for output_maat</span>
 <span class='fu'>plot</span><span class='op'>(</span>
   <span class='va'>x</span>,
   <span class='va'>y</span>,
   <span class='va'>type</span>,
-  <span class='va'>cut_scores</span>,
+  <span class='va'>examinee_id</span>,
+  cut_scores <span class='op'>=</span> <span class='cn'>NULL</span>,
   theta_range <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='op'>-</span><span class='fl'>4</span>, <span class='fl'>4</span><span class='op'>)</span>,
   main <span class='op'>=</span> <span class='cn'>NULL</span>,
   box_color <span class='op'>=</span> <span class='st'>"PaleTurquoise"</span>
@@ -150,11 +151,15 @@
     </tr>
     <tr>
       <th>cut_scores</th>
-      <td><p>a named list containing cut scores for each grade.</p></td>
+      <td><p>(optional) a named list containing cut scores for each grade.</p></td>
     </tr>
     <tr>
       <th>type</th>
       <td><p>the type of plot. <code>route</code> plots the number of examinees routed to each path across the course of entire assessment. <code>correlation</code> plots a scatterplot of thetas across administrations.</p></td>
+    </tr>
+    <tr>
+      <th>examinee_id</th>
+      <td><p>the examinee ID to plot.</p></td>
     </tr>
     <tr>
       <th>theta_range</th>
@@ -184,6 +189,7 @@
 <span class='op'>)</span>
 <span class='va'>examinee_list</span> <span class='op'>&lt;-</span> <span class='fu'><a href='maat.html'>maat</a></span><span class='op'>(</span>
   examinee_list          <span class='op'>=</span> <span class='va'>examinee_list_math</span>,
+  assessment_structure   <span class='op'>=</span> <span class='va'>assessment_structure_math</span>,
   module_list            <span class='op'>=</span> <span class='va'>module_list_math</span>,
   overlap_control_policy <span class='op'>=</span> <span class='st'>"all"</span>,
   transition_CI_alpha    <span class='op'>=</span> <span class='fl'>0.05</span>,
@@ -193,9 +199,8 @@
 
 <span class='fu'>plot</span><span class='op'>(</span><span class='va'>examinee_list</span>, type <span class='op'>=</span> <span class='st'>"route"</span><span class='op'>)</span>
 <span class='fu'>plot</span><span class='op'>(</span><span class='va'>examinee_list</span>, type <span class='op'>=</span> <span class='st'>"correlation"</span><span class='op'>)</span>
+<span class='fu'>plot</span><span class='op'>(</span><span class='va'>examinee_list</span>, type <span class='op'>=</span> <span class='st'>"audit"</span>, examinee_id <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>
 
-<span class='va'>examinee</span> <span class='op'>&lt;-</span> <span class='va'>examinee_list</span><span class='op'>@</span><span class='va'>examinee_list</span><span class='op'>[[</span><span class='fl'>1</span><span class='op'>]</span><span class='op'>]</span>
-<span class='fu'>plot</span><span class='op'>(</span><span class='va'>examinee</span>, cut_scores <span class='op'>=</span> <span class='va'>cut_scores_math</span><span class='op'>)</span>
 <span class='co'># }</span>
 </pre>
   </div>

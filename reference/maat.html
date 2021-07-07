@@ -125,6 +125,7 @@
 
     <pre class="usage"><span class='fu'>maat</span><span class='op'>(</span>
   examinee_list <span class='op'>=</span> <span class='va'>examinee_list</span>,
+  <span class='va'>assessment_structure</span>,
   <span class='va'>module_list</span>,
   <span class='va'>config</span>,
   <span class='va'>cut_scores</span>,
@@ -146,7 +147,11 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>examinee_list</th>
-      <td><p>an <code><a href='examinee_list-class.html'>examinee_list</a></code> object from <code><a href='simExaminees.html'>simExaminees</a></code>.</p></td>
+      <td><p>an examinee list from <code><a href='simExaminees.html'>simExaminees</a></code>.</p></td>
+    </tr>
+    <tr>
+      <th>assessment_structure</th>
+      <td><p>a <code><a href='assessment_structure-class.html'>assessment_structure</a></code> object.</p></td>
     </tr>
     <tr>
       <th>module_list</th>
@@ -242,6 +247,7 @@
 <span class='op'>)</span>
 <span class='va'>examinee_list</span> <span class='op'>&lt;-</span> <span class='fu'>maat</span><span class='op'>(</span>
   examinee_list          <span class='op'>=</span> <span class='va'>examinee_list_math</span>,
+  assessment_structure   <span class='op'>=</span> <span class='va'>assessment_structure_math</span>,
   module_list            <span class='op'>=</span> <span class='va'>module_list_math</span>,
   overlap_control_policy <span class='op'>=</span> <span class='st'>"all"</span>,
   transition_CI_alpha    <span class='op'>=</span> <span class='fl'>0.05</span>,

@@ -116,7 +116,7 @@ from a specification sheet." />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Load multiple modules</h1>
-    <small class="dont-index">Source: <a href='https://github.com/choi-phd/maat/blob/master/R/loadModules.R'><code>R/loadModules.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/choi-phd/maat/blob/master/R/module_functions.R'><code>R/module_functions.R</code></a></small>
     <div class="hidden name"><code>loadModules.Rd</code></div>
     </div>
 
@@ -125,7 +125,7 @@ from a specification sheet." />
 from a specification sheet.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>loadModules</span><span class='op'>(</span><span class='va'>fn</span>, <span class='va'>examinee_list</span>, base_path <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>loadModules</span><span class='op'>(</span><span class='va'>fn</span>, base_path <span class='op'>=</span> <span class='cn'>NULL</span>, <span class='va'>assessment_structure</span>, <span class='va'>examinee_list</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -135,12 +135,16 @@ from a specification sheet.</p>
       <td><p>the name of a csv file containing module specifications.</p></td>
     </tr>
     <tr>
-      <th>examinee_list</th>
-      <td><p>an <code><a href='examinee_list-class.html'>examinee_list</a></code> object from <code><a href='simExaminees.html'>simExaminees</a></code>. Used to determine the range of required modules.</p></td>
-    </tr>
-    <tr>
       <th>base_path</th>
       <td><p>(optional) the base path to append before the file paths contained in module specs.</p></td>
+    </tr>
+    <tr>
+      <th>assessment_structure</th>
+      <td><p>an <code><a href='assessment_structure-class.html'>assessment_structure</a></code> object.</p></td>
+    </tr>
+    <tr>
+      <th>examinee_list</th>
+      <td><p>an examinee list from <code><a href='simExaminees.html'>simExaminees</a></code>. Used to determine the range of required modules.</p></td>
     </tr>
     </table>
 
@@ -179,8 +183,9 @@ Each module can be accessed using <code>module_list[[grade]][[phase]]</code>.</p
 <span class='va'>pkg_path</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span><span class='op'>(</span>package <span class='op'>=</span> <span class='st'>"maat"</span><span class='op'>)</span>
 <span class='va'>module_list</span> <span class='op'>&lt;-</span> <span class='fu'>loadModules</span><span class='op'>(</span>
   <span class='va'>fn</span>,
-  examinee_list <span class='op'>=</span> <span class='va'>examinee_list</span>,
-  base_path <span class='op'>=</span> <span class='va'>pkg_path</span>
+  base_path <span class='op'>=</span> <span class='va'>pkg_path</span>,
+  assessment_structure <span class='op'>=</span> <span class='va'>assessment_structure</span>,
+  examinee_list <span class='op'>=</span> <span class='va'>examinee_list</span>
 <span class='op'>)</span>
 
 </pre>

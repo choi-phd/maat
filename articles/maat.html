@@ -813,8 +813,9 @@ NA
 <code class="sourceCode R"><span class="va">fn</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"module_definition_MATH_normal_N500.csv"</span>, package <span class="op">=</span> <span class="st">"maat"</span><span class="op">)</span>
 <span class="va">module_list</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/loadModules.html">loadModules</a></span><span class="op">(</span>
   fn <span class="op">=</span> <span class="va">fn</span>,
-  examinee_list <span class="op">=</span> <span class="va">examinee_list</span>,
-  base_path <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span>package <span class="op">=</span> <span class="st">"maat"</span><span class="op">)</span>
+  base_path <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span>package <span class="op">=</span> <span class="st">"maat"</span><span class="op">)</span>,
+  assessment_structure <span class="op">=</span> <span class="va">assessment_structure</span>,
+  examinee_list <span class="op">=</span> <span class="va">examinee_list</span>
 <span class="op">)</span></code></pre></div>
 <pre><code>## Required modules: 8
 ## Using base path: /Users/runner/work/_temp/Library/maat
@@ -872,6 +873,7 @@ NA
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>
 <span class="va">maat_output_CI</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/maat.html">maat</a></span><span class="op">(</span>
   examinee_list          <span class="op">=</span> <span class="va">examinee_list</span>,
+  assessment_structure   <span class="op">=</span> <span class="va">assessment_structure</span>,
   module_list            <span class="op">=</span> <span class="va">module_list</span>,
   config                 <span class="op">=</span> <span class="va">config</span>,
   cut_scores             <span class="op">=</span> <span class="va">cut_scores</span>,
@@ -883,6 +885,7 @@ NA
 <span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>
 <span class="va">maat_output_difficulty</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/maat.html">maat</a></span><span class="op">(</span>
   examinee_list          <span class="op">=</span> <span class="va">examinee_list</span>,
+  assessment_structure   <span class="op">=</span> <span class="va">assessment_structure</span>,
   module_list            <span class="op">=</span> <span class="va">module_list</span>,
   config                 <span class="op">=</span> <span class="va">config</span>,
   cut_scores             <span class="op">=</span> <span class="va">cut_scores</span>,
@@ -1013,15 +1016,18 @@ NA
 <li>The arguments of <code><a href="../reference/plot.html">plot()</a></code> for this use case are:
 <ul>
 <li>
-<code>x</code> is an examinee object.</li>
+<code>x</code> is the output object returned by <code><a href="../reference/maat.html">maat()</a></code>.</li>
 <li>
-<code>cut_scores</code> is a list containing cut scores for each grade.</li>
+<code>examinee_id</code> is the examinee ID to plot.</li>
 </ul>
 </li>
 </ul>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">examinee</span> <span class="op">&lt;-</span> <span class="va">maat_output_CI</span><span class="op">@</span><span class="va">examinee_list</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>
-<span class="fu"><a href="../reference/plot.html">plot</a></span><span class="op">(</span><span class="va">examinee</span>, cut_scores <span class="op">=</span> <span class="va">cut_scores_math</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="fu"><a href="../reference/plot.html">plot</a></span><span class="op">(</span>
+  x <span class="op">=</span> <span class="va">maat_output_CI</span>,
+  type <span class="op">=</span> <span class="st">"audit"</span>,
+  examinee_id <span class="op">=</span> <span class="fl">1</span>
+<span class="op">)</span></code></pre></div>
 <p><img src="maat_files/figure-html/unnamed-chunk-17-1.png" width="100%"></p>
 </div>
 </div>
