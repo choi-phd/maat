@@ -489,7 +489,7 @@ maat_output_difficulty <- maat(
 
 ## Plot the Module Routes
 
-* The `plot(type = "route")` function can be used to plot the number of examinees routed to each module. The function accepts a `examinee_list` object produced by `maat()`.
+* The `plot(type = "route")` function can be used to plot the number of examinees routed to each module. The function accepts a `output_maat` object produced by `maat()`.
 
 ### Route Diagram for the `CI` Transition Policy 
 
@@ -533,7 +533,7 @@ plot(
 
 ## Audit plot
 
-* The `plot()` function can also be used to plot interim $\theta$s over modules for a single examinee.
+* The `plot(type = "audit")` function can also be used to plot interim $\theta$s over modules for a single examinee.
 * The arguments of `plot()` for this use case are:
   * `x` is the output object returned by `maat()`.
   * `examinee_id` is the examinee ID to plot.

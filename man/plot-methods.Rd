@@ -3,12 +3,9 @@
 \docType{methods}
 \name{plot}
 \alias{plot}
-\alias{plot,examinee-method}
 \alias{plot,output_maat-method}
 \title{Extension of plot()}
 \usage{
-\S4method{plot}{examinee}(x, y, cut_scores)
-
 \S4method{plot}{output_maat}(
   x,
   y,
@@ -25,11 +22,11 @@
 
 \item{y}{y}
 
-\item{cut_scores}{(optional) a named list containing cut scores for each grade.}
-
-\item{type}{the type of plot. \code{route} plots the number of examinees routed to each path across the course of entire assessment. \code{correlation} plots a scatterplot of thetas across administrations.}
+\item{type}{the type of plot. \code{route} plots the number of examinees routed to each path across the course of entire assessment. \code{correlation} produces a scatterplot of thetas across administrations. \code{audit} plots interim thetas over modules for a single examinee.}
 
 \item{examinee_id}{the examinee ID to plot.}
+
+\item{cut_scores}{(optional) a named list containing cut scores for each grade.}
 
 \item{theta_range}{the theta range to use in scatter plots when \code{x} is an examinee list.}
 

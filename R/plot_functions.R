@@ -153,7 +153,7 @@ countModuleRoutes <- function(examinee_list, assessment_structure) {
 #'
 #' @param x x
 #' @param y y
-#' @param type the type of plot. \code{route} plots the number of examinees routed to each path across the course of entire assessment. \code{correlation} plots a scatterplot of thetas across administrations.
+#' @param type the type of plot. \code{route} plots the number of examinees routed to each path across the course of entire assessment. \code{correlation} produces a scatterplot of thetas across administrations. \code{audit} plots interim thetas over modules for a single examinee.
 #' @param examinee_id the examinee ID to plot.
 #' @param cut_scores (optional) a named list containing cut scores for each grade.
 #' @param theta_range the theta range to use in scatter plots when \code{x} is an examinee list.
