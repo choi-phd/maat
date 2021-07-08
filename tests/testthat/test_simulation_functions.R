@@ -66,6 +66,11 @@ for (condition in 1:dim(conditions)[1]) {
     ),
     {
 
+      if (condition != 1) {
+        skip_on_cran()
+        skip_on_ci()
+      }
+
       set.seed(1)
       examinee_list <- examinee_list_math[1:2]
 
