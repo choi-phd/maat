@@ -1060,6 +1060,9 @@ getItemExposureRate <- function(x) {
   exposure_rate_stats     <- list()
 
   for (test in tests) {
+
+    pool_usage[[test]] <- list()
+
     for (grade in grades) {
 
       items_in_this_grade <- items_per_grade[[grade]]
