@@ -87,11 +87,11 @@
 <div id="introduction" class="section level1">
 <h1 class="hasAnchor">
 <a href="#introduction" class="anchor"></a>Introduction</h1>
-<p>The <strong>maat</strong> package performs adaptive testing based on the assessment framework involving multiple tests administered throughout the year using multiple item pools vertically scaled and multiple phases within each administration. It allows for transitioning from one item pool with associated constraints to another as determined necessary according to a prespecified transition policy to enhance the quality of measurement. Based on an item pool and test blueprint constraints, each phase or module is an adaptive test assembled dynamically using the shadow-test approach to computerized adaptive testing (CAT). The current version of <strong>maat</strong> supports an assessment design involving three tests/administrations (e.g. Fall, Winter, and Spring) with two phases within each administration (Phase 1 and Phase 2), so that an examinee takes six modules in total throughout the year. The assessment is adaptive in multiple levels:</p>
+<p>The <strong>maat</strong> package performs adaptive testing based on the assessment framework involving multiple tests administered throughout the year using multiple item pools vertically scaled and multiple phases within each administration. It allows for transitioning from one item pool with associated constraints to another as determined necessary according to a prespecified transition policy to enhance the quality of measurement. Based on an item pool and test blueprint constraints, each phase or module is constructed an adaptive test assembled dynamically using the shadow-test approach to computerized adaptive testing (CAT). The current version of <strong>maat</strong> supports an assessment design involving three tests/administrations (e.g. Fall, Winter, and Spring) with two phases within each administration (Phase 1 and Phase 2), so that an examinee takes six modules in total throughout the year. The assessment framework is adaptive in multiple levels:</p>
 <ul>
-<li>Within a phase items are selected adaptively</li>
-<li>Between phases within a test item pools are selected adaptively</li>
-<li>Between tests/administrations item pools are selected adaptively</li>
+<li>Within phases items are administered adaptively</li>
+<li>Between phases item pools are selected adaptively</li>
+<li>Between tests item pools are selected adaptively</li>
 </ul>
 </div>
 <div id="assessment-structure" class="section level1">
@@ -101,7 +101,7 @@
 <p>An assessment under the multiple administrations adaptive testing design has the following structure.</p>
 <ul>
 <li>
-<strong>Assessment</strong>: An assessment is comprised of multiple administrations over time, with the current version supporting three administrations (e.g., Fall, Winter, and Spring).</li>
+<strong>Assessment</strong>: An assessment is composed of multiple administrations over time, with the current version supporting three administrations (e.g., Fall, Winter, and Spring).</li>
 <li>
 <strong>Administration (Test)</strong>: Each administration consists of two phases (Phase 1 and Phase 2) between which transitions to a higher/lower item pool are permitted if needed. Transitions to a higher/lower item pool can also occur between administrations.</li>
 <li>
@@ -132,7 +132,6 @@
 <li>
 <strong>Item Pool</strong>:
 <ul>
-<li>The set of reporting domains (e.g., Geometry, Algebra) are shared across grades.</li>
 <li>Items in the item pools across grades are vertically scaled and articulated. For all <span class="math inline">\(G=4, 5, \dots\)</span>,
 <ul>
 <li>the mean item difficulty of grade <span class="math inline">\(G-1\)</span> pool is lower than grade <span class="math inline">\(G\)</span> pool.</li>
@@ -141,15 +140,16 @@
 </ul>
 </li>
 <li>Item parameters from Phase 1 and Phase 2 are on the same metric, and thus can be combined to develop a single ability estimate of the examinee.</li>
-<li>Domain scores are computed based on item scores from Phase 1 and Phase 2 combined as the final, domain level reporting category subscores.</li>
+<li>Test scores are computed based on item responses from Phase 1 and Phase 2 combined as the administration-level scores.</li>
+<li>The latent trait scores for examinees across administrations are expected to change (and not assumed to remain constant).</li>
 <li>The vertical scale is robust and well-articulated across the grades.</li>
 </ul>
 </li>
 <li>
 <strong>Module assembly</strong>:
 <ul>
-<li>Student-level item overlap control is enforced across phases and administrations (but not across years – the simulation will be limited to one year).</li>
-<li>The starting theta of the first module (Fall Phase 1) is the mean item pool difficulty of the grade of record. The same starting theta is used for all examinees.</li>
+<li>Student-level item overlap control is enforced across phases and/or administrations.</li>
+<li>The starting theta of the first module (Fall Phase 1) is the mean item pool difficulty of the grade of record. The same starting theta is used for all examinees for the first module. All subsequent modules are initialized individually based on the previous score.</li>
 <li>Throughout the assembly process, no distinction is made between the ability estimate and the target <span class="math inline">\(\theta\)</span> that is used to assemble tests. The ability estimate is always used as the target <span class="math inline">\(\theta\)</span> for the assembly.</li>
 </ul>
 </li>
