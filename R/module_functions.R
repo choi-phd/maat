@@ -34,8 +34,8 @@ createModule <- function(constraints, item_pool, item_attrib, passage_attrib) {
 #' \code{\link{loadModules}} is a function for creating multiple \code{\linkS4class{module}} objects
 #' from a specification sheet.
 #'
-#' @param fn the name of a csv file containing module specifications.
-#' @param base_path (optional) the base path to append before the file paths contained in module specs.
+#' @param fn the full file path and name of a csv file containing module specifications.
+#' @param base_path (optional) the base path to append before the file paths contained in the module specs sheet if the file paths are not complete.
 #' @param assessment_structure an \code{\linkS4class{assessment_structure}} object.
 #' @param examinee_list an examinee list from \code{\link{simExaminees}}. Used to determine the range of required modules.
 #'

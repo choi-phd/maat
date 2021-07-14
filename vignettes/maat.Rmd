@@ -402,7 +402,7 @@ module_list <- loadModules(
 
 * `fn`: The file path of the module specification sheet.
 * `examinee_list`: The examinee list object created above using `simExaminees()`. This is used to determine required modules.
-* `base_path`: The value of this argument is pasted to the beginning of file paths in the sheet. In the above example, if `base_path` is `inst` then the function will attempt to read `inst/extdata/constraints_MATH8_P2.csv`.
+* `base_path`: The value of this argument is pasted to the beginning of file paths in the sheet if the file paths are not complete. In the above example, if `base_path` is `inst` then the function will attempt to read `inst/extdata/constraints_MATH8_P2.csv`.
 
 ## Load Cut Scores
 
