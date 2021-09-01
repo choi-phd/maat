@@ -209,8 +209,13 @@ setMethod(
         function(o) {
           theta <- c()
           for (test in unique(o@test_log)) {
-            idx <- max(which(o@test_log == test))
-            theta <- c(theta, o@true_theta[idx])
+            if (is.na(test)) {
+              theta <- c(theta, NA)
+            }
+            if (!is.na(test)) {
+              idx <- max(which(o@test_log == test))
+              theta <- c(theta, o@true_theta[idx])
+            }
           }
           return(theta)
         }
@@ -222,8 +227,13 @@ setMethod(
         function(o) {
           theta <- c()
           for (test in unique(o@test_log)) {
-            idx <- max(which(o@test_log == test))
-            theta <- c(theta, o@estimated_theta_for_routing[[idx]]$theta)
+            if (is.na(test)) {
+              theta <- c(theta, NA)
+            }
+            if (!is.na(test)) {
+              idx <- max(which(o@test_log == test))
+              theta <- c(theta, o@estimated_theta_for_routing[[idx]]$theta)
+            }
           }
           return(theta)
         }
@@ -278,6 +288,7 @@ setMethod(
       estimated_theta_for_routing <- unlist(lapply(
         examinee@estimated_theta_for_routing,
         function(xx) {
+          if (is.null(xx)) return(NA)
           xx$theta
         }
       ))
@@ -285,6 +296,7 @@ setMethod(
       interim_theta <- unlist(lapply(
         examinee@interim_theta,
         function(xx) {
+          if (is.null(xx)) return(NA)
           xx$theta
         }
       ))
@@ -292,6 +304,7 @@ setMethod(
       n_items <- unlist(lapply(
         examinee@interim_theta,
         function(xx) {
+          if (is.null(xx)) return(1)
           length(xx$theta)
         }
       ))
@@ -341,11 +354,18 @@ setMethod(
       ))
       names(module_list_by_name) <- module_names
 
-      response <- unlist(examinee@response)
+      response <- unlist(lapply(
+        examinee@response,
+        function(xx) {
+          if (is.null(xx)) return(-1)
+          xx
+        }
+      ))
 
       n_category <- list()
       for (m in 1:6) {
         module <- module_list_by_name[[examinee@module_log[m]]]
+        if (is.null(module)) next
         administered_items <- examinee@administered_items[[m]]
         n_category[[m]] <- sapply(
           1:length(administered_items),
@@ -356,11 +376,18 @@ setMethod(
         )
       }
 
-      n_category <- unlist(n_category)
+      n_category <- unlist(lapply(
+        n_category,
+        function(xx) {
+          if (is.null(xx)) return(NA)
+          xx
+        }
+      ))
 
       response_color <- sapply(
         1:length(response),
         function(xx) {
+          if (is.na(n_category[xx])) return("white")
           if (n_category[xx] == 2) {
             if (response[xx] == 0) return("red")
             if (response[xx] == 1) return("lime green")
