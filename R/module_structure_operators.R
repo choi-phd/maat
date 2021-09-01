@@ -143,3 +143,13 @@ createAssessmentStructure <- function(
   return(o)
 
 }
+
+#' @noRd
+getModulePosition <- function(
+  phase, test, assessment_structure
+) {
+  all_phases <- rep(sprintf("P%s", 1:assessment_structure@n_phase), assessment_structure@n_test)
+  all_tests  <- rep(sprintf("T%s", 1:assessment_structure@n_test), each = assessment_structure@n_phase)
+  module_position <- which((phase == all_phases) & (test == all_tests))
+  return(module_position)
+}

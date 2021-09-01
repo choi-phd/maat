@@ -315,9 +315,20 @@ maat <- function(
     }
   )
 
-  # Iteration by All Phases -------------
+  # Determine the module position (assuming everyone shares the same initial phase/test)
+  module_position_list <- lapply(
+    examinee_list,
+    function(x) {
+      getModulePosition(
+        x@current_phase, x@current_test, assessment_structure
+      )
+    }
+  )
+  starting_module_position <- unique(unlist(module_position_list))
 
-  for (current_module_position in 1:n_modules) {
+  # Repeat through all module positions
+
+  for (current_module_position in starting_module_position:n_modules) {
 
     examinee_current_module <- lapply(examinee_list, function(x) {
       x@current_module
@@ -418,7 +429,7 @@ maat <- function(
         current_module_position
       )
 
-      if (current_module_position > 1) {
+      if (current_module_position > starting_module_position) {
 
         # use the theta estimate from the previous routing
         config_thisgroup@item_selection$initial_theta <- unlist(lapply(
