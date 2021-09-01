@@ -104,7 +104,7 @@ simTheta <- function(N, mean_v, sd_v, cor_v) {
 #' @param sd_v a vector containing the standard deviation of each dimension.
 #' @param cor_v a correlation matrix.
 #' @param assessment_structure an \code{\linkS4class{assessment_structure}} object. This can be created using \code{\link{createAssessmentStructure}}.
-#' @param initial_grade the initial grade for all examinees. The grade must exist in \code{module_list}. (default = \code{G4})
+#' @param initial_grade the initial grade for all examinees. The grade must exist in \code{module_list}. Also used as the grade of record when the initial phase and test points to a module position greater than 1. (default = \code{G4})
 #' @param initial_phase the initial phase for all examinees. The phase must exist in \code{module_list}. (default = \code{P1})
 #' @param initial_test the initial test for all examinees. (default = \code{T1})
 #' @return a list of \code{\linkS4class{examinee}} objects.
@@ -145,6 +145,10 @@ simExaminees <- function(N, mean_v, sd_v, cor_v, assessment_structure,
     x@current_grade <- initial_grade
     x@current_phase <- initial_phase
     x@current_test  <- initial_test
+    x@grade_log     <- rep(NA_character_, x@n_module)
+    x@phase_log     <- rep(NA_character_, x@n_module)
+    x@test_log      <- rep(NA_character_, x@n_module)
+    x@grade_log[1]  <- initial_grade
     examinee_list[[i]] <- x
     names(examinee_list)[i] <- x@examinee_id
   }
@@ -315,9 +319,20 @@ maat <- function(
     }
   )
 
-  # Iteration by All Phases -------------
+  # Determine the module position (assuming everyone shares the same initial phase/test)
+  module_position_list <- lapply(
+    examinee_list,
+    function(x) {
+      getModulePosition(
+        x@current_phase, x@current_test, assessment_structure
+      )
+    }
+  )
+  starting_module_position <- unique(unlist(module_position_list))
 
-  for (current_module_position in 1:n_modules) {
+  # Repeat through all module positions
+
+  for (current_module_position in starting_module_position:n_modules) {
 
     examinee_current_module <- lapply(examinee_list, function(x) {
       x@current_module
@@ -418,7 +433,7 @@ maat <- function(
         current_module_position
       )
 
-      if (current_module_position > 1) {
+      if (current_module_position > starting_module_position) {
 
         # use the theta estimate from the previous routing
         config_thisgroup@item_selection$initial_theta <- unlist(lapply(
