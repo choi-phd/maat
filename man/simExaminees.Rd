@@ -26,7 +26,7 @@ simExaminees(
 
 \item{assessment_structure}{an \code{\linkS4class{assessment_structure}} object. This can be created using \code{\link{createAssessmentStructure}}.}
 
-\item{initial_grade}{the initial grade for all examinees. The grade must exist in \code{module_list}. (default = \code{G4})}
+\item{initial_grade}{the initial grade for all examinees. The grade must exist in \code{module_list}. Also used as the grade of record when the initial phase and test points to a module position greater than 1. (default = \code{G4})}
 
 \item{initial_phase}{the initial phase for all examinees. The phase must exist in \code{module_list}. (default = \code{P1})}
 
