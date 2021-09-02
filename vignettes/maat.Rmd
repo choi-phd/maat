@@ -209,7 +209,7 @@ The cut scores for achievement levels must be defined to be able to perform rout
 
 ## Routing Structure
 
-Routing is performed between each module. For example, routing is performed between Fall Phase 1 and Fall Phase 2, and also between Fall Phase 2 and Winter Phase 1. Because an examinee takes 6 modules in total, routing is performed 5 times for the examinee throughout the entire assessment.
+Routing is performed between modules. For example, routing is performed between Fall Phase 1 and Fall Phase 2, and also between Fall Phase 2 and Winter Phase 1. Because an examinee takes 6 modules in total, routing is performed 5 times for the examinee throughout the entire assessment.
 
 The routing structure is now described. Let $G$ denote the grade of record of a single examinee.
 
