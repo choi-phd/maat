@@ -457,6 +457,8 @@ setMethod(
       box_name[!visibility] <- ""
       box_name <- substr(box_name, 1, 2)
 
+      cell_layout <- rep(n_modules, n_grades)
+
       old_mar <- par()$mar
       on.exit({
         par(mar = old_mar)
@@ -464,7 +466,7 @@ setMethod(
       par(mar = c(1, 1, 1, 1))
       plotmat(
         M,
-        pos = c(6, 6, 6, 6),
+        pos = cell_layout,
         absent   = -1,
         name     = box_name,
         box.type = box_type,
