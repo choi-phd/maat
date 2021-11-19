@@ -192,7 +192,7 @@ setMethod(
   f = "plot",
   signature = "output_maat",
   definition = function(
-    x, y, type, examinee_id, cut_scores = NULL, theta_range = c(-4, 4), main = NULL, box_color = "PaleTurquoise") {
+    x, y, type, examinee_id = 1, cut_scores = NULL, theta_range = c(-4, 4), main = NULL, box_color = "PaleTurquoise") {
 
     if (type == "correlation") {
 
