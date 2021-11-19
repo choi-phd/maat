@@ -477,11 +477,11 @@ I_{i}(\hat{\theta}),
 <li>
 <code>assessment_structure</code> is the assessment structure object created previously using <code><a href="../reference/createAssessmentStructure.html">createAssessmentStructure()</a></code>.</li>
 <li>
-<code>initial_grade</code> is the grade of record to use for all examinees. This must be in the format <code>G?</code>, where <code><a href="https://rdrr.io/r/utils/Question.html">?</a></code> is a number.</li>
+<code>initial_grade</code> is the grade of record to use for all examinees. This must be in the format <code>G?</code>, where <code>?</code> is a number.</li>
 <li>
-<code>initial_phase</code> is the phase that all examinees are placed in the beginning of the assessment. This must be in the format <code>P?</code>, where <code><a href="https://rdrr.io/r/utils/Question.html">?</a></code> is a number.</li>
+<code>initial_phase</code> is the phase that all examinees are placed in the beginning of the assessment. This must be in the format <code>P?</code>, where <code>?</code> is a number.</li>
 <li>
-<code>initial_test</code> is the administration that all examinees are placed in the beginning of the assessment. This must be in the format <code>T?</code>, where <code><a href="https://rdrr.io/r/utils/Question.html">?</a></code> is a number.</li>
+<code>initial_test</code> is the administration that all examinees are placed in the beginning of the assessment. This must be in the format <code>T?</code>, where <code>?</code> is a number.</li>
 </ul>
 </div>
 <div id="load-module-specification-sheet" class="section level2">
@@ -794,9 +794,9 @@ NA
 <p>The sheet must have seven columns.</p>
 <ol style="list-style-type: decimal">
 <li>
-<strong>Grade</strong> The grade level. This must be in the form of <code>G?</code>, where <code><a href="https://rdrr.io/r/utils/Question.html">?</a></code> is a number.</li>
+<strong>Grade</strong> The grade level. This must be in the form of <code>G?</code>, where <code>?</code> is a number.</li>
 <li>
-<strong>Phase</strong> The phase level. This must be in the form of <code>P?</code>, where <code><a href="https://rdrr.io/r/utils/Question.html">?</a></code> is a number.</li>
+<strong>Phase</strong> The phase level. This must be in the form of <code>P?</code>, where <code>?</code> is a number.</li>
 <li>
 <strong>Module</strong> The module ID string.</li>
 <li>
@@ -952,7 +952,7 @@ NA
 <h2 class="hasAnchor">
 <a href="#plot-the-module-routes" class="anchor"></a>Plot the Module Routes</h2>
 <ul>
-<li>The <code><a href="../reference/plot.html">plot(type = "route")</a></code> function can be used to plot the number of examinees routed to each module. The function accepts a <code>output_maat</code> object produced by <code><a href="../reference/maat.html">maat()</a></code>.</li>
+<li>The <code>plot(type = "route")</code> function can be used to plot the number of examinees routed to each module. The function accepts a <code>output_maat</code> object produced by <code><a href="../reference/maat.html">maat()</a></code>.</li>
 </ul>
 <div id="route-diagram-for-the-ci-transition-policy" class="section level3">
 <h3 class="hasAnchor">
@@ -973,7 +973,7 @@ NA
 <h2 class="hasAnchor">
 <a href="#scatterplot" class="anchor"></a>Scatterplot</h2>
 <ul>
-<li>The <code><a href="../reference/plot.html">plot(type = "correlation")</a></code> function can be used to plot true <span class="math inline">\(\theta\)</span>s and estimated <span class="math inline">\(\theta\)</span>s across test administrations.</li>
+<li>The <code>plot(type = "correlation")</code> function can be used to plot true <span class="math inline">\(\theta\)</span>s and estimated <span class="math inline">\(\theta\)</span>s across test administrations.</li>
 <li>The arguments of <code><a href="../reference/plot.html">plot()</a></code> for this use case are:
 <ul>
 <li>
@@ -1012,7 +1012,7 @@ NA
 <h2 class="hasAnchor">
 <a href="#audit-plot" class="anchor"></a>Audit plot</h2>
 <ul>
-<li>The <code><a href="../reference/plot.html">plot(type = "audit")</a></code> function can also be used to plot interim <span class="math inline">\(\theta\)</span>s over modules for a single examinee.</li>
+<li>The <code>plot(type = "audit")</code> function can also be used to plot interim <span class="math inline">\(\theta\)</span>s over modules for a single examinee.</li>
 <li>The arguments of <code><a href="../reference/plot.html">plot()</a></code> for this use case are:
 <ul>
 <li>
