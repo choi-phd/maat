@@ -16,6 +16,11 @@ vignette: >
   %\VignetteIndexEntry{maat package}
   %\VignetteEncoding{UTF-8}
   %\VignetteEngine{knitr::rmarkdown}
+resource_files:
+  - assessment.svg
+  - routing_T1T2.svg
+  - routing_T2T3.svg
+  - routing_T3.svg
 editor_options:
   chunk_output_type: console
 ---
