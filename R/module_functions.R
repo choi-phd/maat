@@ -99,11 +99,11 @@ loadModules <- function(fn, base_path = NULL, assessment_structure, examinee_lis
     }
   )
   required_grades <- unique(unlist(required_grades))
-
+  required_tests  <- sprintf("T%s", 1:assessment_structure@n_test)
   required_phases <- sprintf("P%s", 1:assessment_structure@n_phase)
-
   required_modules <- expand.grid(
     grade = required_grades,
+    test  = required_tests,
     phase = required_phases,
     stringsAsFactors = FALSE
   )
@@ -111,20 +111,46 @@ loadModules <- function(fn, base_path = NULL, assessment_structure, examinee_lis
 
   cat(sprintf("Required modules: %s\n", n_required_modules))
 
-  # Read module sheet and validate whether all required modules exist
+  # Read module sheet
   df <- read.csv(fn, stringsAsFactors = FALSE)
 
+  # Expand
+  if (!"Test" %in% colnames(df)) {
+    df <- cbind(Test = "", df)
+  }
+  df_list <- list()
+  for (i in 1:dim(df)[1]) {
+    df_row <- df[i, ]
+    if (df_row$Test == "") {
+      df_row <- df[rep(i, assessment_structure@n_test), ]
+      df_row$Test <- sprintf("T%s", 1:assessment_structure@n_test)
+    }
+    df_list[[i]] <- df_row
+  }
+  df <- do.call(rbind, df_list)
+  df <- df[order(
+    df$Grade, df$Test, df$Phase
+  ), ]
+
+  idx <- c("Grade", "Test", "Phase")
+  idx <- c(idx, setdiff(colnames(df), idx))
+  df <- df[, idx]
+  rownames(df) <- NULL
+
+  # Validate whether all required modules exist
   for (i in 1:n_required_modules) {
     idx <- which(
       required_modules$grade[i] == df$Grade &
+      required_modules$test[i] == df$Test &
       required_modules$phase[i] == df$Phase
     )
     if (length(idx) != 1) {
       stop(
         sprintf(
-          "cannot find Grade %s Phase %s in %s",
+          "cannot find Grade %s Test %s Phase %s in %s",
           required_modules$grade[i],
-          required_modules$phase[i],
+          required_modules$test[i],
+          required_modules$stage[i],
           fn
         )
       )
@@ -142,12 +168,14 @@ loadModules <- function(fn, base_path = NULL, assessment_structure, examinee_lis
 
     idx <- which(
       required_modules$grade[i] == df$Grade &
+      required_modules$test[i]  == df$Test  &
       required_modules$phase[i] == df$Phase
     )
 
     cat(sprintf(
-      "Grade %s Phase %s : Module %s\n",
+      "Grade %s Test %s Phase %s : Module %s\n",
       df$Grade[idx],
+      df$Test[idx],
       df$Phase[idx],
       df$Module[idx]
     ))
@@ -173,7 +201,10 @@ loadModules <- function(fn, base_path = NULL, assessment_structure, examinee_lis
     if (!df$Grade[idx] %in% names(module_list)) {
       module_list[[df$Grade[idx]]] <- list()
     }
-    module_list[[df$Grade[idx]]][[df$Phase[idx]]] <- o
+    if (!df$Test[idx] %in% names(module_list[[df$Grade[idx]]])) {
+      module_list[[df$Grade[idx]]][[df$Test[idx]]] <- list()
+    }
+    module_list[[df$Grade[idx]]][[df$Test[idx]]][[df$Phase[idx]]] <- o
 
   }
 
