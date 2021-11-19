@@ -51,7 +51,7 @@ createModule <- function(constraints, item_pool, item_attrib, passage_attrib) {
 #' }
 #'
 #' @returns a module list containing \code{\linkS4class{module}} objects.
-#' Each module can be accessed using \code{module_list[[grade]][[phase]]}.
+#' Each module can be accessed using \code{module_list[[grade]][[test]][[phase]]}.
 #'
 #' @examples
 #' assessment_structure <- createAssessmentStructure(
@@ -68,7 +68,7 @@ createModule <- function(constraints, item_pool, item_attrib, passage_attrib) {
 #'   assessment_structure = assessment_structure
 #' )
 #'
-#' fn <- system.file("extdata", "module_definition_MATH_normal_N500.csv", package = "maat")
+#' fn <- system.file("extdata", "module_definition_MATH_normal_N500_flexible.csv", package = "maat")
 #' pkg_path <- system.file(package = "maat")
 #' module_list <- loadModules(
 #'   fn,
