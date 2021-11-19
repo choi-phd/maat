@@ -16,6 +16,11 @@ vignette: >
   %\VignetteIndexEntry{maat package}
   %\VignetteEncoding{UTF-8}
   %\VignetteEngine{knitr::rmarkdown}
+resource_files:
+  - assessment.svg
+  - routing_T1T2.svg
+  - routing_T2T3.svg
+  - routing_T3.svg
 editor_options:
   chunk_output_type: console
 ---
@@ -36,7 +41,7 @@ The **maat** package performs adaptive testing based on the assessment framework
 
 # Assessment Structure
 
-```{r, echo = FALSE, out.width = "900px"}
+```{r, echo = FALSE, out.width = "900px", fig.ext = "svg"}
 include_graphics("assessment.svg")
 ```
 
@@ -260,7 +265,7 @@ The following diagrams visually summarize the permissible routing paths between 
 
 ### Test 1 to 2
 
-```{r, echo = FALSE, out.width = "900px"}
+```{r, echo = FALSE, out.width = "900px", fig.ext = "svg"}
 include_graphics("routing_T1T2.svg")
 ```
 
@@ -268,7 +273,7 @@ include_graphics("routing_T1T2.svg")
 
 ### Test 2 to 3
 
-```{r, echo = FALSE, out.width = "900px"}
+```{r, echo = FALSE, out.width = "900px", fig.ext = "svg"}
 include_graphics("routing_T2T3.svg")
 ```
 
@@ -276,7 +281,7 @@ include_graphics("routing_T2T3.svg")
 
 ### Test 3
 
-```{r, echo = FALSE, out.width = "900px"}
+```{r, echo = FALSE, out.width = "900px", fig.ext = "svg"}
 include_graphics("routing_T3.svg")
 ```
 
