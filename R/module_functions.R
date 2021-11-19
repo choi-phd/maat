@@ -107,6 +107,13 @@ loadModules <- function(fn, base_path = NULL, assessment_structure, examinee_lis
     phase = required_phases,
     stringsAsFactors = FALSE
   )
+  required_modules <- required_modules[
+    order(
+      required_modules$grade,
+      required_modules$test,
+      required_modules$phase
+    ),
+  ]
   n_required_modules <- dim(required_modules)[1]
 
   cat(sprintf("Required modules: %s\n", n_required_modules))
