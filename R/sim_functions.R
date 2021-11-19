@@ -663,7 +663,8 @@ maat <- function(
       examinee_list <- lapply(
         examinee_list,
         function(x) {
-          item_pool_for_this_examinee <- module_list[[x@current_grade]][[x@current_phase]]@constraints@pool
+          module <- module_list[[x@current_grade]][[x@current_test]][[x@current_phase]]
+          item_pool_for_this_examinee <- module@constraints@pool
           x <- updateGrade(
             x, assessment_structure, current_module_position, cut_scores, transition_policy,
             transition_CI_alpha,
@@ -1045,7 +1046,7 @@ getItemNamesPerGrade <- function(module_list) {
   items_per_grade <- lapply(
     module_list,
     function(x) {
-      x$P1@constraints@pool@id
+      x$T1$P1@constraints@pool@id
     }
   )
   return(items_per_grade)

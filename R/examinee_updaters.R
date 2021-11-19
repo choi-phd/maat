@@ -83,8 +83,9 @@ updateTest <- function(examinee_object, assessment_structure) {
 updateModule <- function(examinee_object, module_list) {
 
   grade <- examinee_object@current_grade
+  test  <- examinee_object@current_test
   phase <- examinee_object@current_phase
-  module <- module_list[[grade]][[phase]]
+  module <- module_list[[grade]][[test]][[phase]]
   module_name <- module@module_id
   examinee_object@current_module <- module_name
 
