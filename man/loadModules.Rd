@@ -9,7 +9,7 @@ loadModules(fn, base_path = NULL, assessment_structure, examinee_list)
 \arguments{
 \item{fn}{the full file path and name of a csv file containing module specifications.}
 
-\item{base_path}{(optional) the base path to append before the file paths contained in the module specs sheet if the file paths are not complete.}
+\item{base_path}{(optional) the base path to be prepended to the file paths contained in the module specifications sheet.}
 
 \item{assessment_structure}{an \code{\linkS4class{assessment_structure}} object.}
 

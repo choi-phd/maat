@@ -35,7 +35,7 @@ createModule <- function(constraints, item_pool, item_attrib, passage_attrib) {
 #' from a specification sheet.
 #'
 #' @param fn the full file path and name of a csv file containing module specifications.
-#' @param base_path (optional) the base path to be preppend to the file paths contained in the module specifications sheet.
+#' @param base_path (optional) the base path to be prepended to the file paths contained in the module specifications sheet.
 #' @param assessment_structure an \code{\linkS4class{assessment_structure}} object.
 #' @param examinee_list an examinee list from \code{\link{simExaminees}}. Used to determine the range of required modules.
 #'
