@@ -128,6 +128,8 @@ simTheta <- function(N, mean_v, sd_v, cor_v) {
 simExaminees <- function(N, mean_v, sd_v, cor_v, assessment_structure,
   initial_grade = "G4", initial_phase = "P1", initial_test = "T1") {
 
+  isGrade(initial_grade)
+
   true_theta <- simTheta(N, mean_v, sd_v, cor_v)
 
   if (dim(true_theta)[2] != assessment_structure@n_test) {
