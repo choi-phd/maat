@@ -240,9 +240,9 @@ setMethod(
       )
       final_theta <- matrix(unlist(final_theta), length(final_theta), byrow = TRUE)
 
-      old_mfrow <- par()$mfrow
+      old_par <- par(no.readonly = TRUE)
       on.exit({
-        par(mfrow = old_mfrow)
+        par(old_par)
       })
       par(mfrow = c(1, n_tests))
 
@@ -459,9 +459,9 @@ setMethod(
 
       cell_layout <- rep(n_modules, n_grades)
 
-      old_mar <- par()$mar
+      old_par <- par(no.readonly = TRUE)
       on.exit({
-        par(mar = old_mar)
+        par(old_par)
       })
       par(mar = c(1, 1, 1, 1))
       plotmat(
