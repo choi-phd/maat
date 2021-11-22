@@ -25,6 +25,7 @@ NULL
 #'
 #' @export
 updatePhase <- function(examinee_object, assessment_structure) {
+  isPhase(examinee_object@current_phase)
   examinee_object@current_phase <- changePhase(
     examinee_object@current_phase,
     assessment_structure
@@ -62,6 +63,7 @@ updatePhase <- function(examinee_object, assessment_structure) {
 #' @export
 updateTest <- function(examinee_object, assessment_structure) {
   isTest(examinee_object@current_test)
+  isPhase(examinee_object@current_phase)
   examinee_object@current_test <- changeTest(
     examinee_object@current_test,
     examinee_object@current_phase,

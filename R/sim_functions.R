@@ -130,6 +130,7 @@ simExaminees <- function(N, mean_v, sd_v, cor_v, assessment_structure,
 
   isGrade(initial_grade)
   isTest(initial_test)
+  isPhase(initial_phase)
 
   true_theta <- simTheta(N, mean_v, sd_v, cor_v)
 
