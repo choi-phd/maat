@@ -70,4 +70,5 @@ Collate:
     'prior_functions.R'
     'routing_functions.R'
     'show_functions.R'
+    'validators.r'
 Config/testthat/edition: 3
