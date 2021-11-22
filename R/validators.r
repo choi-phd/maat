@@ -66,3 +66,11 @@ isPhase <- function(x) {
   return(TRUE)
 
 }
+
+#' @noRd
+valueOf <- function(x) {
+  typecast_to_number <- suppressWarnings(
+    as.numeric(substr(x, 2, nchar(x)))
+  )
+  return(typecast_to_number)
+}
