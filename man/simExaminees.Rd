@@ -11,8 +11,8 @@ simExaminees(
   cor_v,
   assessment_structure,
   initial_grade = "G4",
-  initial_phase = "P1",
-  initial_test = "T1"
+  initial_test = "T1",
+  initial_phase = "P1"
 )
 }
 \arguments{
@@ -28,9 +28,9 @@ simExaminees(
 
 \item{initial_grade}{the initial grade for all examinees. The grade must exist in \code{module_list}. Also used as the grade of record when the initial phase and test points to a module position greater than 1. (default = \code{G4})}
 
-\item{initial_phase}{the initial phase for all examinees. The phase must exist in \code{module_list}. (default = \code{P1})}
-
 \item{initial_test}{the initial test for all examinees. (default = \code{T1})}
+
+\item{initial_phase}{the initial phase for all examinees. The phase must exist in \code{module_list}. (default = \code{P1})}
 }
 \value{
 a list of \code{\linkS4class{examinee}} objects.

@@ -126,7 +126,7 @@ simTheta <- function(N, mean_v, sd_v, cor_v) {
 #'
 #' @export
 simExaminees <- function(N, mean_v, sd_v, cor_v, assessment_structure,
-  initial_grade = "G4", initial_phase = "P1", initial_test = "T1") {
+  initial_grade = "G4", initial_test = "T1", initial_phase = "P1") {
 
   isGrade(initial_grade)
   isTest(initial_test)
