@@ -10,7 +10,7 @@
   x,
   y,
   type,
-  examinee_id,
+  examinee_id = 1,
   cut_scores = NULL,
   theta_range = c(-4, 4),
   main = NULL,

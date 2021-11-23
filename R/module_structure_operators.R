@@ -17,8 +17,7 @@ NULL
 #'
 #' @export
 changePhase <- function(phase, assessment_structure) {
-  phase <- substr(phase, 2, 100)
-  phase <- as.numeric(phase)
+  phase <- valueOf(phase)
   phase <- phase + 1
   if (phase > assessment_structure@n_phase) {
     phase <- 1
@@ -44,10 +43,9 @@ changePhase <- function(phase, assessment_structure) {
 #'
 #' @export
 changeGrade <- function(grade, delta) {
-  grade <- substr(grade, 2, 100)
-  grade <- as.numeric(grade)
-  grade <- grade + delta
-  grade <- sprintf("G%s", grade)
+  grade_value <- valueOf(grade)
+  grade_value <- grade_value + delta
+  grade <- sprintf("G%s", grade_value)
   return(grade)
 }
 
@@ -67,11 +65,9 @@ changeGrade <- function(grade, delta) {
 #'
 #' @export
 getRelativeGrade <- function(current_grade, initial_grade) {
-  current_grade <- substr(current_grade, 2, 100)
-  initial_grade <- substr(initial_grade, 2, 100)
-  current_grade <- as.numeric(current_grade)
-  initial_grade <- as.numeric(initial_grade)
-  return(current_grade - initial_grade)
+  current_grade_value <- valueOf(current_grade)
+  initial_grade_value <- valueOf(initial_grade)
+  return(current_grade_value - initial_grade_value)
 }
 
 #' Test operator: move to next phase
@@ -93,10 +89,9 @@ getRelativeGrade <- function(current_grade, initial_grade) {
 changeTest <- function(test, phase, assessment_structure) {
   last_phase <- sprintf("P%s", assessment_structure@n_phase)
   if (phase == last_phase) {
-    test <- substr(test, 2, 100)
-    test <- as.numeric(test)
-    test <- test + 1
-    test <- sprintf("T%s", test)
+    test_value <- valueOf(test)
+    test_value <- test_value + 1
+    test <- sprintf("T%s", test_value)
     return(test)
   } else {
     return(test)

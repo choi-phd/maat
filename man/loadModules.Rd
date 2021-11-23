@@ -9,7 +9,7 @@ loadModules(fn, base_path = NULL, assessment_structure, examinee_list)
 \arguments{
 \item{fn}{the full file path and name of a csv file containing module specifications.}
 
-\item{base_path}{(optional) the base path to append before the file paths contained in the module specs sheet if the file paths are not complete.}
+\item{base_path}{(optional) the base path to be prepended to the file paths contained in the module specifications sheet.}
 
 \item{assessment_structure}{an \code{\linkS4class{assessment_structure}} object.}
 
@@ -17,7 +17,7 @@ loadModules(fn, base_path = NULL, assessment_structure, examinee_list)
 }
 \value{
 a module list containing \code{\linkS4class{module}} objects.
-Each module can be accessed using \code{module_list[[grade]][[phase]]}.
+Each module can be accessed using \code{module_list[[grade]][[test]][[phase]]}.
 }
 \description{
 \code{\link{loadModules}} is a function for creating multiple \code{\linkS4class{module}} objects
@@ -49,7 +49,7 @@ examinee_list <- simExaminees(
   assessment_structure = assessment_structure
 )
 
-fn <- system.file("extdata", "module_definition_MATH_normal_N500.csv", package = "maat")
+fn <- system.file("extdata", "module_definition_MATH_normal_N500_flexible.csv", package = "maat")
 pkg_path <- system.file(package = "maat")
 module_list <- loadModules(
   fn,

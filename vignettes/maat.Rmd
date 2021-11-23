@@ -375,10 +375,10 @@ Each argument of `simExaminees()` is defined as follows:
 
 ## Load Module Specification Sheet
 
-The next step is to load the module specification sheet using `loadModules()`. The **maat** package allows for using different item pools and constraints across different stages of testing. This requires a module specification sheet that contains which item pools and constraints are used for each grade and phase. An example module specification sheet is displayed below:
+The next step is to load the module specification sheet using `loadModules()`. The **maat** package allows for using different item pools and constraints across different stages of testing. This requires a module specification sheet that contains which item pools and constraints are used for each grade, test, and phase. An example module specification sheet is displayed below:
 
 ```{r, echo = FALSE}
-fn <- system.file("extdata", "module_definition_MATH_normal_N500.csv", package = "maat")
+fn <- system.file("extdata", "module_definition_MATH_normal_N500_flexible.csv", package = "maat")
 d  <- read.csv(fn)
 kable_styling(kable(d))
 ```
@@ -386,17 +386,18 @@ kable_styling(kable(d))
 The sheet must have seven columns.
 
 1. **Grade** The grade level. This must be in the form of `G?`, where `?` is a number.
-2. **Phase** The phase level. This must be in the form of `P?`, where `?` is a number.
-3. **Module** The module ID string.
-4. **Constraints** The file path of constraints data. This must be readable by `loadConstraints()` in the `TestDesign` package.
-5. **ItemPool** The file path of item pool data. This must be readable by `loadItemPool()` in `TestDesign` package.
-6. **ItemAttrib** The file path of item attributes data. This must be readable by `loadItemAttrib()` in the `TestDesign` package.
-7. **PassageAttrib** (Optional) The file path of passage attributes data. This must be readable by `loadStAttrib()` in the `TestDesign` package.
+2. **Test** The test level. This must be in the form of `T?`, where `?` is a number.
+3. **Phase** The phase level. This must be in the form of `P?`, where `?` is a number.
+4. **Module** The module ID string.
+5. **Constraints** The file path of constraints data. This must be readable by `loadConstraints()` in the `TestDesign` package.
+6. **ItemPool** The file path of item pool data. This must be readable by `loadItemPool()` in `TestDesign` package.
+7. **ItemAttrib** The file path of item attributes data. This must be readable by `loadItemAttrib()` in the `TestDesign` package.
+8. **PassageAttrib** (Optional) The file path of passage attributes data. This must be readable by `loadStAttrib()` in the `TestDesign` package.
 
 Load the module specification sheet using `loadModules()`.
 
 ```{r}
-fn <- system.file("extdata", "module_definition_MATH_normal_N500.csv", package = "maat")
+fn <- system.file("extdata", "module_definition_MATH_normal_N500_flexible.csv", package = "maat")
 module_list <- loadModules(
   fn = fn,
   base_path = system.file(package = "maat"),

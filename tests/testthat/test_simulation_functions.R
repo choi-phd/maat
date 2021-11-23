@@ -102,6 +102,10 @@ for (condition in 1:dim(conditions)[1]) {
       o <- getAdministeredItemsPerTest(solution)
       o <- getItemExposureRate(solution)
 
+      plot(solution, type = "route")
+      plot(solution, type = "correlation")
+      plot(solution, type = "audit")
+
       expect_true(TRUE)
 
     }

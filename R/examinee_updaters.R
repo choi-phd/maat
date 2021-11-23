@@ -25,6 +25,7 @@ NULL
 #'
 #' @export
 updatePhase <- function(examinee_object, assessment_structure) {
+  isPhase(examinee_object@current_phase)
   examinee_object@current_phase <- changePhase(
     examinee_object@current_phase,
     assessment_structure
@@ -61,6 +62,8 @@ updatePhase <- function(examinee_object, assessment_structure) {
 #'
 #' @export
 updateTest <- function(examinee_object, assessment_structure) {
+  isTest(examinee_object@current_test)
+  isPhase(examinee_object@current_phase)
   examinee_object@current_test <- changeTest(
     examinee_object@current_test,
     examinee_object@current_phase,
@@ -83,8 +86,9 @@ updateTest <- function(examinee_object, assessment_structure) {
 updateModule <- function(examinee_object, module_list) {
 
   grade <- examinee_object@current_grade
+  test  <- examinee_object@current_test
   phase <- examinee_object@current_phase
-  module <- module_list[[grade]][[phase]]
+  module <- module_list[[grade]][[test]][[phase]]
   module_name <- module@module_id
   examinee_object@current_module <- module_name
 

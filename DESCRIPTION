@@ -48,7 +48,7 @@ Suggests:
     rmarkdown,
     knitr,
     kableExtra
-RoxygenNote: 7.1.1
+RoxygenNote: 7.1.2
 VignetteBuilder: knitr
 Encoding: UTF-8
 LazyData: true
@@ -70,4 +70,5 @@ Collate:
     'prior_functions.R'
     'routing_functions.R'
     'show_functions.R'
+    'validators.r'
 Config/testthat/edition: 3

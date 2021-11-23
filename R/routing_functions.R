@@ -21,6 +21,15 @@ NULL
 #' @export
 boundGrade <- function(current_grade, grade_of_record, route_limit_below, route_limit_above) {
 
+  isGrade(current_grade)
+  isGrade(grade_of_record)
+  if (route_limit_below < 0) {
+    stop(sprintf("%s is out of range (must be 0 or positive)", route_limit_below))
+  }
+  if (route_limit_above < 0) {
+    stop(sprintf("%s is out of range (must be 0 or positive)", route_limit_above))
+  }
+
   delta <- getRelativeGrade(current_grade, grade_of_record)
   if (delta < -route_limit_below) {
     g <- changeGrade(grade_of_record, -route_limit_below)

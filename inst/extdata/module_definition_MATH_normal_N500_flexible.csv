@@ -1,0 +1,17 @@
+Grade,Test,Phase,Module,Constraints,ItemPool,ItemAttrib,PassageAttrib
+G3,,P1,ModuleMATH3P1N,extdata/constraints_MATH3_P1.csv,extdata/pool_MATH_normal_N500_Grade03.csv,extdata/item_attrib_MATH_normal_N500_Grade03.csv,NA
+G3,,P2,ModuleMATH3P2N,extdata/constraints_MATH3_P2.csv,extdata/pool_MATH_normal_N500_Grade03.csv,extdata/item_attrib_MATH_normal_N500_Grade03.csv,NA
+G4,T1,P1,ModuleMATH4T1P1N,extdata/constraints_MATH4_T1P1.csv,extdata/pool_MATH_normal_N500_Grade04.csv,extdata/item_attrib_MATH_normal_N500_Grade04.csv,NA
+G4,T1,P2,ModuleMATH4T1P2N,extdata/constraints_MATH4_T1P2.csv,extdata/pool_MATH_normal_N500_Grade04.csv,extdata/item_attrib_MATH_normal_N500_Grade04.csv,NA
+G4,T2,P1,ModuleMATH4T2P1N,extdata/constraints_MATH4_T2P1.csv,extdata/pool_MATH_normal_N500_Grade04.csv,extdata/item_attrib_MATH_normal_N500_Grade04.csv,NA
+G4,T2,P2,ModuleMATH4T2P2N,extdata/constraints_MATH4_T2P2.csv,extdata/pool_MATH_normal_N500_Grade04.csv,extdata/item_attrib_MATH_normal_N500_Grade04.csv,NA
+G4,T3,P1,ModuleMATH4T3P1N,extdata/constraints_MATH4_T3P1.csv,extdata/pool_MATH_normal_N500_Grade04.csv,extdata/item_attrib_MATH_normal_N500_Grade04.csv,NA
+G4,T3,P2,ModuleMATH4T3P2N,extdata/constraints_MATH4_T3P2.csv,extdata/pool_MATH_normal_N500_Grade04.csv,extdata/item_attrib_MATH_normal_N500_Grade04.csv,NA
+G5,,P1,ModuleMATH5P1N,extdata/constraints_MATH5_P1.csv,extdata/pool_MATH_normal_N500_Grade05.csv,extdata/item_attrib_MATH_normal_N500_Grade05.csv,NA
+G5,,P2,ModuleMATH5P2N,extdata/constraints_MATH5_P2.csv,extdata/pool_MATH_normal_N500_Grade05.csv,extdata/item_attrib_MATH_normal_N500_Grade05.csv,NA
+G6,,P1,ModuleMATH6P1N,extdata/constraints_MATH6_P1.csv,extdata/pool_MATH_normal_N500_Grade06.csv,extdata/item_attrib_MATH_normal_N500_Grade06.csv,NA
+G6,,P2,ModuleMATH6P2N,extdata/constraints_MATH6_P2.csv,extdata/pool_MATH_normal_N500_Grade06.csv,extdata/item_attrib_MATH_normal_N500_Grade06.csv,NA
+G7,,P1,ModuleMATH7P1N,extdata/constraints_MATH7_P1.csv,extdata/pool_MATH_normal_N500_Grade07.csv,extdata/item_attrib_MATH_normal_N500_Grade07.csv,NA
+G7,,P2,ModuleMATH7P2N,extdata/constraints_MATH7_P2.csv,extdata/pool_MATH_normal_N500_Grade07.csv,extdata/item_attrib_MATH_normal_N500_Grade07.csv,NA
+G8,,P1,ModuleMATH8P1N,extdata/constraints_MATH8_P1.csv,extdata/pool_MATH_normal_N500_Grade08.csv,extdata/item_attrib_MATH_normal_N500_Grade08.csv,NA
+G8,,P2,ModuleMATH8P2N,extdata/constraints_MATH8_P2.csv,extdata/pool_MATH_normal_N500_Grade08.csv,extdata/item_attrib_MATH_normal_N500_Grade08.csv,NA
