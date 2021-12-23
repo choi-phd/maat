@@ -11,6 +11,10 @@ reference:
   contents:
   - maat-package
 
+- title: "Example data"
+  contents:
+  - module_list_math
+
 - title: "Structure and Module functions"
   contents:
   - createAssessmentStructure
@@ -45,13 +49,13 @@ reference:
   - maat
   - simExaminees
   - simTheta
+  - output_maat-class
 
 - title: "Helper functions"
   contents:
   - excludeAdministeredItems
   - getAdministeredItemsPerTest
   - getItemNamesPerGrade
-  - plotModuleRoutes
   - removeItemData
   - formatOutput
 
