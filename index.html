@@ -25,6 +25,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-home">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -37,18 +39,12 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">maat</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.2.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.2.9000</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-<li>
-  <a href="index.html">
-    <span class="fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
 <li>
   <a href="articles/maat.html">Get started</a>
 </li>
@@ -61,7 +57,7 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/choi-phd/maat/">
+  <a href="https://github.com/choi-phd/maat/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -78,51 +74,64 @@
 
       </header><div class="row">
   <div class="contents col-md-9">
-<div id="maat-" class="section level1">
-<div class="page-header"><h1 class="hasAnchor">
-<a href="#maat-" class="anchor"></a>maat <img src="reference/figures/maat_Fig.png" align="right" width="120px">
+<div class="section level1">
+<div class="page-header"><h1 id="maat-">maat <img src="reference/figures/maat_Fig.png" align="right" width="120px"><a class="anchor" aria-label="anchor" href="#maat-"></a>
 </h1></div>
 <p>Multiple Administrations Adaptive Testing</p>
 <!-- badges: start -->
-<p><a href="https://github.com/choi-phd/maat/actions"><img src="https://github.com/choi-phd/maat/workflows/build/badge.svg" alt="R build status"></a> <!-- badges: end --></p>
-<p>Multiple Administrations Adaptive Testing (<strong>maat</strong>) is an extension of the shadow-test approach to CAT implemented in the <a href="https://github.com/choi-phd/TestDesign"><code>TestDesign</code></a> package. The <strong>maat</strong> system is based on the assessment framework involving multiple tests administered throughout the year using multiple item pools vertically scaled and multiple phases (stages) of CAT within each test allowing transitioning from one item pool (and associated constraints) to another as deemed necessary to enhance the quality of measurement.</p>
-<div id="installation" class="section level2">
-<h2 class="hasAnchor">
-<a href="#installation" class="anchor"></a>Installation</h2>
+
+<p>Multiple Administrations Adaptive Testing (<strong>maat</strong>) is an extension of the shadow-test approach to CAT implemented in the <a href="https://github.com/choi-phd/TestDesign" class="external-link"><code>TestDesign</code></a> package. The <strong>maat</strong> system is based on the assessment framework involving multiple tests administered throughout the year using multiple item pools vertically scaled and multiple phases (stages) of CAT within each test allowing transitioning from one item pool (and associated constraints) to another as deemed necessary to enhance the quality of measurement.</p>
+<div class="section level2">
+<h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
+</h2>
 <p>Install the latest release from CRAN:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"maat"</span><span class="op">)</span></code></pre></div>
-<p>The documentation is available at (<a href="https://choi-phd.github.io/maat/" class="uri">https://choi-phd.github.io/maat/</a>)</p>
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"maat"</span><span class="op">)</span></code></pre></div>
+<p>The documentation is available at (<a href="https://choi-phd.github.io/maat/" class="external-link uri">https://choi-phd.github.io/maat/</a>)</p>
 </div>
 </div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <div class="links">
-<h2>Links</h2>
+<h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">
-<li>Download from CRAN at <br><a href="https://cloud.r-project.org/package=maat">https://​cloud.r-project.org/​package=maat</a>
-</li>
-<li>Browse source code at <br><a href="https://github.com/choi-phd/maat/">https://​github.com/​choi-phd/​maat/​</a>
-</li>
-<li>Report a bug at <br><a href="https://github.com/choi-phd/maat/issues/">https://​github.com/​choi-phd/​maat/​issues/​</a>
-</li>
+<li><a href="https://cloud.r-project.org/package=maat" class="external-link">View on CRAN</a></li>
+<li><a href="https://github.com/choi-phd/maat/" class="external-link">Browse source code</a></li>
+<li><a href="https://github.com/choi-phd/maat/issues/" class="external-link">Report a bug</a></li>
 </ul>
 </div>
+
 <div class="license">
-<h2>License</h2>
+<h2 data-toc-skip>License</h2>
 <ul class="list-unstyled">
 <li>GPL (&gt;= 2)</li>
 </ul>
 </div>
-<div class="developers">
-<h2>Developers</h2>
+
+
+<div class="citation">
+<h2 data-toc-skip>Citation</h2>
 <ul class="list-unstyled">
-<li>Seung W. Choi <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/0000-0003-4777-5420" target="orcid.widget" aria-label="ORCID"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
-<li>Sangdon Lim <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0002-2988-014X" target="orcid.widget" aria-label="ORCID"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
-<li>Luping Niu <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0003-3696-1180" target="orcid.widget" aria-label="ORCID"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
-<li>Sooyong Lee <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0002-7964-4508" target="orcid.widget" aria-label="ORCID"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
-<li><a href="authors.html">All authors...</a></li>
+<li><a href="authors.html#citation">Citing maat</a></li>
+</ul>
+</div>
+
+<div class="developers">
+<h2 data-toc-skip>Developers</h2>
+<ul class="list-unstyled">
+<li>Seung W. Choi <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/0000-0003-4777-5420" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
+<li>Sangdon Lim <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0002-2988-014X" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
+<li>Luping Niu <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0003-3696-1180" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
+<li>Sooyong Lee <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0002-7964-4508" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
+<li><a href="authors.html">More about authors...</a></li>
+</ul>
+</div>
+
+<div class="dev-status">
+<h2 data-toc-skip>Dev status</h2>
+<ul class="list-unstyled">
+<li><a href="https://github.com/choi-phd/maat/actions" class="external-link"><img src="https://github.com/choi-phd/maat/workflows/build/badge.svg" alt="R build status"></a></li>
 </ul>
 </div>
 
@@ -131,11 +140,13 @@
 
 
       <footer><div class="copyright">
-  <p>Developed by Seung W. Choi, Sangdon Lim, Luping Niu, Sooyong Lee.</p>
+  <p></p>
+<p>Developed by Seung W. Choi, Sangdon Lim, Luping Niu, Sooyong Lee.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
 </div>
 
       </footer>
@@ -143,6 +154,8 @@
 
   
 
+
+  
 
   </body>
 </html>
