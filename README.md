@@ -7,6 +7,8 @@ Multiple Administrations Adaptive Testing
 
 [![R build
 status](https://github.com/choi-phd/maat/workflows/build/badge.svg)](https://github.com/choi-phd/maat/actions)
+[![Number of
+downloads](https://cranlogs.r-pkg.org/badges/grand-total/maat?color=lightgrey)](https://cran.r-project.org/package=maat)
 <!-- badges: end -->
 
 Multiple Administrations Adaptive Testing (**maat**) is an extension of
