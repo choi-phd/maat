@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">maat</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.2.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.1.0</span>
       </span>
     </div>
 
@@ -80,9 +80,9 @@
 
     
     
-<div class="section level1">
-<h1 id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
-</h1>
+<div class="section level2">
+<h2 id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
+</h2>
 <p>The <strong>maat</strong> package performs adaptive testing based on the assessment framework involving multiple tests administered throughout the year using multiple item pools vertically scaled and multiple phases within each administration. It allows for transitioning from one item pool with associated constraints to another as determined necessary according to a prespecified transition policy to enhance the quality of measurement. Based on an item pool and test blueprint constraints, each phase or module is constructed an adaptive test assembled dynamically using the shadow-test approach to computerized adaptive testing (CAT). The current version of <strong>maat</strong> supports an assessment design involving three tests/administrations (e.g. Fall, Winter, and Spring) with two phases within each administration (Phase 1 and Phase 2), so that an examinee takes six modules in total throughout the year. The assessment framework is adaptive in multiple levels:</p>
 <ul>
 <li>Within phases items are administered adaptively</li>
@@ -90,9 +90,9 @@
 <li>Between tests item pools are selected adaptively</li>
 </ul>
 </div>
-<div class="section level1">
-<h1 id="assessment-structure">Assessment Structure<a class="anchor" aria-label="anchor" href="#assessment-structure"></a>
-</h1>
+<div class="section level2">
+<h2 id="assessment-structure">Assessment Structure<a class="anchor" aria-label="anchor" href="#assessment-structure"></a>
+</h2>
 <p><img src="assessment.svg" width="900px"></p>
 <p>An assessment under the multiple administrations adaptive testing design has the following structure.</p>
 <ul>
@@ -120,9 +120,9 @@
 <strong>Routing policy</strong>: Based on a routing policy (described in detail below), examinees are routed to a grade level after completing each module.</li>
 </ul>
 </div>
-<div class="section level1">
-<h1 id="assumptions">Assumptions<a class="anchor" aria-label="anchor" href="#assumptions"></a>
-</h1>
+<div class="section level2">
+<h2 id="assumptions">Assumptions<a class="anchor" aria-label="anchor" href="#assumptions"></a>
+</h2>
 <p>Several assumptions are made to support the multiple administrations adaptive testing design.</p>
 <ul>
 <li>
@@ -151,20 +151,20 @@
 </li>
 </ul>
 </div>
-<div class="section level1">
-<h1 id="module-assembly">Module Assembly<a class="anchor" aria-label="anchor" href="#module-assembly"></a>
-</h1>
-<p>A module is an adaptive test constructed under the shadow-test framework. This section describes how each module is assembled.</p>
 <div class="section level2">
-<h2 id="content-balancing-algorithm">Content Balancing Algorithm<a class="anchor" aria-label="anchor" href="#content-balancing-algorithm"></a>
+<h2 id="module-assembly">Module Assembly<a class="anchor" aria-label="anchor" href="#module-assembly"></a>
 </h2>
+<p>A module is an adaptive test constructed under the shadow-test framework. This section describes how each module is assembled.</p>
+<div class="section level3">
+<h3 id="content-balancing-algorithm">Content Balancing Algorithm<a class="anchor" aria-label="anchor" href="#content-balancing-algorithm"></a>
+</h3>
 <p>The shadow-test approach to CAT <span class="citation">Choi &amp; van der Linden (<a href="#ref-choi_ensuring_2018" role="doc-biblioref">2018</a>)</span> was developed to balance the need for sequential and simultaneous optimization in constrained CAT. The shadow-test approach uses the methodology of mixed-integer programming (MIP) to simultaneously select a full set of items conforming to all content constraints and yet optimal (e.g., most informative).</p>
 <p>Given the item pool and test specifications/constraints, the shadow-test approach to CAT assembles a full-length test form, called a shadow test, using MIP for each item position upon updating interim <span class="math inline">\(\theta\)</span> estimates, <span class="math inline">\(\theta_{k}\)</span>, <span class="math inline">\(k = 1,2,...,n\)</span>, where <span class="math inline">\(n\)</span> is the test length. The optimal test assembly engine uses MIP to construct shadow tests optimized for the interim <span class="math inline">\(\theta\)</span> estimates and conforming to all specifications and requirements, encompassing content constraints, exposure control, and other practical constraints. The cycle is repeated until the intended test length <span class="math inline">\(n\)</span> has been reached.</p>
 <p>The methods by which the shadow-test approach formulates test assembly problems as constrained combinatorial optimization have been documented in <span class="citation">(<a href="#ref-van_der_linden_linear_2005" role="doc-biblioref">van der Linden, 2005</a>)</span> and implemented in the  package. Refer to <span class="citation">(<a href="#ref-choi_ensuring_2018" role="doc-biblioref">Choi &amp; van der Linden, 2018</a>)</span> for more information about how the shadow-test approach creates an adaptive test as a sequence of optimally constructed full-length tests.</p>
 </div>
-<div class="section level2">
-<h2 id="item-selection-criteria">Item Selection Criteria<a class="anchor" aria-label="anchor" href="#item-selection-criteria"></a>
-</h2>
+<div class="section level3">
+<h3 id="item-selection-criteria">Item Selection Criteria<a class="anchor" aria-label="anchor" href="#item-selection-criteria"></a>
+</h3>
 <p>A standard procedure for choosing a shadow test (for a given examinee at a particular item position) among potentially an astronomical number of alternatives is to compare the objective values provided by the alternatives. The common objective function in its simplest form is:</p>
 <p><span class="math display">\[
 \text{maximize}
@@ -179,17 +179,17 @@ I_{i}(\hat{\theta}),
 \]</span></p>
 <p>where <span class="math inline">\(R\)</span> indicates the set of items in the current shadow test that has not been administered to the examinee. When the test is comprised of item sets (e.g., reading passages), selecting a passage should precede selecting an item, which can be based on the average item information within each passage. Once a passage is selected, typically multiple items are selected before moving onto another passage.</p>
 </div>
-<div class="section level2">
-<h2 id="how-passages-are-selected">How Passages Are Selected<a class="anchor" aria-label="anchor" href="#how-passages-are-selected"></a>
-</h2>
+<div class="section level3">
+<h3 id="how-passages-are-selected">How Passages Are Selected<a class="anchor" aria-label="anchor" href="#how-passages-are-selected"></a>
+</h3>
 <p>In the MIP optimizer, passages are selected not directly but as a result of attempting to satisfy constraints. Given an item pool that has <span class="math inline">\(I\)</span> items, a discrete assembly problem (i.e., not passage-based) uses <span class="math inline">\(I\)</span> decision variables that represent each item in the pool. In a passage-based assembly that has <span class="math inline">\(S\)</span> available passages in the pool, <span class="math inline">\(S\)</span> more decision variables are added to existing <span class="math inline">\(I\)</span> decision variables. The nested structure between items and passages is provided to the solver through the use of constraints.</p>
 <p>Using the same information maximization criteria presented above, a shadow-test that satisfies the criteria and the constraints is assembled for the administration of each item. From the shadow-test, the passage to be administered to the examinee is determined using the following process.</p>
 <p>First, if the examinee is currently not within a passage, the passage that has the largest mean information at the current <span class="math inline">\(\hat{\theta}\)</span> is selected as the passage to be administered. The mean information is calculated from the shadow test. For example, suppose that Passage 1 consists of Items 1, 2, 3, 4, 5, and only Items 1, 2, 3 were included in the shadow test. In this case, the mean information of Passage 1 is computed from Items 1, 2, 3. After selecting a passage with the highest mean information, the item within the passage that has the largest information at the current <span class="math inline">\(\hat{\theta}\)</span> is administered to the examinee. This marks the passage as the currently active passage.</p>
 <p>For the next shadow test, the assembly engine enforces to select previously administered items and passages, and the currently active passage that contains the item. In this step, for the currently active passage, a different combination of items may be selected in the shadow test. For example, suppose that Passage 1 consists of Items 1, 2, 3, 4, 5, and the constraint is to administer 3 items for each passage. If previously Items 1, 2, 3 were selected and Item 1 was administered, it is possible that Items 1, 3, 5 will be selected in the current shadow test. Given the combination, either Item 3 or 5 will be administered to the examinee depending on which item has the largest information.</p>
 </div>
-<div class="section level2">
-<h2 id="exposure-control">Exposure Control<a class="anchor" aria-label="anchor" href="#exposure-control"></a>
-</h2>
+<div class="section level3">
+<h3 id="exposure-control">Exposure Control<a class="anchor" aria-label="anchor" href="#exposure-control"></a>
+</h3>
 <p>The maximum-information item-selection criterion causes overexposure of a small proportion of items while underexposing the rest. The shadow-test approach mitigates the problem by adding random item eligibility constraints to the test-assembly model so that items with higher exposure rates have higher probabilities of being temporarily ineligible. The <code>TestDesign</code> package implements the conditional item eligibility control method recently improved and extended <span class="citation">(<a href="#ref-van_der_linden_improving_2019" role="doc-biblioref">van der Linden &amp; Choi, 2019</a>)</span>. For each examinee the <code>TestDesign</code> engine determines which items to constrain as temporarily ineligible from the item pool. The engine can also monitor the probabilities of ineligibility for all items conditional on different theta levels such that the exposure rates for all items in the pool are tightly controlled within and across different theta segments (intervals) and bound below a maximum exposure rate set <em>a priori</em> (e.g., <span class="math inline">\(r^{\max}=0.25\)</span>).</p>
 <p>More specifically, for each new examinee, prior to the administration of the test, the item eligibility control method conducts Bernoulli experiments (by theta segment) for the items in the pool to determine their eligibility for administration with probabilities updated as a function of the actual exposure rates of the items. For any items determined to be ineligible additional constraints are included in the test assembly model as follows:</p>
 <p><span class="math display">\[
@@ -215,9 +215,9 @@ I_{i}(\hat{\theta}),
 \]</span></p>
 <p>However, in the context of a large number of concurrent test instances updating the exposure counts in real time after each instance can be difficult and perhaps not necessary. One complication with the conditional item eligibility control method is that as the test progresses examinees may move in and out of segments and can be subject to different sets of eligible items as they typically visit more than one theta segment. <span class="citation">(<a href="#ref-van_der_linden_improving_2019" role="doc-biblioref">van der Linden &amp; Choi, 2019</a>)</span> elaborates the issue and provides a workaround. Unconditional exposure control is much more straightforward to implement and can be preferred in many testing situations. The <code>TestDesign</code> package implements the conditional item eligibility control method based on configurable <span class="math inline">\(\theta\)</span> segments. Defining one big segment of <span class="math inline">\(\theta\)</span> simplifies the method to the unconditional case.</p>
 </div>
-<div class="section level2">
-<h2 id="overlap-control">Overlap Control<a class="anchor" aria-label="anchor" href="#overlap-control"></a>
-</h2>
+<div class="section level3">
+<h3 id="overlap-control">Overlap Control<a class="anchor" aria-label="anchor" href="#overlap-control"></a>
+</h3>
 <p>Overlap control might be needed to prevent or reduce the amount of intra-individual overlap in test content across administrations. The item eligibility control method can be used to make all items previously seen by the examinee ineligible for the current administration by imposing constraints similarly as</p>
 <p><span class="math display">\[
 \sum_{i\,\in\,S_{j}}{x_{i}} = 0,
@@ -241,14 +241,14 @@ I_{i}(\hat{\theta}),
 <code>none</code>: A examinee can see any item twice (or more) in any phases and administrations. For example, if an examinee sees an item in Phase 1 Administration 1, the examinee can see the same item in Phase 2 Administration 1.</li>
 </ul>
 </div>
-<div class="section level2">
-<h2 id="stopping-rule">Stopping Rule<a class="anchor" aria-label="anchor" href="#stopping-rule"></a>
-</h2>
+<div class="section level3">
+<h3 id="stopping-rule">Stopping Rule<a class="anchor" aria-label="anchor" href="#stopping-rule"></a>
+</h3>
 <p>The stopping rule describes the criteria used to terminate a CAT. The stopping rule is based on the number of overall required points and the total number of items denoted in the constraint file.</p>
 </div>
-<div class="section level2">
-<h2 id="ability-estimation">Ability Estimation<a class="anchor" aria-label="anchor" href="#ability-estimation"></a>
-</h2>
+<div class="section level3">
+<h3 id="ability-estimation">Ability Estimation<a class="anchor" aria-label="anchor" href="#ability-estimation"></a>
+</h3>
 <p>The <strong>maat</strong> package supports expected a posteriori (EAP), maximum likelihood estimation (MLE) and maximum likelihood estimation with fence (MLEF) available in the <code>TestDesign</code> package for <span class="math inline">\(\theta\)</span> estimation. The estimation method must be specified in <code><a href="https://choi-phd.github.io/TestDesign/reference/createShadowTestConfig.html" class="external-link">createShadowTestConfig()</a></code>.</p>
 <p>The MLE and MLEF methods in <code>TestDesign</code> has extra fallback routines for performing CAT:</p>
 <ul>
@@ -263,18 +263,18 @@ I_{i}(\hat{\theta}),
 <p>In each module (except for the very first), the initial estimate that is in place before administering the first item, is the final routing estimate from the previous module. The initial estimates can be manually specified for each examinee and for each module by supplying a list to the <code>initial_theta_list</code> argument in <code><a href="../reference/maat.html">maat()</a></code>. The list must be accessible using <code>initial_theta_list[[module_index]][[examinee_id]]</code>. In the example assessment structure in this document, <code>module_index</code> ranges from 1 to 6. The value of <code>examinee_id</code> is a string that is used in the <code>examinee_list</code> object.</p>
 </div>
 </div>
-<div class="section level1">
-<h1 id="routing-policy">Routing Policy<a class="anchor" aria-label="anchor" href="#routing-policy"></a>
-</h1>
-<p>Transitioning between phases and between tests are governed by the rules described in this section. These so-called transition rules are generally based on theta estimates (and confidence intervals) and the cut-scores defining the performance levels for each grade. There are also restrictions that override the general rules. Two routing rules are implemented in the <strong>maat</strong> package: Confidence Interval Approach and Difficulty Percentile Approach.</p>
 <div class="section level2">
-<h2 id="cut-scores">Cut Scores<a class="anchor" aria-label="anchor" href="#cut-scores"></a>
+<h2 id="routing-policy">Routing Policy<a class="anchor" aria-label="anchor" href="#routing-policy"></a>
 </h2>
+<p>Transitioning between phases and between tests are governed by the rules described in this section. These so-called transition rules are generally based on theta estimates (and confidence intervals) and the cut-scores defining the performance levels for each grade. There are also restrictions that override the general rules. Two routing rules are implemented in the <strong>maat</strong> package: Confidence Interval Approach and Difficulty Percentile Approach.</p>
+<div class="section level3">
+<h3 id="cut-scores">Cut Scores<a class="anchor" aria-label="anchor" href="#cut-scores"></a>
+</h3>
 <p>The cut scores for achievement levels must be defined to be able to perform routing between grades. For example, if there are four achievement levels (e.g., Beginning, Developing, Proficient, and Advanced), then three cut scores are necessary for each grade.</p>
 </div>
-<div class="section level2">
-<h2 id="routing-structure">Routing Structure<a class="anchor" aria-label="anchor" href="#routing-structure"></a>
-</h2>
+<div class="section level3">
+<h3 id="routing-structure">Routing Structure<a class="anchor" aria-label="anchor" href="#routing-structure"></a>
+</h3>
 <p>Routing is performed between modules. For example, routing is performed between Fall Phase 1 and Fall Phase 2, and also between Fall Phase 2 and Winter Phase 1. Because an examinee takes 6 modules in total, routing is performed 5 times for the examinee throughout the entire assessment.</p>
 <p>The routing structure is now described. Let <span class="math inline">\(G\)</span> denote the grade of record of a single examinee.</p>
 <ul>
@@ -356,38 +356,38 @@ I_{i}(\hat{\theta}),
 <li><p>As a result of these restrictions, an examinee can be routed to <span class="math inline">\(G - 1\)</span> at a minimum and <span class="math inline">\(G + 2\)</span> at a maximum. For example, a <span class="math inline">\(G = 4\)</span> examinee can be potentially routed to grades 3-6. A <span class="math inline">\(G = 4\)</span> examinee can never be routed to grades 7 and above or below 3 in any module.</p></li>
 </ul>
 </div>
-<div class="section level2">
-<h2 id="routing-sturcture-diagram">Routing Sturcture Diagram<a class="anchor" aria-label="anchor" href="#routing-sturcture-diagram"></a>
-</h2>
-<p>The following diagrams visually summarize the permissible routing paths between modules and tests. The paths highlighted in red are due to the restrictions described above.</p>
 <div class="section level3">
-<h3 id="test-1-to-2">Test 1 to 2<a class="anchor" aria-label="anchor" href="#test-1-to-2"></a>
+<h3 id="routing-sturcture-diagram">Routing Sturcture Diagram<a class="anchor" aria-label="anchor" href="#routing-sturcture-diagram"></a>
 </h3>
+<p>The following diagrams visually summarize the permissible routing paths between modules and tests. The paths highlighted in red are due to the restrictions described above.</p>
+<div class="section level4">
+<h4 id="test-1-to-2">Test 1 to 2<a class="anchor" aria-label="anchor" href="#test-1-to-2"></a>
+</h4>
 <p><img src="routing_T1T2.svg" width="900px"></p>
 <ul>
 <li>Restrictions R1, R2, R3 are in place.</li>
 </ul>
 </div>
-<div class="section level3">
-<h3 id="test-2-to-3">Test 2 to 3<a class="anchor" aria-label="anchor" href="#test-2-to-3"></a>
-</h3>
+<div class="section level4">
+<h4 id="test-2-to-3">Test 2 to 3<a class="anchor" aria-label="anchor" href="#test-2-to-3"></a>
+</h4>
 <p><img src="routing_T2T3.svg" width="900px"></p>
 <ul>
 <li>Restrictions R0, R1, R2, R3 are in place. The routing path for Phase 2 Grade <span class="math inline">\(G+2\)</span> for “Advanced” achievement level results from applying either R0 or R3.</li>
 </ul>
 </div>
-<div class="section level3">
-<h3 id="test-3">Test 3<a class="anchor" aria-label="anchor" href="#test-3"></a>
-</h3>
+<div class="section level4">
+<h4 id="test-3">Test 3<a class="anchor" aria-label="anchor" href="#test-3"></a>
+</h4>
 <p><img src="routing_T3.svg" width="900px"></p>
 <ul>
 <li>Restriction R0 is in place.</li>
 </ul>
 </div>
 </div>
-<div class="section level2">
-<h2 id="confidence-interval-routing">Confidence Interval Routing<a class="anchor" aria-label="anchor" href="#confidence-interval-routing"></a>
-</h2>
+<div class="section level3">
+<h3 id="confidence-interval-routing">Confidence Interval Routing<a class="anchor" aria-label="anchor" href="#confidence-interval-routing"></a>
+</h3>
 <p>The examinee is routed based on the performance in each phase. The performance is quantified not as a point estimate of <span class="math inline">\(\theta\)</span>, but as a confidence interval. The confidence interval approach <span class="citation">Eggen &amp; Straetmans (<a href="#ref-eggen_computerized_2000" role="doc-biblioref">2000</a>)</span> can be used with MLE scoring <span class="citation">(<a href="#ref-yang_effects_2006" role="doc-biblioref">Yang et al., 2006</a>)</span> and can be easily extended to multiple cut scores <span class="citation">(<a href="#ref-thompson_practitioners_2007" role="doc-biblioref">Thompson, 2007</a>)</span>.</p>
 <p>In the confidence interval approach, the lower and upper bounds of the routing theta is computed as</p>
 <p><span class="math display">\[\hat{\theta_{L}} = \hat{\theta} - z_{\alpha} * SE(\theta),\]</span> and</p>
@@ -402,9 +402,9 @@ I_{i}(\hat{\theta}),
 <li>If neither holds, then the achievement level is determined as Proficient-Developing.</li>
 </ul>
 </div>
-<div class="section level2">
-<h2 id="difficulty-percentile-routing">Difficulty Percentile Routing<a class="anchor" aria-label="anchor" href="#difficulty-percentile-routing"></a>
-</h2>
+<div class="section level3">
+<h3 id="difficulty-percentile-routing">Difficulty Percentile Routing<a class="anchor" aria-label="anchor" href="#difficulty-percentile-routing"></a>
+</h3>
 <p>In difficulty percentile routing, prespecified cut scores are ignored. Instead, cut scores are determined based on item difficulty parameters of the current item pool for the module.</p>
 <ul>
 <li>
@@ -424,13 +424,13 @@ I_{i}(\hat{\theta}),
 </ul>
 </div>
 </div>
-<div class="section level1">
-<h1 id="using-the-package">Using the package<a class="anchor" aria-label="anchor" href="#using-the-package"></a>
-</h1>
-<p>This section explains how to use the <strong>maat</strong> package.</p>
 <div class="section level2">
-<h2 id="create-assessment-structure">Create Assessment Structure<a class="anchor" aria-label="anchor" href="#create-assessment-structure"></a>
+<h2 id="using-the-package">Using the package<a class="anchor" aria-label="anchor" href="#using-the-package"></a>
 </h2>
+<p>This section explains how to use the <strong>maat</strong> package.</p>
+<div class="section level3">
+<h3 id="create-assessment-structure">Create Assessment Structure<a class="anchor" aria-label="anchor" href="#create-assessment-structure"></a>
+</h3>
 <p>The first step is to define an assessment structure using the <code><a href="../reference/createAssessmentStructure.html">createAssessmentStructure()</a></code> function. In what follows, we specify 3 tests with 2 phases in each test. Route limits are specified to 1 below and 2 above to match the assessment structure diagram shown above. That is, for examinees in grade <span class="math inline">\(G\)</span>, routing is limited to item pools between <span class="math inline">\(G-1\)</span> and <span class="math inline">\(G+2\)</span>.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">assessment_structure</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/createAssessmentStructure.html">createAssessmentStructure</a></span><span class="op">(</span>
@@ -440,9 +440,9 @@ I_{i}(\hat{\theta}),
   route_limit_above <span class="op">=</span> <span class="fl">2</span>
 <span class="op">)</span></code></pre></div>
 </div>
-<div class="section level2">
-<h2 id="create-an-examinee-list">Create an examinee list<a class="anchor" aria-label="anchor" href="#create-an-examinee-list"></a>
-</h2>
+<div class="section level3">
+<h3 id="create-an-examinee-list">Create an examinee list<a class="anchor" aria-label="anchor" href="#create-an-examinee-list"></a>
+</h3>
 <p>The next step is to create an examinee list using <code><a href="../reference/simExaminees.html">simExaminees()</a></code>. An example is given below:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">cor_v</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fl">.8</span>, <span class="fl">3</span>, <span class="fl">3</span><span class="op">)</span>
@@ -480,9 +480,9 @@ I_{i}(\hat{\theta}),
 <code>initial_test</code> is the administration that all examinees are placed in the beginning of the assessment. This must be in the format <code>T?</code>, where <code>?</code> is a number.</li>
 </ul>
 </div>
-<div class="section level2">
-<h2 id="load-module-specification-sheet">Load Module Specification Sheet<a class="anchor" aria-label="anchor" href="#load-module-specification-sheet"></a>
-</h2>
+<div class="section level3">
+<h3 id="load-module-specification-sheet">Load Module Specification Sheet<a class="anchor" aria-label="anchor" href="#load-module-specification-sheet"></a>
+</h3>
 <p>The next step is to load the module specification sheet using <code><a href="../reference/loadModules.html">loadModules()</a></code>. The <strong>maat</strong> package allows for using different item pools and constraints across different stages of testing. This requires a module specification sheet that contains which item pools and constraints are used for each grade, test, and phase. An example module specification sheet is displayed below:</p>
 <table class="table table" style="margin-left: auto; margin-right: auto;">
 <thead><tr>
@@ -984,9 +984,9 @@ NA
 <code>base_path</code>: The value of this argument is pasted to the beginning of file paths in the sheet. In the above example, if <code>base_path</code> is <code>inst</code> then the function will attempt to read <code>inst/extdata/constraints_MATH8_P2.csv</code>.</li>
 </ul>
 </div>
-<div class="section level2">
-<h2 id="load-cut-scores">Load Cut Scores<a class="anchor" aria-label="anchor" href="#load-cut-scores"></a>
-</h2>
+<div class="section level3">
+<h3 id="load-cut-scores">Load Cut Scores<a class="anchor" aria-label="anchor" href="#load-cut-scores"></a>
+</h3>
 <p>Cut scores must be stored in a list object. For each grade, at least two cut scores must exist. When the number of cut scores for a single grade is more than two, only the first and the last entry is used. An example is given below:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">cut_scores</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>
@@ -998,9 +998,9 @@ NA
   G8 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span> <span class="fl">0.53</span>,  <span class="fl">1.45</span>, <span class="fl">2.48</span><span class="op">)</span>
 <span class="op">)</span></code></pre></div>
 </div>
-<div class="section level2">
-<h2 id="create-shared-config">Create Shared Config<a class="anchor" aria-label="anchor" href="#create-shared-config"></a>
-</h2>
+<div class="section level3">
+<h3 id="create-shared-config">Create Shared Config<a class="anchor" aria-label="anchor" href="#create-shared-config"></a>
+</h3>
 <p>The next step is to create a config object using <code><a href="https://choi-phd.github.io/TestDesign/reference/createShadowTestConfig.html" class="external-link">createShadowTestConfig()</a></code> in the <code>TestDesign</code> package. The final theta estimation method in <code>final_theta$method</code> must be <code>EAP</code>, <code>MLE</code> or <code>MLEF</code>.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://choi-phd.github.io/TestDesign/" class="external-link">TestDesign</a></span><span class="op">)</span>
@@ -1009,9 +1009,9 @@ NA
   final_theta <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>method <span class="op">=</span> <span class="st">"MLE"</span><span class="op">)</span>
 <span class="op">)</span></code></pre></div>
 </div>
-<div class="section level2">
-<h2 id="run-the-main-simulation">Run the Main Simulation<a class="anchor" aria-label="anchor" href="#run-the-main-simulation"></a>
-</h2>
+<div class="section level3">
+<h3 id="run-the-main-simulation">Run the Main Simulation<a class="anchor" aria-label="anchor" href="#run-the-main-simulation"></a>
+</h3>
 <p>The final step is to run the main simulation using <code><a href="../reference/maat.html">maat()</a></code>.</p>
 <ul>
 <li>An illustration of the simulation for two of the transition policies: <code>CI</code> and <code>pool_difficulty_percentile</code>:</li>
@@ -1095,30 +1095,30 @@ NA
 <code>transition_percentile_upper</code> is the percentile value to use in conjunction with the difficulty-percentile-based transition policy.</li>
 </ul>
 </div>
-<div class="section level2">
-<h2 id="plot-the-module-routes">Plot the Module Routes<a class="anchor" aria-label="anchor" href="#plot-the-module-routes"></a>
-</h2>
+<div class="section level3">
+<h3 id="plot-the-module-routes">Plot the Module Routes<a class="anchor" aria-label="anchor" href="#plot-the-module-routes"></a>
+</h3>
 <ul>
 <li>The <code>plot(type = "route")</code> function can be used to plot the number of examinees routed to each module. The function accepts a <code>output_maat</code> object produced by <code><a href="../reference/maat.html">maat()</a></code>.</li>
 </ul>
-<div class="section level3">
-<h3 id="route-diagram-for-the-ci-transition-policy">Route Diagram for the <code>CI</code> Transition Policy<a class="anchor" aria-label="anchor" href="#route-diagram-for-the-ci-transition-policy"></a>
-</h3>
+<div class="section level4">
+<h4 id="route-diagram-for-the-ci-transition-policy">Route Diagram for the <code>CI</code> Transition Policy<a class="anchor" aria-label="anchor" href="#route-diagram-for-the-ci-transition-policy"></a>
+</h4>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/plot-methods.html">plot</a></span><span class="op">(</span><span class="va">maat_output_CI</span>, type <span class="op">=</span> <span class="st">"route"</span><span class="op">)</span></code></pre></div>
 <p><img src="maat_files/figure-html/unnamed-chunk-13-1.png" width="100%"></p>
 </div>
-<div class="section level3">
-<h3 id="route-diagram-for-the-pool_difficulty_percentile-transition-policy">Route Diagram for the <code>pool_difficulty_percentile</code> Transition Policy<a class="anchor" aria-label="anchor" href="#route-diagram-for-the-pool_difficulty_percentile-transition-policy"></a>
-</h3>
+<div class="section level4">
+<h4 id="route-diagram-for-the-pool_difficulty_percentile-transition-policy">Route Diagram for the <code>pool_difficulty_percentile</code> Transition Policy<a class="anchor" aria-label="anchor" href="#route-diagram-for-the-pool_difficulty_percentile-transition-policy"></a>
+</h4>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/plot-methods.html">plot</a></span><span class="op">(</span><span class="va">maat_output_difficulty</span>, type <span class="op">=</span> <span class="st">"route"</span><span class="op">)</span></code></pre></div>
 <p><img src="maat_files/figure-html/unnamed-chunk-14-1.png" width="100%"></p>
 </div>
 </div>
-<div class="section level2">
-<h2 id="scatterplot">Scatterplot<a class="anchor" aria-label="anchor" href="#scatterplot"></a>
-</h2>
+<div class="section level3">
+<h3 id="scatterplot">Scatterplot<a class="anchor" aria-label="anchor" href="#scatterplot"></a>
+</h3>
 <ul>
 <li>The <code>plot(type = "correlation")</code> function can be used to plot true <span class="math inline">\(\theta\)</span>s and estimated <span class="math inline">\(\theta\)</span>s across test administrations.</li>
 <li>The arguments of <code><a href="../reference/plot-methods.html">plot()</a></code> for this use case are:
@@ -1132,9 +1132,9 @@ NA
 </ul>
 </li>
 </ul>
-<div class="section level3">
-<h3 id="scatterplot-for-the-ci-transition-policy">Scatterplot for the <code>CI</code> Transition Policy<a class="anchor" aria-label="anchor" href="#scatterplot-for-the-ci-transition-policy"></a>
-</h3>
+<div class="section level4">
+<h4 id="scatterplot-for-the-ci-transition-policy">Scatterplot for the <code>CI</code> Transition Policy<a class="anchor" aria-label="anchor" href="#scatterplot-for-the-ci-transition-policy"></a>
+</h4>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/plot-methods.html">plot</a></span><span class="op">(</span>
   x           <span class="op">=</span> <span class="va">maat_output_CI</span>,
@@ -1143,9 +1143,9 @@ NA
   main        <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Fall"</span>, <span class="st">"Winter"</span>, <span class="st">"Spring"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <p><img src="maat_files/figure-html/unnamed-chunk-15-1.png" width="100%"></p>
 </div>
-<div class="section level3">
-<h3 id="scatterplot-for-the-pool_difficulty_percentile-transition-policy">Scatterplot for the <code>pool_difficulty_percentile</code> Transition Policy<a class="anchor" aria-label="anchor" href="#scatterplot-for-the-pool_difficulty_percentile-transition-policy"></a>
-</h3>
+<div class="section level4">
+<h4 id="scatterplot-for-the-pool_difficulty_percentile-transition-policy">Scatterplot for the <code>pool_difficulty_percentile</code> Transition Policy<a class="anchor" aria-label="anchor" href="#scatterplot-for-the-pool_difficulty_percentile-transition-policy"></a>
+</h4>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/plot-methods.html">plot</a></span><span class="op">(</span>
   x           <span class="op">=</span> <span class="va">maat_output_difficulty</span>,
@@ -1155,9 +1155,9 @@ NA
 <p><img src="maat_files/figure-html/unnamed-chunk-16-1.png" width="100%"></p>
 </div>
 </div>
-<div class="section level2">
-<h2 id="audit-plot">Audit plot<a class="anchor" aria-label="anchor" href="#audit-plot"></a>
-</h2>
+<div class="section level3">
+<h3 id="audit-plot">Audit plot<a class="anchor" aria-label="anchor" href="#audit-plot"></a>
+</h3>
 <ul>
 <li>The <code>plot(type = "audit")</code> function can also be used to plot interim <span class="math inline">\(\theta\)</span>s over modules for a single examinee.</li>
 <li>The arguments of <code><a href="../reference/plot-methods.html">plot()</a></code> for this use case are:
@@ -1178,9 +1178,9 @@ NA
 <p><img src="maat_files/figure-html/unnamed-chunk-17-1.png" width="100%"></p>
 </div>
 </div>
-<div class="section level1 unnumbered">
-<h1 class="unnumbered" id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
-</h1>
+<div class="section level2">
+<h2 class="unnumbered" id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
+</h2>
 <div id="refs" class="references csl-bib-body hanging-indent" line-spacing="2">
 <div id="ref-choi_ensuring_2018" class="csl-entry">
 Choi, S. W., &amp; van der Linden, W. J. (2018). Ensuring content validity of patient-reported outcomes: A shadow-test approach to their adaptive measurement. <em>Quality of Life Research</em>, <em>27</em>(7), 1683–1693. <a href="https://doi.org/10.1007/s11136-017-1650-1" class="external-link">https://doi.org/10.1007/s11136-017-1650-1</a>
@@ -1230,7 +1230,7 @@ Yang, X., Poggio, J. C., &amp; Glasnapp, D. R. (2006). Effects of estimation bia
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
 </div>
 
       </footer>
