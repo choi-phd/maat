@@ -6,21 +6,22 @@ NULL
 #' \code{\linkS4class{examinee}} is an S4 class to represent a single examinee.
 #'
 #' @slot examinee_id the ID of examinee.
-#' @slot current_grade the current grade the examinee is in.
-#' @slot current_phase the current phase the examinee is in.
-#' @slot current_test the current test the examinee is in.
-#' @slot current_module the current module the examinee is in.
-#' @slot grade_log grades that the examinee belonged at each module position.
-#' @slot phase_log phases that the examinee belonged at each module position.
-#' @slot test_log tests that the examinee belonged at each module position.
-#' @slot module_log modules that the examinee belonged at each module position.
+#' @slot current_grade the current grade the examinee is in. Updated using \code{\link{updateGrade}}.
+#' @slot current_phase the current phase the examinee is in. Updated using \code{\link{updatePhase}}.
+#' @slot current_test the current test the examinee is in. Updated using \code{\link{updateTest}}.
+#' @slot current_module the current module the examinee is in. Updated using \code{\link{updateModule}}.
+#' @slot grade_log grades that the examinee belonged at each module position. Updated using \code{\link{updateLog}}.
+#' @slot phase_log phases that the examinee belonged at each module position. Updated using \code{\link{updateLog}}.
+#' @slot test_log tests that the examinee belonged at each module position. Updated using \code{\link{updateLog}}.
+#' @slot module_log modules that the examinee belonged at each module position. Updated using \code{\link{updateLog}}.
 #' @slot n_module the number of modules the examinee received. This is the number of module positions.
 #' @slot true_theta a vector containing the true theta (if simulated) of the examinee, for each module position.
 #' @slot initial_theta_in_module a vector containing initial thetas used in each module.
 #' @slot prior_par_by_module a list containing prior parameters used for each module.
 #' @slot estimated_theta_by_phase a list containing estimated thetas and SEs using items in each phase.
-#' @slot estimated_theta_by_test a list containing estimated thetas and SEs using combined items in each test.
-#' @slot estimated_theta_for_routing a list containing estimated thetas and SEs that were used for routing.
+#' @slot estimated_theta_by_test a list containing estimated thetas and SEs using combined items in each test. Updated using \code{\link{updateThetaUsingCombined}}.
+#' @slot estimated_theta_for_routing a list containing estimated thetas and SEs that were used for routing. Updated using \code{\link{updateThetaForRouting}}.
+#' @slot estimated_theta a list containing estimated theta and SE using all responses from all modules. Updated using \code{\link{updateAssessmentLevelTheta}}.
 #' @slot alpha the alpha value used to compute lower and upper bounds.
 #' @slot selection_theta a list containing selection thetas in each module position.
 #' @slot interim_theta a list containing interim thetas and SEs in each module position.
@@ -49,6 +50,7 @@ setClass("examinee",
     estimated_theta_by_phase    = "list",
     estimated_theta_by_test     = "list",
     estimated_theta_for_routing = "list",
+    estimated_theta             = "list",
     alpha                       = "numeric",
     selection_theta             = "list",
     interim_theta               = "list",
@@ -74,6 +76,7 @@ setClass("examinee",
     estimated_theta_by_phase    = list(),
     estimated_theta_by_test     = list(),
     estimated_theta_for_routing = list(),
+    estimated_theta             = list(),
     alpha                       = numeric(0),
     selection_theta             = list(),
     interim_theta               = list(),

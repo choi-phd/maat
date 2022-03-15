@@ -57,6 +57,10 @@ boundGrade <- function(current_grade, grade_of_record, route_limit_below, route_
 #' @export
 updateThetaUsingCombined <- function(examinee_object, current_module_position, config) {
 
+  if (current_module_position %% 2 != 0) {
+    return(examinee_object)
+  }
+
   if (current_module_position %% 2 == 0) {
 
     item_data <-
@@ -71,10 +75,23 @@ updateThetaUsingCombined <- function(examinee_object, current_module_position, c
     combined_item_data <- item_data[[1]] + item_data[[2]]
     combined_response <- unlist(combined_response)
 
-    # calculate MLE or MLEF
+    # estimate theta
+
+    if (config@final_theta$method == "MLE") {
+      x <- mle(
+        object      = combined_item_data,
+        resp        = combined_response,
+        max_iter    = config@final_theta$max_iter,
+        crit        = config@final_theta$crit,
+        theta_range = config@final_theta$bound_ML,
+        truncate    = config@final_theta$truncate_ML,
+        max_change  = config@final_theta$max_change,
+        do_Fisher   = config@final_theta$do_Fisher
+      )
+    }
 
     if (config@final_theta$method == "MLEF") {
-      res_tmp <- mlef(
+      x <- mlef(
         object           = combined_item_data,
         resp             = combined_response,
         fence_slope      = config@final_theta$fence_slope,
@@ -87,31 +104,17 @@ updateThetaUsingCombined <- function(examinee_object, current_module_position, c
         do_Fisher        = config@final_theta$do_Fisher
       )
     }
-
-    if (config@final_theta$method == "MLE") {
-      res_tmp <- mle(
-        object      = combined_item_data,
-        resp        = combined_response,
-        max_iter    = config@final_theta$max_iter,
-        crit        = config@final_theta$crit,
-        theta_range = config@final_theta$bound_ML,
-        truncate    = config@final_theta$truncate_ML,
-        max_change  = config@final_theta$max_change,
-        do_Fisher   = config@final_theta$do_Fisher
-      )
-    }
-
     if (config@final_theta$method == "EAP") {
-      ## Extract the prior parameters from the examinee list for each examinee for each module
-      prior_par <-  examinee_object@prior_par_by_module[[current_module_position -1]]
+      ## Extract prior parameters from the previous module
+      prior_par <-  examinee_object@prior_par_by_module[[current_module_position - 1]]
       ## Generate the distribution according to the given parameters
       prior_dist <- genPriorDist(
-        dist_type  = "normal",
+        dist_type  = config@final_theta$prior_dist,
         prior_par  = prior_par,
         theta_grid = config@theta_grid,
         nj         = 1)
       ## EAP estimation
-      res_tmp <- eap(
+      x <- eap(
         object      = combined_item_data,
         resp        = combined_response,
         theta_grid  = config@theta_grid,
@@ -121,14 +124,10 @@ updateThetaUsingCombined <- function(examinee_object, current_module_position, c
 
     # store the estimated theta and SE
     o <- list()
-    o$theta    <- res_tmp$th
-    o$theta_se <- res_tmp$se
+    o$theta    <- x$th
+    o$theta_se <- x$se
     examinee_object@estimated_theta_by_test[[current_module_position - 1]] <- o
     examinee_object@estimated_theta_by_test[[current_module_position    ]] <- o
-
-    return(examinee_object)
-
-  } else {
 
     return(examinee_object)
 
@@ -390,5 +389,87 @@ updateGrade <- function(
     paste0(cut_scores_thisgrade, collapse = " "),
     transition_policy
   ))
+
+}
+
+#' Update the assessment-level theta of an examinee object
+#'
+#' \code{\link{updateAssessmentLevelTheta}} is a function for updating \code{\linkS4class{examinee}} objects after completing all modules.
+#' \code{\link{updateAssessmentLevelTheta}} computes the assessment-level theta. Estimation options are based on the \code{final_theta} slot of the \code{config} object.
+#'
+#' @param examinee_object an \code{\linkS4class{examinee}} object.
+#' @param config a \code{\linkS4class{config_Shadow}} object. The \code{final_theta} slot is used.
+#'
+#' @return an \code{\linkS4class{examinee}} object with its \code{estimated_theta} slot updated.
+#'
+#' @export
+updateAssessmentLevelTheta <- function(examinee_object, config) {
+
+  item_data         <- examinee_object@item_data
+  combined_response <- examinee_object@response
+
+  for (m in 1:length(item_data)) {
+    item_data[[m]]@raw$ID <- paste0("temp", m, 1:length(item_data[[m]]@id))
+  }
+
+  # combine all modules
+  combined_item_data <- do.call(c, item_data)
+  combined_response  <- unlist(combined_response)
+
+  # estimate theta
+
+  if (config@final_theta$method == "MLE") {
+    x <- mle(
+      object      = combined_item_data,
+      resp        = combined_response,
+      max_iter    = config@final_theta$max_iter,
+      crit        = config@final_theta$crit,
+      theta_range = config@final_theta$bound_ML,
+      truncate    = config@final_theta$truncate_ML,
+      max_change  = config@final_theta$max_change,
+      do_Fisher   = config@final_theta$do_Fisher
+    )
+  }
+
+  if (config@final_theta$method == "MLEF") {
+    x <- mlef(
+      object           = combined_item_data,
+      resp             = combined_response,
+      fence_slope      = config@final_theta$fence_slope,
+      fence_difficulty = config@final_theta$fence_difficulty,
+      max_iter         = config@final_theta$max_iter,
+      crit             = config@final_theta$crit,
+      theta_range      = config@final_theta$bound_ML,
+      truncate         = config@final_theta$truncate_ML,
+      max_change       = config@final_theta$max_change,
+      do_Fisher        = config@final_theta$do_Fisher
+    )
+  }
+
+  if (config@final_theta$method == "EAP") {
+    ## Extract prior parameters for the first module
+    prior_par <-  examinee_object@prior_par_by_module[[1]]
+    ## Generate the distribution according to the parameters
+    prior_dist <- genPriorDist(
+      dist_type  = config@final_theta$prior_dist,
+      prior_par  = prior_par,
+      theta_grid = config@theta_grid,
+      nj         = 1)
+    ## EAP estimation
+    x <- eap(
+      object      = combined_item_data,
+      resp        = combined_response,
+      theta_grid  = config@theta_grid,
+      prior       = prior_dist
+    )
+  }
+
+  # store the estimated theta and SE
+  o <- list()
+  o$theta    <- x$th
+  o$theta_se <- x$se
+  examinee_object@estimated_theta <- o
+
+  return(examinee_object)
 
 }
