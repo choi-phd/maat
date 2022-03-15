@@ -685,6 +685,14 @@ maat <- function(
 
   }
 
+  # Update assessment-level theta
+  examinee_list <- lapply(
+    examinee_list,
+    function(x) {
+      x <- updateAssessmentLevelTheta(x, config)
+    }
+  )
+
   o <- new("output_maat")
   o@examinee_list <- examinee_list
   o@assessment_structure <- assessment_structure
