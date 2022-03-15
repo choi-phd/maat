@@ -106,7 +106,7 @@ updateThetaUsingCombined <- function(examinee_object, current_module_position, c
       prior_par <-  examinee_object@prior_par_by_module[[current_module_position -1]]
       ## Generate the distribution according to the given parameters
       prior_dist <- genPriorDist(
-        dist_type  = "normal",
+        dist_type  = config@final_theta$prior_dist,
         prior_par  = prior_par,
         theta_grid = config@theta_grid,
         nj         = 1)
@@ -452,7 +452,7 @@ updateAssessmentLevelTheta <- function(examinee_object, config) {
     prior_par <-  examinee_object@prior_par_by_module[[1]]
     ## Generate the distribution according to the parameters
     prior_dist <- genPriorDist(
-      dist_type  = "normal",
+      dist_type  = config@final_theta$prior_dist,
       prior_par  = prior_par,
       theta_grid = config@theta_grid,
       nj         = 1)
