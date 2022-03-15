@@ -12,21 +12,21 @@
 \describe{
 \item{\code{examinee_id}}{the ID of examinee.}
 
-\item{\code{current_grade}}{the current grade the examinee is in.}
+\item{\code{current_grade}}{the current grade the examinee is in. Updated using \code{\link{updateGrade}}.}
 
-\item{\code{current_phase}}{the current phase the examinee is in.}
+\item{\code{current_phase}}{the current phase the examinee is in. Updated using \code{\link{updatePhase}}.}
 
-\item{\code{current_test}}{the current test the examinee is in.}
+\item{\code{current_test}}{the current test the examinee is in. Updated using \code{\link{updateTest}}.}
 
-\item{\code{current_module}}{the current module the examinee is in.}
+\item{\code{current_module}}{the current module the examinee is in. Updated using \code{\link{updateModule}}.}
 
-\item{\code{grade_log}}{grades that the examinee belonged at each module position.}
+\item{\code{grade_log}}{grades that the examinee belonged at each module position. Updated using \code{\link{updateLog}}.}
 
-\item{\code{phase_log}}{phases that the examinee belonged at each module position.}
+\item{\code{phase_log}}{phases that the examinee belonged at each module position. Updated using \code{\link{updateLog}}.}
 
-\item{\code{test_log}}{tests that the examinee belonged at each module position.}
+\item{\code{test_log}}{tests that the examinee belonged at each module position. Updated using \code{\link{updateLog}}.}
 
-\item{\code{module_log}}{modules that the examinee belonged at each module position.}
+\item{\code{module_log}}{modules that the examinee belonged at each module position. Updated using \code{\link{updateLog}}.}
 
 \item{\code{n_module}}{the number of modules the examinee received. This is the number of module positions.}
 
@@ -38,9 +38,11 @@
 
 \item{\code{estimated_theta_by_phase}}{a list containing estimated thetas and SEs using items in each phase.}
 
-\item{\code{estimated_theta_by_test}}{a list containing estimated thetas and SEs using combined items in each test.}
+\item{\code{estimated_theta_by_test}}{a list containing estimated thetas and SEs using combined items in each test. Updated using \code{\link{updateThetaUsingCombined}}.}
 
-\item{\code{estimated_theta_for_routing}}{a list containing estimated thetas and SEs that were used for routing.}
+\item{\code{estimated_theta_for_routing}}{a list containing estimated thetas and SEs that were used for routing. Updated using \code{\link{updateThetaForRouting}}.}
+
+\item{\code{estimated_theta}}{a list containing estimated theta and SE using all responses from all modules. Updated using \code{\link{updateAssessmentLevelTheta}}.}
 
 \item{\code{alpha}}{the alpha value used to compute lower and upper bounds.}
 

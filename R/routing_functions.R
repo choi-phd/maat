@@ -396,7 +396,7 @@ updateGrade <- function(
 #' Update the assessment-level theta of an examinee object
 #'
 #' \code{\link{updateAssessmentLevelTheta}} is a function for updating \code{\linkS4class{examinee}} objects after completing all modules.
-#' \code{\link{updateAssessmentLevelTheta}} computes the assessment-level theta.
+#' \code{\link{updateAssessmentLevelTheta}} computes the assessment-level theta. Estimation options are based on the \code{final_theta} slot of the \code{config} object.
 #'
 #' @param examinee_object an \code{\linkS4class{examinee}} object.
 #' @param config a \code{\linkS4class{config_Shadow}} object. The \code{final_theta} slot is used.
