@@ -75,7 +75,20 @@ updateThetaUsingCombined <- function(examinee_object, current_module_position, c
     combined_item_data <- item_data[[1]] + item_data[[2]]
     combined_response <- unlist(combined_response)
 
-    # calculate MLE or MLEF
+    # estimate theta
+
+    if (config@final_theta$method == "MLE") {
+      x <- mle(
+        object      = combined_item_data,
+        resp        = combined_response,
+        max_iter    = config@final_theta$max_iter,
+        crit        = config@final_theta$crit,
+        theta_range = config@final_theta$bound_ML,
+        truncate    = config@final_theta$truncate_ML,
+        max_change  = config@final_theta$max_change,
+        do_Fisher   = config@final_theta$do_Fisher
+      )
+    }
 
     if (config@final_theta$method == "MLEF") {
       x <- mlef(
@@ -91,23 +104,9 @@ updateThetaUsingCombined <- function(examinee_object, current_module_position, c
         do_Fisher        = config@final_theta$do_Fisher
       )
     }
-
-    if (config@final_theta$method == "MLE") {
-      x <- mle(
-        object      = combined_item_data,
-        resp        = combined_response,
-        max_iter    = config@final_theta$max_iter,
-        crit        = config@final_theta$crit,
-        theta_range = config@final_theta$bound_ML,
-        truncate    = config@final_theta$truncate_ML,
-        max_change  = config@final_theta$max_change,
-        do_Fisher   = config@final_theta$do_Fisher
-      )
-    }
-
     if (config@final_theta$method == "EAP") {
-      ## Extract the prior parameters from the examinee list for each examinee for each module
-      prior_par <-  examinee_object@prior_par_by_module[[current_module_position -1]]
+      ## Extract prior parameters from the previous module
+      prior_par <-  examinee_object@prior_par_by_module[[current_module_position - 1]]
       ## Generate the distribution according to the given parameters
       prior_dist <- genPriorDist(
         dist_type  = config@final_theta$prior_dist,
@@ -417,7 +416,20 @@ updateAssessmentLevelTheta <- function(examinee_object, config) {
   combined_item_data <- do.call(c, item_data)
   combined_response  <- unlist(combined_response)
 
-  # calculate MLE / MLEF / EAP
+  # estimate theta
+
+  if (config@final_theta$method == "MLE") {
+    x <- mle(
+      object      = combined_item_data,
+      resp        = combined_response,
+      max_iter    = config@final_theta$max_iter,
+      crit        = config@final_theta$crit,
+      theta_range = config@final_theta$bound_ML,
+      truncate    = config@final_theta$truncate_ML,
+      max_change  = config@final_theta$max_change,
+      do_Fisher   = config@final_theta$do_Fisher
+    )
+  }
 
   if (config@final_theta$method == "MLEF") {
     x <- mlef(
@@ -431,19 +443,6 @@ updateAssessmentLevelTheta <- function(examinee_object, config) {
       truncate         = config@final_theta$truncate_ML,
       max_change       = config@final_theta$max_change,
       do_Fisher        = config@final_theta$do_Fisher
-    )
-  }
-
-  if (config@final_theta$method == "MLE") {
-    x <- mle(
-      object      = combined_item_data,
-      resp        = combined_response,
-      max_iter    = config@final_theta$max_iter,
-      crit        = config@final_theta$crit,
-      theta_range = config@final_theta$bound_ML,
-      truncate    = config@final_theta$truncate_ML,
-      max_change  = config@final_theta$max_change,
-      do_Fisher   = config@final_theta$do_Fisher
     )
   }
 
