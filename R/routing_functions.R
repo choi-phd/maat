@@ -57,6 +57,10 @@ boundGrade <- function(current_grade, grade_of_record, route_limit_below, route_
 #' @export
 updateThetaUsingCombined <- function(examinee_object, current_module_position, config) {
 
+  if (current_module_position %% 2 != 0) {
+    return(examinee_object)
+  }
+
   if (current_module_position %% 2 == 0) {
 
     item_data <-
@@ -125,10 +129,6 @@ updateThetaUsingCombined <- function(examinee_object, current_module_position, c
     o$theta_se <- res_tmp$se
     examinee_object@estimated_theta_by_test[[current_module_position - 1]] <- o
     examinee_object@estimated_theta_by_test[[current_module_position    ]] <- o
-
-    return(examinee_object)
-
-  } else {
 
     return(examinee_object)
 
