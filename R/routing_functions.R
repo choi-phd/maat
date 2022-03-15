@@ -392,3 +392,85 @@ updateGrade <- function(
   ))
 
 }
+
+#' Update the assessment-level theta of an examinee object
+#'
+#' \code{\link{updateAssessmentLevelTheta}} is a function for updating \code{\linkS4class{examinee}} objects after completing all modules.
+#' \code{\link{updateAssessmentLevelTheta}} computes the assessment-level theta.
+#'
+#' @param examinee_object an \code{\linkS4class{examinee}} object.
+#' @param config a \code{\linkS4class{config_Shadow}} object. The \code{final_theta} slot is used.
+#'
+#' @return an \code{\linkS4class{examinee}} object with its \code{estimated_theta} slot updated.
+#'
+#' @export
+updateAssessmentLevelTheta <- function(examinee_object, config) {
+
+  item_data         <- examinee_object@item_data
+  combined_response <- examinee_object@response
+
+  for (m in 1:length(item_data)) {
+    item_data[[m]]@raw$ID <- paste0("temp", m, 1:length(item_data[[m]]@id))
+  }
+
+  # combine all modules
+  combined_item_data <- do.call(c, item_data)
+  combined_response  <- unlist(combined_response)
+
+  # calculate MLE / MLEF / EAP
+
+  if (config@final_theta$method == "MLEF") {
+    x <- mlef(
+      object           = combined_item_data,
+      resp             = combined_response,
+      fence_slope      = config@final_theta$fence_slope,
+      fence_difficulty = config@final_theta$fence_difficulty,
+      max_iter         = config@final_theta$max_iter,
+      crit             = config@final_theta$crit,
+      theta_range      = config@final_theta$bound_ML,
+      truncate         = config@final_theta$truncate_ML,
+      max_change       = config@final_theta$max_change,
+      do_Fisher        = config@final_theta$do_Fisher
+    )
+  }
+
+  if (config@final_theta$method == "MLE") {
+    x <- mle(
+      object      = combined_item_data,
+      resp        = combined_response,
+      max_iter    = config@final_theta$max_iter,
+      crit        = config@final_theta$crit,
+      theta_range = config@final_theta$bound_ML,
+      truncate    = config@final_theta$truncate_ML,
+      max_change  = config@final_theta$max_change,
+      do_Fisher   = config@final_theta$do_Fisher
+    )
+  }
+
+  if (config@final_theta$method == "EAP") {
+    ## Extract prior parameters for the first module
+    prior_par <-  examinee_object@prior_par_by_module[[1]]
+    ## Generate the distribution according to the parameters
+    prior_dist <- genPriorDist(
+      dist_type  = "normal",
+      prior_par  = prior_par,
+      theta_grid = config@theta_grid,
+      nj         = 1)
+    ## EAP estimation
+    x <- eap(
+      object      = combined_item_data,
+      resp        = combined_response,
+      theta_grid  = config@theta_grid,
+      prior       = prior_dist
+    )
+  }
+
+  # store the estimated theta and SE
+  o <- list()
+  o$theta    <- x$th
+  o$theta_se <- x$se
+  examinee_object@estimated_theta <- o
+
+  return(examinee_object)
+
+}
