@@ -5,6 +5,7 @@
   - all other functions are updated to work with 3-level module lists.
   - the example data `module_list_math` is updated to the new format.
 - `plot(output_maat)` now prints the plot for the first examinee by default.
+- `examinee` objects gain a new `estimated_theta` slot to store assessment-level theta estimates.
 
 # maat 1.0.2
 
