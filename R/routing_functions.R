@@ -78,7 +78,7 @@ updateThetaUsingCombined <- function(examinee_object, current_module_position, c
     # calculate MLE or MLEF
 
     if (config@final_theta$method == "MLEF") {
-      res_tmp <- mlef(
+      x <- mlef(
         object           = combined_item_data,
         resp             = combined_response,
         fence_slope      = config@final_theta$fence_slope,
@@ -93,7 +93,7 @@ updateThetaUsingCombined <- function(examinee_object, current_module_position, c
     }
 
     if (config@final_theta$method == "MLE") {
-      res_tmp <- mle(
+      x <- mle(
         object      = combined_item_data,
         resp        = combined_response,
         max_iter    = config@final_theta$max_iter,
@@ -115,7 +115,7 @@ updateThetaUsingCombined <- function(examinee_object, current_module_position, c
         theta_grid = config@theta_grid,
         nj         = 1)
       ## EAP estimation
-      res_tmp <- eap(
+      x <- eap(
         object      = combined_item_data,
         resp        = combined_response,
         theta_grid  = config@theta_grid,
@@ -125,8 +125,8 @@ updateThetaUsingCombined <- function(examinee_object, current_module_position, c
 
     # store the estimated theta and SE
     o <- list()
-    o$theta    <- res_tmp$th
-    o$theta_se <- res_tmp$se
+    o$theta    <- x$th
+    o$theta_se <- x$se
     examinee_object@estimated_theta_by_test[[current_module_position - 1]] <- o
     examinee_object@estimated_theta_by_test[[current_module_position    ]] <- o
 
