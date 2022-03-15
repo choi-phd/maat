@@ -21,6 +21,7 @@ NULL
 #' @slot estimated_theta_by_phase a list containing estimated thetas and SEs using items in each phase.
 #' @slot estimated_theta_by_test a list containing estimated thetas and SEs using combined items in each test.
 #' @slot estimated_theta_for_routing a list containing estimated thetas and SEs that were used for routing.
+#' @slot estimated_theta a list containing estimated theta and SE using all responses from all modules.
 #' @slot alpha the alpha value used to compute lower and upper bounds.
 #' @slot selection_theta a list containing selection thetas in each module position.
 #' @slot interim_theta a list containing interim thetas and SEs in each module position.
@@ -49,6 +50,7 @@ setClass("examinee",
     estimated_theta_by_phase    = "list",
     estimated_theta_by_test     = "list",
     estimated_theta_for_routing = "list",
+    estimated_theta             = "list",
     alpha                       = "numeric",
     selection_theta             = "list",
     interim_theta               = "list",
@@ -74,6 +76,7 @@ setClass("examinee",
     estimated_theta_by_phase    = list(),
     estimated_theta_by_test     = list(),
     estimated_theta_for_routing = list(),
+    estimated_theta             = list(),
     alpha                       = numeric(0),
     selection_theta             = list(),
     interim_theta               = list(),
