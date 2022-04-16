@@ -83,11 +83,14 @@
 <div class="section level2">
 <h2 id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
 </h2>
-<p>The <strong>maat</strong> package performs adaptive testing based on the assessment framework involving multiple tests administered throughout the year using multiple item pools vertically scaled and multiple phases within each administration. It allows for transitioning from one item pool with associated constraints to another as determined necessary according to a prespecified transition policy to enhance the quality of measurement. Based on an item pool and test blueprint constraints, each phase or module is constructed an adaptive test assembled dynamically using the shadow-test approach to computerized adaptive testing (CAT). The current version of <strong>maat</strong> supports an assessment design involving three tests/administrations (e.g. Fall, Winter, and Spring) with two phases within each administration (Phase 1 and Phase 2), so that an examinee takes six modules in total throughout the year. The assessment framework is adaptive in multiple levels:</p>
+<p>The <strong>maat</strong> package performs adaptive testing based on the assessment framework involving multiple tests administered throughout the year using multiple item pools vertically scaled and multiple phases within each administration. It allows for transitioning from one item pool with associated constraints to another as determined necessary according to a prespecified transition policy to enhance the quality of measurement. Based on an item pool and test blueprint constraints, each phase or module is constructed as an adaptive test assembled dynamically using the shadow-test approach to computerized adaptive testing (CAT). The current version of <strong>maat</strong> supports an assessment design involving three tests/administrations (e.g. Fall, Winter, and Spring) with two phases within each administration (Phase 1 and Phase 2), so that an examinee takes six modules in total throughout the year. The assessment framework is adaptive in multiple levels:</p>
 <ul>
-<li>Within phases items are administered adaptively</li>
-<li>Between phases item pools are selected adaptively</li>
-<li>Between tests item pools are selected adaptively</li>
+<li>
+<em>Within phases</em> items are administered adaptively</li>
+<li>
+<em>Between phases</em> item pools are selected adaptively</li>
+<li>
+<em>Between tests</em> item pools are selected adaptively</li>
 </ul>
 </div>
 <div class="section level2">
@@ -103,7 +106,7 @@
 <li>
 <strong>Phase</strong>: Each phase involves its own item pool and test specifications/constraints to be used in assembly.</li>
 <li>
-<strong>Module</strong>: Three administrations * two phases give six modules in total.
+<strong>Module</strong>: Three administrations <span class="math inline">\(\times\)</span> two phases give six modules in total.
 <ul>
 <li>Each examinee takes six modules across three administrations within the assessment.</li>
 <li>In each module, a fixed-length adaptive test is assembled in real time using the shadow-test approach to CAT.</li>
@@ -113,7 +116,7 @@
 <strong>Number of item pools required for the entire assessment</strong>
 <ul>
 <li>For the full assessment, an item pool is required for each grade in the range. For example, if the range to which the 4th grade (G4) examinees can be routed is G3-G6, then all four item pools (G3, G4, G5, and G6) are required for the assessment.</li>
-<li>Students begin the first module of the first test (e.g., Fall Phase 1) with an item pool (and test specifications) corresponding to their grade of record. Students are assessed with the same item pool for the entire assessment if their ability estimates remain within the measurement range of the item pool. Otherwise, they are routed to a higher/lower item pool upon completing a module.</li>
+<li>Students begin the first module of the first test (e.g., Fall Phase 1) with an item pool (and test specifications) corresponding to their grade level of record. Students are assessed with the same item pool for the entire assessment if their ability estimates remain within the measurement range of the item pool. Otherwise, they are routed to a higher/lower item pool upon completing a module.</li>
 </ul>
 </li>
 <li>
@@ -158,9 +161,9 @@
 <div class="section level3">
 <h3 id="content-balancing-algorithm">Content Balancing Algorithm<a class="anchor" aria-label="anchor" href="#content-balancing-algorithm"></a>
 </h3>
-<p>The shadow-test approach to CAT <span class="citation">Choi &amp; van der Linden (<a href="#ref-choi_ensuring_2018" role="doc-biblioref">2018</a>)</span> was developed to balance the need for sequential and simultaneous optimization in constrained CAT. The shadow-test approach uses the methodology of mixed-integer programming (MIP) to simultaneously select a full set of items conforming to all content constraints and yet optimal (e.g., most informative).</p>
+<p>The shadow-test approach to CAT <span class="citation">(<a href="#ref-choi_ensuring_2018" role="doc-biblioref">Choi &amp; van der Linden, 2018</a>; <a href="#ref-van_der_linden_model_1998" role="doc-biblioref">van der Linden &amp; Reese, 1998</a>)</span> was developed to balance the need for sequential and simultaneous optimization in constrained CAT. The shadow-test approach uses the methodology of mixed-integer programming (MIP) to simultaneously select a full set of items conforming to all content constraints and yet optimal (e.g., most informative).</p>
 <p>Given the item pool and test specifications/constraints, the shadow-test approach to CAT assembles a full-length test form, called a shadow test, using MIP for each item position upon updating interim <span class="math inline">\(\theta\)</span> estimates, <span class="math inline">\(\theta_{k}\)</span>, <span class="math inline">\(k = 1,2,...,n\)</span>, where <span class="math inline">\(n\)</span> is the test length. The optimal test assembly engine uses MIP to construct shadow tests optimized for the interim <span class="math inline">\(\theta\)</span> estimates and conforming to all specifications and requirements, encompassing content constraints, exposure control, and other practical constraints. The cycle is repeated until the intended test length <span class="math inline">\(n\)</span> has been reached.</p>
-<p>The methods by which the shadow-test approach formulates test assembly problems as constrained combinatorial optimization have been documented in <span class="citation">(<a href="#ref-van_der_linden_linear_2005" role="doc-biblioref">van der Linden, 2005</a>)</span> and implemented in the  package. Refer to <span class="citation">(<a href="#ref-choi_ensuring_2018" role="doc-biblioref">Choi &amp; van der Linden, 2018</a>)</span> for more information about how the shadow-test approach creates an adaptive test as a sequence of optimally constructed full-length tests.</p>
+<p>The methods by which the shadow-test approach formulates test assembly problems as constrained combinatorial optimization have been documented in <span class="citation">van der Linden (<a href="#ref-van_der_linden_linear_2005" role="doc-biblioref">2005</a>)</span> and implemented in the  package. Refer to <span class="citation">Choi &amp; van der Linden (<a href="#ref-choi_ensuring_2018" role="doc-biblioref">2018</a>)</span> for more information about how the shadow-test approach creates an adaptive test as a sequence of optimally constructed full-length tests.</p>
 </div>
 <div class="section level3">
 <h3 id="item-selection-criteria">Item Selection Criteria<a class="anchor" aria-label="anchor" href="#item-selection-criteria"></a>
@@ -196,7 +199,7 @@ I_{i}(\hat{\theta}),
 \sum_{i\,\in\,V}{x_i} = 0
 \]</span></p>
 <p>where <span class="math inline">\(x_i\)</span> is the binary decision variable for the selection of item <span class="math inline">\(i\)</span>; and <span class="math inline">\(V\)</span> denotes the set of items determined to be ineligible for the current examinee.</p>
-<p>The conditional item eligibility method monitors and updates the probabilities within a predetermined set of theta segments, e.g., <span class="math inline">\(\theta_1 \in [-\infty,-1.5), \theta_2 \in [-1.5,-.5), ..., \theta_G \in (1.5, \infty]\)</span>. The conditional item-eligibility probabilities are represented as a recurrence relationship as follows:</p>
+<p>The conditional item eligibility method monitors and updates the probabilities within a predetermined set of theta segments, e.g., <span class="math inline">\(\theta_1 \in [-\infty,-1.5), \theta_2 \in [-1.5,-.5), \dots , \theta_G \in (1.5, \infty]\)</span>. The conditional item-eligibility probabilities are represented as a recurrence relationship as follows:</p>
 <p><span class="math display">\[
 \text{Pr}\{E_i | \theta\}
 \leq
@@ -213,7 +216,7 @@ I_{i}(\hat{\theta}),
     \text{Pr}^{l}\{E_{i}|\theta\}, 1
   \bigg\}
 \]</span></p>
-<p>However, in the context of a large number of concurrent test instances updating the exposure counts in real time after each instance can be difficult and perhaps not necessary. One complication with the conditional item eligibility control method is that as the test progresses examinees may move in and out of segments and can be subject to different sets of eligible items as they typically visit more than one theta segment. <span class="citation">(<a href="#ref-van_der_linden_improving_2019" role="doc-biblioref">van der Linden &amp; Choi, 2019</a>)</span> elaborates the issue and provides a workaround. Unconditional exposure control is much more straightforward to implement and can be preferred in many testing situations. The <code>TestDesign</code> package implements the conditional item eligibility control method based on configurable <span class="math inline">\(\theta\)</span> segments. Defining one big segment of <span class="math inline">\(\theta\)</span> simplifies the method to the unconditional case.</p>
+<p>However, in the context of a large number of concurrent test instances updating the exposure counts in real time after each instance can be difficult and perhaps not necessary. One complication with the conditional item eligibility control method is that as the test progresses examinees may move in and out of segments and can be subject to different sets of eligible items as they typically visit more than one theta segment. <span class="citation">van der Linden &amp; Choi (<a href="#ref-van_der_linden_improving_2019" role="doc-biblioref">2019</a>)</span> elaborates the issue and provides a workaround. Unconditional exposure control is much more straightforward to implement and can be preferred in many testing situations. The <code>TestDesign</code> package implements the conditional item eligibility control method based on configurable <span class="math inline">\(\theta\)</span> segments. Defining one big segment of <span class="math inline">\(\theta\)</span> simplifies the method to the unconditional case.</p>
 </div>
 <div class="section level3">
 <h3 id="overlap-control">Overlap Control<a class="anchor" aria-label="anchor" href="#overlap-control"></a>
@@ -1073,7 +1076,7 @@ NA
 <li>
 <code>pool_difficulty_percentile_exclude_administered</code> uses item difficulty percentiles of all items in the current item pool, excluding items administered to the examinee, to perform routing.</li>
 <li>
-<code>on_grade</code> makes all examinees to remain in the item pool for the grade of record.</li>
+<code>on_grade</code> makes all examinees to remain in the item pool for the grade level of record.</li>
 </ul>
 </li>
 <li>
