@@ -89,7 +89,7 @@ The shadow-test approach to CAT [@van_der_linden_model_1998; @choi_ensuring_2018
 
 Given the item pool and test specifications/constraints, the shadow-test approach to CAT assembles a full-length test form, called a shadow test, using MIP for each item position upon updating interim $\theta$ estimates, $\theta_{k}$, $k = 1,2,...,n$, where $n$ is the test length. The optimal test assembly engine uses MIP to construct shadow tests optimized for the interim $\theta$ estimates and conforming to all specifications and requirements, encompassing content constraints, exposure control, overlap control, and other practical constraints (e.g., enemy items, item types, etc.). The cycle is repeated until the intended test length $n$ has been reached.
 
-The methods by which the shadow-test approach formulates test assembly problems as constrained combinatorial optimization have been documented in @van_der_linden_linear_2005 and implemented in the \code{TestDesign} package [@choi_testdesign_2021,]. Refer to @choi_ensuring_2018 for more information about how the shadow-test approach creates an adaptive test as a sequence of optimally constructed full-length tests.
+The methods by which the shadow-test approach formulates test assembly problems as constrained combinatorial optimization have been documented in @van_der_linden_linear_2005 and implemented in the `TestDesign` package [@choi_testdesign_2021]. Refer to @choi_ensuring_2018 for more information about how the shadow-test approach creates an adaptive test as a sequence of optimally constructed full-length tests.
 
 ## Item Selection Criteria
 
