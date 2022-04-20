@@ -6,11 +6,11 @@
 \usage{
 maat(
   examinee_list = examinee_list,
-  assessment_structure,
-  module_list,
-  config,
-  cut_scores,
-  overlap_control_policy,
+  assessment_structure = NULL,
+  module_list = NULL,
+  config = NULL,
+  cut_scores = NULL,
+  overlap_control_policy = NULL,
   transition_policy = "CI",
   combine_policy = "conditional",
   transition_CI_alpha = NULL,

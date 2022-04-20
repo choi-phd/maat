@@ -230,8 +230,13 @@ simExaminees <- function(N, mean_v, sd_v, cor_v, assessment_structure,
 #' }
 #' @export
 maat <- function(
-  examinee_list = examinee_list, assessment_structure, module_list, config, cut_scores,
-  overlap_control_policy, transition_policy = "CI",
+  examinee_list = examinee_list,
+  assessment_structure = NULL,
+  module_list = NULL,
+  config = NULL,
+  cut_scores = NULL,
+  overlap_control_policy = NULL,
+  transition_policy = "CI",
   combine_policy = "conditional",
   transition_CI_alpha = NULL,
   transition_percentile_lower = NULL,
@@ -241,6 +246,22 @@ maat <- function(
   prior_mean_user = NULL,
   prior_sd = 1,
   verbose = TRUE) {
+
+  if (is.null(assessment_structure)) {
+    stop("'assessment_structure' is required but was not supplied. See ?maat for details.")
+  }
+  if (is.null(module_list)) {
+    stop("'module_list' is required but was not supplied. See ?maat for details.")
+  }
+  if (is.null(config)) {
+    stop("'config' is required but was not supplied. See ?maat for details.")
+  }
+  if (is.null(cut_scores)) {
+    stop("'cut_scores' is required but was not supplied. See ?maat for details.")
+  }
+  if (is.null(overlap_control_policy)) {
+    stop("'overlap_control_policy' is required but was not supplied. See ?maat for details.")
+  }
 
   if (!overlap_control_policy %in% c("all", "within_test", "none")) {
     stop(sprintf("unrecognized 'overlap_control_policy': %s", overlap_control_policy))
