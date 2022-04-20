@@ -50,7 +50,7 @@ An assessment under the multiple administrations adaptive testing design has the
 * **Assessment**: An assessment is composed of multiple administrations over time, with the current version supporting three administrations (e.g., Fall, Winter, and Spring).
 * **Administration (Test)**: Each test/administration consists of two phases (Phase 1 and Phase 2) between which transitions to a higher/lower item pool are permitted if needed. Transitions to a higher/lower item pool can also occur between administrations. 
 * **Phase**: Each phase involves its own item pool and test specifications/constraints to be used in assembly.
-* **Module**: Three administrations $\times$ two phases give six modules in total.
+* **Module**: Three administrations x two phases give six modules in total.
   * Each examinee takes six modules across three administrations within the assessment.
   * In each module, a fixed-length adaptive test is assembled in real time using the shadow-test approach to CAT.
 
