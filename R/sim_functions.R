@@ -8,7 +8,7 @@ NULL
 #' @slot examinee_list a list of \code{\linkS4class{examinee}} objects.
 #' @slot assessment_structure an \code{\linkS4class{assessment_structure}} object.
 #' @slot module_list a module list from \code{\link{loadModules}}.
-#' @slot config the \code{\linkS4class{config_Shadow}} object used in the simulation.
+#' @slot config the list of \code{\linkS4class{config_Shadow}} objects used in the simulation for each module.
 #' @slot cut_scores the cut scores used in the simulation.
 #' @slot overlap_control_policy the policy used in the simulation.
 #' @slot transition_policy the policy used in the simulation.
