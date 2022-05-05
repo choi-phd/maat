@@ -336,6 +336,21 @@ maat <- function(
   ))
   names(module_list_by_name) <- module_names
 
+  # Expand config to list
+  if (inherits(config, "config_Shadow")) {
+    config_list <- vector("list", n_modules)
+    for (m in 1:n_modules) {
+      config_list[[m]] <- config
+    }
+  }
+  if (inherits(config, "list")) {
+    if (length(config) != n_modules) {
+      stop(sprintf("unexpected 'config' length: %s (must be %s)", length(config), n_modules))
+    }
+    config_list <- config
+  }
+  config <- NULL
+
   # Determine the module
   examinee_list <- lapply(
     examinee_list,
@@ -387,7 +402,7 @@ maat <- function(
 
       # run simulation for this group
 
-      config_thisgroup             <- config
+      config_thisgroup             <- config_list[[current_module_position]]
       administered_entry           <- NULL
       prior_par                    <- NULL
       include_items_for_estimation <- NULL
@@ -661,7 +676,7 @@ maat <- function(
     examinee_list <- lapply(
       examinee_list,
       function(x) {
-        x <- updateThetaUsingCombined(x, current_module_position, config)
+        x <- updateThetaUsingCombined(x, current_module_position, config_list[[current_module_position]])
       }
     )
 
@@ -710,7 +725,7 @@ maat <- function(
   examinee_list <- lapply(
     examinee_list,
     function(x) {
-      x <- updateAssessmentLevelTheta(x, config)
+      x <- updateAssessmentLevelTheta(x, config_list[[current_module_position]])
     }
   )
 
@@ -718,7 +733,7 @@ maat <- function(
   o@examinee_list <- examinee_list
   o@assessment_structure <- assessment_structure
   o@module_list <- module_list
-  o@config <- config
+  o@config <- config_list
   o@cut_scores <- cut_scores
   o@overlap_control_policy <- overlap_control_policy
   o@transition_policy      <- transition_policy
