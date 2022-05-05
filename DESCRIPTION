@@ -42,7 +42,7 @@ BugReports: https://github.com/choi-phd/maat/issues/
 License: GPL (>= 2)
 Depends: R (>= 3.5.0)
 biocViews:
-Imports: TestDesign (>= 1.3.3), readxl, Rdpack, methods, MASS, diagram
+Imports: TestDesign (>= 1.3.3), readxl, methods, MASS, diagram
 Suggests:
     testthat (>= 3.0.0),
     rmarkdown,
@@ -52,7 +52,6 @@ RoxygenNote: 7.1.2
 VignetteBuilder: knitr
 Encoding: UTF-8
 LazyData: true
-RdMacros: Rdpack
 Collate:
     'import.R'
     'module_class.R'
