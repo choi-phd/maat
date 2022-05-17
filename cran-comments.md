@@ -3,20 +3,11 @@
 ## Test environments
 
 * Local:
-  * Windows 11
-    * 4.1.2
+* * Windows 11 (R 4.2.0)
 * GitHub Actions:
-  * macOS Catalina 10.15
-    * R-release (4.1.2)
-  * Windows Server 2019
-    * R-release (4.1.2)
-    * 3.6.3
-  * Ubuntu 18.04
-    * R-devel (r81401)
-    * R-release (4.1.2)
-    * R-oldrel-1 (4.0.5)
-    * R-oldrel-2 (3.6.3)
-    * R-oldrel-3 (3.5.3)
+* * macOS Big Sur 11 (R-release)
+* * Windows Server 2022 (R-release)
+* * Ubuntu 20.04 (R-devel, R-release, R-oldrel-1, R-oldrel-2, R-oldrel-3)
 
 ## R CMD check results
 
