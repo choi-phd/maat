@@ -262,6 +262,22 @@ maat <- function(
   if (is.null(overlap_control_policy)) {
     stop("'overlap_control_policy' is required but was not supplied. See ?maat for details.")
   }
+  if (!"exclude_policy" %in% slotNames(config)) {
+    stop("'config' does not have '@exclude_policy' slot: 'config' from createShadowTestConfig() in TestDesign >= 1.3.3 is required.")
+  }
+  if ("exclude_policy" %in% slotNames(config)) {
+    if (tolower(config@exclude_policy$method) != "soft") {
+      stop(sprintf(
+        "unrecognized 'config@exclude_policy$method': %s (must be SOFT)",
+        config@exclude_policy$method
+      ))
+    }
+    if (is.null(config@exclude_policy$M)) {
+      stop(sprintf(
+        "unrecognized 'config@exclude_policy$M': NULL (must be a numeric value)"
+      ))
+    }
+  }
 
   if (!overlap_control_policy %in% c("all", "within_test", "none")) {
     stop(sprintf("unrecognized 'overlap_control_policy': %s", overlap_control_policy))
