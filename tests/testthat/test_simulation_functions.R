@@ -74,6 +74,10 @@ for (condition in 1:dim(conditions)[1]) {
       config <- createShadowTestConfig(
         final_theta = list(
           method = conditions$estimation_method[condition]
+        ),
+        exclude_policy = list(
+          method = "SOFT",
+          M = 100
         )
       )
 

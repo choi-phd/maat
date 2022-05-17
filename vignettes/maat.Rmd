@@ -435,11 +435,14 @@ cut_scores <- list(
 
 The next step is to create a config object using `createShadowTestConfig()` in the `TestDesign` package to set various shadow test configuration options. For example, the final theta estimation method in `final_theta$method` can be set to `EAP`, `MLE` or `MLEF`.
 
+The exclude policy in `exclude_policy$method` must be set to `SOFT` to use the Big M method discussed in the Overlap Control section above. The value in `exclude_policy$M` is the penalty value.
+
 ```{r, results = "hide", message = FALSE}
 library(TestDesign)
 config <- createShadowTestConfig(
   interim_theta = list(method = "MLE"),
-  final_theta = list(method = "MLE")
+  final_theta = list(method = "MLE"),
+  exclude_policy = list(method = "SOFT", M = 100)
 )
 ```
 
@@ -481,7 +484,7 @@ maat_output_difficulty <- maat(
 
 * `examinee_list` is the examinee list object created above.
 * `module_list` is the module list object created above.
-* `config` is the shared config object created above.
+* `config` is the shared config object created above. Also can be a list of config objects to use separate configurations for each module.
 * `cut_scores` is the cut scores list object created above.
 * `overlap_control_policy` specifies the type of overlap control.
   * `all` performs overlap control across administrations. This forbids an item to be given more than once within and across test administrations.

@@ -6,11 +6,11 @@
 \usage{
 maat(
   examinee_list = examinee_list,
-  assessment_structure,
-  module_list,
-  config,
-  cut_scores,
-  overlap_control_policy,
+  assessment_structure = NULL,
+  module_list = NULL,
+  config = NULL,
+  cut_scores = NULL,
+  overlap_control_policy = NULL,
   transition_policy = "CI",
   combine_policy = "conditional",
   transition_CI_alpha = NULL,
@@ -30,7 +30,7 @@ maat(
 
 \item{module_list}{a module list from \code{\link{loadModules}}.}
 
-\item{config}{a \code{\linkS4class{config_Shadow}} object.}
+\item{config}{a \code{\linkS4class{config_Shadow}} object. Also accepts a list of \code{\linkS4class{config_Shadow}} objects to use separate configurations for each module. Must be from 'TestDesign' 1.3.3 or newer, and its \code{exclude_policy$method} slot must be \code{SOFT}.}
 
 \item{cut_scores}{a named list containing cut scores to be used in each grade. Each element must be named in the form \code{G?}, where \code{?} is a number.}
 
@@ -87,12 +87,13 @@ an \code{\linkS4class{output_maat}} object from the simulation.
 }
 \examples{
 \donttest{
-library(TestDesign)
+library(TestDesign) # >= 1.3.3
 config <- createShadowTestConfig(
-  final_theta = list(
-    method = "MLE"
-  )
+  final_theta = list(method = "MLE"),
+  exclude_policy = list(method = "SOFT", M = 100)
 )
+# exclude_policy must be SOFT
+
 examinee_list <- maat(
   examinee_list          = examinee_list_math,
   assessment_structure   = assessment_structure_math,

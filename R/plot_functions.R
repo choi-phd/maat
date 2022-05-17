@@ -166,9 +166,8 @@ countModuleRoutes <- function(examinee_list, assessment_structure) {
 #' \donttest{
 #' library(TestDesign)
 #' config <- createShadowTestConfig(
-#'   final_theta = list(
-#'     method = "MLE"
-#'   )
+#'   final_theta = list(method = "MLE"),
+#'   exclude_policy = list(method = "SOFT", M = 100)
 #' )
 #' examinee_list <- maat(
 #'   examinee_list          = examinee_list_math,

@@ -16,7 +16,7 @@
 
 \item{\code{module_list}}{a module list from \code{\link{loadModules}}.}
 
-\item{\code{config}}{the \code{\linkS4class{config_Shadow}} object used in the simulation.}
+\item{\code{config}}{the list of \code{\linkS4class{config_Shadow}} objects used in the simulation for each module.}
 
 \item{\code{cut_scores}}{the cut scores used in the simulation.}
 
