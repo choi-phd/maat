@@ -87,12 +87,13 @@ an \code{\linkS4class{output_maat}} object from the simulation.
 }
 \examples{
 \donttest{
-library(TestDesign)
+library(TestDesign) # >= 1.3.3
 config <- createShadowTestConfig(
-  final_theta = list(
-    method = "MLE"
-  )
+  final_theta = list(method = "MLE"),
+  exclude_policy = list(method = "SOFT", M = 100)
 )
+# exclude_policy must be SOFT
+
 examinee_list <- maat(
   examinee_list          = examinee_list_math,
   assessment_structure   = assessment_structure_math,
