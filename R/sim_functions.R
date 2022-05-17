@@ -168,7 +168,7 @@ simExaminees <- function(N, mean_v, sd_v, cor_v, assessment_structure,
 #' @param examinee_list an examinee list from \code{\link{simExaminees}}.
 #' @param assessment_structure a \code{\linkS4class{assessment_structure}} object.
 #' @param module_list a module list from \code{\link{loadModules}}.
-#' @param config a \code{\linkS4class{config_Shadow}} object. Also accepts a list of \code{\linkS4class{config_Shadow}} objects to use separate configurations for each module.
+#' @param config a \code{\linkS4class{config_Shadow}} object. Also accepts a list of \code{\linkS4class{config_Shadow}} objects to use separate configurations for each module. Must be from 'TestDesign' 1.3.3 or newer, and its \code{exclude_policy$method} slot must be \code{SOFT}.
 #' @param cut_scores a named list containing cut scores to be used in each grade. Each element must be named in the form \code{G?}, where \code{?} is a number.
 #' @param overlap_control_policy overlap control is performed by excluding administered items from being administered again within the same examinee.
 #' \itemize{

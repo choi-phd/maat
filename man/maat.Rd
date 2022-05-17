@@ -30,7 +30,7 @@ maat(
 
 \item{module_list}{a module list from \code{\link{loadModules}}.}
 
-\item{config}{a \code{\linkS4class{config_Shadow}} object. Also accepts a list of \code{\linkS4class{config_Shadow}} objects to use separate configurations for each module.}
+\item{config}{a \code{\linkS4class{config_Shadow}} object. Also accepts a list of \code{\linkS4class{config_Shadow}} objects to use separate configurations for each module. Must be from 'TestDesign' 1.3.3 or newer, and its \code{exclude_policy$method} slot must be \code{SOFT}.}
 
 \item{cut_scores}{a named list containing cut scores to be used in each grade. Each element must be named in the form \code{G?}, where \code{?} is a number.}
 
