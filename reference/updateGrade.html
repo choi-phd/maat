@@ -73,12 +73,20 @@
     <h2>Arguments</h2>
     <dl><dt>examinee_object</dt>
 <dd><p>an <code><a href="examinee-class.html">examinee</a></code> object.</p></dd>
+
+
 <dt>assessment_structure</dt>
 <dd><p>an <code><a href="assessment_structure-class.html">assessment_structure</a></code> object.</p></dd>
+
+
 <dt>module_position</dt>
 <dd><p>the current module position, ranging from <code>1</code> to <code>6</code>.</p></dd>
+
+
 <dt>cut_scores</dt>
 <dd><p>a named list containing cut scores to be used in each grade. Each element must be named in the form <code>G?</code>, where <code>?</code> is a number.</p></dd>
+
+
 <dt>transition_policy</dt>
 <dd><ul><li><p><code>CI</code> uses the confidence interval to perform routing.</p></li>
 <li><p><code>pool_difficulty_percentile</code> uses item difficulty percentiles of all items in the <code>item_pool</code> argument to perform routing.</p></li>
@@ -86,18 +94,29 @@
 <li><p><code>on_grade</code> does not permit any transition.</p></li>
 <li><p>(default = <code>CI</code>)</p></li>
 </ul></dd>
+
+
 <dt>transition_CI_alpha</dt>
 <dd><p>the alpha level used when <code>transition_policy == "CI"</code>.</p></dd>
+
+
 <dt>transition_percentile_lower</dt>
 <dd><p>the percentile value (between 0 and 1) used for the lower routing in percentile-based transition policies.</p></dd>
+
+
 <dt>transition_percentile_upper</dt>
 <dd><p>the percentile value (between 0 and 1) used for the upper routing in percentile-based transition policies.</p></dd>
+
+
 <dt>item_pool</dt>
 <dd><p>the <code><a href="https://choi-phd.github.io/TestDesign/reference/item_pool-class.html" class="external-link">item_pool</a></code> object to determine difficulty range in percentile-based transition policies.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>an <code><a href="examinee-class.html">examinee</a></code> object with its <code>current_grade</code> slot updated.</p>
+    
+
+<p>an <code><a href="examinee-class.html">examinee</a></code> object with its <code>current_grade</code> slot updated.</p>
     </div>
     <div id="details">
     <h2>Details</h2>
@@ -116,7 +135,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
       </footer></div>

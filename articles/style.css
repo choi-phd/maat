@@ -52,3 +52,8 @@ body {
 img {
   max-width: 1024px !important;
 }
+
+#pkgdown-sidebar {
+  z-index: -1;
+} /* allow toc bar to hide behind tables/figures */
+
