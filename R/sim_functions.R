@@ -263,23 +263,6 @@ maat <- function(
   if (is.null(overlap_control_policy)) {
     stop("'overlap_control_policy' is required but was not supplied. See ?maat for details.")
   }
-  if (!"exclude_policy" %in% slotNames(config)) {
-    stop("'config' does not have '@exclude_policy' slot: 'config' from createShadowTestConfig() in TestDesign >= 1.3.3 is required.")
-  }
-  if ("exclude_policy" %in% slotNames(config)) {
-    if (tolower(config@exclude_policy$method) != "soft") {
-      stop(sprintf(
-        "unrecognized 'config@exclude_policy$method': %s (must be SOFT)",
-        config@exclude_policy$method
-      ))
-    }
-    if (is.null(config@exclude_policy$M)) {
-      stop(sprintf(
-        "unrecognized 'config@exclude_policy$M': NULL (must be a numeric value)"
-      ))
-    }
-  }
-
   if (!overlap_control_policy %in% c("all", "within_test", "none")) {
     stop(sprintf("unrecognized 'overlap_control_policy': %s", overlap_control_policy))
   }
@@ -354,6 +337,7 @@ maat <- function(
   names(module_list_by_name) <- module_names
 
   # Expand config to list
+
   if (inherits(config, "config_Shadow")) {
     config_list <- vector("list", n_modules)
     for (m in 1:n_modules) {
@@ -366,7 +350,35 @@ maat <- function(
     }
     config_list <- config
   }
-  config <- NULL
+
+  # Validate config objects
+
+  for (i in seq_along(config_list)) {
+    if (!inherits(config_list[[i]], "config_Shadow")) {
+      stop(sprintf(
+        "unexpected object in 'config' index %s: '%s' (must be a 'config_Shadow' object)",
+        i, class(config_list[[i]])
+      ))
+    }
+    if (!"exclude_policy" %in% slotNames(config_list[[i]])) {
+      stop(sprintf(
+        "'config' index %s does not have '@exclude_policy' slot: 'config_Shadow' object from createShadowTestConfig() in TestDesign >= 1.3.3 is required.",
+        i
+      ))
+    }
+    if (tolower(config_list[[i]]@exclude_policy$method) != "soft") {
+      stop(sprintf(
+        "unrecognized 'config' index %s '@exclude_policy$method': %s (must be SOFT)",
+        i, config_list[[i]]@exclude_policy$method
+      ))
+    }
+    if (is.null(config_list[[i]]@exclude_policy$M)) {
+      stop(sprintf(
+        "unrecognized 'config' index %s '@exclude_policy$M': NULL (must be a numeric value)",
+        i
+      ))
+    }
+  }
 
   # Determine the module
   examinee_list <- lapply(
@@ -397,7 +409,6 @@ maat <- function(
 
     examinee_current_module <- unlist(examinee_current_module)
     unique_modules <- unique(examinee_current_module)
-
 
     # Theta Estimation ---------------
 
