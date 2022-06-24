@@ -1,3 +1,8 @@
+# maat 1.1.0.9000
+
+- fixed where `maat()` was not running when a `list` object was supplied to the `config` argument.
+- updated `vignette("maat")` with an example of using module-wise configs in `maat()`.
+
 # maat 1.1.0
 
 - now uses soft overlap control. See the vignette for details.
