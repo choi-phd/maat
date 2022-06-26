@@ -58,7 +58,7 @@ that excludes administered items from being selected.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">excludeAdministeredItems</span><span class="op">(</span><span class="va">constraints</span>, <span class="va">administered_items</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">excludeAdministeredItems</span><span class="op">(</span><span class="va">constraints</span>, <span class="va">administered_items</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -80,26 +80,25 @@ that excludes administered items from being selected.</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="va"><a href="https://choi-phd.github.io/TestDesign/" class="external-link">TestDesign</a></span><span class="op">)</span>
-
-<span class="va">cfg</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://choi-phd.github.io/TestDesign/reference/createShadowTestConfig.html" class="external-link">createShadowTestConfig</a></span><span class="op">(</span>
-  MIP <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>solver <span class="op">=</span> <span class="st">"lpsymphony"</span><span class="op">)</span>
-<span class="op">)</span>
-<span class="va">constraints</span> <span class="op">&lt;-</span> <span class="va">constraints_reading</span>
-<span class="va">solution</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://choi-phd.github.io/TestDesign/reference/Shadow-methods.html" class="external-link">Shadow</a></span><span class="op">(</span><span class="va">cfg</span>, <span class="va">constraints</span>, true_theta <span class="op">=</span> <span class="fl">0</span><span class="op">)</span>
-<span class="va">administered_items</span> <span class="op">&lt;-</span> <span class="va">solution</span><span class="op">@</span><span class="va">output</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">@</span><span class="va">administered_item_index</span>
-<span class="va">administered_items</span> <span class="op">&lt;-</span> <span class="va">solution</span><span class="op">@</span><span class="va">constraints</span><span class="op">@</span><span class="va">pool</span><span class="op">@</span><span class="va">id</span><span class="op">[</span><span class="va">administered_items</span><span class="op">]</span>
-<span class="va">administered_items</span>
-
-<span class="va">updated_constraints</span> <span class="op">&lt;-</span> <span class="fu">excludeAdministeredItems</span><span class="op">(</span><span class="va">constraints</span>, <span class="va">administered_items</span><span class="op">)</span>
-
-<span class="va">solution</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://choi-phd.github.io/TestDesign/reference/Shadow-methods.html" class="external-link">Shadow</a></span><span class="op">(</span><span class="va">cfg</span>, <span class="va">updated_constraints</span>, true_theta <span class="op">=</span> <span class="fl">0</span><span class="op">)</span>
-<span class="va">administered_items</span> <span class="op">&lt;-</span> <span class="va">solution</span><span class="op">@</span><span class="va">output</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">@</span><span class="va">administered_item_index</span>
-<span class="va">administered_items</span> <span class="op">&lt;-</span> <span class="va">solution</span><span class="op">@</span><span class="va">constraints</span><span class="op">@</span><span class="va">pool</span><span class="op">@</span><span class="va">id</span><span class="op">[</span><span class="va">administered_items</span><span class="op">]</span>
-<span class="va">administered_items</span> <span class="co">## entirely different from above</span>
-<span class="op">}</span>
-</code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="va"><a href="https://choi-phd.github.io/TestDesign/" class="external-link">TestDesign</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">cfg</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://choi-phd.github.io/TestDesign/reference/createShadowTestConfig.html" class="external-link">createShadowTestConfig</a></span><span class="op">(</span></span>
+<span>  MIP <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>solver <span class="op">=</span> <span class="st">"lpsymphony"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span><span class="va">constraints</span> <span class="op">&lt;-</span> <span class="va">constraints_reading</span></span>
+<span><span class="va">solution</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://choi-phd.github.io/TestDesign/reference/Shadow-methods.html" class="external-link">Shadow</a></span><span class="op">(</span><span class="va">cfg</span>, <span class="va">constraints</span>, true_theta <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span>
+<span><span class="va">administered_items</span> <span class="op">&lt;-</span> <span class="va">solution</span><span class="op">@</span><span class="va">output</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">@</span><span class="va">administered_item_index</span></span>
+<span><span class="va">administered_items</span> <span class="op">&lt;-</span> <span class="va">solution</span><span class="op">@</span><span class="va">constraints</span><span class="op">@</span><span class="va">pool</span><span class="op">@</span><span class="va">id</span><span class="op">[</span><span class="va">administered_items</span><span class="op">]</span></span>
+<span><span class="va">administered_items</span></span>
+<span></span>
+<span><span class="va">updated_constraints</span> <span class="op">&lt;-</span> <span class="fu">excludeAdministeredItems</span><span class="op">(</span><span class="va">constraints</span>, <span class="va">administered_items</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">solution</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://choi-phd.github.io/TestDesign/reference/Shadow-methods.html" class="external-link">Shadow</a></span><span class="op">(</span><span class="va">cfg</span>, <span class="va">updated_constraints</span>, true_theta <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span>
+<span><span class="va">administered_items</span> <span class="op">&lt;-</span> <span class="va">solution</span><span class="op">@</span><span class="va">output</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">@</span><span class="va">administered_item_index</span></span>
+<span><span class="va">administered_items</span> <span class="op">&lt;-</span> <span class="va">solution</span><span class="op">@</span><span class="va">constraints</span><span class="op">@</span><span class="va">pool</span><span class="op">@</span><span class="va">id</span><span class="op">[</span><span class="va">administered_items</span><span class="op">]</span></span>
+<span><span class="va">administered_items</span> <span class="co">## entirely different from above</span></span>
+<span><span class="op">}</span></span></code></pre></div>
     </div>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -113,7 +112,7 @@ that excludes administered items from being selected.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
       </footer></div>

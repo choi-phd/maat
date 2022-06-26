@@ -58,7 +58,7 @@ an <code><a href="examinee-class.html">examinee</a></code> object.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">updateTest</span><span class="op">(</span><span class="va">examinee_object</span>, <span class="va">assessment_structure</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">updateTest</span><span class="op">(</span><span class="va">examinee_object</span>, <span class="va">assessment_structure</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -80,23 +80,22 @@ an <code><a href="examinee-class.html">examinee</a></code> object.</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="co">## assessment uses two phases</span>
-
-<span class="va">examinee</span> <span class="op">&lt;-</span> <span class="va">examinee_list_math</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>
-<span class="va">examinee</span><span class="op">@</span><span class="va">current_test</span>  <span class="co">## T1</span>
-<span class="va">examinee</span><span class="op">@</span><span class="va">current_phase</span> <span class="co">## P1</span>
-
-<span class="va">examinee</span> <span class="op">&lt;-</span> <span class="fu">updateTest</span><span class="op">(</span><span class="va">examinee</span>, <span class="va">assessment_structure_math</span><span class="op">)</span>
-<span class="va">examinee</span> <span class="op">&lt;-</span> <span class="fu"><a href="updatePhase.html">updatePhase</a></span><span class="op">(</span><span class="va">examinee</span>, <span class="va">assessment_structure_math</span><span class="op">)</span>
-<span class="va">examinee</span><span class="op">@</span><span class="va">current_test</span>  <span class="co">## T1</span>
-<span class="va">examinee</span><span class="op">@</span><span class="va">current_phase</span> <span class="co">## P2</span>
-
-<span class="va">examinee</span> <span class="op">&lt;-</span> <span class="fu">updateTest</span><span class="op">(</span><span class="va">examinee</span>, <span class="va">assessment_structure_math</span><span class="op">)</span>
-<span class="va">examinee</span> <span class="op">&lt;-</span> <span class="fu"><a href="updatePhase.html">updatePhase</a></span><span class="op">(</span><span class="va">examinee</span>, <span class="va">assessment_structure_math</span><span class="op">)</span>
-<span class="va">examinee</span><span class="op">@</span><span class="va">current_test</span>  <span class="co">## T2</span>
-<span class="va">examinee</span><span class="op">@</span><span class="va">current_phase</span> <span class="co">## P1</span>
-
-</code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="co">## assessment uses two phases</span></span>
+<span></span>
+<span><span class="va">examinee</span> <span class="op">&lt;-</span> <span class="va">examinee_list_math</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span>
+<span><span class="va">examinee</span><span class="op">@</span><span class="va">current_test</span>  <span class="co">## T1</span></span>
+<span><span class="va">examinee</span><span class="op">@</span><span class="va">current_phase</span> <span class="co">## P1</span></span>
+<span></span>
+<span><span class="va">examinee</span> <span class="op">&lt;-</span> <span class="fu">updateTest</span><span class="op">(</span><span class="va">examinee</span>, <span class="va">assessment_structure_math</span><span class="op">)</span></span>
+<span><span class="va">examinee</span> <span class="op">&lt;-</span> <span class="fu"><a href="updatePhase.html">updatePhase</a></span><span class="op">(</span><span class="va">examinee</span>, <span class="va">assessment_structure_math</span><span class="op">)</span></span>
+<span><span class="va">examinee</span><span class="op">@</span><span class="va">current_test</span>  <span class="co">## T1</span></span>
+<span><span class="va">examinee</span><span class="op">@</span><span class="va">current_phase</span> <span class="co">## P2</span></span>
+<span></span>
+<span><span class="va">examinee</span> <span class="op">&lt;-</span> <span class="fu">updateTest</span><span class="op">(</span><span class="va">examinee</span>, <span class="va">assessment_structure_math</span><span class="op">)</span></span>
+<span><span class="va">examinee</span> <span class="op">&lt;-</span> <span class="fu"><a href="updatePhase.html">updatePhase</a></span><span class="op">(</span><span class="va">examinee</span>, <span class="va">assessment_structure_math</span><span class="op">)</span></span>
+<span><span class="va">examinee</span><span class="op">@</span><span class="va">current_test</span>  <span class="co">## T2</span></span>
+<span><span class="va">examinee</span><span class="op">@</span><span class="va">current_phase</span> <span class="co">## P1</span></span>
+<span></span></code></pre></div>
     </div>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -110,7 +109,7 @@ an <code><a href="examinee-class.html">examinee</a></code> object.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
       </footer></div>
