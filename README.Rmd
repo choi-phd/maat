@@ -7,7 +7,7 @@ output: github_document
 Multiple Administrations Adaptive Testing
 
 <!-- badges: start -->
-[![R build status](https://github.com/choi-phd/maat/workflows/build/badge.svg)](https://github.com/choi-phd/maat/actions)
+[![R build status](https://github.com/choi-phd/maat/actions/workflows/r.yml/badge.svg)](https://github.com/choi-phd/maat/actions)
 [![Number of downloads](https://cranlogs.r-pkg.org/badges/grand-total/maat?color=lightgrey)](https://cran.r-project.org/package=maat)
 <!-- badges: end -->
 
