@@ -10,9 +10,9 @@ Multiple Administrations Adaptive Testing
 \details{
 \bold{maat} package is based on the assessment framework involving multiple
 tests administered throughout the year using multiple item pools vertically
-scaled and multiple phases (stages) of computerized adaptive testing (CAT) 
-within each test allowing for transitioning from one item pool (and associated 
-constraints) to another between phases as determined necessary by a selected 
+scaled and multiple phases (stages) of computerized adaptive testing (CAT)
+within each test allowing for transitioning from one item pool (and associated
+constraints) to another between phases as determined necessary by a selected
 transition policy to enhance the quality of measurement.
 
 The current version of \bold{maat} supports three administrations (Fall, Winter,
@@ -34,5 +34,31 @@ used to determine whether a student is routed to an on-grade or off-grade
 item pool in Phase 2.
 
 Detailed descriptions of the assessment design are available in the vignette.
+}
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://choi-phd.github.io/maat/}
+  \item Report bugs at \url{https://github.com/choi-phd/maat/issues/}
+}
+
+}
+\author{
+\strong{Maintainer}: Seung W. Choi \email{schoi@austin.utexas.edu} (\href{https://orcid.org/0000-0003-4777-5420}{ORCID})
+
+Authors:
+\itemize{
+  \item Sangdon Lim \email{sangdonlim@utexas.edu} (\href{https://orcid.org/0000-0002-2988-014X}{ORCID})
+  \item Luping Niu \email{lupingniu@utexas.edu} (\href{https://orcid.org/0000-0003-3696-1180}{ORCID})
+  \item Sooyong Lee \email{sooyongl09@utexas.edu} (\href{https://orcid.org/0000-0002-7964-4508}{ORCID})
+}
+
+Other contributors:
+\itemize{
+  \item M. Christina Schneider \email{christina.schneider@nwea.org} [contributor]
+  \item Jay Lee \email{jay.lee@nwea.org} [contributor]
+  \item Garron Gianopulos \email{garron.gianopulos@nwea.org} [contributor]
+}
+
 }
 \keyword{package}
