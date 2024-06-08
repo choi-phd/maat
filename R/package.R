@@ -25,7 +25,9 @@
 #' used to determine whether a student is routed to an on-grade or off-grade
 #' item pool in Phase 2.
 #'
-#' Detailed descriptions of the assessment design are available in the vignette.
+#' Detailed descriptions of the assessment design are available in the vignette:
+#' see \code{vignette("maat")}. A web version of the vignette is also available
+#' at \url{https://choi-phd.github.io/maat/articles/maat.html}.
 #'
 #' @name maat-package
 #' @title Multiple Administrations Adaptive Testing
