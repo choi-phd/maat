@@ -23,7 +23,7 @@ a theta matrix.
 sample size, mean, standard deviation, and correlation matrix.
 }
 \details{
-\code{\link{simTheta}} calls \code{\link{mvrnorm}} internally.
+\code{\link{simTheta}} calls \code{\link[MASS]{mvrnorm}} internally.
 }
 \examples{
 o <- simTheta(

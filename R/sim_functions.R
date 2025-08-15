@@ -8,7 +8,7 @@ NULL
 #' @slot examinee_list a list of \code{\linkS4class{examinee}} objects.
 #' @slot assessment_structure an \code{\linkS4class{assessment_structure}} object.
 #' @slot module_list a module list from \code{\link{loadModules}}.
-#' @slot config the list of \code{\linkS4class{config_Shadow}} objects used in the simulation for each module.
+#' @slot config the list of \code{\link[TestDesign:config_Shadow-class]{config_Shadow}} objects used in the simulation for each module.
 #' @slot cut_scores the cut scores used in the simulation.
 #' @slot overlap_control_policy the policy used in the simulation.
 #' @slot transition_policy the policy used in the simulation.
@@ -67,7 +67,7 @@ setClass("output_maat",
 #' \code{\link{simTheta}} is a function for generating a theta matrix based on the given
 #' sample size, mean, standard deviation, and correlation matrix.
 #'
-#' \code{\link{simTheta}} calls \code{\link{mvrnorm}} internally.
+#' \code{\link{simTheta}} calls \code{\link[MASS]{mvrnorm}} internally.
 #'
 #' @param N the number of examinees.
 #' @param mean_v a vector containing the mean of each dimension.
@@ -168,7 +168,7 @@ simExaminees <- function(N, mean_v, sd_v, cor_v, assessment_structure,
 #' @param examinee_list an examinee list from \code{\link{simExaminees}}.
 #' @param assessment_structure a \code{\linkS4class{assessment_structure}} object.
 #' @param module_list a module list from \code{\link{loadModules}}.
-#' @param config a \code{\linkS4class{config_Shadow}} object. Also accepts a list of \code{\linkS4class{config_Shadow}} objects to use separate configurations for each module. Must be from 'TestDesign' 1.3.3 or newer, and its \code{exclude_policy$method} slot must be \code{SOFT}.
+#' @param config a \code{\link[TestDesign:config_Shadow-class]{config_Shadow}} object. Also accepts a list of \code{\link[TestDesign:config_Shadow-class]{config_Shadow}} objects to use separate configurations for each module. Must be from 'TestDesign' 1.3.3 or newer, and its \code{exclude_policy$method} slot must be \code{SOFT}.
 #' @param cut_scores a named list containing cut scores to be used in each grade. Each element must be named in the form \code{G?}, where \code{?} is a number.
 #' @param overlap_control_policy overlap control is performed by excluding administered items from being administered again within the same examinee.
 #' \itemize{

@@ -11,7 +11,7 @@ updateThetaUsingCombined(examinee_object, current_module_position, config)
 
 \item{current_module_position}{the current module position.}
 
-\item{config}{a \code{\linkS4class{config_Shadow}} object. The config for obtaining final estimates is used.}
+\item{config}{a \code{\link[TestDesign:config_Shadow-class]{config_Shadow}} object. The config for obtaining final estimates is used.}
 }
 \value{
 an \code{\linkS4class{examinee}} object with its \code{estimated_theta_by_test} slot updated.

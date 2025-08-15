@@ -1,3 +1,8 @@
+# maat 1.1.1.9000
+
+- fixed Rd cross-reference NOTE by adding package anchors to `\link{}` and `\linkS4class{}` targets.
+- Minor formatting updates to `.Rd` files.
+
 # maat 1.1.0.9000
 
 - fixed where `maat()` was not running when a `list` object was supplied to the `config` argument.

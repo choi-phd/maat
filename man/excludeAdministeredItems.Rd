@@ -7,15 +7,15 @@
 excludeAdministeredItems(constraints, administered_items)
 }
 \arguments{
-\item{constraints}{a \code{\linkS4class{constraints}} object.}
+\item{constraints}{a \code{\link[TestDesign:constraints-class]{constraints}} object.}
 
 \item{administered_items}{item names of previously administered items.}
 }
 \value{
-a \code{\linkS4class{constraints}} object that also constrains the administered items to be excluded.
+a \code{\link[TestDesign:constraints-class]{constraints}} object that also constrains the administered items to be excluded.
 }
 \description{
-The function \code{\link{excludeAdministeredItems}} produces a new \code{\linkS4class{constraints}} object
+The function \code{\link{excludeAdministeredItems}} produces a new \code{\link[TestDesign:constraints-class]{constraints}} object
 that excludes administered items from being selected.
 }
 \examples{

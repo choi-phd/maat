@@ -11,7 +11,7 @@ updateItemData(examinee_object, module_position, solution)
 
 \item{module_position}{the current module position.}
 
-\item{solution}{an \code{\linkS4class{output_Shadow_all}} object.}
+\item{solution}{an \code{\link[TestDesign:output_Shadow_all-class]{output_Shadow_all}} object.}
 }
 \value{
 an \code{\linkS4class{examinee}} object with its \code{item_data} slot updated.
@@ -20,6 +20,6 @@ an \code{\linkS4class{examinee}} object with its \code{item_data} slot updated.
 \code{\link{updateItemData}} is a function for updating \code{\linkS4class{examinee}} objects after completing a module.
 }
 \details{
-\code{\link{updateItemData}} updates the \code{item_data} slot with an \code{\linkS4class{item_pool}} object
+\code{\link{updateItemData}} updates the \code{item_data} slot with an \code{\link[TestDesign:item_pool-class]{item_pool}} object
 that contains administered items in the module.
 }

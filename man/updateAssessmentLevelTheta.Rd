@@ -9,7 +9,7 @@ updateAssessmentLevelTheta(examinee_object, config)
 \arguments{
 \item{examinee_object}{an \code{\linkS4class{examinee}} object.}
 
-\item{config}{a \code{\linkS4class{config_Shadow}} object. The \code{final_theta} slot is used.}
+\item{config}{a \code{\link[TestDesign:config_Shadow-class]{config_Shadow}} object. The \code{final_theta} slot is used.}
 }
 \value{
 an \code{\linkS4class{examinee}} object with its \code{estimated_theta} slot updated.

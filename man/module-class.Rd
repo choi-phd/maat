@@ -12,6 +12,6 @@
 \describe{
 \item{\code{module_id}}{the ID of the module.}
 
-\item{\code{constraints}}{a \code{\linkS4class{constraints}} object.}
+\item{\code{constraints}}{a \code{\link[TestDesign:constraints-class]{constraints}} object.}
 }}
 

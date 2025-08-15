@@ -6,7 +6,7 @@ NULL
 #' \code{\linkS4class{module}} is an S4 class to represent a module.
 #'
 #' @slot module_id the ID of the module.
-#' @slot constraints a \code{\linkS4class{constraints}} object.
+#' @slot constraints a \code{\link[TestDesign:constraints-class]{constraints}} object.
 #'
 #' @export
 setClass("module",

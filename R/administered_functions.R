@@ -3,13 +3,13 @@ NULL
 
 #' Update a constraints object to exclude administered items
 #'
-#' The function \code{\link{excludeAdministeredItems}} produces a new \code{\linkS4class{constraints}} object
+#' The function \code{\link{excludeAdministeredItems}} produces a new \code{\link[TestDesign:constraints-class]{constraints}} object
 #' that excludes administered items from being selected.
 #'
-#' @param constraints a \code{\linkS4class{constraints}} object.
+#' @param constraints a \code{\link[TestDesign:constraints-class]{constraints}} object.
 #' @param administered_items item names of previously administered items.
 #'
-#' @return a \code{\linkS4class{constraints}} object that also constrains the administered items to be excluded.
+#' @return a \code{\link[TestDesign:constraints-class]{constraints}} object that also constrains the administered items to be excluded.
 #'
 #' @examples
 #' \dontrun{

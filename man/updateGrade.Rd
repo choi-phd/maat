@@ -39,7 +39,7 @@ updateGrade(
 
 \item{transition_percentile_upper}{the percentile value (between 0 and 1) used for the upper routing in percentile-based transition policies.}
 
-\item{item_pool}{the \code{\linkS4class{item_pool}} object to determine difficulty range in percentile-based transition policies.}
+\item{item_pool}{the \code{\link[TestDesign:item_pool-class]{item_pool}} object to determine difficulty range in percentile-based transition policies.}
 }
 \value{
 an \code{\linkS4class{examinee}} object with its \code{current_grade} slot updated.

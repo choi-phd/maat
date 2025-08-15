@@ -56,8 +56,8 @@
 
 \item{\code{response}}{a list containing the examinee response in each module position.}
 
-\item{\code{item_data}}{a list containing \code{\linkS4class{item_pool}} of administered items.}
+\item{\code{item_data}}{a list containing \code{\link[TestDesign:item_pool-class]{item_pool}} of administered items.}
 
-\item{\code{routing_based_on}}{a vector containing the routing was based on \code{estimated_theta_by_phase} or {estimated_theta_by_test} at each module position.}
+\item{\code{routing_based_on}}{a vector containing the routing was based on \code{estimated_theta_by_phase} or \code{estimated_theta_by_test} at each module position.}
 }}
 

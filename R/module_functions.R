@@ -6,10 +6,10 @@ NULL
 #' \code{\link{createModule}} is a function for creating a \code{\linkS4class{module}} object
 #' based on the item pool, attribute, and constraints.
 #'
-#' @param constraints constraints data. A \code{\link{data.frame}} or a csv file name to be used in \code{\link{loadConstraints}}.
-#' @param item_pool item pool data. A \code{\link{data.frame}} or a csv file name to be used in \code{\link{loadItemPool}}.
-#' @param item_attrib item attribute data. A \code{\link{data.frame}} or a csv file name to be used in \code{\link{loadItemAttrib}}.
-#' @param passage_attrib passage attribute data. A \code{\link{data.frame}} or a csv file name to be used in \code{\link{loadStAttrib}}.
+#' @param constraints constraints data. A \code{\link{data.frame}} or a csv file name to be used in \code{\link[TestDesign]{loadConstraints}}.
+#' @param item_pool item pool data. A \code{\link{data.frame}} or a csv file name to be used in \code{\link[TestDesign]{loadItemPool}}.
+#' @param item_attrib item attribute data. A \code{\link{data.frame}} or a csv file name to be used in \code{\link[TestDesign]{loadItemAttrib}}.
+#' @param passage_attrib passage attribute data. A \code{\link{data.frame}} or a csv file name to be used in \code{\link[TestDesign]{loadStAttrib}}.
 #'
 #' @returns a \code{\linkS4class{module}} object.
 #'

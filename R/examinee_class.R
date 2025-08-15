@@ -28,8 +28,8 @@ NULL
 #' @slot administered_items a list containing administered items in each module position.
 #' @slot administered_stimuli a list containing administered stimuli in each module position.
 #' @slot response a list containing the examinee response in each module position.
-#' @slot item_data a list containing \code{\linkS4class{item_pool}} of administered items.
-#' @slot routing_based_on a vector containing the routing was based on \code{estimated_theta_by_phase} or {estimated_theta_by_test} at each module position.
+#' @slot item_data a list containing \code{\link[TestDesign:item_pool-class]{item_pool}} of administered items.
+#' @slot routing_based_on a vector containing the routing was based on \code{estimated_theta_by_phase} or \code{estimated_theta_by_test} at each module position.
 #'
 #' @export
 setClass("examinee",

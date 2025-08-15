@@ -7,13 +7,13 @@
 createModule(constraints, item_pool, item_attrib, passage_attrib)
 }
 \arguments{
-\item{constraints}{constraints data. A \code{\link{data.frame}} or a csv file name to be used in \code{\link{loadConstraints}}.}
+\item{constraints}{constraints data. A \code{\link{data.frame}} or a csv file name to be used in \code{\link[TestDesign]{loadConstraints}}.}
 
-\item{item_pool}{item pool data. A \code{\link{data.frame}} or a csv file name to be used in \code{\link{loadItemPool}}.}
+\item{item_pool}{item pool data. A \code{\link{data.frame}} or a csv file name to be used in \code{\link[TestDesign]{loadItemPool}}.}
 
-\item{item_attrib}{item attribute data. A \code{\link{data.frame}} or a csv file name to be used in \code{\link{loadItemAttrib}}.}
+\item{item_attrib}{item attribute data. A \code{\link{data.frame}} or a csv file name to be used in \code{\link[TestDesign]{loadItemAttrib}}.}
 
-\item{passage_attrib}{passage attribute data. A \code{\link{data.frame}} or a csv file name to be used in \code{\link{loadStAttrib}}.}
+\item{passage_attrib}{passage attribute data. A \code{\link{data.frame}} or a csv file name to be used in \code{\link[TestDesign]{loadStAttrib}}.}
 }
 \value{
 a \code{\linkS4class{module}} object.

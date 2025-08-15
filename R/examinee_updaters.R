@@ -123,12 +123,12 @@ updateLog <- function(examinee_object, current_module_position) {
 #'
 #' \code{\link{updateItemData}} is a function for updating \code{\linkS4class{examinee}} objects after completing a module.
 #'
-#' \code{\link{updateItemData}} updates the \code{item_data} slot with an \code{\linkS4class{item_pool}} object
+#' \code{\link{updateItemData}} updates the \code{item_data} slot with an \code{\link[TestDesign:item_pool-class]{item_pool}} object
 #' that contains administered items in the module.
 #'
 #' @param examinee_object an \code{\linkS4class{examinee}} object.
 #' @param module_position the current module position.
-#' @param solution an \code{\linkS4class{output_Shadow_all}} object.
+#' @param solution an \code{\link[TestDesign:output_Shadow_all-class]{output_Shadow_all}} object.
 #'
 #' @return an \code{\linkS4class{examinee}} object with its \code{item_data} slot updated.
 #'

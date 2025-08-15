@@ -50,7 +50,7 @@ boundGrade <- function(current_grade, grade_of_record, route_limit_below, route_
 #'
 #' @param examinee_object an \code{\linkS4class{examinee}} object.
 #' @param current_module_position the current module position.
-#' @param config a \code{\linkS4class{config_Shadow}} object. The config for obtaining final estimates is used.
+#' @param config a \code{\link[TestDesign:config_Shadow-class]{config_Shadow}} object. The config for obtaining final estimates is used.
 #'
 #' @return an \code{\linkS4class{examinee}} object with its \code{estimated_theta_by_test} slot updated.
 #'
@@ -242,7 +242,7 @@ updateThetaForRouting <- function(examinee_object, current_module_position, comb
 #' @param transition_CI_alpha the alpha level used when \code{transition_policy == "CI"}.
 #' @param transition_percentile_lower the percentile value (between 0 and 1) used for the lower routing in percentile-based transition policies.
 #' @param transition_percentile_upper the percentile value (between 0 and 1) used for the upper routing in percentile-based transition policies.
-#' @param item_pool the \code{\linkS4class{item_pool}} object to determine difficulty range in percentile-based transition policies.
+#' @param item_pool the \code{\link[TestDesign:item_pool-class]{item_pool}} object to determine difficulty range in percentile-based transition policies.
 #'
 #' @return an \code{\linkS4class{examinee}} object with its \code{current_grade} slot updated.
 #'
@@ -398,7 +398,7 @@ updateGrade <- function(
 #' \code{\link{updateAssessmentLevelTheta}} computes the assessment-level theta. Estimation options are based on the \code{final_theta} slot of the \code{config} object.
 #'
 #' @param examinee_object an \code{\linkS4class{examinee}} object.
-#' @param config a \code{\linkS4class{config_Shadow}} object. The \code{final_theta} slot is used.
+#' @param config a \code{\link[TestDesign:config_Shadow-class]{config_Shadow}} object. The \code{final_theta} slot is used.
 #'
 #' @return an \code{\linkS4class{examinee}} object with its \code{estimated_theta} slot updated.
 #'
