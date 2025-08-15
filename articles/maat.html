@@ -13,14 +13,13 @@
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
 <script src="../pkgdown.js"></script><link href="../extra.css" rel="stylesheet">
 <meta property="og:title" content="maat: Multiple Administrations Adaptive Testing">
-<meta property="og:description" content="maat">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
-    
+
 
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -34,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">maat</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.1.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.1.1</span>
       </span>
     </div>
 
@@ -54,7 +53,7 @@
 <li>
   <a href="https://github.com/choi-phd/maat/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
-     
+
   </a>
 </li>
       </ul>
@@ -65,7 +64,7 @@
 </div>
 <!--/.navbar -->
 
-      
+
 
       </header><script src="maat_files/kePrint-0.0.1/kePrint.js"></script><link href="maat_files/lightable-0.0.1/lightable.css" rel="stylesheet">
 <div class="row">
@@ -75,7 +74,7 @@
 Testing</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/choi-phd/maat/blob/HEAD/vignettes/maat.Rmd" class="external-link"><code>vignettes/maat.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/choi-phd/maat/blob/main/vignettes/maat.Rmd" class="external-link"><code>vignettes/maat.Rmd</code></a></small>
       <div class="hidden name"><code>maat.Rmd</code></div>
 
     </div>
@@ -180,11 +179,24 @@ Phase 2 combined as the administration-level scores.</li>
 <li>The ability/trait scores for examinees across administrations are
 expected to change (and not assumed to remain constant).</li>
 <li>The vertical scale is robust and well-articulated across the grades.
-For all <span class="math inline">\(G=4, 5, \dots\)</span>,
+For all
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>G</mi><mo>=</mo><mn>4</mn><mo>,</mo><mn>5</mn><mo>,</mo><mi>…</mi></mrow><annotation encoding="application/x-tex">G=4, 5, \dots</annotation></semantics></math>,
 <ul>
-<li>the mean item difficulty of grade <span class="math inline">\(G-1\)</span> pool is lower than grade <span class="math inline">\(G\)</span> pool;</li>
-<li>the minimum item difficulty of grade <span class="math inline">\(G-1\)</span> pool is lower than grade <span class="math inline">\(G\)</span> pool;</li>
-<li>the maximum item difficulty of grade <span class="math inline">\(G-1\)</span> pool is lower than grade <span class="math inline">\(G\)</span> pool.</li>
+<li>the mean item difficulty of grade
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>G</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">G-1</annotation></semantics></math>
+pool is lower than grade
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>G</mi><annotation encoding="application/x-tex">G</annotation></semantics></math>
+pool;</li>
+<li>the minimum item difficulty of grade
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>G</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">G-1</annotation></semantics></math>
+pool is lower than grade
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>G</mi><annotation encoding="application/x-tex">G</annotation></semantics></math>
+pool;</li>
+<li>the maximum item difficulty of grade
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>G</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">G-1</annotation></semantics></math>
+pool is lower than grade
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>G</mi><annotation encoding="application/x-tex">G</annotation></semantics></math>
+pool.</li>
 </ul>
 </li>
 </ul>
@@ -199,8 +211,12 @@ item pool difficulty of the grade of record. The same starting theta is
 used for all examinees for the first module. All subsequent modules are
 initialized individually based on the previous score.</li>
 <li>Throughout the assembly process, no distinction is made between the
-ability estimate and the target <span class="math inline">\(\theta\)</span> that is used to assemble tests.
-The ability estimate is always used as the target <span class="math inline">\(\theta\)</span> for the assembly.</li>
+ability estimate and the target
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>θ</mi><annotation encoding="application/x-tex">\theta</annotation></semantics></math>
+that is used to assemble tests. The ability estimate is always used as
+the target
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>θ</mi><annotation encoding="application/x-tex">\theta</annotation></semantics></math>
+for the assembly.</li>
 </ul>
 </li>
 </ul>
@@ -223,15 +239,21 @@ other constraints and yet optimal (e.g., most informative).</p>
 <p>Given the item pool and test specifications/constraints, the
 shadow-test approach to CAT assembles a full-length test form, called a
 shadow test, using MIP for each item position upon updating interim
-<span class="math inline">\(\theta\)</span> estimates, <span class="math inline">\(\theta_{k}\)</span>, <span class="math inline">\(k
-= 1,2,...,n\)</span>, where <span class="math inline">\(n\)</span> is
-the test length. The optimal test assembly engine uses MIP to construct
-shadow tests optimized for the interim <span class="math inline">\(\theta\)</span> estimates and conforming to all
-specifications and requirements, encompassing content constraints,
-exposure control, overlap control, and other practical constraints
-(e.g., enemy items, item types, etc.). The cycle is repeated until the
-intended test length <span class="math inline">\(n\)</span> has been
-reached.</p>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>θ</mi><annotation encoding="application/x-tex">\theta</annotation></semantics></math>
+estimates,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>θ</mi><mi>k</mi></msub><annotation encoding="application/x-tex">\theta_{k}</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>=</mo><mn>1</mn><mo>,</mo><mn>2</mn><mo>,</mo><mi>.</mi><mi>.</mi><mi>.</mi><mo>,</mo><mi>n</mi></mrow><annotation encoding="application/x-tex">k = 1,2,...,n</annotation></semantics></math>,
+where
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>
+is the test length. The optimal test assembly engine uses MIP to
+construct shadow tests optimized for the interim
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>θ</mi><annotation encoding="application/x-tex">\theta</annotation></semantics></math>
+estimates and conforming to all specifications and requirements,
+encompassing content constraints, exposure control, overlap control, and
+other practical constraints (e.g., enemy items, item types, etc.). The
+cycle is repeated until the intended test length
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>
+has been reached.</p>
 <p>The methods by which the shadow-test approach formulates test
 assembly problems as constrained combinatorial optimization have been
 documented in <span class="citation">van der Linden (<a href="#ref-van_der_linden_linear_2005">2005</a>)</span> and implemented
@@ -247,18 +269,22 @@ sequence of optimally constructed full-length tests.</p>
 at a particular item position) among potentially an astronomical number
 of alternatives is to compare the objective values provided by the
 alternatives. The common objective function in its simplest form is:</p>
-<p><span class="math display">\[
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext mathvariant="normal">maximize</mtext><munderover><mo>∑</mo><mrow><mi>i</mi><mspace width="0.167em"></mspace><mo>=</mo><mspace width="0.167em"></mspace><mn>1</mn></mrow><mi>I</mi></munderover><msub><mi>I</mi><mi>i</mi></msub><mrow><mo stretchy="true" form="prefix">(</mo><mover><mi>θ</mi><mo accent="true">̂</mo></mover><mo stretchy="true" form="postfix">)</mo></mrow><msub><mi>x</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">
 \text{maximize}
 \sum_{i\,=\,1}^{I}
 I_{i}(\hat{\theta})x_{i}
-\]</span></p>
-<p>where <span class="math inline">\(I_{i}(\hat{\theta})\)</span> is the
-Fisher information for Item <span class="math inline">\(i\)</span> at an
-estimated <span class="math inline">\(\theta\)</span> value. It is also
-possible to add a random component to the objective function to reduce
-the overexposure of highly informative items for some or all item
-positions within a test. For example, the progressive method <span class="citation">(<a href="#ref-revuelta_comparison_1998">Revuelta &amp;
-Ponsoda, 1998</a>)</span> can be incorporated into the objective
+</annotation></semantics></math></p>
+<p>where
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>I</mi><mi>i</mi></msub><mrow><mo stretchy="true" form="prefix">(</mo><mover><mi>θ</mi><mo accent="true">̂</mo></mover><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">I_{i}(\hat{\theta})</annotation></semantics></math>
+is the Fisher information for Item
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>i</mi><annotation encoding="application/x-tex">i</annotation></semantics></math>
+at an estimated
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>θ</mi><annotation encoding="application/x-tex">\theta</annotation></semantics></math>
+value. It is also possible to add a random component to the objective
+function to reduce the overexposure of highly informative items for some
+or all item positions within a test. For example, the progressive method
+<span class="citation">(<a href="#ref-revuelta_comparison_1998">Revuelta
+&amp; Ponsoda, 1998</a>)</span> can be incorporated into the objective
 function so that at the beginning of the test the objective function
 combines a random component with item information, and as the test
 progresses the random component is reduced proportionately.</p>
@@ -266,43 +292,54 @@ progresses the random component is reduced proportionately.</p>
 to be administered. Selecting an item from a shadow test is typically
 done by selecting the most informative item in the shadow test that has
 not been administered, as</p>
-<p><span class="math display">\[
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext mathvariant="normal">arg</mtext><munder><mo>max</mo><mrow><mi>i</mi><mspace width="0.167em"></mspace><mo>∈</mo><mspace width="0.167em"></mspace><mi>R</mi></mrow></munder><msub><mi>I</mi><mi>i</mi></msub><mrow><mo stretchy="true" form="prefix">(</mo><mover><mi>θ</mi><mo accent="true">̂</mo></mover><mo stretchy="true" form="postfix">)</mo></mrow><mo>,</mo></mrow><annotation encoding="application/x-tex">
 \text{arg} \max_{i\,\in\,R}
 I_{i}(\hat{\theta}),
-\]</span></p>
-<p>where <span class="math inline">\(R\)</span> indicates the set of
-items in the current shadow test that has not been administered to the
-examinee. When the test is comprised of item sets (e.g., reading
-passages), selecting a passage should precede selecting an item, which
-can be based on the average item information within each passage. Once a
-passage is selected, typically multiple items are selected before moving
-onto another passage.</p>
+</annotation></semantics></math></p>
+<p>where
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>R</mi><annotation encoding="application/x-tex">R</annotation></semantics></math>
+indicates the set of items in the current shadow test that has not been
+administered to the examinee. When the test is comprised of item sets
+(e.g., reading passages), selecting a passage should precede selecting
+an item, which can be based on the average item information within each
+passage. Once a passage is selected, typically multiple items are
+selected before moving onto another passage.</p>
 </div>
 <div class="section level3">
 <h3 id="how-passages-are-selected">How Passages Are Selected<a class="anchor" aria-label="anchor" href="#how-passages-are-selected"></a>
 </h3>
 <p>In the MIP optimizer, passages are selected not directly but as a
 result of attempting to satisfy constraints. Given an item pool that has
-<span class="math inline">\(I\)</span> items, a discrete assembly
-problem (i.e., not passage-based) uses <span class="math inline">\(I\)</span> decision variables that represent each
-item in the pool. In a passage-based assembly that has <span class="math inline">\(S\)</span> available passages in the pool, <span class="math inline">\(S\)</span> more decision variables are added to
-existing <span class="math inline">\(I\)</span> decision variables. The
-nested structure between items and passages is provided to the solver
-through the use of constraints.</p>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>I</mi><annotation encoding="application/x-tex">I</annotation></semantics></math>
+items, a discrete assembly problem (i.e., not passage-based) uses
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>I</mi><annotation encoding="application/x-tex">I</annotation></semantics></math>
+decision variables that represent each item in the pool. In a
+passage-based assembly that has
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>S</mi><annotation encoding="application/x-tex">S</annotation></semantics></math>
+available passages in the pool,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>S</mi><annotation encoding="application/x-tex">S</annotation></semantics></math>
+more decision variables are added to existing
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>I</mi><annotation encoding="application/x-tex">I</annotation></semantics></math>
+decision variables. The nested structure between items and passages is
+provided to the solver through the use of constraints.</p>
 <p>Using the same information maximization criterion presented above, a
 shadow-test that satisfies the criterion and the constraints is
 assembled/re-assembled for the administration of each item. From the
 shadow-test, the passage to be administered to the examinee is
 determined using the following process.</p>
 <p>First, if the examinee is currently not within a passage, the passage
-that has the largest mean information at the current <span class="math inline">\(\hat{\theta}\)</span> is selected as the passage
-to be administered. The mean information is calculated from the shadow
-test. For example, suppose that Passage 1 consists of Items 1, 2, 3, 4,
-5, and only Items 1, 2, 3 were included in the shadow test. In this
-case, the mean information of Passage 1 is computed from Items 1, 2, 3.
-After selecting a passage with the highest mean information, the item
-within the passage that has the largest information at the current <span class="math inline">\(\hat{\theta}\)</span> is administered to the
-examinee. This marks the passage as the currently active passage.</p>
+that has the largest mean information at the current
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mover><mi>θ</mi><mo accent="true">̂</mo></mover><annotation encoding="application/x-tex">\hat{\theta}</annotation></semantics></math>
+is selected as the passage to be administered. The mean information is
+calculated from the shadow test. For example, suppose that Passage 1
+consists of Items 1, 2, 3, 4, 5, and only Items 1, 2, 3 were included in
+the shadow test. In this case, the mean information of Passage 1 is
+computed from Items 1, 2, 3. After selecting a passage with the highest
+mean information, the item within the passage that has the largest
+information at the current
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mover><mi>θ</mi><mo accent="true">̂</mo></mover><annotation encoding="application/x-tex">\hat{\theta}</annotation></semantics></math>
+is administered to the examinee. This marks the passage as the currently
+active passage.</p>
 <p>For the next shadow test, the assembly engine enforces to select
 previously administered items and passages, and the currently active
 passage that contains the item. In this step, for the currently active
@@ -331,7 +368,8 @@ item pool. The engine can also monitor the probabilities of
 ineligibility for all items conditional on different theta levels such
 that the exposure rates for all items in the pool are tightly controlled
 within and across different theta segments (intervals) and bound below a
-maximum exposure rate set <em>a priori</em> (e.g., <span class="math inline">\(r^{\max}=0.25\)</span>).</p>
+maximum exposure rate set <em>a priori</em> (e.g.,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>r</mi><mo>max</mo></msup><mo>=</mo><mn>0.25</mn></mrow><annotation encoding="application/x-tex">r^{\max}=0.25</annotation></semantics></math>).</p>
 <p>More specifically, for each new examinee, prior to the administration
 of the test, the item eligibility control method conducts Bernoulli
 experiments (by theta segment) for the items in the pool to determine
@@ -339,39 +377,52 @@ their eligibility for administration with probabilities updated as a
 function of the actual exposure rates of the items. For any items
 determined to be ineligible additional constraints are included in the
 test assembly model as follows:</p>
-<p><span class="math display">\[
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><munder><mo>∑</mo><mrow><mi>i</mi><mspace width="0.167em"></mspace><mo>∈</mo><mspace width="0.167em"></mspace><msub><mi>V</mi><mi>j</mi></msub></mrow></munder><msub><mi>x</mi><mi>i</mi></msub><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">
 \sum_{i\,\in\,V_j}{x_i} = 0
-\]</span></p>
-<p>where <span class="math inline">\(x_i\)</span> is the binary decision
-variable for the selection of item <span class="math inline">\(i\)</span>; and <span class="math inline">\(V_j\)</span> denotes the set of items determined
-to be ineligible for Examinee <span class="math inline">\(j\)</span>.</p>
+</annotation></semantics></math></p>
+<p>where
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>x</mi><mi>i</mi></msub><annotation encoding="application/x-tex">x_i</annotation></semantics></math>
+is the binary decision variable for the selection of item
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>i</mi><annotation encoding="application/x-tex">i</annotation></semantics></math>;
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>V</mi><mi>j</mi></msub><annotation encoding="application/x-tex">V_j</annotation></semantics></math>
+denotes the set of items determined to be ineligible for Examinee
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>j</mi><annotation encoding="application/x-tex">j</annotation></semantics></math>.</p>
 <p>The conditional item eligibility method monitors and updates the
-probabilities within a predetermined set of theta segments, e.g., <span class="math inline">\(\theta_1 \in [-\infty,-1.5), \theta_2 \in
-[-1.5,-.5), \dots , \theta_G \in (1.5, \infty]\)</span>. The conditional
-item-eligibility probabilities are represented as a recurrence
-relationship as follows:</p>
-<p><span class="math display">\[
+probabilities within a predetermined set of theta segments, e.g.,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>θ</mi><mn>1</mn></msub><mo>∈</mo><mo stretchy="false" form="prefix">[</mo><mo>−</mo><mi>∞</mi><mo>,</mo><mo>−</mo><mn>1.5</mn><mo stretchy="false" form="postfix">)</mo><mo>,</mo><msub><mi>θ</mi><mn>2</mn></msub><mo>∈</mo><mrow><mo stretchy="true" form="prefix">[</mo><mo>−</mo><mn>1.5</mn><mo>,</mo><mo>−</mo><mn>.5</mn><mo stretchy="false" form="postfix">)</mo><mo>,</mo><mi>…</mi><mo>,</mo><msub><mi>θ</mi><mi>G</mi></msub><mo>∈</mo><mo stretchy="false" form="prefix">(</mo><mn>1.5</mn><mo>,</mo><mi>∞</mi><mo stretchy="true" form="postfix">]</mo></mrow></mrow><annotation encoding="application/x-tex">\theta_1 \in [-\infty,-1.5), \theta_2 \in [-1.5,-.5), \dots , \theta_G \in (1.5, \infty]</annotation></semantics></math>.
+The conditional item-eligibility probabilities are represented as a
+recurrence relationship as follows:</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext mathvariant="normal">Pr</mtext><mo stretchy="false" form="prefix">{</mo><msub><mi>E</mi><mi>i</mi></msub><mrow><mo stretchy="true" form="prefix">|</mo><mi>θ</mi><mo stretchy="false" form="postfix">}</mo><mo>≤</mo><mfrac><msup><mi>r</mi><mo>max</mo></msup><mrow><mtext mathvariant="normal">Pr</mtext><mo stretchy="false" form="prefix">{</mo><msub><mi>A</mi><mi>i</mi></msub><mo stretchy="false" form="prefix">|</mo><mi>θ</mi><mo stretchy="false" form="postfix">}</mo></mrow></mfrac><mtext mathvariant="normal">Pr</mtext><mo stretchy="false" form="prefix">{</mo><msub><mi>E</mi><mi>i</mi></msub><mo stretchy="true" form="postfix">|</mo></mrow><mi>θ</mi><mo stretchy="false" form="postfix">}</mo><mo>,</mo></mrow><annotation encoding="application/x-tex">
 \text{Pr}\{E_i | \theta\}
 \leq
 \frac{r^{\max}}
 {\text{Pr}\{A_i | \theta\}}
 \text{Pr}\{E_i | \theta\},
-\]</span></p>
-<p>where <span class="math inline">\(\text{Pr}\{E_i | \theta\}\)</span>
-is the conditional eligibility probability for item <span class="math inline">\(i\)</span> given <span class="math inline">\(\theta \in \theta_g\)</span>; and <span class="math inline">\(\text{Pr}\{A_i | \theta\}\)</span> is the
-conditional exposure probability (rate) for the item. Theoretically,
-<span class="math inline">\(\text{Pr}\{A_i | \theta\}\)</span> can be
-updated continuously as each examinee finishes the test. Assuming <span class="math inline">\(l = 1,2,\dots\)</span> denote the sequence of
-examinees taking the test. The conditional item-eligibility
-probabilities can be updated continuously as:</p>
-<p><span class="math display">\[
+</annotation></semantics></math></p>
+<p>where
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext mathvariant="normal">Pr</mtext><mo stretchy="false" form="prefix">{</mo><msub><mi>E</mi><mi>i</mi></msub><mo stretchy="false" form="prefix">|</mo><mi>θ</mi><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">\text{Pr}\{E_i | \theta\}</annotation></semantics></math>
+is the conditional eligibility probability for item
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>i</mi><annotation encoding="application/x-tex">i</annotation></semantics></math>
+given
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>θ</mi><mo>∈</mo><msub><mi>θ</mi><mi>g</mi></msub></mrow><annotation encoding="application/x-tex">\theta \in \theta_g</annotation></semantics></math>;
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext mathvariant="normal">Pr</mtext><mo stretchy="false" form="prefix">{</mo><msub><mi>A</mi><mi>i</mi></msub><mo stretchy="false" form="prefix">|</mo><mi>θ</mi><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">\text{Pr}\{A_i | \theta\}</annotation></semantics></math>
+is the conditional exposure probability (rate) for the item.
+Theoretically,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext mathvariant="normal">Pr</mtext><mo stretchy="false" form="prefix">{</mo><msub><mi>A</mi><mi>i</mi></msub><mo stretchy="false" form="prefix">|</mo><mi>θ</mi><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">\text{Pr}\{A_i | \theta\}</annotation></semantics></math>
+can be updated continuously as each examinee finishes the test. Assuming
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>l</mi><mo>=</mo><mn>1</mn><mo>,</mo><mn>2</mn><mo>,</mo><mi>…</mi></mrow><annotation encoding="application/x-tex">l = 1,2,\dots</annotation></semantics></math>
+denote the sequence of examinees taking the test. The conditional
+item-eligibility probabilities can be updated continuously as:</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mtext mathvariant="normal">Pr</mtext><mrow><mi>l</mi><mo>+</mo><mn>1</mn></mrow></msup><mo stretchy="false" form="prefix">{</mo><msub><mi>E</mi><mi>i</mi></msub><mrow><mo stretchy="true" form="prefix">|</mo><mi>θ</mi><mo stretchy="false" form="postfix">}</mo><mo>=</mo><mo>min</mo><mo minsize="2.4" maxsize="2.4" stretchy="false" form="prefix">{</mo><mfrac><msup><mi>r</mi><mo>max</mo></msup><mrow><msup><mtext mathvariant="normal">Pr</mtext><mi>l</mi></msup><mo stretchy="false" form="prefix">{</mo><msub><mi>A</mi><mi>i</mi></msub><mo stretchy="false" form="prefix">|</mo><mi>θ</mi><mo stretchy="false" form="postfix">}</mo></mrow></mfrac><msup><mtext mathvariant="normal">Pr</mtext><mi>l</mi></msup><mo stretchy="false" form="prefix">{</mo><msub><mi>E</mi><mi>i</mi></msub><mo stretchy="true" form="postfix">|</mo></mrow><mi>θ</mi><mo stretchy="false" form="postfix">}</mo><mo>,</mo><mn>1</mn><mo minsize="2.4" maxsize="2.4" stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">
 \text{Pr}^{l+1}\{E_{i}|\theta\} = \min
   \bigg\{
     \frac{r^{\max}}
     {\text{Pr}^{l}\{A_{i}|\theta\}}
     \text{Pr}^{l}\{E_{i}|\theta\}, 1
   \bigg\}
-\]</span></p>
+</annotation></semantics></math></p>
 <p>However, in the context of a large number of concurrent test
 instances updating the exposure counts in real time after each instance
 can be difficult and perhaps not necessary. One complication with the
@@ -382,9 +433,11 @@ one theta segment over the course of a test administration. <span class="citatio
 the issue and provides a workaround. Unconditional exposure control is
 much more straightforward to implement and can be preferred in many
 testing situations. The <code>TestDesign</code> package implements the
-conditional item eligibility control method based on configurable <span class="math inline">\(\theta\)</span> segments. Defining one big segment
-of <span class="math inline">\(\theta\)</span> simplifies the method to
-the unconditional case.</p>
+conditional item eligibility control method based on configurable
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>θ</mi><annotation encoding="application/x-tex">\theta</annotation></semantics></math>
+segments. Defining one big segment of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>θ</mi><annotation encoding="application/x-tex">\theta</annotation></semantics></math>
+simplifies the method to the unconditional case.</p>
 </div>
 <div class="section level3">
 <h3 id="overlap-control">Overlap Control<a class="anchor" aria-label="anchor" href="#overlap-control"></a>
@@ -394,46 +447,56 @@ intra-individual overlap in test content across administrations. The
 item eligibility control method can be used to make all items previously
 seen by the examinee ineligible for the current administration by
 imposing constraints similarly as</p>
-<p><span class="math display">\[
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><munder><mo>∑</mo><mrow><mi>i</mi><mspace width="0.167em"></mspace><mo>∈</mo><mspace width="0.167em"></mspace><msub><mi>S</mi><mi>j</mi></msub></mrow></munder><msub><mi>x</mi><mi>i</mi></msub><mo>=</mo><mn>0</mn><mo>,</mo></mrow><annotation encoding="application/x-tex">
 \sum_{i\,\in\,S_{j}}{x_{i}} = 0,
-\]</span></p>
-<p>where <span class="math inline">\(s_j\)</span> denotes the set of
-items Examinee <span class="math inline">\(j\)</span> has seen prior to
-the current administration. Imposing these hard constraints can unduly
-limit the item pool and potentially affect the quality of measurement.
-To avoid infeasibility and degradation of measurement, we can impose
-soft constraints in the form of a modification to the maximum
-information objective function as</p>
-<p><span class="math display">\[
+</annotation></semantics></math></p>
+<p>where
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>s</mi><mi>j</mi></msub><annotation encoding="application/x-tex">s_j</annotation></semantics></math>
+denotes the set of items Examinee
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>j</mi><annotation encoding="application/x-tex">j</annotation></semantics></math>
+has seen prior to the current administration. Imposing these hard
+constraints can unduly limit the item pool and potentially affect the
+quality of measurement. To avoid infeasibility and degradation of
+measurement, we can impose soft constraints in the form of a
+modification to the maximum information objective function as</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext mathvariant="normal">maximize</mtext><munderover><mo>∑</mo><mrow><mi>i</mi><mspace width="0.167em"></mspace><mo>=</mo><mspace width="0.167em"></mspace><mn>1</mn></mrow><mi>I</mi></munderover><msub><mi>I</mi><mi>i</mi></msub><mrow><mrow><mo stretchy="true" form="prefix">(</mo><mi>θ</mi><mo stretchy="true" form="postfix">)</mo></mrow><msub><mi>x</mi><mi>i</mi></msub></mrow><mspace width="0.167em"></mspace><mi>–</mi><mspace width="0.167em"></mspace><mi>M</mi><munder><mo>∑</mo><mrow><mi>i</mi><mspace width="0.167em"></mspace><mo>∈</mo><mspace width="0.167em"></mspace><msub><mi>s</mi><mi>j</mi></msub></mrow></munder><msub><mi>x</mi><mi>i</mi></msub><mo>,</mo></mrow><annotation encoding="application/x-tex">
 \text{maximize}
   \sum_{i\,=\,1}^{I}I_{i}{(\theta) x_{i}}
   \, – \,
   M \sum_{i\,\in\,s_{j}}{x_{i}},
-\]</span></p>
-<p>where <span class="math inline">\(M\)</span> is a penalty for
-selecting an item from <span class="math inline">\(s_j\)</span> the
-subset of items previously administered to Examinee <span class="math inline">\(j\)</span>. This modification to the objective
-function can effectively deter the selection of items previously
-administered unless absolutely necessary for feasibility of the
-model.</p>
+</annotation></semantics></math></p>
+<p>where
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>M</mi><annotation encoding="application/x-tex">M</annotation></semantics></math>
+is a penalty for selecting an item from
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>s</mi><mi>j</mi></msub><annotation encoding="application/x-tex">s_j</annotation></semantics></math>
+the subset of items previously administered to Examinee
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>j</mi><annotation encoding="application/x-tex">j</annotation></semantics></math>.
+This modification to the objective function can effectively deter the
+selection of items previously administered unless absolutely necessary
+for feasibility of the model.</p>
 <p>Although the same item eligibility constraints for inter-individual
 exposure control can be used to control intra-individual item overlap,
 the mechanism for identifying ineligible items for the intra-individual
 overlap control is quite different. It requires tracking the examinee
 records across test administrations, which may be days, weeks, or months
 apart. As the number of administrations increases, the ineligible item
-set (<span class="math inline">\(s_j\)</span>) can grow quickly and
-adversely affect the quality of measurement progressively. To prevent
-the ineligible item set from growing quickly, <span class="math inline">\(s_j\)</span> may need to be defined based only on
-the immediately preceding test administration. Another possibility is to
-let the penalty <span class="math inline">\(M\)</span> be subject to
-exponential decay over test administrations:</p>
-<p><span class="math display">\[
+set
+(<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>s</mi><mi>j</mi></msub><annotation encoding="application/x-tex">s_j</annotation></semantics></math>)
+can grow quickly and adversely affect the quality of measurement
+progressively. To prevent the ineligible item set from growing quickly,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>s</mi><mi>j</mi></msub><annotation encoding="application/x-tex">s_j</annotation></semantics></math>
+may need to be defined based only on the immediately preceding test
+administration. Another possibility is to let the penalty
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>M</mi><annotation encoding="application/x-tex">M</annotation></semantics></math>
+be subject to exponential decay over test administrations:</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>M</mi><mo>⋅</mo><msup><mi>e</mi><mrow><mo>−</mo><mi>λ</mi><mi>t</mi></mrow></msup><mo>,</mo></mrow><annotation encoding="application/x-tex">
 M\cdot e^{-\lambda t},
-\]</span></p>
-<p>where <span class="math inline">\(\lambda\)</span> is a
-disintigration constant; and <span class="math inline">\(t\)</span> is a
-time interval in some unit.</p>
+</annotation></semantics></math></p>
+<p>where
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>λ</mi><annotation encoding="application/x-tex">\lambda</annotation></semantics></math>
+is a disintigration constant; and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>t</mi><annotation encoding="application/x-tex">t</annotation></semantics></math>
+is a time interval in some unit.</p>
 <p>The <strong>maat</strong> package uses hard constraints to perform
 overlap control. Three options are available:</p>
 <ul>
@@ -473,16 +536,20 @@ total number of items denoted in the constraint file.</p>
 <p>The <strong>maat</strong> package supports expected a posteriori
 (EAP), maximum likelihood estimation (MLE) and maximum likelihood
 estimation with fence (MLEF) available in the <code>TestDesign</code>
-package for <span class="math inline">\(\theta\)</span> estimation. The
-estimation method must be specified in
+package for
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>θ</mi><annotation encoding="application/x-tex">\theta</annotation></semantics></math>
+estimation. The estimation method must be specified in
 <code><a href="https://choi-phd.github.io/TestDesign/reference/createShadowTestConfig.html" class="external-link">createShadowTestConfig()</a></code>.</p>
 <p>The MLE and MLEF methods in <code>TestDesign</code> has extra
 fallback routines for performing CAT:</p>
 <ul>
 <li>For MLE, if the response vector is extreme (i.e., the sum is 0 or
 the maximum for all items), EAP is used instead of MLE to obtain the
-<span class="math inline">\(\theta\)</span> estimate. This is because
-MLE estimates for extreme vectors is either <span class="math inline">\(-\infty\)</span> or <span class="math inline">\(+\infty\)</span>.</li>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>θ</mi><annotation encoding="application/x-tex">\theta</annotation></semantics></math>
+estimate. This is because MLE estimates for extreme vectors is either
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>−</mo><mi>∞</mi></mrow><annotation encoding="application/x-tex">-\infty</annotation></semantics></math>
+or
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>+</mo><mi>∞</mi></mrow><annotation encoding="application/x-tex">+\infty</annotation></semantics></math>.</li>
 <li>For MLEF, the two fence items are only added when the response
 vector is extreme. If the response vector is not extreme, a regular MLE
 is performed without any fence items. The purpose of this routine is to
@@ -543,10 +610,13 @@ example, routing is performed between Fall Phase 1 and Fall Phase 2, and
 also between Fall Phase 2 and Winter Phase 1. Because an examinee takes
 6 modules in total, routing is performed 5 times for the examinee
 throughout the entire assessment.</p>
-<p>The routing structure is now described. Let <span class="math inline">\(G\)</span> denote the grade of record of an
-examinee.</p>
+<p>The routing structure is now described. Let
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>G</mi><annotation encoding="application/x-tex">G</annotation></semantics></math>
+denote the grade of record of an examinee.</p>
 <ul>
-<li><p>All examinees begin at grade <span class="math inline">\(G\)</span>, the grade of record.</p></li>
+<li><p>All examinees begin at grade
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>G</mi><annotation encoding="application/x-tex">G</annotation></semantics></math>,
+the grade of record.</p></li>
 <li>
 <p>After completing a module, a routing theta is determined. The
 routing theta is used to:</p>
@@ -557,39 +627,48 @@ routing theta is used to:</p>
 </ul>
 </li>
 <li>
-<p>Different types of <span class="math inline">\(\theta\)</span>
+<p>Different types of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>θ</mi><annotation encoding="application/x-tex">\theta</annotation></semantics></math>
 estimates are used for the routing theta.</p>
 <ul>
 <li>
-<span class="math inline">\(\theta_{1}\)</span> is an estimate based
-on Phase 1 items only.</li>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>θ</mi><mn>1</mn></msub><annotation encoding="application/x-tex">\theta_{1}</annotation></semantics></math>
+is an estimate based on Phase 1 items only.</li>
 <li>
-<span class="math inline">\(\theta_{2}\)</span> is an estimate based
-on Phase 2 items only.</li>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>θ</mi><mn>2</mn></msub><annotation encoding="application/x-tex">\theta_{2}</annotation></semantics></math>
+is an estimate based on Phase 2 items only.</li>
 <li>
-<span class="math inline">\(\theta_{1+2}\)</span> is an estimate
-based on the combined set of Phase 1 and Phase 2 items.</li>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>θ</mi><mrow><mn>1</mn><mo>+</mo><mn>2</mn></mrow></msub><annotation encoding="application/x-tex">\theta_{1+2}</annotation></semantics></math>
+is an estimate based on the combined set of Phase 1 and Phase 2
+items.</li>
 </ul>
 </li>
-<li><p>In each administration, after completing Phase 1, <span class="math inline">\(\theta_1\)</span> is used as the routing theta for
-the following module.</p></li>
+<li><p>In each administration, after completing Phase 1,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>θ</mi><mn>1</mn></msub><annotation encoding="application/x-tex">\theta_1</annotation></semantics></math>
+is used as the routing theta for the following module.</p></li>
 <li>
 <p>In each administration, after completing Phase 2, the ability
 estimate from the current <em>administration</em> is used as the routing
-theta. This is either <span class="math inline">\(\theta_2\)</span> or
-<span class="math inline">\(\theta_{1+2}\)</span> depending on the
-combine policy:</p>
+theta. This is either
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>θ</mi><mn>2</mn></msub><annotation encoding="application/x-tex">\theta_2</annotation></semantics></math>
+or
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>θ</mi><mrow><mn>1</mn><mo>+</mo><mn>2</mn></mrow></msub><annotation encoding="application/x-tex">\theta_{1+2}</annotation></semantics></math>
+depending on the combine policy:</p>
 <ul>
-<li>If combine policy is <code>always</code>, then <span class="math inline">\(\theta_{1+2}\)</span> is used as the routing
-theta;</li>
-<li>If combine policy is <code>never</code>, then <span class="math inline">\(\theta_2\)</span> is used as the routing
-theta;</li>
+<li>If combine policy is <code>always</code>, then
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>θ</mi><mrow><mn>1</mn><mo>+</mo><mn>2</mn></mrow></msub><annotation encoding="application/x-tex">\theta_{1+2}</annotation></semantics></math>
+is used as the routing theta;</li>
+<li>If combine policy is <code>never</code>, then
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>θ</mi><mn>2</mn></msub><annotation encoding="application/x-tex">\theta_2</annotation></semantics></math>
+is used as the routing theta;</li>
 <li>If combine policy is <code>conditional</code>:
 <ul>
-<li>If the examinee was in the same grade in Phase 1 and 2, then <span class="math inline">\(\theta_{1+2}\)</span> is used as the routing
-theta;</li>
-<li>Else, then <span class="math inline">\(\theta_2\)</span> is used as
-the routing theta.</li>
+<li>If the examinee was in the same grade in Phase 1 and 2, then
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>θ</mi><mrow><mn>1</mn><mo>+</mo><mn>2</mn></mrow></msub><annotation encoding="application/x-tex">\theta_{1+2}</annotation></semantics></math>
+is used as the routing theta;</li>
+<li>Else, then
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>θ</mi><mn>2</mn></msub><annotation encoding="application/x-tex">\theta_2</annotation></semantics></math>
+is used as the routing theta.</li>
 </ul>
 </li>
 </ul>
@@ -611,9 +690,12 @@ Proficient and Developing.</li>
 <li>
 <p>Using the achievement level, routing is performed:</p>
 <ul>
-<li>Advanced: change grade by <span class="math inline">\(+1\)</span>;</li>
-<li>Proficient-Developing: change grade by <span class="math inline">\(0\)</span>;</li>
-<li>Beginning: change grade by <span class="math inline">\(-1\)</span>.</li>
+<li>Advanced: change grade by
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>+</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">+1</annotation></semantics></math>;</li>
+<li>Proficient-Developing: change grade by
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>0</mn><annotation encoding="application/x-tex">0</annotation></semantics></math>;</li>
+<li>Beginning: change grade by
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">-1</annotation></semantics></math>.</li>
 </ul>
 </li>
 <li>
@@ -621,30 +703,53 @@ Proficient and Developing.</li>
 rule.</p>
 <ul>
 <li>
-<strong>Restriction R0</strong>: Only allow routing within <span class="math inline">\([G - b_L, G + b_U]\)</span>, where <span class="math inline">\(b_L\)</span> and <span class="math inline">\(b_U\)</span> are lower and upper bounds. The
-default lower bound is <span class="math inline">\(b_L = 1\)</span> and
-the upper bound is <span class="math inline">\(b_U = 2\)</span>;</li>
+<strong>Restriction R0</strong>: Only allow routing within
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="true" form="prefix">[</mo><mi>G</mi><mo>−</mo><msub><mi>b</mi><mi>L</mi></msub><mo>,</mo><mi>G</mi><mo>+</mo><msub><mi>b</mi><mi>U</mi></msub><mo stretchy="true" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">[G - b_L, G + b_U]</annotation></semantics></math>,
+where
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>b</mi><mi>L</mi></msub><annotation encoding="application/x-tex">b_L</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>b</mi><mi>U</mi></msub><annotation encoding="application/x-tex">b_U</annotation></semantics></math>
+are lower and upper bounds. The default lower bound is
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>b</mi><mi>L</mi></msub><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">b_L = 1</annotation></semantics></math>
+and the upper bound is
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>b</mi><mi>U</mi></msub><mo>=</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">b_U = 2</annotation></semantics></math>;</li>
 <li>
-<strong>Restriction R1</strong>: If grade is <span class="math inline">\(G - 1\)</span> in Phase 2 of any administration,
-ignore achievement level and always change grade by <span class="math inline">\(+1\)</span>;</li>
+<strong>Restriction R1</strong>: If grade is
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>G</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">G - 1</annotation></semantics></math>
+in Phase 2 of any administration, ignore achievement level and always
+change grade by
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>+</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">+1</annotation></semantics></math>;</li>
 <li>
-<strong>Restriction R2</strong>: If grade is <span class="math inline">\(G\)</span> in Phase 2 of any administration:
+<strong>Restriction R2</strong>: If grade is
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>G</mi><annotation encoding="application/x-tex">G</annotation></semantics></math>
+in Phase 2 of any administration:
 <ul>
-<li>If achievement level is Beginning, change grade by <span class="math inline">\(0\)</span>;</li>
+<li>If achievement level is Beginning, change grade by
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>0</mn><annotation encoding="application/x-tex">0</annotation></semantics></math>;</li>
 </ul>
 </li>
 <li>
-<strong>Restriction R3</strong>: If grade is <span class="math inline">\(G + k\)</span> in Phase 2 of Administration <span class="math inline">\(k\)</span>:
+<strong>Restriction R3</strong>: If grade is
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>G</mi><mo>+</mo><mi>k</mi></mrow><annotation encoding="application/x-tex">G + k</annotation></semantics></math>
+in Phase 2 of Administration
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math>:
 <ul>
-<li>If achievement level is Advanced, change grade by <span class="math inline">\(0\)</span>.</li>
+<li>If achievement level is Advanced, change grade by
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>0</mn><annotation encoding="application/x-tex">0</annotation></semantics></math>.</li>
 </ul>
 </li>
 </ul>
 </li>
 <li><p>As a result of these restrictions, an examinee can be routed to
-<span class="math inline">\(G - 1\)</span> at a minimum and <span class="math inline">\(G + 2\)</span> at a maximum. For example, a <span class="math inline">\(G = 4\)</span> examinee can be potentially routed
-to grades 3-6. A <span class="math inline">\(G = 4\)</span> examinee can
-never be routed to grades 7 and above or below 3 in any module.</p></li>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>G</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">G - 1</annotation></semantics></math>
+at a minimum and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>G</mi><mo>+</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">G + 2</annotation></semantics></math>
+at a maximum. For example, a
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>G</mi><mo>=</mo><mn>4</mn></mrow><annotation encoding="application/x-tex">G = 4</annotation></semantics></math>
+examinee can be potentially routed to grades 3-6. A
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>G</mi><mo>=</mo><mn>4</mn></mrow><annotation encoding="application/x-tex">G = 4</annotation></semantics></math>
+examinee can never be routed to grades 7 and above or below 3 in any
+module.</p></li>
 </ul>
 </div>
 <div class="section level3">
@@ -667,8 +772,10 @@ the restrictions described above.</p>
 <p><img src="routing_T2T3.svg" width="900px"></p>
 <ul>
 <li>Restrictions R0, R1, R2, R3 are in place. The routing path for Phase
-2 Grade <span class="math inline">\(G+2\)</span> for “Advanced”
-achievement level results from applying either R0 or R3.</li>
+2 Grade
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>G</mi><mo>+</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">G+2</annotation></semantics></math>
+for “Advanced” achievement level results from applying either R0 or
+R3.</li>
 </ul>
 </div>
 <div class="section level4">
@@ -684,35 +791,49 @@ achievement level results from applying either R0 or R3.</li>
 <h3 id="confidence-interval-routing">Confidence Interval Routing<a class="anchor" aria-label="anchor" href="#confidence-interval-routing"></a>
 </h3>
 <p>The examinee is routed based on the performance in each phase. The
-performance is quantified not as a point estimate of <span class="math inline">\(\theta\)</span>, but as a confidence interval. The
-confidence interval approach <span class="citation">Eggen &amp;
-Straetmans (<a href="#ref-eggen_computerized_2000">2000</a>)</span> can
-be used with MLE scoring <span class="citation">(<a href="#ref-yang_effects_2006">Yang et al., 2006</a>)</span> and can be
+performance is quantified not as a point estimate of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>θ</mi><annotation encoding="application/x-tex">\theta</annotation></semantics></math>,
+but as a confidence interval. The confidence interval approach <span class="citation">Eggen &amp; Straetmans (<a href="#ref-eggen_computerized_2000">2000</a>)</span> can be used with
+MLE scoring <span class="citation">(<a href="#ref-yang_effects_2006">Yang et al., 2006</a>)</span> and can be
 easily extended to multiple cut scores <span class="citation">(<a href="#ref-thompson_practitioners_2007">Thompson, 2007</a>)</span>.</p>
 <p>In the confidence interval approach, the lower and upper bounds of
 the routing theta is computed as</p>
-<p><span class="math display">\[\hat{\theta_{L}} = \hat{\theta} -
-z_{\alpha} \cdot SE(\theta),\]</span> and</p>
-<p><span class="math display">\[\hat{\theta_{U}} = \hat{\theta} +
-z_{\alpha} \cdot SE(\theta),\]</span></p>
-<p>where <span class="math inline">\(z_{\alpha}\)</span> is the normal
-deviate corresponding to a <span class="math inline">\(1 -
-\alpha\)</span> confidence interval, <span class="math inline">\(\hat{\theta}\)</span> is the routing theta, and
-<span class="math inline">\(\hat{\theta_{L}}\)</span> and <span class="math inline">\(\hat{\theta_{U}}\)</span> are lower and upper
-boundary theta values.</p>
-<p>Once boundary values are calculated, <span class="math inline">\(\hat{\theta_{L}}\)</span> and <span class="math inline">\(\hat{\theta_{U}}\)</span> are used to identify the
-achievement level of the examinee:</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mover><msub><mi>θ</mi><mi>L</mi></msub><mo accent="true">̂</mo></mover><mo>=</mo><mover><mi>θ</mi><mo accent="true">̂</mo></mover><mo>−</mo><msub><mi>z</mi><mi>α</mi></msub><mo>⋅</mo><mi>S</mi><mi>E</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>θ</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>,</mo></mrow><annotation encoding="application/x-tex">\hat{\theta_{L}} = \hat{\theta} - z_{\alpha} \cdot SE(\theta),</annotation></semantics></math>
+and</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mover><msub><mi>θ</mi><mi>U</mi></msub><mo accent="true">̂</mo></mover><mo>=</mo><mover><mi>θ</mi><mo accent="true">̂</mo></mover><mo>+</mo><msub><mi>z</mi><mi>α</mi></msub><mo>⋅</mo><mi>S</mi><mi>E</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>θ</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>,</mo></mrow><annotation encoding="application/x-tex">\hat{\theta_{U}} = \hat{\theta} + z_{\alpha} \cdot SE(\theta),</annotation></semantics></math></p>
+<p>where
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>z</mi><mi>α</mi></msub><annotation encoding="application/x-tex">z_{\alpha}</annotation></semantics></math>
+is the normal deviate corresponding to a
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>−</mo><mi>α</mi></mrow><annotation encoding="application/x-tex">1 - \alpha</annotation></semantics></math>
+confidence interval,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mover><mi>θ</mi><mo accent="true">̂</mo></mover><annotation encoding="application/x-tex">\hat{\theta}</annotation></semantics></math>
+is the routing theta, and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mover><msub><mi>θ</mi><mi>L</mi></msub><mo accent="true">̂</mo></mover><annotation encoding="application/x-tex">\hat{\theta_{L}}</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mover><msub><mi>θ</mi><mi>U</mi></msub><mo accent="true">̂</mo></mover><annotation encoding="application/x-tex">\hat{\theta_{U}}</annotation></semantics></math>
+are lower and upper boundary theta values.</p>
+<p>Once boundary values are calculated,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mover><msub><mi>θ</mi><mi>L</mi></msub><mo accent="true">̂</mo></mover><annotation encoding="application/x-tex">\hat{\theta_{L}}</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mover><msub><mi>θ</mi><mi>U</mi></msub><mo accent="true">̂</mo></mover><annotation encoding="application/x-tex">\hat{\theta_{U}}</annotation></semantics></math>
+are used to identify the achievement level of the examinee:</p>
 <ul>
-<li>If <span class="math inline">\(\hat{\theta_{U}} &lt;
-\tau_1\)</span>, where <span class="math inline">\(\tau_1\)</span> is
-the first cut score that separates Beginning and Proficient-Developing
-levels, the achievement level is determined as Beginning;</li>
+<li>If
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mover><msub><mi>θ</mi><mi>U</mi></msub><mo accent="true">̂</mo></mover><mo>&lt;</mo><msub><mi>τ</mi><mn>1</mn></msub></mrow><annotation encoding="application/x-tex">\hat{\theta_{U}} &lt; \tau_1</annotation></semantics></math>,
+where
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>τ</mi><mn>1</mn></msub><annotation encoding="application/x-tex">\tau_1</annotation></semantics></math>
+is the first cut score that separates Beginning and
+Proficient-Developing levels, the achievement level is determined as
+Beginning;</li>
 <li>
-<span class="math inline">\(\tau_2\)</span>, the second cut score
-that separates Developing and Proficient levels, is ignored;</li>
-<li>If <span class="math inline">\(\hat{\theta_{L}} &gt;
-\tau_3\)</span>, where <span class="math inline">\(\tau_3\)</span> is
-the third cut score that separates Proficient-Developing and Advanced
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>τ</mi><mn>2</mn></msub><annotation encoding="application/x-tex">\tau_2</annotation></semantics></math>,
+the second cut score that separates Developing and Proficient levels, is
+ignored;</li>
+<li>If
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mover><msub><mi>θ</mi><mi>L</mi></msub><mo accent="true">̂</mo></mover><mo>&gt;</mo><msub><mi>τ</mi><mn>3</mn></msub></mrow><annotation encoding="application/x-tex">\hat{\theta_{L}} &gt; \tau_3</annotation></semantics></math>,
+where
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>τ</mi><mn>3</mn></msub><annotation encoding="application/x-tex">\tau_3</annotation></semantics></math>
+is the third cut score that separates Proficient-Developing and Advanced
 levels, the achievement level is determined as Advanced;</li>
 <li>If neither holds, then the achievement level is determined as
 Proficient-Developing.</li>
@@ -726,31 +847,41 @@ ignored. Instead, cut scores are determined based on item difficulty
 parameters of the current item pool for the module.</p>
 <ul>
 <li>
-<span class="math inline">\(\tau_1\)</span>, the first cut score, is
-calculated as <span class="math inline">\(p\)</span>-th percentile value
-of item difficulty parameters.</li>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>τ</mi><mn>1</mn></msub><annotation encoding="application/x-tex">\tau_1</annotation></semantics></math>,
+the first cut score, is calculated as
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>p</mi><annotation encoding="application/x-tex">p</annotation></semantics></math>-th
+percentile value of item difficulty parameters.</li>
 <li>
-<span class="math inline">\(\tau_2\)</span>, the second cut score
-that separates Developing and Proficient levels, is ignored.</li>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>τ</mi><mn>2</mn></msub><annotation encoding="application/x-tex">\tau_2</annotation></semantics></math>,
+the second cut score that separates Developing and Proficient levels, is
+ignored.</li>
 <li>
-<span class="math inline">\(\tau_3\)</span>, the third cut score, is
-calculated as <span class="math inline">\(100-p\)</span>-th percentile
-value of item difficulty parameters.</li>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>τ</mi><mn>3</mn></msub><annotation encoding="application/x-tex">\tau_3</annotation></semantics></math>,
+the third cut score, is calculated as
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>100</mn><mo>−</mo><mi>p</mi></mrow><annotation encoding="application/x-tex">100-p</annotation></semantics></math>-th
+percentile value of item difficulty parameters.</li>
 </ul>
-<p>Once cut scores are calculated, the routing theta <span class="math inline">\(\hat{\theta}\)</span> is used to identify the
-achievement level of the examinee as:</p>
+<p>Once cut scores are calculated, the routing theta
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mover><mi>θ</mi><mo accent="true">̂</mo></mover><annotation encoding="application/x-tex">\hat{\theta}</annotation></semantics></math>
+is used to identify the achievement level of the examinee as:</p>
 <ul>
-<li>If <span class="math inline">\(\hat{\theta} &lt; \tau_1\)</span>,
-where <span class="math inline">\(\tau_1\)</span> is the first cut score
-that separates Beginning and Proficient-Developing levels, the
-achievement level is determined as Beginning;</li>
+<li>If
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mover><mi>θ</mi><mo accent="true">̂</mo></mover><mo>&lt;</mo><msub><mi>τ</mi><mn>1</mn></msub></mrow><annotation encoding="application/x-tex">\hat{\theta} &lt; \tau_1</annotation></semantics></math>,
+where
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>τ</mi><mn>1</mn></msub><annotation encoding="application/x-tex">\tau_1</annotation></semantics></math>
+is the first cut score that separates Beginning and
+Proficient-Developing levels, the achievement level is determined as
+Beginning;</li>
 <li>
-<span class="math inline">\(\tau_2\)</span>, the second cut score
-that separates Developing and Proficient levels, is ignored;</li>
-<li>If <span class="math inline">\(\hat{\theta} &gt; \tau_3\)</span>,
-where <span class="math inline">\(\tau_3\)</span> is the third cut score
-that separates Proficient-Developing and Advanced levels, the
-achievement level is determined as Advanced;</li>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>τ</mi><mn>2</mn></msub><annotation encoding="application/x-tex">\tau_2</annotation></semantics></math>,
+the second cut score that separates Developing and Proficient levels, is
+ignored;</li>
+<li>If
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mover><mi>θ</mi><mo accent="true">̂</mo></mover><mo>&gt;</mo><msub><mi>τ</mi><mn>3</mn></msub></mrow><annotation encoding="application/x-tex">\hat{\theta} &gt; \tau_3</annotation></semantics></math>,
+where
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>τ</mi><mn>3</mn></msub><annotation encoding="application/x-tex">\tau_3</annotation></semantics></math>
+is the third cut score that separates Proficient-Developing and Advanced
+levels, the achievement level is determined as Advanced;</li>
 <li>If neither holds, then the achievement level is determined as
 Proficient-Developing.</li>
 </ul>
@@ -768,8 +899,12 @@ package.</p>
 <code><a href="../reference/createAssessmentStructure.html">createAssessmentStructure()</a></code> function. In what follows, we
 specify 3 tests with 2 phases in each test. Route limits are specified
 to 1 below and 2 above to match the assessment structure diagram shown
-above. That is, for examinees in grade <span class="math inline">\(G\)</span>, routing is limited to item pools
-between <span class="math inline">\(G-1\)</span> and <span class="math inline">\(G+2\)</span>.</p>
+above. That is, for examinees in grade
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>G</mi><annotation encoding="application/x-tex">G</annotation></semantics></math>,
+routing is limited to item pools between
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>G</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">G-1</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>G</mi><mo>+</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">G+2</annotation></semantics></math>.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">assessment_structure</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/createAssessmentStructure.html">createAssessmentStructure</a></span><span class="op">(</span></span>
 <span>  n_test  <span class="op">=</span> <span class="fl">3</span>,</span>
@@ -802,23 +937,31 @@ between <span class="math inline">\(G-1\)</span> and <span class="math inline">\
 test administration. In the example above, the true theta values are
 drawn from a multivariate normal distribution, specified by a
 variance-covariance matrix with all covariances between thetas are set
-to <span class="math inline">\(0.8\)</span> and all variance to <span class="math inline">\(1.0\)</span>.</p>
+to
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>0.8</mn><annotation encoding="application/x-tex">0.8</annotation></semantics></math>
+and all variance to
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>1.0</mn><annotation encoding="application/x-tex">1.0</annotation></semantics></math>.</p>
 <p>Each argument of <code><a href="../reference/simExaminees.html">simExaminees()</a></code> is defined as
 follows:</p>
 <ul>
 <li>
 <code>N</code> is the number of examinees to simulate.</li>
 <li>
-<code>mean_v</code> is the mean theta to use in generating <span class="math inline">\(\theta\)</span> values. This must be a vector of
-three values, each element corresponding to each administration.</li>
+<code>mean_v</code> is the mean theta to use in generating
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>θ</mi><annotation encoding="application/x-tex">\theta</annotation></semantics></math>
+values. This must be a vector of three values, each element
+corresponding to each administration.</li>
 <li>
 <code>sd_v</code> is the standard deviation to use in generating
-<span class="math inline">\(\theta\)</span> values. This must be a
-vector of three values, each corresponding to each administration.</li>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>θ</mi><annotation encoding="application/x-tex">\theta</annotation></semantics></math>
+values. This must be a vector of three values, each corresponding to
+each administration.</li>
 <li>
 <code>cor_v</code> is the correlation structure to use in generating
-<span class="math inline">\(\theta\)</span> values. This must be a <span class="math inline">\(3\times3\)</span> matrix, each dimension
-corresponding to each administration.</li>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>θ</mi><annotation encoding="application/x-tex">\theta</annotation></semantics></math>
+values. This must be a
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>3</mn><mo>×</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">3\times3</annotation></semantics></math>
+matrix, each dimension corresponding to each administration.</li>
 <li>
 <code>assessment_structure</code> is the assessment structure object
 created previously using <code><a href="../reference/createAssessmentStructure.html">createAssessmentStructure()</a></code>.</li>
@@ -1563,17 +1706,20 @@ Transition Policy<a class="anchor" aria-label="anchor" href="#route-diagram-for-
 </h3>
 <ul>
 <li>The <code>plot(type = "correlation")</code> function can be used to
-plot true <span class="math inline">\(\theta\)</span>s and estimated
-<span class="math inline">\(\theta\)</span>s across test
-administrations.</li>
+plot true
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>θ</mi><annotation encoding="application/x-tex">\theta</annotation></semantics></math>s
+and estimated
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>θ</mi><annotation encoding="application/x-tex">\theta</annotation></semantics></math>s
+across test administrations.</li>
 <li>The arguments of <code><a href="../reference/plot-methods.html">plot()</a></code> for this use case are:
 <ul>
 <li>
 <code>x</code> is the output object returned by
 <code><a href="../reference/maat.html">maat()</a></code>;</li>
 <li>
-<code>theta_range</code> is the <span class="math inline">\(\theta\)</span> range to be used for
-plotting;</li>
+<code>theta_range</code> is the
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>θ</mi><annotation encoding="application/x-tex">\theta</annotation></semantics></math>
+range to be used for plotting;</li>
 <li>
 <code>main</code> is a vector of plot titles.</li>
 </ul>
@@ -1608,8 +1754,9 @@ Transition Policy<a class="anchor" aria-label="anchor" href="#scatterplot-for-th
 </h3>
 <ul>
 <li>The <code>plot(type = "audit")</code> function can also be used to
-plot interim <span class="math inline">\(\theta\)</span> estimates over
-modules for a single examinee.</li>
+plot interim
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>θ</mi><annotation encoding="application/x-tex">\theta</annotation></semantics></math>
+estimates over modules for a single examinee.</li>
 <li>The arguments of <code><a href="../reference/plot-methods.html">plot()</a></code> for this use case are:
 <ul>
 <li>
@@ -1699,9 +1846,7 @@ estimation bias on multiple-category classification with an
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
 
-        <nav id="toc" data-toggle="toc"><h2 data-toc-skip>Contents</h2>
-    </nav>
-</div>
+      </div>
 
 </div>
 
@@ -1714,16 +1859,16 @@ estimation bias on multiple-category classification with an
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.9.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
 </div>
 
       </footer>
 </div>
 
-  
 
 
-  
+
+
 
   </body>
 </html>
